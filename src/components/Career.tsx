@@ -1,11 +1,6 @@
 import * as React from 'react';
 import {
   Flex,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
   List,
   ListItem,
   ListIcon,
@@ -29,6 +24,7 @@ export function Career() {
             onClick={() => setSelected(0)}
             w="12rem"
             variant="outline"
+            _hover={{bg: 'magenta.300'}}
           >evercall</Button>
           <Button
             borderColor="magenta.400"
@@ -36,6 +32,7 @@ export function Career() {
             w="12rem"
             variant="outline"
             mt={4}
+            _hover={{bg: 'magenta.300'}}
           >SiteTech</Button>
           <Button
             borderColor="magenta.400"
@@ -43,6 +40,7 @@ export function Career() {
             w="12rem"
             variant="outline"
             mt={4}
+            _hover={{bg: 'magenta.300'}}
           >Odense Municipalty</Button>
         </Flex>
       </Box>

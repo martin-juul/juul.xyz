@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChakraProvider, Box } from '@chakra-ui/react';
+import { ChakraProvider, Box, Container } from '@chakra-ui/react';
 import { HomeScreen } from './screens/HomeScreen/HomeScreen';
 import { theme } from './theme';
 import { Sidebar } from './components/Sidebar';
@@ -9,7 +9,10 @@ export const App = () => (
     <Box position="relative">
       <Sidebar />
 
-      <HomeScreen/>
+      <Container maxW="container.lg">
+        <HomeScreen/>
+      </Container>
+
     </Box>
   </ChakraProvider>
 );

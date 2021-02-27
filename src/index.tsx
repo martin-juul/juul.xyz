@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { ColorModeScript } from '@chakra-ui/react';
 import * as ReactDOM from 'react-dom';
 import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
@@ -13,7 +12,6 @@ ReactGA.initialize(config.GA_ID, {
 
 ReactDOM.render(
   <React.StrictMode>
-    <ColorModeScript/>
     <App/>
   </React.StrictMode>,
   document.getElementById('root'),

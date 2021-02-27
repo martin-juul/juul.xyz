@@ -20,7 +20,9 @@ export const theme = extendTheme({
     global: {
       body: {
         bg: 'magenta.900',
-        color: 'white',
+        color: 'gray.200',
+        fontWeight: 500,
+        fontSize: '1.2rem',
       },
     },
   },
