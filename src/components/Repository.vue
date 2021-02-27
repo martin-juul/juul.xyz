@@ -1,9 +1,9 @@
 <template functional>
   <a
-      class="repository rounded-xl shadow-md p-4 flex flex-col hover:bg-yellow-50 hover:bg-opacity-80 ease-in-out"
-      :href="props.html_url"
-      target="_blank"
-      rel="noopener nofollow"
+    class="repository rounded-xl shadow-md p-4 flex flex-col hover:bg-yellow-50 hover:bg-opacity-80 ease-in-out"
+    :href="props.html_url"
+    target="_blank"
+    rel="noopener nofollow"
   >
     <div class="flex font-bold justify-between">
       {{ props.name }}
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'Repository',
+  name: "Repository",
   props: {
     name: String,
     description: String,

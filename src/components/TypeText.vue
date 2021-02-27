@@ -1,13 +1,13 @@
 <template>
   <span class="text-4xl">
-    {{ displayText.join('') }}
+    {{ displayText.join("") }}
     <span class="cursor">|</span>
   </span>
 </template>
 
 <script>
 export default {
-  name: 'TypeText',
+  name: "TypeText",
   props: {
     speed: {
       type: Number,
@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       displayText: [],
-      currentWord: '',
+      currentWord: "",
       wordIdx: 0,
       timeoutSpeed: null,
       isWaitingNextWord: false,
@@ -41,7 +41,7 @@ export default {
   methods: {
     start() {
       if (this.words && this.words.length > 0) {
-        this.currentWord = this.words[this.wordIdx].split('');
+        this.currentWord = this.words[this.wordIdx].split("");
         this.timeoutSpeed = this.speed;
         this.animate = setTimeout(this.type, this.timeoutSpeed);
       }
@@ -51,7 +51,11 @@ export default {
       if (this.currentWord.length > 0) {
         this.displayText.push(this.currentWord.shift());
         // if done typing, wait for a while
-      } else if (!this.isWaitingNextWord && this.currentWord.length === 0 && this.displayText.length === this.words[this.wordIdx].length) {
+      } else if (
+        !this.isWaitingNextWord &&
+        this.currentWord.length === 0 &&
+        this.displayText.length === this.words[this.wordIdx].length
+      ) {
         this.timeoutSpeed = this.nextWordInterval;
         this.isWaitingNextWord = true;
         // if done typing, then delete
@@ -59,9 +63,12 @@ export default {
         this.timeoutSpeed = this.deleteSpeed;
         this.displayText.pop();
         // if done typing & deleting
-      } else if (this.currentWord.length === 0 && this.displayText.length === 0) {
+      } else if (
+        this.currentWord.length === 0 &&
+        this.displayText.length === 0
+      ) {
         // change words
-        if (this.wordIdx < (this.words.length - 1)) {
+        if (this.wordIdx < this.words.length - 1) {
           this.wordIdx++;
         } else {
           // reset
@@ -70,7 +77,7 @@ export default {
 
         this.timeoutSpeed = this.speed;
         this.isWaitingNextWord = false;
-        this.currentWord = this.words[this.wordIdx].split('');
+        this.currentWord = this.words[this.wordIdx].split("");
         this.displayText.push(this.currentWord.shift());
       }
 
