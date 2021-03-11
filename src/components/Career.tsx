@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import {
   Flex,
   List,
@@ -8,41 +9,31 @@ import {
   Text,
   Box,
   Button,
+  Stack,
 } from '@chakra-ui/react';
 import { FaDotCircle } from 'react-icons/all';
-import { useState } from 'react';
+
+const CareerButton = ({onClick, label}: { onClick: () => void, label: string }) => (
+  <Button
+    borderColor="magenta.400"
+    onClick={() => onClick()}
+    w="12rem"
+    variant="outline"
+    _hover={{bg: 'magenta.300'}}
+  >{label}</Button>
+);
 
 export function Career() {
   const [selected, setSelected] = useState(0);
 
   return (
-    <Flex justify="center" w="100%" py={2} h="inherit">
+    <Flex justify="center" w="100%" py={2}>
       <Box flex={1}>
-        <Flex direction="column">
-          <Button
-            borderColor="magenta.400"
-            onClick={() => setSelected(0)}
-            w="12rem"
-            variant="outline"
-            _hover={{bg: 'magenta.300'}}
-          >evercall</Button>
-          <Button
-            borderColor="magenta.400"
-            onClick={() => setSelected(1)}
-            w="12rem"
-            variant="outline"
-            mt={4}
-            _hover={{bg: 'magenta.300'}}
-          >SiteTech</Button>
-          <Button
-            borderColor="magenta.400"
-            onClick={() => setSelected(2)}
-            w="12rem"
-            variant="outline"
-            mt={4}
-            _hover={{bg: 'magenta.300'}}
-          >Odense Municipalty</Button>
-        </Flex>
+        <Stack spacing="40px">
+          <CareerButton onClick={() => setSelected(0)} label="evercall" />
+          <CareerButton onClick={() => setSelected(1)} label="SiteTech" />
+          <CareerButton onClick={() => setSelected(2)} label="Odense Municipalty" />
+        </Stack>
       </Box>
 
       <Flex flex={2}>

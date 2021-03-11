@@ -1,6 +1,11 @@
 {
   "name": "juul",
   "version": "3.0.0",
+  "author": {
+    "name": "Martin Juul",
+    "email": "code@juul.xyz",
+    "url": "https://juul.xyz"
+  },
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.0.0",

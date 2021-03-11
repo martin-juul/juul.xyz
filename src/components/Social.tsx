@@ -9,13 +9,16 @@ export function Social() {
         href="https://www.linkedin.com/in/martin-juul/"
         isExternal
         _hover={{ color: 'magenta.200' }}
-      ><AiFillLinkedin size={32} /></Link>
+        alt="My linkedin profile"
+      ><AiFillLinkedin size={48} /></Link>
 
       <Link
         href="https://github.com/martin-juul/"
         isExternal
         _hover={{ color: 'magenta.200' }}
-      ><AiFillGithub size={32} /></Link>
+        mt={2}
+        alt="My Github profile"
+      ><AiFillGithub size={48} /></Link>
     </Flex>
   )
 }
