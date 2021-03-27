@@ -20,6 +20,7 @@ export function About() {
           src="https://avatars.githubusercontent.com/u/11337105?s=400&u=373f22c1631151d6fa4919de0b0db1306167d08b&v=4"
           rounded="50%"
           w="400px"
+          alt="Portrait of me"
         />
       </Box>
     </Flex>
