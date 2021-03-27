@@ -1,117 +1,115 @@
 import * as React from 'react';
-import { useState } from 'react';
 import {
+  Box,
   Flex,
   List,
   ListItem,
   ListIcon,
   Heading,
-  Text,
-  Box,
-  Button,
-  Stack,
 } from '@chakra-ui/react';
 import { FaDotCircle } from 'react-icons/all';
 
-const CareerButton = ({onClick, label}: { onClick: () => void, label: string }) => (
-  <Button
-    borderColor="magenta.400"
-    onClick={() => onClick()}
-    w="12rem"
-    variant="outline"
-    _hover={{bg: 'magenta.300'}}
-  >{label}</Button>
+interface JobPositionProps {
+  title: string;
+  company: string;
+  period: string;
+  children?: React.ReactNode;
+}
+
+const JobPosition = ({title, company, period, children}: JobPositionProps) => (
+  <Box
+    bg="magenta.800"
+    borderColor="magenta.700"
+    borderRadius="lg"
+    borderWidth="1px"
+    overflow="hidden"
+    py={4}
+    pl={3}
+    w="100%"
+    mt={8}
+  >
+    <Box mt={1} lineHeight="tight">
+      <Heading color="magenta.100">{title}</Heading>
+    </Box>
+
+    <Box mt={1} fontSize="xl" fontWeight="semibold" as="h4" lineHeight="tight">
+      {company}
+    </Box>
+
+    <Box mt={1} as="h5">
+      {period}
+    </Box>
+
+    <Box d="flex" mt="2">
+      {children}
+    </Box>
+  </Box>
 );
 
 export function Career() {
-  const [selected, setSelected] = useState(0);
+  const spacer = 4;
 
   return (
-    <Flex justify="center" w="100%" py={2}>
-      <Box flex={1}>
-        <Stack spacing="40px">
-          <CareerButton onClick={() => setSelected(0)} label="evercall" />
-          <CareerButton onClick={() => setSelected(1)} label="SiteTech" />
-          <CareerButton onClick={() => setSelected(2)} label="Odense Municipalty" />
-        </Stack>
-      </Box>
+    <Flex justify="center" w="100%" py={2} direction="column">
+      <JobPosition title="Application Developer" company="evercall" period="June 2020 - Current">
+        <List mt={2} spacing={spacer}>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            Maintainer of Softphone app on Desktop & Mobile
+          </ListItem>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            Working with interesting technologies including React, React Native, Redux, Chakra UI, sip.js, TypeScript & Asterisk PBX
+          </ListItem>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            Extensive knowledge of the SIP protocol and VoIP routing
+          </ListItem>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            L3 Technical Support
+          </ListItem>
+        </List>
+      </JobPosition>
 
-      <Flex flex={2}>
-        {selected === 0 && (
-          <Box>
-            <Heading size="md">Application Developer</Heading>
-            <Text>June 2020 - Current</Text>
+      <JobPosition title="Technical Lead Developer" company="SiteTech" period="July 2018 - March 2020">
+        <List mt={2} spacing={spacer}>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            Write modern, maintainable and performant code for multiple clients and internal use
+          </ListItem>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            Mentoring and code reviewer
+          </ListItem>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            Architected and wrote automated solutions for infra on AWS and operations. Using tools
+            such as Terraform.
+          </ListItem>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            Operating and extending Gitlab and Kimai for internal usage
+          </ListItem>
+        </List>
+      </JobPosition>
 
-            <List mt={2}>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                Maintainer of Softphone app on Desktop & Mobile
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                Working interesting technologies including React, React Native, Redux, Chakra UI, sip.js, TypeScript
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                Extensive knowledge of the SIP protocol and VoIP routing
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                L3 Technical Support
-              </ListItem>
-            </List>
-          </Box>
-        )}
-
-        {selected === 1 && (
-          <Box>
-            <Heading size="md">Technical Lead Developer</Heading>
-            <Text>July 2018 - March 2020</Text>
-
-            <List mt={2}>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                Write modern, maintainable and performant code for multiple clients and internal use
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                Mentoring and code reviewer
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                Architected and wrote automated solutions for infra on AWS and operations. Using tools
-                such as Terraform.
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                Operating and extending Gitlab and Kimai for internal usage
-              </ListItem>
-            </List>
-          </Box>
-        )}
-
-        {selected === 2 && (
-          <Box>
-            <Heading size="md">Developer</Heading>
-            <Text>October 2017 - February 2018</Text>
-
-            <List mt={2}>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                Developed web based dashboard for internal deployment of Windows AppLocker
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                C# .NET/Entity Framework backend & Angular frontend
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaDotCircle} color="magenta.300"/>
-                Created AutoHotKey macros for scraping internal systems, increasing case worker performance.
-              </ListItem>
-            </List>
-          </Box>
-        )}
-      </Flex>
+      <JobPosition title="Developer" company="Odense Municipality" period="October 2017 - February 2018">
+        <List mt={2} spacing={spacer}>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            Developed web based dashboard for internal deployment of Windows AppLocker
+          </ListItem>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            C# .NET/Entity Framework backend & Angular frontend
+          </ListItem>
+          <ListItem>
+            <ListIcon as={FaDotCircle} color="magenta.300"/>
+            Created AutoHotKey macros for scraping internal systems, increasing case worker performance.
+          </ListItem>
+        </List>
+      </JobPosition>
     </Flex>
   );
 }
