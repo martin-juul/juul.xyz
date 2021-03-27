@@ -23,16 +23,14 @@ ReactDOM.render(
 // Learn more about service workers: https://cra.link/PWA
 serviceWorker.register();
 
-const onPerfEntry = (metric: Metric) => {
-  if (metric.isFinal) {
-    metric.value = Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value);
-  }
-
+const onPerfEntry = ({ name, delta, id }: Metric) => {
   event({
     category: 'Web Vitals',
-    action: metric.name,
-    label: metric.id,
-    value: metric.value,
+    action: name,
+    label: id,
+    value: Math.round(name === 'CLS' ? delta * 1000 : delta),
+    nonInteraction: true,
+    transport: 'beacon',
   });
 };
 
