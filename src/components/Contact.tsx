@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Box, Button, Container, FormControl, FormLabel, Input, Text, Textarea, chakra } from '@chakra-ui/react';
+import { event } from 'react-ga';
 
 export function Contact() {
   return (
@@ -39,6 +40,11 @@ export function Contact() {
           borderColor="magenta.400"
           color="white"
           _hover={{bg: 'magenta.300'}}
+          onClick={() => event({
+            category: 'Form',
+            action: 'Submit',
+            label: 'Contact Form',
+          })}
         >Send</Button>
       </chakra.form>
     </Container>

@@ -3,10 +3,11 @@ import * as ReactDOM from 'react-dom';
 import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
-import * as ReactGA from 'react-ga';
+import { event, initialize } from 'react-ga';
 import { config } from './config';
+import { Metric } from 'web-vitals';
 
-ReactGA.initialize(config.GA_ID, {
+initialize(config.GA_ID, {
   debug: config.isDev,
 });
 
@@ -22,7 +23,17 @@ ReactDOM.render(
 // Learn more about service workers: https://cra.link/PWA
 serviceWorker.register();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const onPerfEntry = (metric: Metric) => {
+  if (metric.isFinal) {
+    metric.value = Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value);
+  }
+
+  event({
+    category: 'Web Vitals',
+    action: metric.name,
+    label: metric.id,
+    value: metric.value,
+  });
+};
+
+reportWebVitals(onPerfEntry);
