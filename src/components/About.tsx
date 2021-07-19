@@ -17,9 +17,9 @@ export function About() {
 
       <Box pl={8}>
         <Image
-          src="https://avatars.githubusercontent.com/u/11337105?s=400&u=373f22c1631151d6fa4919de0b0db1306167d08b&v=4"
+          src="https://user-images.githubusercontent.com/11337105/126166985-830172d9-8d4a-4efa-82f1-9448acfbbdf0.jpg"
           rounded="50%"
-          w="400px"
+          w="500px"
           alt="Portrait of me"
         />
       </Box>
