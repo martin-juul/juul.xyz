@@ -72,7 +72,7 @@ export function Career() {
         </List>
       </JobPosition>
 
-      <JobPosition title="Technical Lead Developer" company="SiteTech" period="July 2018 - March 2020">
+      <JobPosition title="Software Developer" company="SiteTech" period="July 2018 - March 2020">
         <List mt={2} spacing={spacer}>
           <ListItem>
             <ListIcon as={FaDotCircle} color="magenta.300"/>
@@ -94,7 +94,7 @@ export function Career() {
         </List>
       </JobPosition>
 
-      <JobPosition title="Developer" company="Odense Municipality" period="October 2017 - February 2018">
+      <JobPosition title="Software Developer" company="Odense Municipality" period="October 2017 - February 2018">
         <List mt={2} spacing={spacer}>
           <ListItem>
             <ListIcon as={FaDotCircle} color="magenta.300"/>
