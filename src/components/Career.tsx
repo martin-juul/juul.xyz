@@ -6,6 +6,7 @@ import {
   ListItem,
   ListIcon,
   Heading,
+  Divider,
 } from '@chakra-ui/react';
 import { FaDotCircle } from 'react-icons/all';
 
@@ -32,13 +33,15 @@ const JobPosition = ({title, company, period, children}: JobPositionProps) => (
       <Heading color="magenta.100">{title}</Heading>
     </Box>
 
-    <Box mt={1} fontSize="xl" fontWeight="semibold" as="h4" lineHeight="tight">
-      {company}
+    <Box mt={1} fontSize="xl" fontWeight="semibold" lineHeight="tight">
+      <Heading color="magenta.100" fontSize={20}>{company}</Heading>
     </Box>
 
-    <Box mt={1} as="h5">
-      {period}
+    <Box mt={1} as="h5" fontWeight="semibold">
+      <Heading fontSize={18}>{period}</Heading>
     </Box>
+
+    <Divider mt={3} />
 
     <Box d="flex" mt="2">
       {children}
