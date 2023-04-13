@@ -1,25 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './contact.css';
 import { Socials } from '../../socials/socials';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { useModal } from '../../../../components/modal/use-modal';
+import { Modal } from '../../../../components/modal/modal';
 
 export function Contact() {
+  const [hasError, setHasError] = useState<boolean>(false);
+  const {isOpen, toggle} = useModal();
+  const intl = useIntl();
 
   useEffect(() => {
     const form = document.querySelector('.pageclip-form');
-    // @ts-ignore
+    if (!form) {
+      console.error('could not find pageclip-form');
+      return;
+    }
+
+    // @ts-ignore typings are not working that great as of now
     window.Pageclip.form(form, {
+      onResponse: (error: unknown, _response: unknown) => {
+        if (error) {
+          toggle();
+        }
+      },
       successTemplate: '👍',
     });
   }, []);
 
   return (
     <>
-      <h1><FormattedMessage id="contact" /></h1>
+      <h1><FormattedMessage id="contact"/></h1>
 
       <Socials/>
 
-      <p><FormattedMessage id="contact.page.get-in-touch" /></p>
+      <p><FormattedMessage id="contact.page.get-in-touch"/></p>
 
       <form
         className="contact-form d-flex f-column pageclip-form"
@@ -71,6 +86,12 @@ export function Contact() {
           <span><FormattedMessage id="send"/></span>
         </button>
       </form>
+
+      <button onClick={toggle}>Open modal</button>
+
+      <Modal title={intl.formatMessage({id: 'error'})} isOpen={isOpen} toggle={toggle}>
+        <p><FormattedMessage id="contact.page.unable-to-send-message" /></p>
+      </Modal>
     </>
   );
 }
