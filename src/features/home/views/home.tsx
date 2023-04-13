@@ -1,11 +1,10 @@
 import React from 'react';
-import './home.css';
 import { Image } from '../../../components/image/image';
 import { FormattedMessage } from 'react-intl';
 
 export function Home() {
   return (
-    <div className="home-page">
+    <>
       <h1><FormattedMessage id="home.page.title" /></h1>
       <h2><FormattedMessage id="home.page.subtitle" /></h2>
       <hr/>
@@ -22,6 +21,6 @@ export function Home() {
       <p>
         <FormattedMessage id="home.page.content" />
       </p>
-    </div>
+    </>
   );
 }

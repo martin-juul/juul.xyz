@@ -14,7 +14,7 @@ export function Contact() {
   }, []);
 
   return (
-    <div className="contact-page">
+    <>
       <h1><FormattedMessage id="contact" /></h1>
 
       <Socials/>
@@ -71,6 +71,6 @@ export function Contact() {
           <span><FormattedMessage id="send"/></span>
         </button>
       </form>
-    </div>
+    </>
   );
 }

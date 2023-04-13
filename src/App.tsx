@@ -12,6 +12,7 @@ import { Footer } from './components/footer';
 import { Resume } from './features/resume/views/resume';
 import { Contact } from './features/contact/views/contact';
 import { Home } from './features/home/views';
+import { NotFound } from './features/not-found/not-found';
 
 export function App() {
   const languageContext = useContext(LanguageContext);
@@ -43,6 +44,8 @@ export function App() {
           <Route path="/" element={<Home/>}></Route>
           <Route path="/resume" element={<Resume/>}></Route>
           <Route path="/contact" element={<Contact/>}></Route>
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
 
