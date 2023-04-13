@@ -22,7 +22,7 @@ root.render(
 );
 
 console.log(`
-  So you like exploring? You're on untested territory. If you edit values manually then it's on you. 🤭
+  So you like exploring? You're in untested territory. If you edit values manually then it's on you. 🤭
   I recommend you install React Dev Tools in your browser.
   The contact form is using https://pageclip.co/ - if you try to pentest it, then report bugs to them.
   My website is hosted on https://vercel.com - any server related things you should report to them.
