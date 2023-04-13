@@ -9,6 +9,7 @@ export function LanguageChanger() {
   function changeLanguage(language: string) {
     languageContext?.updateLanguage(language);
     setCurrentLanguage(language);
+    document.documentElement.lang = language;
   }
 
   return (
