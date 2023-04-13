@@ -30,15 +30,17 @@ export function Resume() {
       <h1 className="mb-3"><FormattedMessage id="resume"/></h1>
 
       {items.length > 0 && items.map(item => (
-        <ResumeItem
-          key={item.id}
-          id={item.id}
-          title={item.title}
-          company={item.company}
-          logo={item.logo}
-          duration={item.duration}
-          highlights={item.highlights}
-        />
+        <div className="mt-4">
+          <ResumeItem
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            company={item.company}
+            logo={item.logo}
+            duration={item.duration}
+            highlights={item.highlights}
+          />
+        </div>
       ))}
     </>
   );
