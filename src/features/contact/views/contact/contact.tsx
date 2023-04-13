@@ -4,6 +4,7 @@ import { Socials } from '../../socials/socials';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useModal } from '../../../../components/modal/use-modal';
 import { Modal } from '../../../../components/modal/modal';
+import { Helmet } from 'react-helmet-async';
 
 export function Contact() {
   const [hasError, setHasError] = useState<boolean>(false);
@@ -30,6 +31,10 @@ export function Contact() {
 
   return (
     <>
+      <Helmet prioritizeSeoTags>
+        <title>{`${intl.formatMessage({ id: 'contact' })} | ${ intl.formatMessage({id: 'brand'}) }`}</title>
+      </Helmet>
+
       <h1><FormattedMessage id="contact"/></h1>
 
       <Socials/>

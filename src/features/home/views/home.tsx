@@ -1,11 +1,18 @@
 import React from 'react';
 import { Image } from '../../../components/image/image';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { SimsPlumbob } from '../../../components/lottie/sims-plumbob';
+import { Helmet } from 'react-helmet-async';
 
 export function Home() {
+  const intl = useIntl();
+
   return (
     <>
+      <Helmet prioritizeSeoTags>
+        <title>{`${intl.formatMessage({ id: 'brand' })}`}</title>
+      </Helmet>
+
       <h1><FormattedMessage id="home.page.title" /></h1>
       <h2><FormattedMessage id="home.page.subtitle" /></h2>
       <hr/>

@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ResumeItem as ResumeItemModel } from '../../models';
 import { LanguageContext } from '../../../../context/language';
 import { getResume } from '../../services/get-resume';
 import { ResumeItem } from '../../components/resume-item';
+import { Helmet } from 'react-helmet-async';
 
 export function Resume() {
   const languageContext = useContext(LanguageContext);
   const [items, setItems] = useState<ResumeItemModel[]>([]);
+  const intl = useIntl();
 
   useEffect(() => {
     if (languageContext?.language) {
@@ -21,6 +23,10 @@ export function Resume() {
 
   return (
     <>
+      <Helmet prioritizeSeoTags>
+        <title>{`${intl.formatMessage({ id: 'resume' })} | ${ intl.formatMessage({id: 'brand'}) }`}</title>
+      </Helmet>
+
       <h1 className="mb-3"><FormattedMessage id="resume"/></h1>
 
       {items.length > 0 && items.map(item => (
