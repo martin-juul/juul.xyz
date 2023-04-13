@@ -9,6 +9,12 @@ interface Props {
   children?: ReactNode;
 }
 
+/**
+ * As of now the modal component has its own dismiss button.
+ * This works well since the only consumer is very simple.
+ * Care must be taken if more advanced consumers in the future needs more advanced use cases.
+ * E.g. multiple buttons like OK | Cancel.
+ */
 export function Modal({title, isOpen, toggle, children}: Props) {
   return (
     <>
