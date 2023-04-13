@@ -1,0 +1,66 @@
+[
+  {
+    "id": 4,
+    "title": "Frontend Developer",
+    "company": "Autorola Software Development",
+    "logo": "assets/resume/autorola-software-development.jpeg",
+    "duration": {
+      "start": "March 2021",
+      "end": "Current"
+    },
+    "highlights": [
+      "Assisting in moving the legacy UI to a new Angular frontend",
+      "Reviewing code across departments, ensuring higher standards",
+      "Introduced modern paradigms into the architecture"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Application Developer",
+    "company": "evercall",
+    "logo": "assets/resume/evercall.png",
+    "duration": {
+      "start": "June 2020",
+      "end": "February 2022"
+    },
+    "highlights": [
+      "Maintainer of Softphone app on Desktop & Mobile",
+      "Working with interesting technologies including React, React Native, Redux, Chakra UI, sip.js & TypeScript",
+      "Extensive research of the SIP protocol and VoIP routing",
+      "L3 Technical Support"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Software Developer",
+    "company": "SiteTech",
+    "logo": "assets/resume/sitetech.jpeg",
+    "duration": {
+      "start": "July 2018",
+      "end": "March 2020"
+    },
+    "highlights": [
+      "Write modern, maintainable and performant code for multiple clients and internal use",
+      "Mentoring and code reviewer",
+      "Architected and wrote automated solutions for infra on AWS and operations. Using tools such as Terraform",
+      "Operating and extending Gitlab and Kimai for internal usage",
+      "Laravel expert and team lead on backend"
+    ]
+  },
+  {
+    "id": 1,
+    "title": "Software Developer",
+    "company": "Odense Municipalty",
+    "logo": "assets/resume/odense-municipalty.png",
+    "duration": {
+      "start": "October 2017",
+      "end": "February 2018"
+    },
+    "highlights": [
+      "Developed web based dashboard for internal administration of Windows AppLocker",
+      "C# .NET/Entity Framework backend & Angular frontend",
+      "Created AutoHotKey macros for scraping internal systems, increasing case worker performance.",
+      "Knowledge of internal test procedures. Inclusive Jobnet."
+    ]
+  }
+]

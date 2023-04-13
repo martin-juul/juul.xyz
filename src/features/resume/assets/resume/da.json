@@ -1,0 +1,66 @@
+[
+  {
+    "id": 4,
+    "title": "Frontend Udvikler",
+    "company": "Autorola Software Development",
+    "logo": "assets/resume/autorola-software-development.jpeg",
+    "duration": {
+      "start": "March 2021",
+      "end": "Current"
+    },
+    "highlights": [
+      "Hjælpe med at flytte den gamle brugergrænseflade til en ny Angular-udviklet frontend",
+      "Gennemgang af kode på tværs af afdelinger for at sikre, at standarderne opfylder højere mål",
+      "Indførte moderne paradigmer i organisationen, hvilket bidrog til produktiviteten på tværs af afdelinger"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Applikations Udvikler",
+    "company": "evercall",
+    "logo": "assets/resume/evercall.png",
+    "duration": {
+      "start": "June 2020",
+      "end": "February 2022"
+    },
+    "highlights": [
+      "Vedligeholder af softphone-app på desktop og mobil",
+      "Arbejdet med interessante teknologier, herunder React, React Native, Redux, Chakra UI, sip.js, TypeScript og Asterisk PBX",
+      "Stort kendskab til SIP-protokollen og VoIP-routing",
+      "L3 Teknisk Support"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Software Udvikler",
+    "company": "SiteTech",
+    "logo": "assets/resume/sitetech.jpeg",
+    "duration": {
+      "start": "July 2018",
+      "end": "March 2020"
+    },
+    "highlights": [
+      "Skrive moderne, vedligeholdelsesvenlig og performant kode til flere klienter og intern brug",
+      "Mentorering og kodevedligeholder",
+      "Arkitekt og skrev automatiserede løsninger til infrastruktur på AWS og drift. Brug af værktøjer som Terraform",
+      "Drift og udvidelse af Gitlab og Kimai til intern brug",
+      "Laravel-ekspert og team lead på backend"
+    ]
+  },
+  {
+    "id": 1,
+    "title": "Software Udvikler",
+    "company": "Odense Kommunke",
+    "logo": "assets/resume/odense-municipalty.png",
+    "duration": {
+      "start": "October 2017",
+      "end": "February 2018"
+    },
+    "highlights": [
+      "Udvikling af et webbaseret dashboard til intern administration af Windows AppLocker",
+      "C# .NET/Entity Framework backend og Angular frontend",
+      "Oprettede AutoHotKey-makroer til at scrape interne systemer, hvilket øgede sagsbehandlerens ydeevne.",
+      "Kendskab til interne testprocedurer inklusiv Jobnet."
+    ]
+  }
+]

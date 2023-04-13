@@ -1,0 +1,7 @@
+.language-changer span {
+  color: #eaeaea;;
+}
+
+.language-changer span:hover {
+  text-decoration: underline;
+}

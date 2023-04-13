@@ -1,0 +1,26 @@
+.contact-page {
+  min-height: 100vh;
+}
+
+.contact-form .field-row label, .contact-form .block {
+  font-size: 1.2rem;
+}
+
+.contact-form .field-row, .contact-form .block {
+  margin-top: 12px;
+}
+
+.contact-form textarea {
+  margin-top: 6px;
+}
+
+.contact-form .field-row input {
+  min-width: 70%;
+}
+
+.pageclip-form__success {
+  background: hsla(0,0%,69%,0.3);
+  border-radius: 11px;
+  width: 101%;
+  height: 102%;
+}

@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useContext, useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { IntlProvider } from 'react-intl';
 import './App.css';
 
-function App() {
+import { LanguageContext } from './context/language';
+
+import { TopNavigation } from './components/top-navigation';
+import { LanguageChanger } from './components/language-changer';
+import { Footer } from './components/footer';
+
+import { Resume } from './features/resume/views/resume';
+import { Contact } from './features/contact/views/contact';
+import { Home } from './features/home/views';
+
+export function App() {
+  const languageContext = useContext(LanguageContext);
+  const [messages, setMessages] = useState();
+  const defaultLang = 'en';
+
+  useEffect(() => {
+    const lang = languageContext?.language ?? defaultLang;
+
+    const messages = require(`./i18n/locales/${lang}.json`);
+    setMessages(messages);
+  }, [languageContext?.language]);
+
+  // prevents issue where react-intl has no messages available
+  if (!languageContext?.language || !messages) {
+    return <></>
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <IntlProvider locale={languageContext.language} defaultLocale={defaultLang} messages={messages}>
+      <nav>
+        <TopNavigation/>
+
+        <LanguageChanger />
+      </nav>
+
+      <main>
+        <Routes>
+          <Route path="/" element={<Home/>}></Route>
+          <Route path="/resume" element={<Resume/>}></Route>
+          <Route path="/contact" element={<Contact/>}></Route>
+        </Routes>
+      </main>
+
+      <footer>
+        <Footer/>
+      </footer>
+    </IntlProvider>
   );
 }
-
-export default App;

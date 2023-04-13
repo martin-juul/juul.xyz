@@ -1,0 +1,12 @@
+.app-image img {
+  max-width: inherit;
+  border-radius: 9px;
+  border-color: #35c0ff;
+  border-width: 3px;
+  border-style: solid;
+  transition: border-color 250ms ease-in-out;
+}
+
+.app-image img:hover {
+  border-color: #faff66;
+}

@@ -1,0 +1,12 @@
+.socials {
+  border-bottom: 1px solid #ccc;
+}
+
+.socials a {
+  opacity: 0.7;
+  transition: opacity 150ms;
+}
+
+.socials a:hover {
+  opacity: 1;
+}
