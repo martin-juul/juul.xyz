@@ -5,7 +5,7 @@
   },
   "version": "4.0.0",
   "private": true,
-  "license": "Apache-2.0",
+  "license": "See LICENSE",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
