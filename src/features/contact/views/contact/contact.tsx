@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './contact.css';
 import { Socials } from '../../socials/socials';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -7,7 +7,6 @@ import { Modal } from '../../../../components/modal/modal';
 import { Helmet } from 'react-helmet-async';
 
 export function Contact() {
-  const [hasError, setHasError] = useState<boolean>(false);
   const {isOpen, toggle} = useModal();
   const intl = useIntl();
 
@@ -27,7 +26,7 @@ export function Contact() {
       },
       successTemplate: '👍',
     });
-  }, []);
+  }, [toggle]);
 
   return (
     <>
