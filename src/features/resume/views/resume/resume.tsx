@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
+import './resume.css';
 import { ResumeItem as ResumeItemModel } from '../../models';
 import { LanguageContext } from '../../../../context/language';
 import { getResume } from '../../services/get-resume';
@@ -30,9 +31,11 @@ export function Resume() {
       <h1 className="mb-3"><FormattedMessage id="resume"/></h1>
 
       {items.length > 0 && items.map(item => (
-        <div className="mt-4">
+        <div
+          className="mt-4 resume-item"
+          key={item.id}
+        >
           <ResumeItem
-            key={item.id}
             id={item.id}
             title={item.title}
             company={item.company}
