@@ -92,8 +92,6 @@ export function Contact() {
         </button>
       </form>
 
-      <button onClick={toggle}>Open modal</button>
-
       <Modal title={intl.formatMessage({id: 'error'})} isOpen={isOpen} toggle={toggle}>
         <p><FormattedMessage id="contact.page.unable-to-send-message" /></p>
       </Modal>
