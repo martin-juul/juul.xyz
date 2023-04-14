@@ -8,11 +8,16 @@ import { LanguageContext } from '../../../../context/language';
 import { getResume } from '../../services/get-resume';
 import { ResumeItem } from '../../components/resume-item';
 import { Helmet } from 'react-helmet-async';
+import posthog from 'posthog-js';
 
 export function Resume() {
   const languageContext = useContext(LanguageContext);
   const [items, setItems] = useState<ResumeItemModel[]>([]);
   const intl = useIntl();
+
+  useEffect(() => {
+    posthog.capture('$pageview');
+  }, []);
 
   useEffect(() => {
     if (languageContext?.language) {

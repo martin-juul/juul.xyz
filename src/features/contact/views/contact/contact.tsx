@@ -4,10 +4,15 @@ import { Socials } from '../../socials/socials';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Modal, useModal } from '../../../../components/modal';
 import { Helmet } from 'react-helmet-async';
+import posthog from 'posthog-js';
 
 export function Contact() {
   const {isOpen, toggle} = useModal();
   const intl = useIntl();
+
+  useEffect(() => {
+    posthog.capture('$pageview');
+  }, []);
 
   useEffect(() => {
     const form = document.querySelector('.pageclip-form');

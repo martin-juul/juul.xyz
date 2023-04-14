@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { NotFoundRobot } from '../../components/lottie/not-found-robot';
+import posthog from 'posthog-js';
 
 export function NotFound() {
+
+  useEffect(() => {
+    posthog.capture('$pageview');
+  }, []);
 
   return (
     <>
