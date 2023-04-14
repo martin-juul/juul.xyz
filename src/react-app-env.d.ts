@@ -1,5 +1,7 @@
 /// <reference types="react-scripts" />
 
+declare module '*.mp3';
+
 global {
   interface Window {
     Pageclip: {

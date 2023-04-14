@@ -13,6 +13,7 @@ import { Resume } from './features/resume/views/resume';
 import { Contact } from './features/contact/views/contact';
 import { Home } from './features/home/views';
 import { NotFound } from './features/not-found/not-found';
+import { BackgroundMusic } from './components/background-music';
 
 export function App() {
   const languageContext = useContext(LanguageContext);
@@ -51,6 +52,10 @@ export function App() {
 
       <footer>
         <Footer/>
+
+        <div className="d-flex justify-center">
+          <BackgroundMusic />
+        </div>
       </footer>
     </IntlProvider>
   );
