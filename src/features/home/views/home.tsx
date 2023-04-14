@@ -18,16 +18,18 @@ export function Home() {
       <hr/>
       <h3><FormattedMessage id="home.page.byline" /></h3>
 
-      <div className="d-flex justify-between" style={{marginTop: '12vh'}}>
+      <div className="d-flex justify-between" style={{marginTop: '4vh'}}>
         <h2 className="mt-1"><FormattedMessage id="who" />?</h2>
 
 
-        <div className="d-flex f-column">
-          <SimsPlumbob />
+        <div className="d-flex relative">
+          <div className="absolute" style={{ top: -40, left: 50 }}>
+            <SimsPlumbob />
+          </div>
 
           <Image
             src="https://media.licdn.com/dms/image/C4D03AQHYGjOsNrWZDw/profile-displayphoto-shrink_400_400/0/1623166551911?e=1686182400&v=beta&t=5kU8h4RD9GYJ5JiiSjKXQdLcx9uCblR2Qw9GdWh5f8Y"
-            maxWidth={200}
+            maxWidth={150}
           />
         </div>
       </div>
