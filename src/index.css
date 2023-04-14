@@ -67,6 +67,16 @@ p {
   text-align: right;
 }
 
+/** Position */
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
 /** Flex */
 
 .d-flex {
