@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ResumeItem as ResumeItemModel } from '../models';
-import { Image } from '../../../components/image/image';
+import { Image } from '../../../components/image';
 
 export function ResumeItem({id, title, company, logo, duration, highlights}: ResumeItemModel): JSX.Element {
   return (
