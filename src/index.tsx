@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
+import posthog from 'posthog-js';
 
 import 'thesims.css';
 import './index.css';
@@ -19,6 +20,10 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
+posthog.init('phc_mlpYurB5mofwSLTNuzvsQhPPzQHL7O3QGfvWSmwUWgl', {
+  api_host: 'https://eu.posthog.com',
+  persistence: 'localStorage',
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
