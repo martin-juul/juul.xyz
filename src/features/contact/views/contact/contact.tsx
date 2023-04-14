@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import './contact.css';
 import { Socials } from '../../socials/socials';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useModal } from '../../../../components/modal/use-modal';
-import { Modal } from '../../../../components/modal/modal';
+import { Modal, useModal } from '../../../../components/modal';
 import { Helmet } from 'react-helmet-async';
 
 export function Contact() {
