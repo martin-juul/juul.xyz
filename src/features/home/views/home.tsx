@@ -23,7 +23,7 @@ export function Home() {
 
 
         <div className="d-flex relative">
-          <div className="absolute" style={{ top: -40, left: 50 }}>
+          <div className="absolute" style={{ top: -40, left: 60 }}>
             <SimsPlumbob />
           </div>
 
