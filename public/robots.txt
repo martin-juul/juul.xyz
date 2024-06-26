@@ -22,8 +22,6 @@ User-agent: Diffbot
 Disallow: /
 User-agent: ImagesiftBot
 Disallow: /
-User-agent: Omgilibot
-Disallow: /
 User-agent: Omgili
 Disallow: /
 User-agent: YouBot
