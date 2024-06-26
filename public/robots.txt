@@ -12,10 +12,6 @@ User-agent: ClaudeBot
 Disallow: /
 User-agent: Omgilibot
 Disallow: /
-User-Agent: FacebookBot
-Disallow: /
-User-Agent: Applebot
-Disallow: /
 User-agent: anthropic-ai
 Disallow: /
 User-agent: Bytespider
@@ -32,4 +28,3 @@ User-agent: Omgili
 Disallow: /
 User-agent: YouBot
 Disallow: /
-
