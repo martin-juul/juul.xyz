@@ -3,7 +3,7 @@
   "author": {
     "name": "Martin Christiansen"
   },
-  "version": "4.0.0",
+  "version": "4.0.1",
   "private": true,
   "license": "See LICENSE",
   "scripts": {
@@ -13,7 +13,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@sentry/react": "^7.48.0",
+    "@sentry/react": "^7.118.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
