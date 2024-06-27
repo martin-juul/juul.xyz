@@ -11,6 +11,7 @@ export function TopNavigation() {
     >
       <li><Link to="/"><FormattedMessage id="home" /></Link></li>
       <li><Link to="/resume"><FormattedMessage id="resume" /></Link></li>
+      <li><Link to="/projects"><FormattedMessage id="projects" /></Link></li>
       <li><Link to="/contact"><FormattedMessage id="contact" /></Link></li>
     </ul>
   );
