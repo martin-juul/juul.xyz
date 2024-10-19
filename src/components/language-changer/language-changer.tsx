@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import './language-changer.css';
-import { LanguageContext } from '../../context/language';
+import { LanguageContext } from '@/context/language/language-context.tsx';
 
 export function LanguageChanger() {
   const languageContext = useContext(LanguageContext);

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 export function BackgroundMusic() {
   const sound = require('./buy-mode.mp3');
 
