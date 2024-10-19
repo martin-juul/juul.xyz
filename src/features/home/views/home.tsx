@@ -28,6 +28,7 @@ export function Home() {
           </div>
 
           <Image
+            alt={intl.formatMessage({ id: 'home.page.portrait' })}
             src={imageUrl.toString()}
             maxWidth={150}
           />
