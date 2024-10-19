@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import './contact.css';
 import { Socials } from '../../socials/socials';
 import { FormattedMessage, useIntl } from 'react-intl';
