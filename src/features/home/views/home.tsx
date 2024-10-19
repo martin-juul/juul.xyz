@@ -5,7 +5,7 @@ import { Image } from '../../../components/image/image.tsx';
 
 export function Home() {
   const intl = useIntl();
-  const imageUrl = new URL('../../../assets/avatar.jpg', import.meta.url);
+  const imageUrl = new URL('/assets/portrait.jpg', import.meta.url);
 
   return (
     <>

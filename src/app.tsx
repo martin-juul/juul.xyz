@@ -12,6 +12,7 @@ import { Contact } from './features/contact/views/contact/contact.tsx';
 import { NotFound } from './features/not-found/not-found.tsx';
 import { Footer } from './components/footer/footer.tsx';
 import { BackgroundMusic } from './components/background-music/background-music.tsx';
+import { fetchData } from './utils/fetch.ts';
 
 const daTranslations = new URL('../assets/i18n/locales/da.json', import.meta.url);
 const enTranslations = new URL('../assets/i18n/locales/en.json', import.meta.url);
@@ -21,23 +22,14 @@ export function App() {
   const [messages, setMessages] = useState();
   const defaultLang = 'en';
 
-  const fetchTranslation = async (url: string) => {
-    return new Promise((resolve, reject) => {
-      fetch(url)
-        .then(res => res.json())
-        .then((res) => resolve(res))
-        .catch(reject);
-    })
-  }
-
   useEffect(() => {
     (async () => {
       const lang = languageContext?.language ?? defaultLang;
 
       if (lang === 'da') {
-        setMessages(await fetchTranslation(daTranslations.href) as unknown as any)
+        setMessages(await fetchData<any>(daTranslations.href))
       } else {
-        setMessages(await fetchTranslation(enTranslations.href) as unknown as any)
+        setMessages(await fetchData<any>(enTranslations.href))
       }
     })();
   }, [languageContext?.language]);
