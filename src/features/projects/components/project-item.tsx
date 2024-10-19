@@ -1,4 +1,4 @@
-import { ProjectItemModel } from '@/features/projects/models/project-item-model.ts';
+import { ProjectItemModel } from '../../../features/projects/models/project-item-model';
 
 
 export function ProjectItem({id, name, url, description}: ProjectItemModel): JSX.Element {

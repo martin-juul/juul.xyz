@@ -1,5 +1,5 @@
 import { ResumeItem as ResumeItemModel } from '../models/resume.ts';
-import { Image } from '@/components/image/image.tsx';
+import { Image } from '../../../components/image/image.tsx';
 
 export function ResumeItem({id, title, company, logo, duration, highlights}: ResumeItemModel): JSX.Element {
   return (

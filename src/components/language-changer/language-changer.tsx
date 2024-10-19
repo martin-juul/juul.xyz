@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import './language-changer.css';
-import { LanguageContext } from '@/context/language/language-context.tsx';
+import { useLanguage } from '../../context/language-context.tsx';
 
 export function LanguageChanger() {
-  const languageContext = useContext(LanguageContext);
+  const languageContext = useLanguage();
   const [currentLanguage, setCurrentLanguage] = useState(languageContext?.language ?? 'en');
 
   function changeLanguage(language: string) {

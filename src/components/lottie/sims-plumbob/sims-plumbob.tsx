@@ -1,5 +1,5 @@
 import { createRef, useLayoutEffect } from 'react';
-import lazyLottie from '@/utils/lazy-lottie';
+import lazyLottie from '../../../utils/lazy-lottie.ts';
 
 export function SimsPlumbob() {
   const ref = createRef<HTMLElement>();

@@ -1,8 +1,7 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Helmet } from 'react-helmet-async';
-import { SimsPlumbob } from '@/components/lottie/sims-plumbob/sims-plumbob.tsx';
-import { Image } from '@/components/image/image.tsx';
-
+import { SimsPlumbob } from '../../../components/lottie/sims-plumbob/sims-plumbob.tsx';
+import { Image } from '../../../components/image/image.tsx';
 
 export function Home() {
   const intl = useIntl();

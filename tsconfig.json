@@ -23,20 +23,5 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": [
-        "*"
-      ]
-    },
-  },
-  "include": [
-    "src"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
-  "extends": "./tsconfig.paths.json"
+  }
 }
