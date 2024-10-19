@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useContext, useEffect } from 'react';
-import { LanguageContext } from '../../../../context/language';
-import { ProjectItemModel } from '../../models';
 import { FormattedMessage, useIntl } from 'react-intl';
 import posthog from 'posthog-js';
-import { getProjects } from '../../services';
 import { Helmet } from 'react-helmet-async';
-import { ProjectItem } from '../../components/project-item';
+import { ProjectItem } from '../components/project-item.tsx';
+import { LanguageContext } from '@/context/language/language-context.tsx';
+import { ProjectItemModel } from '@/features/projects/models/project-item-model.ts';
+import { getProjects } from '@/features/projects/services/get-projects.ts';
 
 export function Projects() {
   const languageContext = useContext(LanguageContext);

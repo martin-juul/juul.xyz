@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { ProjectItemModel } from '../models';
+import { ProjectItemModel } from '@/features/projects/models/project-item-model.ts';
+
 
 export function ProjectItem({id, name, url, description}: ProjectItemModel): JSX.Element {
   return (

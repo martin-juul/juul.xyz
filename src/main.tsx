@@ -2,23 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
-import * as Sentry from '@sentry/react';
 import posthog from 'posthog-js';
 
 import 'thesims.css';
 import './index.css';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
-import { LanguageContextProvider } from './context/language';
-
-Sentry.init({
-  dsn: 'https://1af453b06b2d43a19604ede64efd2566@o132444.ingest.sentry.io/4505013809446912',
-  integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
-  // Performance Monitoring
-  tracesSampleRate: 0.2,
-  replaysSessionSampleRate: 0.1,
-  replaysOnErrorSampleRate: 1.0,
-});
+import { LanguageContextProvider } from '@/context/language/language-context.tsx';
 
 posthog.init('phc_mlpYurB5mofwSLTNuzvsQhPPzQHL7O3QGfvWSmwUWgl', {
   api_host: 'https://eu.posthog.com',

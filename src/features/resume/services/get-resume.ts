@@ -1,10 +1,14 @@
-import { ResumeItem } from '../models';
+import { ResumeItem } from '../models/resume.ts';
 
 export async function getResume(language: string): Promise<ResumeItem[]> {
-  try {
-    return require(`../assets/resume/${language}.json`) as ResumeItem[];
-  } catch (e) {
-    console.error(e);
-    return [];
-  }
+  return new Promise<ResumeItem[]>((resolve) => {
+    import(`../assets/resume/${language}.json`)
+      .then((res) => {
+        resolve(res as ResumeItem[]);
+      })
+      .catch((err) => {
+        console.error(err);
+        resolve([]);
+      });
+  });
 }

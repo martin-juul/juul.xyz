@@ -1,10 +1,12 @@
 import { ProjectItemModel } from '../models/project-item-model';
 
 export async function getProjects(language: string): Promise<ProjectItemModel[]> {
-  try {
-    return require(`../assets/projects/${language}.json`) as ProjectItemModel[];
-  } catch (e) {
-    console.error(e);
-    return [];
-  }
+  return new Promise((resolve) => {
+    import(`../assets/projects/${language}.json`).then((res) => {
+      resolve(res as ProjectItemModel[]);
+    }).catch((err) => {
+      console.error(err);
+      resolve([]);
+    });
+  });
 }

@@ -1,14 +1,13 @@
-import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import './resume.css';
-import { ResumeItem as ResumeItemModel } from '../../models';
-import { LanguageContext } from '../../../../context/language';
+import { ResumeItem as ResumeItemModel } from '../../models/resume.ts';
 import { getResume } from '../../services/get-resume';
 import { ResumeItem } from '../../components/resume-item';
 import { Helmet } from 'react-helmet-async';
 import posthog from 'posthog-js';
+import { LanguageContext } from '@/context/language/language-context.tsx';
 
 export function Resume() {
   const languageContext = useContext(LanguageContext);
