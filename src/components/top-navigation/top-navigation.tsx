@@ -5,10 +5,7 @@ import styles from './top-navigation.module.scss'
 
 export function TopNavigation() {
   return (
-    <menu
-      className={styles.topNavigation}
-      role="navigation"
-    >
+    <menu className={styles.topNavigation}>
       <li className={styles.li}>
         <Link to="/"><FormattedMessage id="home" /></Link>
       </li>
