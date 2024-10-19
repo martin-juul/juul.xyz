@@ -5,7 +5,7 @@ import styles from './top-navigation.module.scss'
 
 export function TopNavigation() {
   return (
-    <ul
+    <menu
       className={styles.topNavigation}
       role="navigation"
     >
@@ -21,6 +21,6 @@ export function TopNavigation() {
       <li className={styles.li}>
         <Link to="/contact"><FormattedMessage id="contact" /></Link>
       </li>
-    </ul>
+    </menu>
   );
 }
