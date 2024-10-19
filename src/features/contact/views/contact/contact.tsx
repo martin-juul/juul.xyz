@@ -37,7 +37,8 @@ export function Contact() {
   return (
     <>
       <Helmet prioritizeSeoTags>
-        <title>{`${intl.formatMessage({ id: 'contact' })} | ${ intl.formatMessage({id: 'brand'}) }`}</title>
+        <title>{`${intl.formatMessage({ id: 'contact' })} | ${intl.formatMessage({ id: 'brand' })}`}</title>
+        <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen"></link>
       </Helmet>
 
       <h1><FormattedMessage id="contact"/></h1>
