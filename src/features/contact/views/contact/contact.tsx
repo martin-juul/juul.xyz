@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
-import './contact.css';
-import { Socials } from '../../socials/socials';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { Modal, useModal } from '../../../../components/modal';
-import { Helmet } from 'react-helmet-async';
 import posthog from 'posthog-js';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { Helmet } from 'react-helmet-async';
+import { Socials } from '../../socials/socials';
+import { useModal } from '../../../../components/modal/use-modal.ts';
+import { Modal } from '../../../../components/modal/modal.tsx';
+import { Portal } from '../../../../components/portal/portal.tsx';
+import './contact.css';
 
 export function Contact() {
   const {isOpen, toggle} = useModal();
@@ -95,9 +97,11 @@ export function Contact() {
         </button>
       </form>
 
-      <Modal title={intl.formatMessage({id: 'error'})} isOpen={isOpen} toggle={toggle}>
-        <p><FormattedMessage id="contact.page.unable-to-send-message" /></p>
-      </Modal>
+      <Portal>
+        <Modal title={intl.formatMessage({id: 'error'})} isOpen={isOpen} toggle={toggle}>
+          <p><FormattedMessage id="contact.page.unable-to-send-message" /></p>
+        </Modal>
+      </Portal>
     </>
   );
 }

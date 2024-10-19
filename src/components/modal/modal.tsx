@@ -16,13 +16,16 @@ interface Props {
  * Care must be taken if more advanced consumers in the future needs more advanced use cases.
  * E.g. multiple buttons like OK | Cancel.
  */
-export function Modal({title, isOpen, toggle, children}: Props) {
+export function Modal({ title, isOpen, toggle, children }: Props) {
   return (
     <>
       {isOpen && (
         <div
+          role="dialog"
+          aria-modal="true"
           className={'modal ' + styles.modalBox}
-          onClick={() => toggle()}>
+          onClick={() => toggle()}
+        >
           <div onClick={(e) => e.stopPropagation()}>
             <h2>{title}</h2>
             {children}
@@ -31,7 +34,7 @@ export function Modal({title, isOpen, toggle, children}: Props) {
               <button
                 className="mt-1"
                 onClick={() => toggle()}
-              ><FormattedMessage id="close" /></button>
+              ><FormattedMessage id="close"/></button>
             </div>
           </div>
         </div>

@@ -9,10 +9,18 @@ export function TopNavigation() {
       className={styles.topNavigation}
       role="navigation"
     >
-      <li className={styles.li}><Link to="/"><FormattedMessage id="home" /></Link></li>
-      <li className={styles.li}><Link to="/resume"><FormattedMessage id="resume" /></Link></li>
-      <li className={styles.li}><Link to="/projects"><FormattedMessage id="projects" /></Link></li>
-      <li className={styles.li}><Link to="/contact"><FormattedMessage id="contact" /></Link></li>
+      <li className={styles.li}>
+        <Link to="/"><FormattedMessage id="home" /></Link>
+      </li>
+      <li className={styles.li}>
+        <Link to="/resume"><FormattedMessage id="resume" /></Link>
+      </li>
+      <li className={styles.li}>
+        <Link to="/projects"><FormattedMessage id="projects" /></Link>
+      </li>
+      <li className={styles.li}>
+        <Link to="/contact"><FormattedMessage id="contact" /></Link>
+      </li>
     </ul>
   );
 }
