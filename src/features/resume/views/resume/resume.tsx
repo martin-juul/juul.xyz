@@ -1,17 +1,16 @@
-import * as React from 'react';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import './resume.css';
-import { ResumeItem as ResumeItemModel } from '../../models';
-import { LanguageContext } from '../../../../context/language';
+import { ResumeItem as ResumeItemModel } from '../../models/resume.ts';
 import { getResume } from '../../services/get-resume';
 import { ResumeItem } from '../../components/resume-item';
 import { Helmet } from 'react-helmet-async';
 import posthog from 'posthog-js';
+import { useLanguage } from '../../../../context/language-context.tsx';
 
 export function Resume() {
-  const languageContext = useContext(LanguageContext);
+  const languageContext = useLanguage();
   const [items, setItems] = useState<ResumeItemModel[]>([]);
   const intl = useIntl();
 
@@ -20,12 +19,10 @@ export function Resume() {
   }, []);
 
   useEffect(() => {
-    if (languageContext?.language) {
-      getResume(languageContext.language).then(items => {
-        setItems(items);
-      });
-    }
-  }, [languageContext?.language]);
+    getResume(languageContext.language).then(items => {
+      setItems(items);
+    });
+  }, [languageContext.language]);
 
   return (
     <>

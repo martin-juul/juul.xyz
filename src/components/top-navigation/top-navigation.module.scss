@@ -1,4 +1,4 @@
-.top-navigation {
+.topNavigation {
   display: flex;
   justify-content: center;
   font-size: 1.4rem;
@@ -6,12 +6,12 @@
   padding-top: 8px;
 }
 
-.top-navigation li {
+.li {
   margin-left: 15px;
   padding: 3px;
   border-radius: 2px;
 }
 
-.top-navigation li:hover {
+.li:hover {
   box-shadow: inset 0 0 125px 125px rgba(255, 255, 255, 0.1);
 }

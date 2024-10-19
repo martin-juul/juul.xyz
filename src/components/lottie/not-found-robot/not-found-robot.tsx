@@ -1,8 +1,26 @@
-import * as React from 'react';
-import Lottie from 'lottie-react';
-import NotFoundRobotData from './not-found-robot.json';
+import { createRef, useLayoutEffect } from 'react';
+import lazyLottie from '../../../utils/lazy-lottie.ts';
 
 export function NotFoundRobot() {
+  const ref = createRef<HTMLElement>();
 
-  return <Lottie animationData={NotFoundRobotData}/>;
+  useLayoutEffect(() => {
+    if (ref.current) {
+      const animation = lazyLottie.loadAnimation({
+        container: ref.current,
+        path: new URL('./not-found-robot.json', import.meta.url).href,
+      });
+
+      return () => {
+        animation?.destroy();
+      };
+    }
+  }, []);
+
+  return (
+    <div
+      // @ts-ignore
+      ref={ref}
+    />
+  );
 }

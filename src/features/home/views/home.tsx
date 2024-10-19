@@ -1,11 +1,11 @@
-import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Helmet } from 'react-helmet-async';
-import { Image } from '../../../components/image';
-import { SimsPlumbob } from '../../../components/lottie/sims-plumbob';
+import { SimsPlumbob } from '../../../components/lottie/sims-plumbob/sims-plumbob.tsx';
+import { Image } from '../../../components/image/image.tsx';
 
 export function Home() {
   const intl = useIntl();
+  const imageUrl = new URL('/assets/portrait.jpg', import.meta.url);
 
   return (
     <>
@@ -28,7 +28,7 @@ export function Home() {
           </div>
 
           <Image
-            src="https://media.licdn.com/dms/image/C4D03AQHYGjOsNrWZDw/profile-displayphoto-shrink_400_400/0/1623166551911?e=1686182400&v=beta&t=5kU8h4RD9GYJ5JiiSjKXQdLcx9uCblR2Qw9GdWh5f8Y"
+            src={imageUrl.toString()}
             maxWidth={150}
           />
         </div>

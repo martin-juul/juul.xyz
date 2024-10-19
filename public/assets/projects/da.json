@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Er det dns?",
+    "url": "https://erdetdns.dk",
+    "description": "En side der fortæller at det altid er DNS der er problemet"
+  },
+  {
+    "id": 2,
+    "name": "Bånder",
+    "url": "https://github.com/baander-app",
+    "description": "Musikafspiller med covervisning, sangliste og lyrikviser."
+  }
+]

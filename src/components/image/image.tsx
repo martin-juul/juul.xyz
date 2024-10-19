@@ -1,5 +1,4 @@
-import React from 'react';
-import './image.css';
+import styles from './image.module.scss';
 
 interface Props {
   src: string;
@@ -12,10 +11,10 @@ export function Image({src, alt, maxWidth}: Props) {
 
   return (
     <div
-      className="app-image"
       style={{maxWidth: maxW}}
     >
       <img
+        className={styles.appImage}
         src={src}
         alt={alt}
       />

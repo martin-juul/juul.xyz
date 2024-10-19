@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { useContext, useEffect } from 'react';
-import { LanguageContext } from '../../../../context/language';
-import { ProjectItemModel } from '../../models';
+import { useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import posthog from 'posthog-js';
-import { getProjects } from '../../services';
 import { Helmet } from 'react-helmet-async';
-import { ProjectItem } from '../../components/project-item';
+import { ProjectItem } from '../components/project-item.tsx';
+import { ProjectItemModel } from '../models/project-item-model.ts';
+import { getProjects } from '../services/get-projects.ts';
+import { useLanguage } from '../../../context/language-context.tsx';
 
 export function Projects() {
-  const languageContext = useContext(LanguageContext);
+  const languageContext = useLanguage();
   const [items, setItems] = React.useState<ProjectItemModel[]>([]);
   const intl = useIntl();
 
@@ -18,12 +18,10 @@ export function Projects() {
   }, []);
 
   useEffect(() => {
-    if (languageContext?.language) {
-      getProjects(languageContext.language).then(items => {
-        setItems(items);
-      })
-    }
-  }, [languageContext?.language]);
+    getProjects(languageContext.language).then(items => {
+      setItems(items);
+    })
+  }, [languageContext.language]);
 
   return (
     <>
@@ -36,6 +34,7 @@ export function Projects() {
       {items.length > 0 && items.map(item => (
         <div
           className="mt-4 project-item"
+          key={item.id}
         >
           <ProjectItem
             id={item.id}

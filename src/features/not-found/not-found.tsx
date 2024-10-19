@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { NotFoundRobot } from '../../components/lottie/not-found-robot';
 import posthog from 'posthog-js';
 import { Helmet } from 'react-helmet-async';
+import { NotFoundRobot } from '../../components/lottie/not-found-robot/not-found-robot.tsx';
 
 export function NotFound() {
 

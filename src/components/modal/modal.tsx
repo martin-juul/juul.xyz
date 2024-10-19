@@ -1,6 +1,7 @@
-import React, { ReactNode } from 'react';
-import './modal.css';
+import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
+
+import styles from './modal.module.scss';
 
 interface Props {
   title: string;
@@ -20,7 +21,7 @@ export function Modal({title, isOpen, toggle, children}: Props) {
     <>
       {isOpen && (
         <div
-          className="modal modal-box"
+          className={'modal ' + styles.modalBox}
           onClick={() => toggle()}>
           <div onClick={(e) => e.stopPropagation()}>
             <h2>{title}</h2>

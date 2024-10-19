@@ -1,10 +1,14 @@
-import { ResumeItem } from '../models';
+import { ResumeItem } from '../models/resume.ts';
+import { fetchData } from '../../../utils/fetch.ts';
 
 export async function getResume(language: string): Promise<ResumeItem[]> {
-  try {
-    return require(`../assets/resume/${language}.json`) as ResumeItem[];
-  } catch (e) {
-    console.error(e);
-    return [];
-  }
+  return new Promise<ResumeItem[]>((resolve) => {
+    fetchData<ResumeItem[]>(`/assets/resume/translations/${language}.json`)
+      .then(res => {
+        resolve(res);
+      }).catch((err) => {
+      console.error(err);
+      resolve([]);
+    });
+  });
 }
