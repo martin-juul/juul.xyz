@@ -16,6 +16,9 @@ export function TopNavigation() {
         <Link to="/projects"><FormattedMessage id="projects" /></Link>
       </li>
       <li className={styles.li}>
+        <Link to="/blog"><FormattedMessage id="blog" /></Link>
+      </li>
+      <li className={styles.li}>
         <Link to="/contact"><FormattedMessage id="contact" /></Link>
       </li>
     </menu>

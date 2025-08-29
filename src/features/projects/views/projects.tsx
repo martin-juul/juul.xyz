@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import posthog from 'posthog-js';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from '@dr.pogodin/react-helmet';
 import { ProjectItem } from '../components/project-item.tsx';
 import { ProjectItemModel } from '../models/project-item-model.ts';
 import { getProjects } from '../services/get-projects.ts';

@@ -5,7 +5,7 @@ import './resume.css';
 import { ResumeItem as ResumeItemModel } from '../../models/resume.ts';
 import { getResume } from '../../services/get-resume';
 import { ResumeItem } from '../../components/resume-item';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from '@dr.pogodin/react-helmet';
 import posthog from 'posthog-js';
 import { useLanguage } from '../../../../context/language-context.tsx';
 

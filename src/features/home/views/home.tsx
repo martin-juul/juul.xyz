@@ -1,5 +1,5 @@
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from '@dr.pogodin/react-helmet';
 import { SimsPlumbob } from '../../../components/lottie/sims-plumbob/sims-plumbob.tsx';
 import { lazyImport } from '../../../utils/lazy-import.ts';
 

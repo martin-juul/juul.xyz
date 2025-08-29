@@ -19,5 +19,6 @@
   "home.page.content": "Hejsa! Jeg hedder Martin og er softwareudvikler.\n\nJeg er meget nysgerrig på nye teknologier og nyder at afprøve nye metodikker i min fritid.\n\nJeg holder mig selv til den højeste standard og sætter en ære i at levere kvalitet til tiden. Selvstarter, og ikke bange for at tage ejerskab betyder at jeg sjældent keder mig.\n\nUanset om det er backend eller frontend, så er begge dele lige spændene og udfordrende.",
   "home.page.portrait": "Portræt af Martin",
   "not-found.page.title": "Siden kunne ikke findes",
-  "not-found.page.content": "Der er ikke noget på det link du besøgte."
+  "not-found.page.content": "Der er ikke noget på det link du besøgte.",
+  "blog": "Blog"
 }

@@ -13,6 +13,7 @@ import { NotFound } from './features/not-found/not-found.tsx';
 import { Footer } from './components/footer/footer.tsx';
 import { BackgroundMusic } from './components/background-music/background-music.tsx';
 import { fetchData } from './utils/fetch.ts';
+import { BlogRouter } from './features/blog/views/router.tsx';
 
 const daTranslations = new URL('../assets/i18n/locales/da.json', import.meta.url);
 const enTranslations = new URL('../assets/i18n/locales/en.json', import.meta.url);
@@ -53,6 +54,7 @@ export function App() {
           <Route path="/resume" element={<Resume/>}></Route>
           <Route path="/projects" element={<Projects/>}></Route>
           <Route path="/contact" element={<Contact/>}></Route>
+          <Route path="/blog/*" element={<BlogRouter />} />
 
           <Route path="*" element={<NotFound/>}/>
         </Routes>

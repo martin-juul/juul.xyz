@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import posthog from 'posthog-js';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from '@dr.pogodin/react-helmet';
 import { Socials } from '../../socials/socials';
 import { useModal } from '../../../../components/modal/use-modal.ts';
 import { Modal } from '../../../../components/modal/modal.tsx';

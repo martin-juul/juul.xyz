@@ -19,5 +19,6 @@
   "home.page.content": "Hi there! I'm Martin, a software developer based in Denmark.\n\nI am a very curious about new technologies and enjoy trying out new flavors of development in my spare time.\n\nHolding myself to the highest standard, i take pride in delivering quality on time. As a self-starter, and not being afraid of taking ownership. I am rarely bored.\n\nWhether it is backend or frontend. I find both to be equally interesting. Presenting different challenges both cover many of the same paradigms. Implementation details aside.",
   "not-found.page.title": "Page not found",
   "home.page.portrait": "Portrait of Martin",
-  "not-found.page.content": "Nothing exists at the link you visited."
+  "not-found.page.content": "Nothing exists at the link you visited.",
+  "blog": "Blog"
 }
