@@ -40,6 +40,7 @@ export function Resume() {
                   cursor: 'pointer',
                   fontSize: '11px',
                   fontFamily: "'MS Sans Serif', 'Segoe UI', sans-serif",
+                  fontWeight: 600,
                   borderLeft: `2px solid ${borderColor}`,
                   borderBottom: '1px solid #4a3728'
                 }}
