@@ -2,7 +2,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { useLanguage } from '../context/language-context';
 import { LanguageSwitcher } from './language-switcher';
 
-type Page = 'home' | 'projects' | 'resume' | 'contact';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'notfound';
 
 type WindowData = {
   id: string;
@@ -38,6 +38,7 @@ export function Taskbar({ windows, onStartClick, isStartMenuOpen, onRestoreWindo
       case 'projects': return t.nav.projects;
       case 'resume': return t.nav.resume;
       case 'contact': return t.nav.contact;
+      case 'notfound': return t.notFound.windowTitle;
     }
   };
 
@@ -47,6 +48,7 @@ export function Taskbar({ windows, onStartClick, isStartMenuOpen, onRestoreWindo
       case 'projects': return '/assets/icons/folder.png';
       case 'resume': return '/assets/icons/document.png';
       case 'contact': return '/assets/icons/mail.png';
+      case 'notfound': return '/assets/icons/windows.png';
     }
   };
 

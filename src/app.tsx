@@ -4,12 +4,13 @@ import { Home } from './pages/home';
 import { Projects } from './pages/projects';
 import { Resume } from './pages/resume';
 import { Contact } from './pages/contact';
+import { NotFound } from './pages/not-found';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
 import { DesktopIcons } from './components/desktop-icons';
 
-type Page = 'home' | 'projects' | 'resume' | 'contact';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'notfound';
 
 type WindowData = {
   id: string;
@@ -20,12 +21,45 @@ type WindowData = {
   isOpening: boolean;
 };
 
+const pathToPage = (path: string): Page => {
+  const normalizedPath = path.replace(/^\/|\/$/g, '') || '';
+  switch (normalizedPath) {
+    case '':
+    case 'home':
+      return 'home';
+    case 'projects':
+      return 'projects';
+    case 'resume':
+      return 'resume';
+    case 'contact':
+      return 'contact';
+    default:
+      return 'notfound';
+  }
+};
+
+const pageToPath = (page: Page): string => {
+  switch (page) {
+    case 'home':
+      return '/';
+    case 'projects':
+      return '/projects';
+    case 'resume':
+      return '/resume';
+    case 'contact':
+      return '/contact';
+    case 'notfound':
+      return '/not-found';
+  }
+};
+
 function AppContent() {
   const [windows, setWindows] = useState<WindowData[]>([]);
   const [nextZIndex, setNextZIndex] = useState(1);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
+  const isNavigatingRef = useRef(false);
 
-  const openWindow = useCallback((page: Page) => {
+  const openWindow = useCallback((page: Page, updateUrl: boolean = true) => {
     const existingWindow = windows.find(w => w.page === page);
     if (existingWindow) {
       // Bring existing window to front and restore if minimized
@@ -36,6 +70,10 @@ function AppContent() {
       ));
       setNextZIndex(prev => prev + 1);
       setIsStartMenuOpen(false);
+      if (updateUrl) {
+        isNavigatingRef.current = true;
+        window.history.pushState({}, '', pageToPath(page));
+      }
       return;
     }
 
@@ -50,6 +88,10 @@ function AppContent() {
     setWindows(prev => [...prev, newWindow]);
     setNextZIndex(prev => prev + 1);
     setIsStartMenuOpen(false);
+    if (updateUrl) {
+      isNavigatingRef.current = true;
+      window.history.pushState({}, '', pageToPath(page));
+    }
   }, [windows, nextZIndex]);
 
   const closeWindow = useCallback((id: string) => {
@@ -90,6 +132,24 @@ function AppContent() {
     setWindows(prev => prev.map(w =>
       w.id === id ? { ...w, position } : w
     ));
+  }, []);
+
+  // Handle initial route and browser navigation
+  useEffect(() => {
+    const page = pathToPage(window.location.pathname);
+    openWindow(page, false);
+
+    const handlePopState = () => {
+      if (isNavigatingRef.current) {
+        isNavigatingRef.current = false;
+        return;
+      }
+      const page = pathToPage(window.location.pathname);
+      openWindow(page, false);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   return (
@@ -160,6 +220,7 @@ function Window({ data, onClose, onMinimize, onMaximize, onFocus, onMove, onNavi
       case 'projects': return t.nav.projects;
       case 'resume': return t.nav.resume;
       case 'contact': return t.nav.contact;
+      case 'notfound': return t.notFound.windowTitle;
     }
   };
 
@@ -169,6 +230,7 @@ function Window({ data, onClose, onMinimize, onMaximize, onFocus, onMove, onNavi
       case 'projects': return <Projects />;
       case 'resume': return <Resume />;
       case 'contact': return <Contact />;
+      case 'notfound': return <NotFound />;
     }
   };
 

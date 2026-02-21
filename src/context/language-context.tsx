@@ -55,6 +55,12 @@ type Translations = {
   footer: {
     builtWith: string;
   };
+  notFound: {
+    title: string;
+    windowTitle: string;
+    message: string;
+    hint: string;
+  };
 };
 
 const translations: Record<string, Translations> = {
@@ -158,6 +164,12 @@ Whether it is backend or frontend. I find both to be equally interesting. Presen
     footer: {
       builtWith: 'Built with Preact & 98.css',
     },
+    notFound: {
+      title: '404',
+      windowTitle: 'Not Found',
+      message: 'The page you are looking for could not be found.',
+      hint: 'Check the address and try again.',
+    },
   },
   da: {
     brand: 'Martin Christiansen',
@@ -258,6 +270,12 @@ Uanset om det er backend eller frontend, så er begge dele lige spændene og udf
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',
+    },
+    notFound: {
+      title: '404',
+      windowTitle: 'Ikke Fundet',
+      message: 'Siden du leder efter blev ikke fundet.',
+      hint: 'Tjek adressen og prøv igen.',
     },
   },
 };
