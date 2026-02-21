@@ -1,65 +1,83 @@
+import { useState } from 'preact/hooks';
 import { useLanguage } from '../context/language-context';
-
-function ResumeItemWindow({ item }: { item: {
-  id: number;
-  title: string;
-  company: string;
-  logo: string;
-  duration: { start: string; end: string };
-  highlights: string[];
-}}) {
-  return (
-    <div class="window" style="width: 100%; margin-top: 10px;">
-      <div class="title-bar">
-        <div class="title-bar-text">{item.title}</div>
-      </div>
-      <div class="window-body">
-        <div style="display: flex; gap: 12px; align-items: flex-start;">
-          <img
-            src={`/${item.logo}`}
-            alt={`${item.company} logo`}
-            style="width: 48px; height: 48px; object-fit: contain; flex-shrink: 0;"
-          />
-          <div style="flex: 1;">
-            <p style="margin: 0;"><strong>{item.company}</strong> - {item.duration.start} - {item.duration.end}</p>
-            <ul style="margin-top: 8px; padding-left: 20px;">
-              {item.highlights.map((highlight, index) => (
-                <li key={index} style="margin-bottom: 4px;">{highlight}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export function Resume() {
   const { t } = useLanguage();
   const { items } = t.resume;
+  const [selectedId, setSelectedId] = useState(items[0]?.id);
 
-  const currentItem = items.find(item => item.duration.end === 'Current' || item.duration.end === 'Nuværende');
-  const previousItems = items.filter(item => item !== currentItem);
+  const selectedItem = items.find(item => item.id === selectedId) || items[0];
 
   return (
-    <div style="padding: 16px;">
-      <h1>{t.resume.title}</h1>
-
-      {currentItem && (
-        <div style="margin-top: 20px;">
-          <h3>{t.resume.current}</h3>
-          <ResumeItemWindow item={currentItem} />
+    <div style="display: flex; height: 100%; background: url('/assets/sky.webp') center center / cover no-repeat;">
+      {/* Left sidebar */}
+      <div style={{
+        width: "180px",
+        padding: "16px",
+        display: "flex",
+        flexDirection: "column",
+        flexShrink: 0
+      }}>
+        {/* Header with brand */}
+        <div style="margin-bottom: 20px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span style="font-size: 20px;">💼</span>
+            <span style="font-size: 11px; font-weight: bold; color: #000080;">Resume</span>
+          </div>
         </div>
-      )}
-
-      {previousItems.length > 0 && (
-        <div style="margin-top: 20px;">
-          <h3>{t.resume.previous}</h3>
-          {previousItems.map((item) => (
-            <ResumeItemWindow key={item.id} item={item} />
-          ))}
+        {/* Navigation links */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {items.map((item, index) => {
+            const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12'];
+            const borderColor = colors[index % colors.length];
+            return (
+              <div
+                onClick={() => setSelectedId(item.id)}
+                style={{
+                  background: selectedId === item.id ? '#000080' : 'transparent',
+                  color: selectedId === item.id ? '#fff' : '#000080',
+                  padding: '4px 8px',
+                  cursor: 'pointer',
+                  fontSize: '11px',
+                  fontFamily: "'MS Sans Serif', 'Segoe UI', sans-serif",
+                  borderLeft: `2px solid ${borderColor}`,
+                  borderBottom: '1px solid #4a3728'
+                }}
+              >
+                {item.title}
+              </div>
+            );
+          })}
         </div>
-      )}
+      </div>
+      {/* Right content area */}
+      <div style="flex: 1; padding: 16px; overflow-y: auto;">
+        {selectedItem && (
+          <>
+            <h2 style="margin: 0 0 12px 0; font-size: 14px; color: #000080; fontWeight: bold;">
+              {selectedItem.title}
+            </h2>
+            <div style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 16px;">
+              <img
+                src={`/${selectedItem.logo}`}
+                alt={`${selectedItem.company} logo`}
+                style="width: 48px; height: 48px; object-fit: contain;"
+              />
+              <div>
+                <div style="font-size: 12px; font-weight: bold; color: #000080;">{selectedItem.company}</div>
+                <div style="font-size: 11px; color: #000; margin-top: 2px;">
+                  {selectedItem.duration.start} - {selectedItem.duration.end}
+                </div>
+              </div>
+            </div>
+            <ul style="margin: 0; padding-left: 20px; font-size: 11px; color: #000;">
+              {selectedItem.highlights.map((highlight, index) => (
+                <li key={index} style="margin-bottom: 6px;">{highlight}</li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
     </div>
   );
 }
