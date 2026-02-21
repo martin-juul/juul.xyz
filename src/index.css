@@ -334,6 +334,70 @@ ul.tree-view {
   border-bottom: 1px solid #fff;
 }
 
+/* Desktop Icons */
+.desktop-icons {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75px;
+  padding: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.desktop-icon-image {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktop-icon-image img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+.desktop-icon-label {
+  font-size: 11px;
+  color: #fff;
+  text-align: center;
+  margin-top: 4px;
+  text-shadow: 1px 1px 1px #000;
+  word-wrap: break-word;
+  max-width: 70px;
+  line-height: 1.2;
+}
+
+.desktop-icon-selected {
+  background: #000080;
+}
+
+.desktop-icon-selected .desktop-icon-label {
+  background: #000080;
+  color: #fff;
+  text-shadow: none;
+}
+
+.desktop-icon-selected .desktop-icon-label::selection {
+  background: #000080;
+}
+
+.desktop-icon-open .desktop-icon-label {
+  font-weight: bold;
+}
+
 /* Desktop with taskbar */
 .desktop {
   flex: 1;

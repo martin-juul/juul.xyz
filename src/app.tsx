@@ -7,6 +7,7 @@ import { Contact } from './pages/contact';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
+import { DesktopIcons } from './components/desktop-icons';
 
 type Page = 'home' | 'projects' | 'resume' | 'contact';
 
@@ -94,6 +95,10 @@ function AppContent() {
   return (
     <>
       <SeoHead page={windows[windows.length - 1]?.page || 'home'} />
+      <DesktopIcons
+        onNavigate={openWindow}
+        openWindowPages={windows.map(w => w.page)}
+      />
       <div class="desktop">
         {windows.map(windowData => (
           <Window
