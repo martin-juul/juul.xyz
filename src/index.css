@@ -1,0 +1,306 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: #008080;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.window {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.window.full-width {
+  max-width: 100%;
+}
+
+a {
+  color: #000080;
+}
+
+a:hover {
+  color: #ff0000;
+}
+
+ul.tree-view {
+  min-width: 200px;
+}
+
+.status-bar {
+  font-size: 12px;
+}
+
+/* Taskbar Styles */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: #c0c0c0;
+  border-top: 2px solid #dfdfdf;
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.start-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  height: 28px;
+  font-weight: bold;
+  font-size: 12px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  cursor: pointer;
+}
+
+.start-button:active,
+.start-button.active {
+  border-color: #808080 #fff #fff #808080;
+  padding: 3px 5px 1px 7px;
+}
+
+/* Danish Flag - pixel art style */
+.danish-flag {
+  width: 16px;
+  height: 12px;
+  background: #c60c30;
+  position: relative;
+}
+
+.flag-white-cross-h {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  width: 3px;
+  height: 12px;
+  background: #fff;
+}
+
+.flag-white-cross-v {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 16px;
+  height: 3px;
+  background: #fff;
+}
+
+.taskbar-windows {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+  padding: 0 8px;
+  overflow: hidden;
+}
+
+.taskbar-window {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  height: 26px;
+  min-width: 120px;
+  max-width: 160px;
+  font-size: 11px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.taskbar-window.active {
+  border-color: #fff #808080 #808080 #fff;
+  background: #fff;
+  font-weight: bold;
+}
+
+.taskbar-window-icon {
+  font-size: 12px;
+}
+
+.system-tray {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  height: 20px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+}
+
+.system-tray-clock {
+  font-size: 11px;
+  font-family: 'Tahoma', sans-serif;
+  padding-left: 2px;
+}
+
+/* Tray Language Menu */
+.tray-language {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tray-language-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+  font-weight: bold;
+  width: auto;
+  height: auto;
+}
+
+.tray-menu {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 4px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  min-width: 120px;
+  box-shadow: 1px 1px 0 #000;
+}
+
+.tray-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 12px;
+  font-size: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.tray-menu-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.tray-menu-item.active {
+  font-weight: bold;
+}
+
+.tray-menu-check {
+  width: 12px;
+  font-size: 10px;
+}
+
+/* Start Menu Styles */
+.start-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 36px;
+  z-index: 999;
+}
+
+.start-menu {
+  position: fixed;
+  bottom: 36px;
+  left: 0;
+  width: 200px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  display: flex;
+  z-index: 1001;
+}
+
+.start-menu-sidebar {
+  width: 24px;
+  background: linear-gradient(to top, #000080, #1084d0);
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 4px;
+}
+
+.start-menu-brand {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: #c0c0c0;
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.start-menu-items {
+  flex: 1;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.start-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  font-size: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.start-menu-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.start-menu-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+/* Desktop with taskbar */
+.desktop {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 56px;
+}
+
+/* Draggable Window */
+.draggable-window {
+  position: relative;
+}
+
+.draggable-window .title-bar {
+  cursor: move;
+  user-select: none;
+}
