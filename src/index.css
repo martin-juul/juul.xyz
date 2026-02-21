@@ -344,9 +344,71 @@ ul.tree-view {
 /* Draggable Window */
 .draggable-window {
   position: relative;
+  transition: transform 0.15s ease-out, opacity 0.15s ease-out;
 }
 
 .draggable-window .title-bar {
   cursor: move;
   user-select: none;
 }
+
+/* Window States */
+.window-minimized {
+  transform: scale(0) !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.window-maximized {
+  margin: 0 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+.window-closing {
+  animation: windowClose 0.2s ease-out forwards;
+}
+
+@keyframes windowClose {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Window restore animation */
+.window:not(.window-minimized) {
+  animation: windowRestore 0.15s ease-out;
+}
+
+@keyframes windowRestore {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Taskbar window button */
+.taskbar-window {
+  cursor: pointer;
+}
+
+.taskbar-window:hover {
+  background: #d4d0c8;
+}
+
+.taskbar-window.active {
+  border-color: #808080 #fff #fff #808080;
+  background: #fff;
+}
+

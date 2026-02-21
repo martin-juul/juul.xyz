@@ -3,14 +3,17 @@ import { useLanguage } from '../context/language-context';
 import { LanguageSwitcher } from './language-switcher';
 
 type Page = 'home' | 'projects' | 'resume' | 'contact';
+type WindowState = 'normal' | 'minimized' | 'maximized';
 
 type TaskbarProps = {
   currentPage: Page;
   onStartClick: () => void;
   isStartMenuOpen: boolean;
+  windowState: WindowState;
+  onRestoreWindow: () => void;
 };
 
-export function Taskbar({ currentPage, onStartClick, isStartMenuOpen }: TaskbarProps) {
+export function Taskbar({ currentPage, onStartClick, isStartMenuOpen, windowState, onRestoreWindow }: TaskbarProps) {
   const { t } = useLanguage();
   const [time, setTime] = useState(new Date());
 
@@ -43,7 +46,10 @@ export function Taskbar({ currentPage, onStartClick, isStartMenuOpen }: TaskbarP
         <span>{t.start}</span>
       </button>
       <div class="taskbar-windows">
-        <div class="taskbar-window active">
+        <div
+          class={`taskbar-window ${windowState !== 'minimized' ? 'active' : ''}`}
+          onClick={onRestoreWindow}
+        >
           <img src="/assets/icons/computer.png" alt="" style="width: 16px; height: 16px;" />
           <span>{getPageLabel()}</span>
         </div>

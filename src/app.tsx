@@ -11,6 +11,7 @@ import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
 
 type Page = 'home' | 'projects' | 'resume' | 'contact';
+type WindowState = 'normal' | 'minimized' | 'maximized';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -19,7 +20,10 @@ function AppContent() {
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [windowPos, setWindowPos] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
+  const [windowState, setWindowState] = useState<WindowState>('normal');
+  const [isClosing, setIsClosing] = useState(false);
   const dragOffset = useRef({ x: 0, y: 0 });
+  const windowRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
 
   const navigateTo = useCallback((page: Page) => {
@@ -55,8 +59,40 @@ function AppContent() {
     }
   };
 
+  const getPageLabel = () => {
+    switch (currentPage) {
+      case 'home': return t.nav.home;
+      case 'projects': return t.nav.projects;
+      case 'resume': return t.nav.resume;
+      case 'contact': return t.nav.contact;
+      default: return t.nav.home;
+    }
+  };
+
+  const handleMinimize = () => {
+    setWindowState('minimized');
+  };
+
+  const handleMaximize = () => {
+    setWindowState(windowState === 'maximized' ? 'normal' : 'maximized');
+  };
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      setWindowState('minimized');
+    }, 200);
+  };
+
+  const handleRestore = () => {
+    setWindowState('normal');
+    setIsStartMenuOpen(false);
+  };
+
   const handleMouseDown = (e: MouseEvent) => {
     if ((e.target as HTMLElement).closest('.title-bar-controls')) return;
+    if (windowState === 'maximized') return;
     setIsDragging(true);
     dragOffset.current = {
       x: e.clientX - windowPos.x,
@@ -87,26 +123,39 @@ function AppContent() {
     };
   }, [isDragging]);
 
+  const getWindowStyle = () => {
+    if (windowState === 'maximized') {
+      return 'width: 100%; height: calc(100vh - 36px); transform: none;';
+    }
+    return `width: 900px; transform: translate(${windowPos.x}px, ${windowPos.y}px);`;
+  };
+
+  const windowClasses = [
+    'window',
+    'full-width',
+    'draggable-window',
+    windowState === 'minimized' && 'window-minimized',
+    windowState === 'maximized' && 'window-maximized',
+    isClosing && 'window-closing',
+  ].filter(Boolean).join(' ');
+
   return (
     <>
       <SeoHead page={currentPage} />
       <div class="desktop">
         <div
-          class="window full-width draggable-window"
-          style={`width: 900px; transform: translate(${windowPos.x}px, ${windowPos.y}px);`}
+          ref={windowRef}
+          class={windowClasses}
+          style={getWindowStyle()}
         >
           <div class="title-bar" onMouseDown={handleMouseDown}>
             <div class="title-bar-text">
-              {currentPage === 'home' && t.nav.home}
-              {currentPage === 'projects' && t.nav.projects}
-              {currentPage === 'resume' && t.nav.resume}
-              {currentPage === 'contact' && t.nav.contact}
-              {' - '}{t.brand}
+              {getPageLabel()} - {t.brand}
             </div>
             <div class="title-bar-controls">
-              <button aria-label="Minimize"></button>
-              <button aria-label="Maximize"></button>
-              <button aria-label="Close"></button>
+              <button aria-label="Minimize" onClick={handleMinimize}></button>
+              <button aria-label="Maximize" onClick={handleMaximize}></button>
+              <button aria-label="Close" onClick={handleClose}></button>
             </div>
           </div>
           <Navbar currentPage={currentPage} onNavigate={navigateTo} />
@@ -127,6 +176,8 @@ function AppContent() {
         currentPage={currentPage}
         onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
         isStartMenuOpen={isStartMenuOpen}
+        windowState={windowState}
+        onRestoreWindow={handleRestore}
       />
     </>
   );
