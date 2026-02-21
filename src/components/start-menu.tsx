@@ -1,6 +1,6 @@
 import { useLanguage } from '../context/language-context';
 
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'notfound';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'notfound';
 
 type StartMenuProps = {
   isOpen: boolean;
@@ -24,6 +24,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
     { page: 'projects' as Page, icon: '/assets/icons/folder.png' },
     { page: 'resume' as Page, icon: '/assets/icons/document.png' },
     { page: 'contact' as Page, icon: '/assets/icons/mail.png' },
+    { page: 'music' as Page, icon: '/assets/icons/music.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -32,6 +33,8 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
       case 'projects': return t.nav.projects;
       case 'resume': return t.nav.resume;
       case 'contact': return t.nav.contact;
+      case 'music': return t.nav.music;
+      case 'notfound': return t.notFound.windowTitle;
     }
   };
 
@@ -57,7 +60,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
                 <span class="start-menu-item-title">{getPageLabel(item.page)}</span>
               </button>
               {index === 0 && <div class="start-menu-separator" />}
-              {index === 2 && <div class="start-menu-separator" />}
+              {index === 3 && <div class="start-menu-separator" />}
             </>
           ))}
         </div>

@@ -21,6 +21,7 @@ type Translations = {
     projects: string;
     resume: string;
     contact: string;
+    music: string;
   };
   home: {
     title: string;
@@ -72,6 +73,7 @@ const translations: Record<string, Translations> = {
       projects: 'Projects',
       resume: 'Resume',
       contact: 'Contact',
+      music: 'Music',
     },
     home: {
       title: "Hi I'm Martin",
@@ -179,6 +181,7 @@ Whether it is backend or frontend. I find both to be equally interesting. Presen
       projects: 'Projekter',
       resume: 'CV',
       contact: 'Kontakt',
+      music: 'Musik',
     },
     home: {
       title: 'Hej, Mit navn er Martin.',

@@ -5,12 +5,13 @@ import { Projects } from './pages/projects';
 import { Resume } from './pages/resume';
 import { Contact } from './pages/contact';
 import { NotFound } from './pages/not-found';
+import { MusicPlayer } from './pages/music';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
 import { DesktopIcons } from './components/desktop-icons';
 
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'notfound';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'notfound';
 
 type WindowData = {
   id: string;
@@ -33,6 +34,8 @@ const pathToPage = (path: string): Page => {
       return 'resume';
     case 'contact':
       return 'contact';
+    case 'music':
+      return 'music';
     default:
       return 'notfound';
   }
@@ -48,6 +51,8 @@ const pageToPath = (page: Page): string => {
       return '/resume';
     case 'contact':
       return '/contact';
+    case 'music':
+      return '/music';
     case 'notfound':
       return '/not-found';
   }
@@ -57,9 +62,21 @@ function AppContent() {
   const [windows, setWindows] = useState<WindowData[]>([]);
   const [nextZIndex, setNextZIndex] = useState(1);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
+  const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
   const isNavigatingRef = useRef(false);
 
   const openWindow = useCallback((page: Page, updateUrl: boolean = true) => {
+    // Music player is handled separately
+    if (page === 'music') {
+      setIsMusicPlayerOpen(true);
+      setIsStartMenuOpen(false);
+      if (updateUrl) {
+        isNavigatingRef.current = true;
+        window.history.pushState({}, '', pageToPath(page));
+      }
+      return;
+    }
+
     const existingWindow = windows.find(w => w.page === page);
     if (existingWindow) {
       // Bring existing window to front and restore if minimized
@@ -152,12 +169,15 @@ function AppContent() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  // Get open pages for highlighting (includes music if open)
+  const openWindowPages = [...windows.map(w => w.page), ...(isMusicPlayerOpen ? ['music' as Page] : [])];
+
   return (
     <>
       <SeoHead page={windows[windows.length - 1]?.page || 'home'} />
       <DesktopIcons
         onNavigate={openWindow}
-        openWindowPages={windows.map(w => w.page)}
+        openWindowPages={openWindowPages}
       />
       <div class="desktop">
         {windows.map(windowData => (
@@ -173,17 +193,23 @@ function AppContent() {
           />
         ))}
       </div>
+      <MusicPlayer
+        isOpen={isMusicPlayerOpen}
+        onClose={() => setIsMusicPlayerOpen(false)}
+      />
       <StartMenu
         isOpen={isStartMenuOpen}
         onClose={() => setIsStartMenuOpen(false)}
         onNavigate={openWindow}
-        openWindowPages={windows.map(w => w.page)}
+        openWindowPages={openWindowPages}
       />
       <Taskbar
         windows={windows}
+        isMusicPlayerOpen={isMusicPlayerOpen}
         onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
         isStartMenuOpen={isStartMenuOpen}
         onRestoreWindow={restoreWindow}
+        onOpenMusicPlayer={() => setIsMusicPlayerOpen(true)}
       />
     </>
   );
@@ -220,6 +246,7 @@ function Window({ data, onClose, onMinimize, onMaximize, onFocus, onMove, onNavi
       case 'projects': return t.nav.projects;
       case 'resume': return t.nav.resume;
       case 'contact': return t.nav.contact;
+      case 'music': return t.nav.music;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -230,6 +257,7 @@ function Window({ data, onClose, onMinimize, onMaximize, onFocus, onMove, onNavi
       case 'projects': return <Projects />;
       case 'resume': return <Resume />;
       case 'contact': return <Contact />;
+      case 'music': return null; // Music is handled separately
       case 'notfound': return <NotFound />;
     }
   };

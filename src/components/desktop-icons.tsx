@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
 import { useLanguage } from '../context/language-context';
 
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'notfound';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'notfound';
 
 type DesktopIconsProps = {
   onNavigate: (page: Page) => void;
@@ -18,6 +18,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
     { page: 'projects' as Page, icon: '/assets/icons/folder.png' },
     { page: 'resume' as Page, icon: '/assets/icons/document.png' },
     { page: 'contact' as Page, icon: '/assets/icons/mail.png' },
+    { page: 'music' as Page, icon: '/assets/icons/music.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -26,6 +27,8 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
       case 'projects': return t.nav.projects;
       case 'resume': return t.nav.resume;
       case 'contact': return t.nav.contact;
+      case 'music': return t.nav.music;
+      case 'notfound': return t.notFound.windowTitle;
     }
   };
 
