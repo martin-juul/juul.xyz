@@ -23,24 +23,36 @@ export function StartMenu({ isOpen, onClose, onNavigate }: StartMenuProps) {
       <div class="start-menu-overlay" onClick={onClose} />
       <div class="start-menu">
         <div class="start-menu-sidebar">
-          <span class="start-menu-brand">{t.brand}</span>
+          <span class="start-menu-brand">
+            Martin<span class="start-menu-brand-suffix">98</span>
+          </span>
         </div>
         <div class="start-menu-items">
           <button class="start-menu-item" onClick={() => handleNavigate('home')}>
-            <span class="start-menu-icon">🏠</span>
-            <span>{t.nav.home}</span>
+            <span class="start-menu-icon">
+              <img src="/assets/icons/home.png" alt="" />
+            </span>
+            <span class="start-menu-item-title">{t.nav.home}</span>
           </button>
+          <div class="start-menu-separator" />
           <button class="start-menu-item" onClick={() => handleNavigate('projects')}>
-            <span class="start-menu-icon">📁</span>
-            <span>{t.nav.projects}</span>
+            <span class="start-menu-icon">
+              <img src="/assets/icons/folder.png" alt="" />
+            </span>
+            <span class="start-menu-item-title">{t.nav.projects}</span>
           </button>
           <button class="start-menu-item" onClick={() => handleNavigate('resume')}>
-            <span class="start-menu-icon">📄</span>
-            <span>{t.nav.resume}</span>
+            <span class="start-menu-icon">
+              <img src="/assets/icons/document.png" alt="" />
+            </span>
+            <span class="start-menu-item-title">{t.nav.resume}</span>
           </button>
+          <div class="start-menu-separator" />
           <button class="start-menu-item" onClick={() => handleNavigate('contact')}>
-            <span class="start-menu-icon">✉️</span>
-            <span>{t.nav.contact}</span>
+            <span class="start-menu-icon">
+              <img src="/assets/icons/mail.png" alt="" />
+            </span>
+            <span class="start-menu-item-title">{t.nav.contact}</span>
           </button>
         </div>
       </div>

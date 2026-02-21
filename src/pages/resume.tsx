@@ -21,7 +21,7 @@ export function Resume() {
         {/* Header with brand */}
         <div style="margin-bottom: 20px;">
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-            <span style="font-size: 20px;">💼</span>
+            <img src="/assets/icons/briefcase.png" alt="" style="width: 24px; height: 24px;" />
             <span style="font-size: 11px; font-weight: bold; color: #000080;">Resume</span>
           </div>
         </div>

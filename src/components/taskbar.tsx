@@ -39,15 +39,12 @@ export function Taskbar({ currentPage, onStartClick, isStartMenuOpen }: TaskbarP
         class={`start-button ${isStartMenuOpen ? 'active' : ''}`}
         onClick={onStartClick}
       >
-        <div class="danish-flag">
-          <div class="flag-white-cross-h"></div>
-          <div class="flag-white-cross-v"></div>
-        </div>
+        <img src="/assets/icons/windows.png" alt="" style="width: 16px; height: 16px;" />
         <span>{t.start}</span>
       </button>
       <div class="taskbar-windows">
         <div class="taskbar-window active">
-          <span class="taskbar-window-icon">💻</span>
+          <img src="/assets/icons/computer.png" alt="" style="width: 16px; height: 16px;" />
           <span>{getPageLabel()}</span>
         </div>
       </div>

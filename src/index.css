@@ -241,47 +241,58 @@ ul.tree-view {
   width: 200px;
   background: #c0c0c0;
   border: 2px solid;
-  border-color: #fff #808080 #808080 #fff;
+  border-color: #dfdfdf #000 #000 #dfdfdf;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
   display: flex;
   z-index: 1001;
 }
 
 .start-menu-sidebar {
   width: 24px;
-  background: linear-gradient(to top, #000080, #1084d0);
+  background: linear-gradient(to top, #000080, #008080);
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   padding-bottom: 4px;
+  flex-shrink: 0;
 }
 
 .start-menu-brand {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  color: #c0c0c0;
+  color: #fff;
   font-weight: bold;
-  font-size: 18px;
-  letter-spacing: 2px;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.start-menu-brand-suffix {
+  font-weight: normal;
+  font-size: 11px;
 }
 
 .start-menu-items {
   flex: 1;
-  padding: 4px;
+  padding: 2px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  min-width: 0;
 }
 
 .start-menu-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
-  font-size: 12px;
+  gap: 6px;
+  padding: 3px 4px;
+  font-size: 11px;
   background: transparent;
   border: none;
   cursor: pointer;
   text-align: left;
   width: 100%;
+  color: #000;
+  font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
 }
 
 .start-menu-item:hover {
@@ -290,9 +301,34 @@ ul.tree-view {
 }
 
 .start-menu-icon {
-  font-size: 16px;
-  width: 20px;
-  text-align: center;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.start-menu-icon img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+.start-menu-item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.start-menu-item-title {
+  font-size: 11px;
+}
+
+.start-menu-separator {
+  height: 2px;
+  margin: 2px 4px;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #fff;
 }
 
 /* Desktop with taskbar */
