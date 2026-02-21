@@ -3,17 +3,23 @@ import { useLanguage } from '../context/language-context';
 import { LanguageSwitcher } from './language-switcher';
 
 type Page = 'home' | 'projects' | 'resume' | 'contact';
-type WindowState = 'normal' | 'minimized' | 'maximized';
 
-type TaskbarProps = {
-  currentPage: Page;
-  onStartClick: () => void;
-  isStartMenuOpen: boolean;
-  windowState: WindowState;
-  onRestoreWindow: () => void;
+type WindowData = {
+  id: string;
+  page: Page;
+  state: 'normal' | 'minimized' | 'maximized';
+  position: { x: number; y: number };
+  zIndex: number;
 };
 
-export function Taskbar({ currentPage, onStartClick, isStartMenuOpen, windowState, onRestoreWindow }: TaskbarProps) {
+type TaskbarProps = {
+  windows: WindowData[];
+  onStartClick: () => void;
+  isStartMenuOpen: boolean;
+  onRestoreWindow: (id: string) => void;
+};
+
+export function Taskbar({ windows, onStartClick, isStartMenuOpen, onRestoreWindow }: TaskbarProps) {
   const { t } = useLanguage();
   const [time, setTime] = useState(new Date());
 
@@ -26,13 +32,21 @@ export function Taskbar({ currentPage, onStartClick, isStartMenuOpen, windowStat
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  const getPageLabel = () => {
-    switch (currentPage) {
+  const getPageLabel = (page: Page) => {
+    switch (page) {
       case 'home': return t.nav.home;
       case 'projects': return t.nav.projects;
       case 'resume': return t.nav.resume;
       case 'contact': return t.nav.contact;
-      default: return t.nav.home;
+    }
+  };
+
+  const getPageIcon = (page: Page) => {
+    switch (page) {
+      case 'home': return '/assets/icons/home.png';
+      case 'projects': return '/assets/icons/folder.png';
+      case 'resume': return '/assets/icons/document.png';
+      case 'contact': return '/assets/icons/mail.png';
     }
   };
 
@@ -46,13 +60,16 @@ export function Taskbar({ currentPage, onStartClick, isStartMenuOpen, windowStat
         <span>{t.start}</span>
       </button>
       <div class="taskbar-windows">
-        <div
-          class={`taskbar-window ${windowState !== 'minimized' ? 'active' : ''}`}
-          onClick={onRestoreWindow}
-        >
-          <img src="/assets/icons/computer.png" alt="" style="width: 16px; height: 16px;" />
-          <span>{getPageLabel()}</span>
-        </div>
+        {windows.map(window => (
+          <div
+            key={window.id}
+            class={`taskbar-window ${window.state !== 'minimized' ? 'active' : ''}`}
+            onClick={() => onRestoreWindow(window.id)}
+          >
+            <img src={getPageIcon(window.page)} alt="" style="width: 16px; height: 16px;" />
+            <span>{getPageLabel(window.page)}</span>
+          </div>
+        ))}
       </div>
       <div class="system-tray">
         <LanguageSwitcher />

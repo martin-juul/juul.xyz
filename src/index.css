@@ -78,6 +78,7 @@ ul.tree-view {
   border: 2px solid;
   border-color: #fff #808080 #808080 #fff;
   cursor: pointer;
+  will-change: border-color, padding;
 }
 
 .start-button:active,
@@ -245,6 +246,7 @@ ul.tree-view {
   box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
   display: flex;
   z-index: 1001;
+  will-change: opacity;
 }
 
 .start-menu-sidebar {
@@ -293,6 +295,7 @@ ul.tree-view {
   width: 100%;
   color: #000;
   font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+  will-change: background-color, color;
 }
 
 .start-menu-item:hover {
@@ -352,6 +355,14 @@ ul.tree-view {
   user-select: none;
 }
 
+/* App Window */
+.app-window {
+  position: absolute;
+  left: 50%;
+  margin-left: -450px;
+  will-change: transform, opacity;
+}
+
 /* Window States */
 .window-minimized {
   transform: scale(0) !important;
@@ -365,10 +376,16 @@ ul.tree-view {
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.window-maximized.app-window {
+  left: 0;
 }
 
 .window-closing {
   animation: windowClose 0.2s ease-out forwards;
+  will-change: transform, opacity;
 }
 
 @keyframes windowClose {
@@ -383,17 +400,18 @@ ul.tree-view {
 }
 
 /* Window restore animation */
-.window:not(.window-minimized) {
-  animation: windowRestore 0.15s ease-out;
+.window-opening {
+  animation: windowOpen 0.15s ease-out;
+  will-change: transform, opacity;
 }
 
-@keyframes windowRestore {
+@keyframes windowOpen {
   0% {
-    transform: scale(0.8);
-    opacity: 0.5;
+    transform: scale(0.5) translate(-50%, -50%);
+    opacity: 0;
   }
   100% {
-    transform: scale(1);
+    transform: scale(1) translate(0, 0);
     opacity: 1;
   }
 }
@@ -401,6 +419,7 @@ ul.tree-view {
 /* Taskbar window button */
 .taskbar-window {
   cursor: pointer;
+  will-change: background-color;
 }
 
 .taskbar-window:hover {
@@ -410,5 +429,10 @@ ul.tree-view {
 .taskbar-window.active {
   border-color: #808080 #fff #fff #808080;
   background: #fff;
+}
+
+/* Start menu item - already open */
+.start-menu-item-open {
+  font-weight: bold;
 }
 

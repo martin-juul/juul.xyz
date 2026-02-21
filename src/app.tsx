@@ -4,99 +4,177 @@ import { Home } from './pages/home';
 import { Projects } from './pages/projects';
 import { Resume } from './pages/resume';
 import { Contact } from './pages/contact';
-import { Navbar } from './components/navbar';
-import { Footer } from './components/footer';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
 
 type Page = 'home' | 'projects' | 'resume' | 'contact';
-type WindowState = 'normal' | 'minimized' | 'maximized';
+
+type WindowData = {
+  id: string;
+  page: Page;
+  state: 'normal' | 'minimized' | 'maximized';
+  position: { x: number; y: number };
+  zIndex: number;
+  isOpening: boolean;
+};
 
 function AppContent() {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadProgress, setLoadProgress] = useState(100);
+  const [windows, setWindows] = useState<WindowData[]>([]);
+  const [nextZIndex, setNextZIndex] = useState(1);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
-  const [windowPos, setWindowPos] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [windowState, setWindowState] = useState<WindowState>('normal');
-  const [isClosing, setIsClosing] = useState(false);
-  const dragOffset = useRef({ x: 0, y: 0 });
-  const windowRef = useRef<HTMLDivElement>(null);
-  const { t } = useLanguage();
 
-  const navigateTo = useCallback((page: Page) => {
-    if (page === currentPage) return;
-    setIsLoading(true);
-    setLoadProgress(0);
-
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += Math.random() * 30;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(interval);
-        setIsLoading(false);
-        setCurrentPage(page);
-      }
-      setLoadProgress(progress);
-    }, 50);
-  }, [currentPage]);
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <Home onNavigate={navigateTo} />;
-      case 'projects':
-        return <Projects />;
-      case 'resume':
-        return <Resume />;
-      case 'contact':
-        return <Contact />;
-      default:
-        return <Home onNavigate={navigateTo} />;
+  const openWindow = useCallback((page: Page) => {
+    const existingWindow = windows.find(w => w.page === page);
+    if (existingWindow) {
+      // Bring existing window to front and restore if minimized
+      setWindows(prev => prev.map(w =>
+        w.id === existingWindow.id
+          ? { ...w, state: 'normal' as const, zIndex: nextZIndex, isOpening: false }
+          : w
+      ));
+      setNextZIndex(prev => prev + 1);
+      setIsStartMenuOpen(false);
+      return;
     }
-  };
 
-  const getPageLabel = () => {
-    switch (currentPage) {
+    const newWindow: WindowData = {
+      id: `${page}-${Date.now()}`,
+      page,
+      state: 'normal',
+      position: { x: 20 + (windows.length * 30), y: 20 + (windows.length * 30) },
+      zIndex: nextZIndex,
+      isOpening: true,
+    };
+    setWindows(prev => [...prev, newWindow]);
+    setNextZIndex(prev => prev + 1);
+    setIsStartMenuOpen(false);
+  }, [windows, nextZIndex]);
+
+  const closeWindow = useCallback((id: string) => {
+    setWindows(prev => prev.filter(w => w.id !== id));
+  }, []);
+
+  const minimizeWindow = useCallback((id: string) => {
+    setWindows(prev => prev.map(w =>
+      w.id === id ? { ...w, state: 'minimized' as const } : w
+    ));
+  }, []);
+
+  const maximizeWindow = useCallback((id: string) => {
+    setWindows(prev => prev.map(w =>
+      w.id === id
+        ? { ...w, state: w.state === 'maximized' ? 'normal' as const : 'maximized' as const }
+        : w
+    ));
+  }, []);
+
+  const restoreWindow = useCallback((id: string) => {
+    setWindows(prev => prev.map(w =>
+      w.id === id
+        ? { ...w, state: 'normal' as const, zIndex: nextZIndex, isOpening: false }
+        : w
+    ));
+    setNextZIndex(prev => prev + 1);
+  }, [nextZIndex]);
+
+  const focusWindow = useCallback((id: string) => {
+    setWindows(prev => prev.map(w =>
+      w.id === id ? { ...w, zIndex: nextZIndex, isOpening: false } : w
+    ));
+    setNextZIndex(prev => prev + 1);
+  }, [nextZIndex]);
+
+  const moveWindow = useCallback((id: string, position: { x: number; y: number }) => {
+    setWindows(prev => prev.map(w =>
+      w.id === id ? { ...w, position } : w
+    ));
+  }, []);
+
+  return (
+    <>
+      <SeoHead page={windows[windows.length - 1]?.page || 'home'} />
+      <div class="desktop">
+        {windows.map(windowData => (
+          <Window
+            key={windowData.id}
+            data={windowData}
+            onClose={() => closeWindow(windowData.id)}
+            onMinimize={() => minimizeWindow(windowData.id)}
+            onMaximize={() => maximizeWindow(windowData.id)}
+            onFocus={() => focusWindow(windowData.id)}
+            onMove={(pos) => moveWindow(windowData.id, pos)}
+            onNavigate={openWindow}
+          />
+        ))}
+      </div>
+      <StartMenu
+        isOpen={isStartMenuOpen}
+        onClose={() => setIsStartMenuOpen(false)}
+        onNavigate={openWindow}
+        openWindowPages={windows.map(w => w.page)}
+      />
+      <Taskbar
+        windows={windows}
+        onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
+        isStartMenuOpen={isStartMenuOpen}
+        onRestoreWindow={restoreWindow}
+      />
+    </>
+  );
+}
+
+type WindowProps = {
+  data: WindowData;
+  onClose: () => void;
+  onMinimize: () => void;
+  onMaximize: () => void;
+  onFocus: () => void;
+  onMove: (pos: { x: number; y: number }) => void;
+  onNavigate: (page: Page) => void;
+};
+
+function Window({ data, onClose, onMinimize, onMaximize, onFocus, onMove, onNavigate }: WindowProps) {
+  const { t } = useLanguage();
+  const [isDragging, setIsDragging] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [hasOpened, setHasOpened] = useState(false);
+  const dragOffset = useRef({ x: 0, y: 0 });
+
+  // Clear opening animation after it plays
+  useEffect(() => {
+    if (data.isOpening) {
+      const timer = setTimeout(() => setHasOpened(true), 150);
+      return () => clearTimeout(timer);
+    }
+  }, [data.isOpening]);
+
+  const getPageTitle = () => {
+    switch (data.page) {
       case 'home': return t.nav.home;
       case 'projects': return t.nav.projects;
       case 'resume': return t.nav.resume;
       case 'contact': return t.nav.contact;
-      default: return t.nav.home;
     }
   };
 
-  const handleMinimize = () => {
-    setWindowState('minimized');
-  };
-
-  const handleMaximize = () => {
-    setWindowState(windowState === 'maximized' ? 'normal' : 'maximized');
-  };
-
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      setWindowState('minimized');
-    }, 200);
-  };
-
-  const handleRestore = () => {
-    setWindowState('normal');
-    setIsStartMenuOpen(false);
+  const renderContent = () => {
+    switch (data.page) {
+      case 'home': return <Home onNavigate={onNavigate} />;
+      case 'projects': return <Projects />;
+      case 'resume': return <Resume />;
+      case 'contact': return <Contact />;
+    }
   };
 
   const handleMouseDown = (e: MouseEvent) => {
     if ((e.target as HTMLElement).closest('.title-bar-controls')) return;
-    if (windowState === 'maximized') return;
+    if (data.state === 'maximized') return;
+    onFocus();
     setIsDragging(true);
     dragOffset.current = {
-      x: e.clientX - windowPos.x,
-      y: e.clientY - windowPos.y,
+      x: e.clientX - data.position.x,
+      y: e.clientY - data.position.y,
     };
   };
 
@@ -104,7 +182,7 @@ function AppContent() {
     if (!isDragging) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      setWindowPos({
+      onMove({
         x: e.clientX - dragOffset.current.x,
         y: e.clientY - dragOffset.current.y,
       });
@@ -121,65 +199,67 @@ function AppContent() {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging]);
+  }, [isDragging, onMove]);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 200);
+  };
 
   const getWindowStyle = () => {
-    if (windowState === 'maximized') {
-      return 'width: 100%; height: calc(100vh - 36px); transform: none;';
+    if (data.state === 'maximized') {
+      return {
+        width: '100%',
+        height: 'calc(100vh - 36px)',
+        left: 0,
+        top: 0,
+        zIndex: data.zIndex,
+      };
     }
-    return `width: 900px; transform: translate(${windowPos.x}px, ${windowPos.y}px);`;
+    return {
+      width: '900px',
+      transform: `translate(${data.position.x}px, ${data.position.y}px)`,
+      zIndex: data.zIndex,
+    };
   };
 
   const windowClasses = [
     'window',
-    'full-width',
-    'draggable-window',
-    windowState === 'minimized' && 'window-minimized',
-    windowState === 'maximized' && 'window-maximized',
+    'app-window',
+    data.state === 'minimized' && 'window-minimized',
+    data.state === 'maximized' && 'window-maximized',
     isClosing && 'window-closing',
+    data.isOpening && !hasOpened && 'window-opening',
   ].filter(Boolean).join(' ');
 
+  if (data.state === 'minimized') {
+    return null;
+  }
+
   return (
-    <>
-      <SeoHead page={currentPage} />
-      <div class="desktop">
-        <div
-          ref={windowRef}
-          class={windowClasses}
-          style={getWindowStyle()}
-        >
-          <div class="title-bar" onMouseDown={handleMouseDown}>
-            <div class="title-bar-text">
-              {getPageLabel()} - {t.brand}
-            </div>
-            <div class="title-bar-controls">
-              <button aria-label="Minimize" onClick={handleMinimize}></button>
-              <button aria-label="Maximize" onClick={handleMaximize}></button>
-              <button aria-label="Close" onClick={handleClose}></button>
-            </div>
-          </div>
-          <Navbar currentPage={currentPage} onNavigate={navigateTo} />
-          <div class="window-body">
-            <div style="height: 500px; overflow-y: auto;">
-              {renderPage()}
-            </div>
-          </div>
-          <Footer isLoading={isLoading} loadProgress={loadProgress} />
+    <div
+      class={windowClasses}
+      style={getWindowStyle()}
+      onClick={onFocus}
+    >
+      <div class="title-bar" onMouseDown={handleMouseDown}>
+        <div class="title-bar-text">
+          {getPageTitle()} - {t.brand}
+        </div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize" onClick={onMinimize}></button>
+          <button aria-label="Maximize" onClick={onMaximize}></button>
+          <button aria-label="Close" onClick={handleClose}></button>
         </div>
       </div>
-      <StartMenu
-        isOpen={isStartMenuOpen}
-        onClose={() => setIsStartMenuOpen(false)}
-        onNavigate={navigateTo}
-      />
-      <Taskbar
-        currentPage={currentPage}
-        onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
-        isStartMenuOpen={isStartMenuOpen}
-        windowState={windowState}
-        onRestoreWindow={handleRestore}
-      />
-    </>
+      <div class="window-body">
+        <div style="height: 500px; overflow-y: auto;">
+          {renderContent()}
+        </div>
+      </div>
+    </div>
   );
 }
 

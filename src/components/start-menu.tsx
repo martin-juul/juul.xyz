@@ -6,9 +6,10 @@ type StartMenuProps = {
   isOpen: boolean;
   onClose: () => void;
   onNavigate: (page: Page) => void;
+  openWindowPages: Page[];
 };
 
-export function StartMenu({ isOpen, onClose, onNavigate }: StartMenuProps) {
+export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: StartMenuProps) {
   const { t } = useLanguage();
 
   if (!isOpen) return null;
@@ -16,6 +17,22 @@ export function StartMenu({ isOpen, onClose, onNavigate }: StartMenuProps) {
   const handleNavigate = (page: Page) => {
     onNavigate(page);
     onClose();
+  };
+
+  const menuItems = [
+    { page: 'home' as Page, icon: '/assets/icons/home.png' },
+    { page: 'projects' as Page, icon: '/assets/icons/folder.png' },
+    { page: 'resume' as Page, icon: '/assets/icons/document.png' },
+    { page: 'contact' as Page, icon: '/assets/icons/mail.png' },
+  ];
+
+  const getPageLabel = (page: Page) => {
+    switch (page) {
+      case 'home': return t.nav.home;
+      case 'projects': return t.nav.projects;
+      case 'resume': return t.nav.resume;
+      case 'contact': return t.nav.contact;
+    }
   };
 
   return (
@@ -28,32 +45,21 @@ export function StartMenu({ isOpen, onClose, onNavigate }: StartMenuProps) {
           </span>
         </div>
         <div class="start-menu-items">
-          <button class="start-menu-item" onClick={() => handleNavigate('home')}>
-            <span class="start-menu-icon">
-              <img src="/assets/icons/home.png" alt="" />
-            </span>
-            <span class="start-menu-item-title">{t.nav.home}</span>
-          </button>
-          <div class="start-menu-separator" />
-          <button class="start-menu-item" onClick={() => handleNavigate('projects')}>
-            <span class="start-menu-icon">
-              <img src="/assets/icons/folder.png" alt="" />
-            </span>
-            <span class="start-menu-item-title">{t.nav.projects}</span>
-          </button>
-          <button class="start-menu-item" onClick={() => handleNavigate('resume')}>
-            <span class="start-menu-icon">
-              <img src="/assets/icons/document.png" alt="" />
-            </span>
-            <span class="start-menu-item-title">{t.nav.resume}</span>
-          </button>
-          <div class="start-menu-separator" />
-          <button class="start-menu-item" onClick={() => handleNavigate('contact')}>
-            <span class="start-menu-icon">
-              <img src="/assets/icons/mail.png" alt="" />
-            </span>
-            <span class="start-menu-item-title">{t.nav.contact}</span>
-          </button>
+          {menuItems.map((item, index) => (
+            <>
+              <button
+                class={`start-menu-item ${openWindowPages.includes(item.page) ? 'start-menu-item-open' : ''}`}
+                onClick={() => handleNavigate(item.page)}
+              >
+                <span class="start-menu-icon">
+                  <img src={item.icon} alt="" />
+                </span>
+                <span class="start-menu-item-title">{getPageLabel(item.page)}</span>
+              </button>
+              {index === 0 && <div class="start-menu-separator" />}
+              {index === 2 && <div class="start-menu-separator" />}
+            </>
+          ))}
         </div>
       </div>
     </>
