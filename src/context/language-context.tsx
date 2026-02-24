@@ -1,5 +1,13 @@
 import { createContext, ComponentChildren } from 'preact';
 import { useContext, useState, useCallback, useEffect } from 'preact/hooks';
+import {
+  parsePath,
+  buildPath,
+  hasLegacyLangParam,
+  getAlternateUrls,
+  type Page,
+  type Language,
+} from '../lib/i18n-routing';
 
 type ResumeItem = {
   id: number;
@@ -52,6 +60,7 @@ type Translations = {
     send: string;
     error: string;
     unableToSend: string;
+    success: string;
   };
   footer: {
     builtWith: string;
@@ -161,8 +170,9 @@ Whether it is backend or frontend. I find both to be equally interesting. Presen
       email: 'E-Mail',
       message: 'Message',
       send: 'Send',
-      error: 'Error',
+      error: 'Please fill in all fields',
       unableToSend: 'Could not send message due to an error',
+      success: 'Message sent successfully!',
     },
     footer: {
       builtWith: 'Built with Preact & 98.css',
@@ -270,8 +280,9 @@ Uanset om det er backend eller frontend, så er begge dele lige spændene og udf
       email: 'E-Mail',
       message: 'Besked',
       send: 'Send',
-      error: 'Fejl',
+      error: 'Udfyld venligst alle felter',
       unableToSend: 'Kunne ikke sende beskeden på grund af en fejl',
+      success: 'Besked sendt!',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',
@@ -286,71 +297,112 @@ Uanset om det er backend eller frontend, så er begge dele lige spændene og udf
 };
 
 type LanguageContextType = {
-  language: string;
-  setLanguage: (lang: string) => void;
+  language: Language;
+  setLanguage: (lang: Language) => void;
   t: Translations;
+  currentPage: Page;
+  navigateTo: (page: Page, replace?: boolean) => void;
+  getAlternateUrls: (page: Page) => Record<Language, string>;
 };
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
-function getLanguageFromURL(): string | null {
-  if (typeof window === 'undefined') return null;
-  const params = new URLSearchParams(window.location.search);
-  const lang = params.get('lang');
-  if (lang === 'en' || lang === 'da') return lang;
-  return null;
-}
-
-function getDefaultLanguage(): string {
+function getDefaultLanguage(): Language {
   if (typeof window === 'undefined') return 'en';
   if (navigator.language === 'da') return 'da';
   return 'en';
 }
 
 export function LanguageProvider({ children }: { children: ComponentChildren }) {
-  const [language, setLanguageState] = useState(() => {
-    const urlLang = getLanguageFromURL();
-    if (urlLang) return urlLang;
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window === 'undefined') return 'en';
 
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('language');
-      if (saved && (saved === 'en' || saved === 'da')) return saved;
+    // Check for legacy ?lang= parameter first
+    const { hasParam, lang: urlLang } = hasLegacyLangParam(window.location.search);
+    if (hasParam && urlLang) return urlLang;
+
+    // Check for language in path
+    const { language: pathLang } = parsePath(window.location.pathname);
+    if (pathLang !== 'en' || window.location.pathname.startsWith('/en')) {
+      return pathLang;
     }
+
+    // Check localStorage
+    const saved = localStorage.getItem('language');
+    if (saved && (saved === 'en' || saved === 'da')) return saved as Language;
 
     return getDefaultLanguage();
   });
 
-  const setLanguage = useCallback((lang: string) => {
+  const [currentPage, setCurrentPage] = useState<Page>(() => {
+    if (typeof window === 'undefined') return 'home';
+    const { page } = parsePath(window.location.pathname);
+    return page;
+  });
+
+  // Handle legacy ?lang= redirects and path-based language detection
+  useEffect(() => {
+    const { hasParam, lang } = hasLegacyLangParam(window.location.search);
+
+    if (hasParam && lang) {
+      // Redirect from legacy ?lang= to path-based URL
+      const { page } = parsePath(window.location.pathname);
+      const newPath = buildPath(lang, page);
+      const newUrl = newPath + window.location.hash;
+      window.history.replaceState({}, '', newUrl);
+      setCurrentPage(page);
+      return;
+    }
+
+    // Set initial page from path
+    const { page } = parsePath(window.location.pathname);
+    setCurrentPage(page);
+
+    // If on root path without language prefix, redirect to proper URL
+    if (window.location.pathname === '/' && language !== 'en') {
+      const newPath = buildPath(language, 'home');
+      window.history.replaceState({}, '', newPath);
+    }
+  }, []);
+
+  const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('language', lang);
 
-    const url = new URL(window.location.href);
-    url.searchParams.set('lang', lang);
-    window.history.replaceState({}, '', url.toString());
-  }, []);
+    // Navigate to same page in new language
+    const newPath = buildPath(lang, currentPage);
+    window.history.pushState({}, '', newPath);
+  }, [currentPage]);
 
+  const navigateTo = useCallback((page: Page, replace: boolean = false) => {
+    setCurrentPage(page);
+    const newPath = buildPath(language, page);
+
+    if (replace) {
+      window.history.replaceState({}, '', newPath);
+    } else {
+      window.history.pushState({}, '', newPath);
+    }
+  }, [language]);
+
+  // Handle browser back/forward navigation
   useEffect(() => {
     const handlePopState = () => {
-      const urlLang = getLanguageFromURL();
-      if (urlLang && urlLang !== language) {
-        setLanguageState(urlLang);
-        localStorage.setItem('language', urlLang);
+      const { language: pathLang, page } = parsePath(window.location.pathname);
+
+      if (pathLang !== language) {
+        setLanguageState(pathLang);
+        localStorage.setItem('language', pathLang);
       }
+
+      setCurrentPage(page);
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, [language]);
 
-  useEffect(() => {
-    const urlLang = getLanguageFromURL();
-    if (!urlLang) {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', language);
-      window.history.replaceState({}, '', url.toString());
-    }
-  }, []);
-
+  // Update document lang attribute
   useEffect(() => {
     document.documentElement.lang = language;
   }, [language]);
@@ -358,7 +410,7 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
   const t = translations[language] || translations.en;
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, currentPage, navigateTo, getAlternateUrls }}>
       {children}
     </LanguageContext.Provider>
   );

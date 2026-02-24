@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'preact/hooks';
 import { useLanguage } from '../context/language-context';
+import { type Language } from '../lib/i18n-routing';
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
@@ -17,7 +18,7 @@ export function LanguageSwitcher() {
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
-  const handleSelect = (lang: string) => {
+  const handleSelect = (lang: Language) => {
     setLanguage(lang);
     setIsOpen(false);
   };

@@ -10,8 +10,7 @@ import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
 import { DesktopIcons } from './components/desktop-icons';
-
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'notfound';
+import { type Page } from './lib/i18n-routing';
 
 type WindowData = {
   id: string;
@@ -22,48 +21,14 @@ type WindowData = {
   isOpening: boolean;
 };
 
-const pathToPage = (path: string): Page => {
-  const normalizedPath = path.replace(/^\/|\/$/g, '') || '';
-  switch (normalizedPath) {
-    case '':
-    case 'home':
-      return 'home';
-    case 'projects':
-      return 'projects';
-    case 'resume':
-      return 'resume';
-    case 'contact':
-      return 'contact';
-    case 'music':
-      return 'music';
-    default:
-      return 'notfound';
-  }
-};
-
-const pageToPath = (page: Page): string => {
-  switch (page) {
-    case 'home':
-      return '/';
-    case 'projects':
-      return '/projects';
-    case 'resume':
-      return '/resume';
-    case 'contact':
-      return '/contact';
-    case 'music':
-      return '/music';
-    case 'notfound':
-      return '/not-found';
-  }
-};
-
 function AppContent() {
+  const { navigateTo, currentPage } = useLanguage();
   const [windows, setWindows] = useState<WindowData[]>([]);
   const [nextZIndex, setNextZIndex] = useState(1);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
   const isNavigatingRef = useRef(false);
+  const initialPageHandled = useRef(false);
 
   const closeMusicPlayer = useCallback(() => {
     setIsMusicPlayerOpen(false);
@@ -76,7 +41,7 @@ function AppContent() {
       setIsStartMenuOpen(false);
       if (updateUrl) {
         isNavigatingRef.current = true;
-        window.history.pushState({}, '', pageToPath(page));
+        navigateTo(page);
       }
       return;
     }
@@ -93,7 +58,7 @@ function AppContent() {
       setIsStartMenuOpen(false);
       if (updateUrl) {
         isNavigatingRef.current = true;
-        window.history.pushState({}, '', pageToPath(page));
+        navigateTo(page);
       }
       return;
     }
@@ -111,9 +76,9 @@ function AppContent() {
     setIsStartMenuOpen(false);
     if (updateUrl) {
       isNavigatingRef.current = true;
-      window.history.pushState({}, '', pageToPath(page));
+      navigateTo(page);
     }
-  }, [windows, nextZIndex]);
+  }, [windows, nextZIndex, navigateTo]);
 
   const closeWindow = useCallback((id: string) => {
     setWindows(prev => prev.filter(w => w.id !== id));
@@ -155,23 +120,12 @@ function AppContent() {
     ));
   }, []);
 
-  // Handle initial route and browser navigation
+  // Handle initial route - use currentPage from context
   useEffect(() => {
-    const page = pathToPage(window.location.pathname);
-    openWindow(page, false);
-
-    const handlePopState = () => {
-      if (isNavigatingRef.current) {
-        isNavigatingRef.current = false;
-        return;
-      }
-      const page = pathToPage(window.location.pathname);
-      openWindow(page, false);
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+    if (initialPageHandled.current) return;
+    initialPageHandled.current = true;
+    openWindow(currentPage, false);
+  }, [currentPage]);
 
   // Get open pages for highlighting (includes music if open)
   const openWindowPages = [...windows.map(w => w.page), ...(isMusicPlayerOpen ? ['music' as Page] : [])];
