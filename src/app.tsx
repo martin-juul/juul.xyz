@@ -450,7 +450,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       style={getWindowStyle()}
       onClick={onFocus}
     >
-      <div class={`title-bar${!isFocused ? ' inactive' : ''}`} onMouseDown={handleMouseDown}>
+      <div class={`title-bar${!isFocused ? ' inactive' : ''}`} onMouseDown={handleMouseDown} onDblClick={onMaximize}>
         <div class="title-bar-text">
           {getPageTitle()} - {t.brand}
         </div>

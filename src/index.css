@@ -1002,54 +1002,6 @@ ul.tree-view {
   border-color: #808080 #fff #fff #808080;
 }
 
-/* Status Bar */
-.ppt-status-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #c0c0c0;
-  border-top: 2px solid;
-  border-color: #fff #808080 #808080 #fff;
-  padding: 2px 8px;
-  min-height: 24px;
-  font-size: 11px;
-}
-
-.ppt-status-left,
-.ppt-status-center,
-.ppt-status-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.ppt-slide-counter {
-  font-weight: bold;
-}
-
-.ppt-nav-btn {
-  padding: 2px 12px;
-  background: #c0c0c0;
-  border: 2px solid;
-  border-color: #fff #808080 #808080 #fff;
-  cursor: pointer;
-  font-size: 11px;
-  font-family: 'Tahoma', sans-serif;
-}
-
-.ppt-nav-btn:hover {
-  background: #d4d0c8;
-}
-
-.ppt-nav-btn:active {
-  border-color: #808080 #fff #fff #808080;
-}
-
-.ppt-nav-btn:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-
 /* Print Styles - Hide PowerPoint UI when printing */
 @media print {
   .ppt-container {

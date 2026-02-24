@@ -1,15 +1,23 @@
 import { useState, useEffect, useCallback } from 'preact/hooks';
 import { useLanguage } from '../context/language-context';
+import { useStatus } from '../context/status-context';
 import { PowerPointToolbar } from '../components/powerpoint-toolbar';
 import { SlideSidebar } from '../components/slide-sidebar';
 import { SlideView } from '../components/slide-view';
 
 export function Projects() {
   const { t } = useLanguage();
+  const { setStatusText } = useStatus();
   const projects = t.projects.items;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [transitionDirection, setTransitionDirection] = useState<'left' | 'right' | null>(null);
+
+  // Update status bar with slide info
+  useEffect(() => {
+    setStatusText(`Slide ${currentSlide + 1} of ${projects.length}    Use arrow keys to navigate`);
+    return () => setStatusText('');
+  }, [currentSlide, projects.length, setStatusText]);
 
   const goToSlide = useCallback((index: number, direction: 'left' | 'right') => {
     if (isTransitioning || index === currentSlide) return;
@@ -78,34 +86,6 @@ export function Projects() {
           isTransitioning={isTransitioning}
           transitionDirection={transitionDirection}
         />
-      </div>
-
-      {/* Status Bar */}
-      <div class="ppt-status-bar">
-        <div class="ppt-status-left">
-          <span class="ppt-slide-counter">Slide {currentSlide + 1} of {projects.length}</span>
-        </div>
-        <div class="ppt-status-center">
-          <button
-            class="ppt-nav-btn"
-            onClick={prevSlide}
-            disabled={currentSlide === 0}
-            title="Previous Slide"
-          >
-            Previous
-          </button>
-          <button
-            class="ppt-nav-btn"
-            onClick={nextSlide}
-            disabled={currentSlide === projects.length - 1}
-            title="Next Slide"
-          >
-            Next
-          </button>
-        </div>
-        <div class="ppt-status-right">
-          <span>Ready</span>
-        </div>
       </div>
     </div>
   );
