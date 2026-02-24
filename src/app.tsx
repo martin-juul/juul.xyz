@@ -65,6 +65,10 @@ function AppContent() {
   const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
   const isNavigatingRef = useRef(false);
 
+  const closeMusicPlayer = useCallback(() => {
+    setIsMusicPlayerOpen(false);
+  }, []);
+
   const openWindow = useCallback((page: Page, updateUrl: boolean = true) => {
     // Music player is handled separately
     if (page === 'music') {
@@ -195,7 +199,7 @@ function AppContent() {
       </div>
       <MusicPlayer
         isOpen={isMusicPlayerOpen}
-        onClose={() => setIsMusicPlayerOpen(false)}
+        onClose={closeMusicPlayer}
       />
       <StartMenu
         isOpen={isStartMenuOpen}

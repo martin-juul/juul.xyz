@@ -17,6 +17,7 @@ html, body {
   padding: 0;
   min-height: 100vh;
   background: #008080;
+  font-synthesis: weight style small-caps;
 }
 
 #app {

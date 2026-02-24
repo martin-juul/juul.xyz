@@ -25,11 +25,24 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
       initialTracks: [
         {
           metaData: {
-            artist: "Winamp",
-            title: "Drop MP3 files or add to /public/music/",
+            artist: "Dj Cammy",
+            title: "Celebrate the Summer",
           },
-          url: "", // Empty URL - placeholder track
-          duration: 0,
+          url: "/music/Dj Cammy - Celebrate the Summer.mp3",
+        },
+        {
+          metaData: {
+            artist: "Eisblume",
+            title: "Ice flowers HQ",
+          },
+          url: "/music/Eisblume - Ice flowers HQ.mp3",
+        },
+        {
+          metaData: {
+            artist: "Yinglee",
+            title: "Your Heart For My Number",
+          },
+          url: "/music/Yinglee - Your Heart For My Number.mp3",
         },
       ],
       enableHotkeys: true,
