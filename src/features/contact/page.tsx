@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'preact/hooks';
-import { useLanguage } from '../context/language-context';
-import { useStatus } from '../context/status-context';
+import { useLanguage } from '../../context/language-context';
+import { useStatus } from '../../context/status-context';
 
 const iconStyle = {
   width: '16px',

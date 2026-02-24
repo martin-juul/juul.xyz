@@ -1,13 +1,9 @@
-import { useLanguage } from '../context/language-context';
-
 type PowerPointToolbarProps = {
   onPrint?: () => void;
   onSave?: () => void;
 };
 
 export function PowerPointToolbar({ onPrint, onSave }: PowerPointToolbarProps) {
-  const { t } = useLanguage();
-
   const handlePrint = () => {
     if (onPrint) {
       onPrint();

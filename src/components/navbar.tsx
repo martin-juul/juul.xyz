@@ -1,6 +1,5 @@
 import { useLanguage } from '../context/language-context';
-
-type Page = 'home' | 'projects' | 'resume' | 'contact';
+import { type Page } from '../shared/types';
 
 type NavbarProps = {
   currentPage: Page;

@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'preact/hooks';
-import { useLanguage } from '../context/language-context';
-import { useStatus } from '../context/status-context';
-import { PowerPointToolbar } from '../components/powerpoint-toolbar';
-import { SlideSidebar } from '../components/slide-sidebar';
-import { SlideView } from '../components/slide-view';
+import { useLanguage } from '../../context/language-context';
+import { useStatus } from '../../context/status-context';
+import { PowerPointToolbar } from './components/PowerPointToolbar';
+import { SlideSidebar } from './components/SlideSidebar';
+import { SlideView } from './components/SlideView';
 
 export function Projects() {
   const { t } = useLanguage();
@@ -81,8 +81,6 @@ export function Projects() {
         {/* Slide View */}
         <SlideView
           project={projects[currentSlide]}
-          slideNumber={currentSlide + 1}
-          totalSlides={projects.length}
           isTransitioning={isTransitioning}
           transitionDirection={transitionDirection}
         />

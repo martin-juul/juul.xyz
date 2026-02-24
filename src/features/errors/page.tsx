@@ -1,4 +1,4 @@
-import { useLanguage } from '../context/language-context';
+import { useLanguage } from '../../context/language-context';
 
 export function NotFound() {
   const { t } = useLanguage();

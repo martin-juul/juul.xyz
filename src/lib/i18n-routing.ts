@@ -1,4 +1,5 @@
-export type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'notfound';
+import { type Page } from '../shared/types';
+export { type Page } from '../shared/types';
 
 export type Language = 'en' | 'da';
 

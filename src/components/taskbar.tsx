@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'preact/hooks';
 import { useLanguage } from '../context/language-context';
-import { LanguageSwitcher } from './language-switcher';
+import { LanguageSwitcher } from '../shared';
 
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'notfound';
+import { type Page } from '../shared/types';
 
 type WindowData = {
   id: string;

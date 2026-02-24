@@ -1,0 +1,1 @@
+export { commonTranslations } from './translations';

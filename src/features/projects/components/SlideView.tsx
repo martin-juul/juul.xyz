@@ -1,5 +1,3 @@
-import { useLanguage } from '../context/language-context';
-
 type SlideViewProps = {
   project: {
     id: number;
@@ -7,15 +5,11 @@ type SlideViewProps = {
     url: string;
     description: string;
   };
-  slideNumber: number;
-  totalSlides: number;
   isTransitioning: boolean;
   transitionDirection: 'left' | 'right' | null;
 };
 
-export function SlideView({ project, slideNumber, totalSlides, isTransitioning, transitionDirection }: SlideViewProps) {
-  const { t } = useLanguage();
-
+export function SlideView({ project, isTransitioning, transitionDirection }: SlideViewProps) {
   return (
     <div class="ppt-slide-area">
       <div class="ppt-slide-container">

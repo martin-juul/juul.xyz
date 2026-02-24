@@ -1,6 +1,6 @@
 import { useLanguage } from '../context/language-context';
 
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'notfound';
+import { type Page } from '../shared/types';
 
 type StartMenuProps = {
   isOpen: boolean;

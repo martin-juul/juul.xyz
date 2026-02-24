@@ -1,5 +1,5 @@
 import { createContext } from 'preact';
-import { useContext, useState, useCallback, useEffect } from 'preact/hooks';
+import { useContext, useState, useEffect } from 'preact/hooks';
 
 type StatusContextType = {
   statusText: string;

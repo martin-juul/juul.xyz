@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { useLanguage } from '../context/language-context';
+import { useLanguage } from '../../context/language-context';
 
 export function Resume() {
   const { t } = useLanguage();

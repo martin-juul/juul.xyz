@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'preact/hooks';
-import { useLanguage } from '../context/language-context';
-import { useStatus } from '../context/status-context';
+import { useLanguage } from '../../context/language-context';
+import { useStatus } from '../../context/status-context';
 
 type HistoryEntry = {
   url: string | null;

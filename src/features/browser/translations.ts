@@ -1,0 +1,26 @@
+export const browserTranslations = {
+  en: {
+    title: 'Internet Explorer',
+    welcome: 'Welcome!',
+    youveGotMail: "You've Got Projects!",
+    channels: 'Channels',
+    myProjects: 'My Projects',
+    clickToVisit: 'Click to visit',
+    loading: 'Loading...',
+    done: 'Done',
+    internetZone: 'Internet',
+    home: 'Home',
+  },
+  da: {
+    title: 'Internet Explorer',
+    welcome: 'Velkommen!',
+    youveGotMail: 'Du Har Projekter!',
+    channels: 'Kanaler',
+    myProjects: 'Mine Projekter',
+    clickToVisit: 'Klik for at besøge',
+    loading: 'Indlæser...',
+    done: 'Færdig',
+    internetZone: 'Internet',
+    home: 'Hjem',
+  },
+};
