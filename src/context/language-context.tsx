@@ -21,6 +21,13 @@ type ResumeItem = {
   highlights: string[];
 };
 
+type ProjectItem = {
+  id: number;
+  name: string;
+  url: string;
+  description: string;
+};
+
 type Translations = {
   brand: string;
   start: string;
@@ -44,6 +51,7 @@ type Translations = {
   projects: {
     title: string;
     subtitle: string;
+    items: ProjectItem[];
   };
   resume: {
     title: string;
@@ -103,6 +111,20 @@ Whether it is backend or frontend. I find both to be equally interesting. Presen
     projects: {
       title: 'Projects',
       subtitle: 'A selection of things I have built',
+      items: [
+        {
+          id: 1,
+          name: 'Is it dns?',
+          url: 'https://erdetdns.dk',
+          description: 'A website that says it\'s always a DNS issue',
+        },
+        {
+          id: 2,
+          name: 'Bånder',
+          url: 'https://github.com/baander-app',
+          description: 'Music server with cover view, song list and synchronized lyric viewer.',
+        },
+      ],
     },
     resume: {
       title: 'Resume',
@@ -213,6 +235,20 @@ Uanset om det er backend eller frontend, så er begge dele lige spændene og udf
     projects: {
       title: 'Projekter',
       subtitle: 'Et udvalg af ting jeg har bygget',
+      items: [
+        {
+          id: 1,
+          name: 'Er det dns?',
+          url: 'https://erdetdns.dk',
+          description: 'En side der fortæller at det altid er DNS der er problemet',
+        },
+        {
+          id: 2,
+          name: 'Bånder',
+          url: 'https://github.com/baander-app',
+          description: 'Musikafspiller med covervisning, sangliste og lyrikviser.',
+        },
+      ],
     },
     resume: {
       title: 'CV',
