@@ -37,6 +37,7 @@ type Translations = {
     resume: string;
     contact: string;
     music: string;
+    browser: string;
   };
   home: {
     title: string;
@@ -70,6 +71,18 @@ type Translations = {
     unableToSend: string;
     success: string;
   };
+  browser: {
+    title: string;
+    welcome: string;
+    youveGotMail: string;
+    channels: string;
+    myProjects: string;
+    clickToVisit: string;
+    loading: string;
+    done: string;
+    internetZone: string;
+    home: string;
+  };
   footer: {
     builtWith: string;
   };
@@ -91,6 +104,7 @@ const translations: Record<string, Translations> = {
       resume: 'Resume',
       contact: 'Contact',
       music: 'Music',
+      browser: 'Internet Explorer',
     },
     home: {
       title: "Hi I'm Martin",
@@ -196,6 +210,18 @@ Whether it is backend or frontend. I find both to be equally interesting. Presen
       unableToSend: 'Could not send message due to an error',
       success: 'Message sent successfully!',
     },
+    browser: {
+      title: 'Internet Explorer',
+      welcome: 'Welcome!',
+      youveGotMail: 'You\'ve Got Projects!',
+      channels: 'Channels',
+      myProjects: 'My Projects',
+      clickToVisit: 'Click to visit',
+      loading: 'Loading...',
+      done: 'Done',
+      internetZone: 'Internet',
+      home: 'Home',
+    },
     footer: {
       builtWith: 'Built with Preact & 98.css',
     },
@@ -215,6 +241,7 @@ Whether it is backend or frontend. I find both to be equally interesting. Presen
       resume: 'CV',
       contact: 'Kontakt',
       music: 'Musik',
+      browser: 'Internet Explorer',
     },
     home: {
       title: 'Hej, Mit navn er Martin.',
@@ -319,6 +346,18 @@ Uanset om det er backend eller frontend, så er begge dele lige spændene og udf
       error: 'Udfyld venligst alle felter',
       unableToSend: 'Kunne ikke sende beskeden på grund af en fejl',
       success: 'Besked sendt!',
+    },
+    browser: {
+      title: 'Internet Explorer',
+      welcome: 'Velkommen!',
+      youveGotMail: 'Du Har Projekter!',
+      channels: 'Kanaler',
+      myProjects: 'Mine Projekter',
+      clickToVisit: 'Klik for at besøge',
+      loading: 'Indlæser...',
+      done: 'Færdig',
+      internetZone: 'Internet',
+      home: 'Hjem',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',

@@ -711,7 +711,30 @@ ul.tree-view {
   border-color: #808080 #fff #fff #808080;
 }
 
-/* Windows 98 style tooltips */
+/* Windows 98 style tooltips - reusable pattern */
+.win98-tooltip {
+  position: relative;
+}
+
+.win98-tooltip[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 4px;
+  padding: 2px 6px;
+  background: #ffffcc;
+  border: 1px dotted #000;
+  font-size: 11px;
+  font-family: 'Tahoma', sans-serif;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 1px 1px 0 #808080;
+}
+
+/* Legacy support for existing ppt-toolbar-btn tooltips */
 .ppt-toolbar-btn[title]:hover::after {
   content: attr(title);
   position: absolute;
@@ -1027,5 +1050,589 @@ ul.tree-view {
     box-shadow: none;
     border: 1px solid #000;
   }
+}
+
+/* ============================================
+   Internet Explorer 5.0 Style Browser
+   ============================================ */
+
+.ie-browser {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+}
+
+/* IE Menu Bar */
+.ie-menu-bar {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #d4d0c8 0%, #c0c0c0 100%);
+  border-bottom: 1px solid #808080;
+  padding: 2px 4px;
+  min-height: 20px;
+}
+
+.ie-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ie-menu-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+/* IE Toolbar */
+.ie-toolbar {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #e4e0d8 0%, #d4d0c8 50%, #c0c0c0 100%);
+  border-bottom: 1px solid #808080;
+  padding: 2px 4px;
+  min-height: 26px;
+  gap: 2px;
+}
+
+.ie-toolbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 22px;
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #fff #808080 #808080 #fff;
+  cursor: pointer;
+  padding: 1px;
+}
+
+.ie-toolbar-btn:hover {
+  background: #d4d0c8;
+}
+
+.ie-toolbar-btn:active,
+.ie-toolbar-btn-active {
+  border-color: #808080 #fff #fff #808080;
+}
+
+.ie-toolbar-btn-disabled {
+  opacity: 0.5;
+  cursor: default;
+  filter: grayscale(100%);
+}
+
+.ie-toolbar-btn-disabled:hover {
+  background: #c0c0c0;
+}
+
+.ie-toolbar-btn-disabled .ie-toolbar-icon {
+  filter: grayscale(100%);
+}
+
+.ie-toolbar-icon {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+}
+
+.ie-toolbar-separator {
+  width: 2px;
+  height: 22px;
+  margin: 0 2px;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #fff;
+}
+
+/* IE Address Bar */
+.ie-address-bar {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #e4e0d8 0%, #d4d0c8 50%, #c0c0c0 100%);
+  border-bottom: 1px solid #808080;
+  padding: 2px 4px;
+  min-height: 24px;
+  gap: 4px;
+}
+
+.ie-address-label {
+  font-size: 11px;
+  font-weight: bold;
+  padding: 0 4px;
+}
+
+.ie-address-input-wrapper {
+  flex: 1;
+  background: #fff;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  padding: 1px;
+}
+
+.ie-address-input {
+  width: 100%;
+  border: none;
+  font-size: 11px;
+  font-family: 'Tahoma', sans-serif;
+  padding: 2px 4px;
+  background: #fff;
+  outline: none;
+}
+
+.ie-go-btn {
+  padding: 2px 8px;
+  font-size: 11px;
+  font-family: 'Tahoma', sans-serif;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  cursor: pointer;
+}
+
+.ie-go-btn:active {
+  border-color: #808080 #fff #fff #808080;
+}
+
+/* IE Content Area */
+.ie-content {
+  flex: 1;
+  overflow: hidden;
+  background: #fff;
+}
+
+.ie-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* IE Status Bar */
+.ie-status-bar {
+  display: flex;
+  align-items: center;
+  background: #c0c0c0;
+  border-top: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  padding: 2px 4px;
+  min-height: 20px;
+  font-size: 11px;
+}
+
+.ie-status-text {
+  flex: 1;
+}
+
+.ie-status-zone {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border-left: 1px solid #808080;
+}
+
+.ie-zone-icon {
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #fff 25%, #808080 25%, #808080 50%, #fff 50%, #fff 75%, #808080 75%);
+  background-size: 4px 4px;
+  border: 1px solid #000;
+  border-radius: 2px;
+}
+
+/* ============================================
+   AOL 1990s Homepage Style
+   ============================================ */
+
+.aol-homepage {
+  height: 100%;
+  background: linear-gradient(180deg, #ffcc00 0%, #ff9900 50%, #ffcc00 100%);
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.aol-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: linear-gradient(180deg, #000080 0%, #0000cd 50%, #000080 100%);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.aol-logo {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffcc00;
+  text-shadow: 2px 2px 0 #000;
+  font-family: Arial, sans-serif;
+  letter-spacing: -2px;
+}
+
+.aol-welcome h1 {
+  color: #fff;
+  font-size: 24px;
+  margin: 0 0 4px 0;
+  font-family: Arial, sans-serif;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.aol-got-mail {
+  color: #ffcc00;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  animation: aol-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes aol-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.aol-section {
+  margin-bottom: 20px;
+}
+
+.aol-section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000080;
+  margin: 0 0 12px 0;
+  padding-bottom: 4px;
+  border-bottom: 2px solid #000080;
+  font-family: Arial, sans-serif;
+}
+
+.aol-channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.aol-channel-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: linear-gradient(180deg, #e4e0d8 0%, #c0c0c0 50%, #a0a0a0 100%);
+  border: 3px solid;
+  border-color: #fff #808080 #808080 #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.1s;
+}
+
+.aol-channel-btn:hover {
+  background: linear-gradient(180deg, #f4f0e8 0%, #d0ccc4 50%, #b0aca4 100%);
+  transform: scale(1.02);
+}
+
+.aol-channel-btn:active {
+  border-color: #808080 #fff #fff #808080;
+  transform: scale(0.98);
+}
+
+.aol-channel-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #000080 0%, #0000cd 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.aol-icon-globe {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #4da6ff 25%, #fff 25%, #fff 50%, #4da6ff 50%, #4da6ff 75%, #fff 75%);
+  background-size: 8px 8px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.aol-channel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.aol-channel-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000080;
+  font-family: Arial, sans-serif;
+}
+
+.aol-channel-desc {
+  font-size: 11px;
+  color: #666;
+  font-family: Arial, sans-serif;
+}
+
+.aol-footer {
+  margin-top: 24px;
+  padding: 12px;
+  background: #000080;
+  color: #fff;
+  text-align: center;
+  font-size: 11px;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+}
+
+.aol-footer a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+.aol-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   GitHub Repository View (API-based)
+   ============================================ */
+
+.github-view {
+  height: 100%;
+  background: #0d1117;
+  color: #c9d1d9;
+  overflow-y: auto;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+}
+
+.github-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+}
+
+.github-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #30363d;
+  border-top-color: #58a6ff;
+  border-radius: 50%;
+  animation: github-spin 1s linear infinite;
+}
+
+@keyframes github-spin {
+  to { transform: rotate(360deg); }
+}
+
+.github-loading p {
+  color: #8b949e;
+  font-size: 14px;
+}
+
+.github-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+}
+
+.github-error h2 {
+  color: #f85149;
+  margin: 0;
+}
+
+.github-error p {
+  color: #8b949e;
+  margin: 0;
+}
+
+.github-back-btn {
+  padding: 8px 16px;
+  background: #21262d;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.github-back-btn:hover {
+  background: #30363d;
+}
+
+.github-repo {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.github-header {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #30363d;
+}
+
+.github-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.github-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.github-title h1 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.github-title h1 a {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.github-title h1 a:hover {
+  text-decoration: underline;
+}
+
+.github-description {
+  margin: 0;
+  color: #8b949e;
+  font-size: 16px;
+}
+
+.github-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.github-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.github-stat-icon {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+}
+
+.github-stat-value {
+  font-weight: 600;
+  color: #c9d1d9;
+}
+
+.github-stat-label {
+  color: #8b949e;
+}
+
+.github-lang-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #563d7c; /* default purple */
+}
+
+.github-lang-dot[data-lang="TypeScript"] { background: #3178c6; }
+.github-lang-dot[data-lang="JavaScript"] { background: #f1e05a; }
+.github-lang-dot[data-lang="Python"] { background: #3572A5; }
+.github-lang-dot[data-lang="Ruby"] { background: #701516; }
+.github-lang-dot[data-lang="Go"] { background: #00ADD8; }
+.github-lang-dot[data-lang="Rust"] { background: #dea584; }
+.github-lang-dot[data-lang="Java"] { background: #b07219; }
+.github-lang-dot[data-lang="C++"] { background: #f34b7d; }
+.github-lang-dot[data-lang="C"] { background: #555555; }
+.github-lang-dot[data-lang="PHP"] { background: #4F5D95; }
+.github-lang-dot[data-lang="Swift"] { background: #F05138; }
+.github-lang-dot[data-lang="Kotlin"] { background: #A97BFF; }
+.github-lang-dot[data-lang="Dart"] { background: #00B4AB; }
+.github-lang-dot[data-lang="HTML"] { background: #e34c26; }
+.github-lang-dot[data-lang="CSS"] { background: #563d7c; }
+.github-lang-dot[data-lang="Shell"] { background: #89e051; }
+
+.github-actions {
+  margin-bottom: 24px;
+}
+
+.github-org-link {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+}
+
+.github-org-link a {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.github-org-link a:hover {
+  text-decoration: underline;
+}
+
+.github-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.github-btn-primary {
+  background: #238636;
+  color: #fff;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+}
+
+.github-btn-primary:hover {
+  background: #2ea043;
+}
+
+.github-footer {
+  padding: 16px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #8b949e;
+}
+
+.github-footer p {
+  margin: 0 0 4px 0;
+}
+
+.github-footer p:last-child {
+  margin: 0;
 }
 

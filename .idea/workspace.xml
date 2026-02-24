@@ -2,24 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fba190d-9d1b-4eca-959d-aca9c22b053b" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/check.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/clipart.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/color.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/copy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/link.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/move.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/new.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/open.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/paint.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/preview.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/print.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/toolbar/save.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/powerpoint-toolbar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/slide-sidebar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/slide-view.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/desktop-icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/desktop-icons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/start-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/start-menu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/language-context.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/language-context.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/projects.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/i18n-routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/i18n-routing.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +109,7 @@
       <workItem from="1771619957652" duration="701000" />
       <workItem from="1771705741671" duration="3863000" />
       <workItem from="1771842340497" duration="869000" />
-      <workItem from="1771953240748" duration="7030000" />
+      <workItem from="1771953240748" duration="7737000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -234,7 +223,23 @@
       <option name="project" value="LOCAL" />
       <updated>1771961757275</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="update">
+      <option name="closed" value="true" />
+      <created>1771963417567</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1771963417567</updated>
+    </task>
+    <task id="LOCAL-00016" summary="update">
+      <option name="closed" value="true" />
+      <created>1771963651132</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1771963651132</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

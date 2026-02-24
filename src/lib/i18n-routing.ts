@@ -1,4 +1,4 @@
-export type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'notfound';
+export type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'notfound';
 
 export type Language = 'en' | 'da';
 
@@ -14,6 +14,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     resume: 'resume',
     contact: 'contact',
     music: 'music',
+    browser: 'browser',
     notfound: 'not-found',
   },
   da: {
@@ -22,6 +23,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     resume: 'cv',
     contact: 'kontakt',
     music: 'musik',
+    browser: 'internet',
     notfound: 'not-found',
   },
 };

@@ -7,6 +7,7 @@ import { Resume } from './pages/resume';
 import { Contact } from './pages/contact';
 import { NotFound } from './pages/not-found';
 import { MusicPlayer } from './pages/music';
+import { Browser } from './pages/browser';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
@@ -357,6 +358,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'resume': return t.nav.resume;
       case 'contact': return t.nav.contact;
       case 'music': return t.nav.music;
+      case 'browser': return t.nav.browser;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -368,6 +370,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'resume': return <Resume />;
       case 'contact': return <Contact />;
       case 'music': return null; // Music is handled separately
+      case 'browser': return <Browser />;
       case 'notfound': return <NotFound />;
     }
   };
