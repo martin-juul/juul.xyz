@@ -1137,6 +1137,17 @@ ul.tree-view {
   width: 16px;
   height: 16px;
   image-rendering: pixelated;
+  object-fit: contain;
+  display: block;
+}
+
+/* Icon position adjustments */
+.ie-toolbar-icon-up {
+  margin-bottom: 2px;
+}
+
+.ie-toolbar-icon-down {
+  margin-top: 2px;
 }
 
 .ie-toolbar-separator {

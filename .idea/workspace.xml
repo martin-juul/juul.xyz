@@ -2,6 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fba190d-9d1b-4eca-959d-aca9c22b053b" name="Changes" comment="update">
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/fork.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/ie-back.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/ie-favorites.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/ie-forward.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/ie-home.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/ie-print.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/ie-refresh.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/ie-search.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/ie-stop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/ie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/location.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/people.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/repos.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/star.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/browser.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/desktop-icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/desktop-icons.tsx" afterDir="false" />
@@ -109,7 +124,7 @@
       <workItem from="1771619957652" duration="701000" />
       <workItem from="1771705741671" duration="3863000" />
       <workItem from="1771842340497" duration="869000" />
-      <workItem from="1771953240748" duration="7737000" />
+      <workItem from="1771953240748" duration="8099000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -239,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771963651132</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="update">
+      <option name="closed" value="true" />
+      <created>1771966186279</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1771966186279</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

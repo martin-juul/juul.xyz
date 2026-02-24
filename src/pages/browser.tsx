@@ -275,55 +275,6 @@ export function Browser() {
         </button>
         <button
           class="ie-toolbar-btn win98-tooltip"
-          onClick={() => {
-            if (currentUrl) {
-              if (isGitHub) {
-                // Re-trigger fetch
-                setGithubRepo(null);
-                setGithubOrg(null);
-                setGithubType(null);
-                setIsLoading(true);
-                const githubInfo = parseGitHubUrl(currentUrl);
-                if (githubInfo) {
-                  const apiUrl = githubInfo.type === 'repo'
-                    ? `https://api.github.com/repos/${githubInfo.owner}/${githubInfo.repo}`
-                    : `https://api.github.com/orgs/${githubInfo.owner}`;
-
-                  fetch(apiUrl)
-                    .then(res => {
-                      if (!res.ok) throw new Error('Failed to fetch');
-                      return res.json();
-                    })
-                    .then(data => {
-                      if (githubInfo.type === 'repo') {
-                        setGithubRepo(data);
-                        setGithubType('repo');
-                      } else {
-                        setGithubOrg(data);
-                        setGithubType('org');
-                      }
-                      setIsLoading(false);
-                    })
-                    .catch(err => {
-                      setGithubError(err.message || 'Failed to load');
-                      setIsLoading(false);
-                    });
-                }
-              } else {
-                setIsLoading(true);
-                if (iframeRef.current) {
-                  iframeRef.current.src = currentUrl;
-                }
-                setTimeout(() => setIsLoading(false), 500);
-              }
-            }
-          }}
-          title="Refresh"
-        >
-          <img src="/assets/icons/ie-refresh.png" alt="Refresh" class="ie-toolbar-icon" />
-        </button>
-        <button
-          class="ie-toolbar-btn win98-tooltip"
           onClick={goHome}
           title="Home"
         >
