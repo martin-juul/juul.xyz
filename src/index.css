@@ -27,8 +27,15 @@ html, body {
 }
 
 .window {
-  max-width: 800px;
+  /* max-width removed to allow resizing */
   margin: 0 auto;
+}
+
+.window.app-window {
+  max-width: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .window.full-width {
@@ -423,9 +430,125 @@ ul.tree-view {
 /* App Window */
 .app-window {
   position: absolute;
-  left: 50%;
-  margin-left: -450px;
+  left: 0;
+  top: 0;
   will-change: transform, opacity;
+}
+
+/* Resize Handles */
+.resize-handle {
+  position: absolute;
+  z-index: 10;
+}
+
+.resize-n {
+  top: -4px;
+  left: 8px;
+  right: 8px;
+  height: 8px;
+  cursor: n-resize;
+}
+
+.resize-s {
+  bottom: -4px;
+  left: 8px;
+  right: 24px;
+  height: 8px;
+  cursor: s-resize;
+}
+
+.resize-e {
+  right: -4px;
+  top: 8px;
+  bottom: 24px;
+  width: 8px;
+  cursor: e-resize;
+}
+
+.resize-w {
+  left: -4px;
+  top: 8px;
+  bottom: 8px;
+  width: 8px;
+  cursor: w-resize;
+}
+
+.resize-nw {
+  top: -4px;
+  left: -4px;
+  width: 12px;
+  height: 12px;
+  cursor: nw-resize;
+}
+
+.resize-ne {
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  cursor: ne-resize;
+}
+
+.resize-sw {
+  bottom: -4px;
+  left: -4px;
+  width: 12px;
+  height: 12px;
+  cursor: sw-resize;
+}
+
+.resize-se {
+  bottom: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  cursor: se-resize;
+}
+
+/* Visual resize grip - Windows 98 style in status bar */
+.resize-grip {
+  width: 16px;
+  height: 16px;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 1px,
+    #808080 1px,
+    #808080 2px
+  );
+  cursor: se-resize;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Status bar in app windows */
+.app-window .status-bar {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  min-height: 24px;
+  background: #c0c0c0;
+  border-top: 1px solid #808080;
+}
+
+.app-window .status-bar-field {
+  flex: 1;
+  font-size: 11px;
+}
+
+/* Windows 98 Ghost Outline */
+.resize-ghost {
+  position: fixed;
+  border: 2px dashed #000;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  z-index: 99999;
 }
 
 /* Window States */
@@ -441,11 +564,13 @@ ul.tree-view {
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
-  margin-left: 0 !important;
+  max-width: none !important;
+  transform: none !important;
 }
 
 .window-maximized.app-window {
   left: 0;
+  max-width: none;
 }
 
 .window-closing {

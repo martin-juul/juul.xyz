@@ -1,5 +1,6 @@
-import { useState } from 'preact/hooks';
+import { useState, useCallback, useEffect } from 'preact/hooks';
 import { useLanguage } from '../context/language-context';
+import { useStatus } from '../context/status-context';
 
 const iconStyle = {
   width: '16px',
@@ -10,6 +11,12 @@ const iconStyle = {
 
 function SuccessMessage({ onDismiss }: { onDismiss: () => void }) {
   const { t } = useLanguage();
+  const { setStatusText } = useStatus();
+
+  // Set status on mount
+  useState(() => {
+    setStatusText('Message sent!');
+  });
 
   return (
     <div style={{ textAlign: 'center', padding: '32px 16px' }}>
@@ -28,11 +35,30 @@ function SuccessMessage({ onDismiss }: { onDismiss: () => void }) {
 
 export function Contact() {
   const { t } = useLanguage();
+  const { setStatusText } = useStatus();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [submitted, setSubmitted] = useState(false);
+
+  // Update status bar based on form state
+  const updateStatus = useCallback(() => {
+    if (error) {
+      setStatusText(error);
+    } else if (!name && !email && !message) {
+      setStatusText('Ready');
+    } else {
+      const filled = [name, email, message].filter(Boolean).length;
+      setStatusText(`Fields: ${filled}/3`);
+    }
+  }, [error, name, email, message, setStatusText]);
+
+  // Update status when form state changes
+  useEffect(() => {
+    updateStatus();
+    return () => setStatusText('');
+  }, [updateStatus]);
 
   const handleSubmit = (e: Event) => {
     e.preventDefault();
@@ -129,11 +155,6 @@ export function Contact() {
           </button>
         </div>
       </form>
-
-      <div class="status-bar" style={{ marginTop: '16px' }}>
-        <p class="status-bar-field">{error || 'Ready'}</p>
-        <p class="status-bar-field">Fields: 3</p>
-      </div>
     </div>
   );
 }

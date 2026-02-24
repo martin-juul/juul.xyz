@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'preact/hooks';
 import { LanguageProvider, useLanguage } from './context/language-context';
+import { StatusProvider, useStatus } from './context/status-context';
 import { Home } from './pages/home';
 import { Projects } from './pages/projects';
 import { Resume } from './pages/resume';
@@ -17,9 +18,24 @@ type WindowData = {
   page: Page;
   state: 'normal' | 'minimized' | 'maximized';
   position: { x: number; y: number };
+  size: { width: number; height: number };
   zIndex: number;
   isOpening: boolean;
 };
+
+type ResizeEdge = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
+
+type ResizeState = {
+  windowId: string;
+  startX: number;
+  startY: number;
+  startWidth: number;
+  startHeight: number;
+  startWindowX: number;
+  startWindowY: number;
+  edge: ResizeEdge;
+  currentRect: { x: number; y: number; width: number; height: number };
+} | null;
 
 function AppContent() {
   const { navigateTo, currentPage } = useLanguage();
@@ -27,6 +43,7 @@ function AppContent() {
   const [nextZIndex, setNextZIndex] = useState(1);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
+  const [resizing, setResizing] = useState<ResizeState>(null);
   const isNavigatingRef = useRef(false);
   const initialPageHandled = useRef(false);
 
@@ -68,6 +85,7 @@ function AppContent() {
       page,
       state: 'normal',
       position: { x: 20 + (windows.length * 30), y: 20 + (windows.length * 30) },
+      size: { width: 640, height: 480 },
       zIndex: nextZIndex,
       isOpening: true,
     };
@@ -120,6 +138,107 @@ function AppContent() {
     ));
   }, []);
 
+  const resizeWindow = useCallback((id: string, size: { width: number; height: number }, position?: { x: number; y: number }) => {
+    setWindows(prev => prev.map(w =>
+      w.id === id ? { ...w, size, ...(position && { position }) } : w
+    ));
+  }, []);
+
+  const handleResizeStart = useCallback((windowId: string, edge: ResizeEdge, e: MouseEvent) => {
+    e.preventDefault();
+    const window = windows.find(w => w.id === windowId);
+    if (!window || window.state === 'maximized') return;
+
+    setResizing({
+      windowId,
+      startX: e.clientX,
+      startY: e.clientY,
+      startWidth: window.size.width,
+      startHeight: window.size.height,
+      startWindowX: window.position.x,
+      startWindowY: window.position.y,
+      edge,
+      currentRect: {
+        x: window.position.x,
+        y: window.position.y,
+        width: window.size.width,
+        height: window.size.height,
+      },
+    });
+  }, [windows]);
+
+  // Handle resize mouse move and end
+  useEffect(() => {
+    if (!resizing) return;
+
+    const MIN_WIDTH = 320;
+    const MIN_HEIGHT = 240;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const deltaX = e.clientX - resizing.startX;
+      const deltaY = e.clientY - resizing.startY;
+
+      let newWidth = resizing.startWidth;
+      let newHeight = resizing.startHeight;
+      let newX = resizing.startWindowX;
+      let newY = resizing.startWindowY;
+
+      // Handle horizontal resize
+      if (resizing.edge.includes('e')) {
+        newWidth = Math.max(MIN_WIDTH, resizing.startWidth + deltaX);
+      }
+      if (resizing.edge.includes('w')) {
+        const potentialWidth = resizing.startWidth - deltaX;
+        if (potentialWidth >= MIN_WIDTH) {
+          newWidth = potentialWidth;
+          newX = resizing.startWindowX + deltaX;
+        } else {
+          newWidth = MIN_WIDTH;
+          newX = resizing.startWindowX + (resizing.startWidth - MIN_WIDTH);
+        }
+      }
+
+      // Handle vertical resize
+      if (resizing.edge.includes('s')) {
+        newHeight = Math.max(MIN_HEIGHT, resizing.startHeight + deltaY);
+      }
+      if (resizing.edge.includes('n')) {
+        const potentialHeight = resizing.startHeight - deltaY;
+        if (potentialHeight >= MIN_HEIGHT) {
+          newHeight = potentialHeight;
+          newY = resizing.startWindowY + deltaY;
+        } else {
+          newHeight = MIN_HEIGHT;
+          newY = resizing.startWindowY + (resizing.startHeight - MIN_HEIGHT);
+        }
+      }
+
+      setResizing(prev => prev ? {
+        ...prev,
+        currentRect: { x: newX, y: newY, width: newWidth, height: newHeight },
+      } : null);
+    };
+
+    const handleMouseUp = () => {
+      if (resizing) {
+        resizeWindow(
+          resizing.windowId,
+          { width: resizing.currentRect.width, height: resizing.currentRect.height },
+          { x: resizing.currentRect.x, y: resizing.currentRect.y }
+        );
+      }
+      setResizing(null);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [resizing, resizeWindow]);
+
   // Handle initial route - use currentPage from context
   useEffect(() => {
     if (initialPageHandled.current) return;
@@ -153,10 +272,23 @@ function AppContent() {
             onMaximize={() => maximizeWindow(windowData.id)}
             onFocus={() => focusWindow(windowData.id)}
             onMove={(pos) => moveWindow(windowData.id, pos)}
+            onResizeStart={(edge, e) => handleResizeStart(windowData.id, edge, e)}
             onNavigate={openWindow}
           />
         ))}
       </div>
+      {/* Resize ghost outline */}
+      {resizing && (
+        <div
+          class="resize-ghost"
+          style={{
+            left: resizing.currentRect.x,
+            top: resizing.currentRect.y,
+            width: resizing.currentRect.width,
+            height: resizing.currentRect.height,
+          }}
+        />
+      )}
       <MusicPlayer
         isOpen={isMusicPlayerOpen}
         onClose={closeMusicPlayer}
@@ -188,10 +320,22 @@ type WindowProps = {
   onMaximize: () => void;
   onFocus: () => void;
   onMove: (pos: { x: number; y: number }) => void;
+  onResizeStart: (edge: ResizeEdge, e: MouseEvent) => void;
   onNavigate: (page: Page) => void;
 };
 
-function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onMove, onNavigate }: WindowProps) {
+// Status bar that reads from context
+function WindowStatusBar({ onResizeStart }: { onResizeStart: (edge: ResizeEdge, e: MouseEvent) => void }) {
+  const { statusText } = useStatus();
+  return (
+    <div class="status-bar">
+      <div class="status-bar-field">{statusText || '\u00A0'}</div>
+      <div class="resize-grip" onMouseDown={(e) => onResizeStart('se', e)} />
+    </div>
+  );
+}
+
+function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onMove, onResizeStart, onNavigate }: WindowProps) {
   const { t } = useLanguage();
   const [isDragging, setIsDragging] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -280,7 +424,8 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       };
     }
     return {
-      width: '900px',
+      width: `${data.size.width}px`,
+      height: `${data.size.height}px`,
       transform: `translate(${data.position.x}px, ${data.position.y}px)`,
       zIndex: data.zIndex,
     };
@@ -315,11 +460,29 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
           <button aria-label="Close" onClick={handleClose}></button>
         </div>
       </div>
-      <div class="window-body">
-        <div style="height: 500px; overflow-y: auto;">
-          {renderContent()}
+      <StatusProvider>
+        <div class="window-body" style="flex: 1; overflow: hidden; display: flex; flex-direction: column;">
+          <div style="flex: 1; overflow-y: auto;">
+            {renderContent()}
+          </div>
         </div>
-      </div>
+        {/* Status bar with resize grip */}
+        {data.state !== 'maximized' && (
+          <WindowStatusBar onResizeStart={onResizeStart} />
+        )}
+      </StatusProvider>
+      {/* Resize handles - only show when not maximized */}
+      {data.state !== 'maximized' && (
+        <>
+          <div class="resize-handle resize-n" onMouseDown={(e) => onResizeStart('n', e)} />
+          <div class="resize-handle resize-s" onMouseDown={(e) => onResizeStart('s', e)} />
+          <div class="resize-handle resize-e" onMouseDown={(e) => onResizeStart('e', e)} />
+          <div class="resize-handle resize-w" onMouseDown={(e) => onResizeStart('w', e)} />
+          <div class="resize-handle resize-nw" onMouseDown={(e) => onResizeStart('nw', e)} />
+          <div class="resize-handle resize-ne" onMouseDown={(e) => onResizeStart('ne', e)} />
+          <div class="resize-handle resize-sw" onMouseDown={(e) => onResizeStart('sw', e)} />
+        </>
+      )}
     </div>
   );
 }
