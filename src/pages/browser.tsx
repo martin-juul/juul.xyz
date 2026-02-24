@@ -280,16 +280,6 @@ export function Browser() {
         >
           <img src="/assets/icons/ie-home.png" alt="Home" class="ie-toolbar-icon" />
         </button>
-        <div class="ie-toolbar-separator"></div>
-        <button class="ie-toolbar-btn win98-tooltip" title="Search">
-          <img src="/assets/icons/ie-search.png" alt="Search" class="ie-toolbar-icon" />
-        </button>
-        <button class="ie-toolbar-btn win98-tooltip" title="Favorites">
-          <img src="/assets/icons/ie-favorites.png" alt="Favorites" class="ie-toolbar-icon" />
-        </button>
-        <button class="ie-toolbar-btn win98-tooltip" title="Print">
-          <img src="/assets/icons/ie-print.png" alt="Print" class="ie-toolbar-icon" />
-        </button>
       </div>
 
       {/* Address Bar */}
@@ -303,7 +293,52 @@ export function Browser() {
             readOnly
           />
         </div>
-        <button class="ie-go-btn">Go</button>
+        <button
+          class="ie-go-btn"
+          onClick={() => {
+            if (currentUrl) {
+              if (isGitHub) {
+                // Re-trigger fetch
+                setGithubRepo(null);
+                setGithubOrg(null);
+                setGithubType(null);
+                setIsLoading(true);
+                const githubInfo = parseGitHubUrl(currentUrl);
+                if (githubInfo) {
+                  const apiUrl = githubInfo.type === 'repo'
+                    ? `https://api.github.com/repos/${githubInfo.owner}/${githubInfo.repo}`
+                    : `https://api.github.com/orgs/${githubInfo.owner}`;
+
+                  fetch(apiUrl)
+                    .then(res => {
+                      if (!res.ok) throw new Error('Failed to fetch');
+                      return res.json();
+                    })
+                    .then(data => {
+                      if (githubInfo.type === 'repo') {
+                        setGithubRepo(data);
+                        setGithubType('repo');
+                      } else {
+                        setGithubOrg(data);
+                        setGithubType('org');
+                      }
+                      setIsLoading(false);
+                    })
+                    .catch(err => {
+                      setGithubError(err.message || 'Failed to load');
+                      setIsLoading(false);
+                    });
+                }
+              } else {
+                setIsLoading(true);
+                if (iframeRef.current) {
+                  iframeRef.current.src = currentUrl;
+                }
+                setTimeout(() => setIsLoading(false), 500);
+              }
+            }
+          }}
+        >Go</button>
       </div>
 
       {/* Browser Content Area */}
@@ -461,11 +496,11 @@ export function Browser() {
             />
           )
         ) : (
-          // AOL Homepage
+          // Juuliverse Homepage
           <div class="aol-homepage">
-            {/* AOL Style Header */}
+            {/* Juuliverse Style Header */}
             <div class="aol-header">
-              <div class="aol-logo">AOL</div>
+              <div class="aol-logo">Juuliverse</div>
               <div class="aol-welcome">
                 <h1>{t.browser.welcome}</h1>
                 <p class="aol-got-mail">{t.browser.youveGotMail}</p>
@@ -496,11 +531,11 @@ export function Browser() {
 
             {/* Footer Links */}
             <div class="aol-footer">
-              <span>Today on AOL:</span>
-              <a href="#">Weather</a> |
-              <a href="#">News</a> |
-              <a href="#">Sports</a> |
-              <a href="#">Entertainment</a>
+              <span>Today on Juuliverse:</span>
+              <a href="https://erdetdns.dk" target="_blank">DNS</a> |
+              <a href="https://github.com/baander-app/baander/" target="_blank"> Music</a> |
+              <a href="https://iplease.dk" target="_blank"> IP</a> |
+              <a href="https://luft.dk" target="_blank"> Luft</a>
             </div>
           </div>
         )}
