@@ -130,6 +130,11 @@ function AppContent() {
   // Get open pages for highlighting (includes music if open)
   const openWindowPages = [...windows.map(w => w.page), ...(isMusicPlayerOpen ? ['music' as Page] : [])];
 
+  // Calculate which window is focused (highest zIndex among non-minimized windows)
+  const focusedWindowId = windows.length > 0
+    ? windows.reduce((max, w) => w.zIndex > max.zIndex ? w : max).id
+    : null;
+
   return (
     <>
       <SeoHead page={windows[windows.length - 1]?.page || 'home'} />
@@ -142,6 +147,7 @@ function AppContent() {
           <Window
             key={windowData.id}
             data={windowData}
+            isFocused={windowData.id === focusedWindowId}
             onClose={() => closeWindow(windowData.id)}
             onMinimize={() => minimizeWindow(windowData.id)}
             onMaximize={() => maximizeWindow(windowData.id)}
@@ -163,6 +169,7 @@ function AppContent() {
       />
       <Taskbar
         windows={windows}
+        focusedWindowId={focusedWindowId}
         isMusicPlayerOpen={isMusicPlayerOpen}
         onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
         isStartMenuOpen={isStartMenuOpen}
@@ -175,6 +182,7 @@ function AppContent() {
 
 type WindowProps = {
   data: WindowData;
+  isFocused: boolean;
   onClose: () => void;
   onMinimize: () => void;
   onMaximize: () => void;
@@ -183,7 +191,7 @@ type WindowProps = {
   onNavigate: (page: Page) => void;
 };
 
-function Window({ data, onClose, onMinimize, onMaximize, onFocus, onMove, onNavigate }: WindowProps) {
+function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onMove, onNavigate }: WindowProps) {
   const { t } = useLanguage();
   const [isDragging, setIsDragging] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -297,7 +305,7 @@ function Window({ data, onClose, onMinimize, onMaximize, onFocus, onMove, onNavi
       style={getWindowStyle()}
       onClick={onFocus}
     >
-      <div class="title-bar" onMouseDown={handleMouseDown}>
+      <div class={`title-bar${!isFocused ? ' inactive' : ''}`} onMouseDown={handleMouseDown}>
         <div class="title-bar-text">
           {getPageTitle()} - {t.brand}
         </div>

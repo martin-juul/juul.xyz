@@ -133,7 +133,7 @@ ul.tree-view {
   font-size: 11px;
   background: #c0c0c0;
   border: 2px solid;
-  border-color: #808080 #fff #fff #808080;
+  border-color: #fff #808080 #808080 #fff;
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -141,7 +141,7 @@ ul.tree-view {
 }
 
 .taskbar-window.active {
-  border-color: #fff #808080 #808080 #fff;
+  border-color: #808080 #fff #fff #808080;
   background: #fff;
   font-weight: bold;
 }
@@ -494,6 +494,15 @@ ul.tree-view {
 .taskbar-window.active {
   border-color: #808080 #fff #fff #808080;
   background: #fff;
+}
+
+/* Inactive window title bar */
+.title-bar.inactive {
+  background: linear-gradient(90deg, #808080, #c0c0c0);
+}
+
+.title-bar.inactive .title-bar-text {
+  color: #a0a0a0;
 }
 
 /* Start menu item - already open */

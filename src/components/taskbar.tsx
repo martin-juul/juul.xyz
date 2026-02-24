@@ -14,6 +14,7 @@ type WindowData = {
 
 type TaskbarProps = {
   windows: WindowData[];
+  focusedWindowId: string | null;
   isMusicPlayerOpen: boolean;
   onStartClick: () => void;
   isStartMenuOpen: boolean;
@@ -21,7 +22,7 @@ type TaskbarProps = {
   onOpenMusicPlayer: () => void;
 };
 
-export function Taskbar({ windows, isMusicPlayerOpen, onStartClick, isStartMenuOpen, onRestoreWindow, onOpenMusicPlayer }: TaskbarProps) {
+export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartClick, isStartMenuOpen, onRestoreWindow, onOpenMusicPlayer }: TaskbarProps) {
   const { t } = useLanguage();
   const [time, setTime] = useState(new Date());
 
@@ -69,7 +70,7 @@ export function Taskbar({ windows, isMusicPlayerOpen, onStartClick, isStartMenuO
         {windows.map(window => (
           <div
             key={window.id}
-            class={`taskbar-window ${window.state !== 'minimized' ? 'active' : ''}`}
+            class={`taskbar-window ${window.id === focusedWindowId && window.state !== 'minimized' ? 'active' : ''}`}
             onClick={() => onRestoreWindow(window.id)}
           >
             <img src={getPageIcon(window.page)} alt="" style="width: 16px; height: 16px;" />
