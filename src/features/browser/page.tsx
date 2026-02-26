@@ -538,16 +538,6 @@ export function Browser() {
         )}
       </div>
 
-      {/* Status Bar */}
-      <div class="ie-status-bar">
-        <div class="ie-status-text">
-          {isLoading ? t.browser.loading : (currentUrl ? t.browser.done : t.browser.welcome)}
-        </div>
-        <div class="ie-status-zone">
-          <span class="ie-zone-icon"></span>
-          {t.browser.internetZone}
-        </div>
-      </div>
     </div>
   );
 }
