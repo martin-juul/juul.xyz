@@ -28,5 +28,12 @@ export const projectsData: ProjectItem[] = [
     name: 'Luft',
     url: 'http://luft.dk',
     description: 'Under construction'
+  },
+  {
+    id: 5,
+    slug: 'electron-angle-patcher',
+    name: 'Electron Angle Patcher',
+    url: 'https://pypi.org/project/electron-angle-patcher/',
+    description: 'Patch Electron and Chrome applications on macOS to use OpenGL rendering through the use-angle@1 setting.',
   }
 ];
