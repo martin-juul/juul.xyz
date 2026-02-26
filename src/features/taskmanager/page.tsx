@@ -39,6 +39,7 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   taskmanager: 'taskmgr.exe',
   minesweeper: 'winmine.exe',
   freecell: 'freecell.exe',
+  gallery: 'shimgvw.exe',
   notfound: 'explorer.exe',
 };
 
@@ -52,6 +53,7 @@ const processBaseMemory: Record<string, number> = {
   'winamp.exe': 3844,
   'taskmgr.exe': 2192,
   'freecell.exe': 2100,
+  'shimgvw.exe': 2844,
   'explorer.exe': 1624,
   'System': 424,
 };
@@ -68,6 +70,7 @@ function getPageDisplayName(page: Page | 'music' | 'taskmanager'): string {
     case 'taskmanager': return 'Task Manager';
     case 'minesweeper': return 'Minesweeper';
     case 'freecell': return 'FreeCell';
+    case 'gallery': return 'Image Gallery';
     case 'notfound': return 'Explorer';
     default: return page;
   }

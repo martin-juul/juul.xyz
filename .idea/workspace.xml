@@ -2,52 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fba190d-9d1b-4eca-959d-aca9c22b053b" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/36.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/1.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/10.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/11.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/12.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/13.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/14.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/15.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/16.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/17.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/18.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/19.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/2.heic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/20.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/21.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/22.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/23.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/24.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/25.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/26.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/27.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/28.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/29.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/3.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/30.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/31.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/32.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/33.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/34.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/35.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/4.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/5.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/6.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/7.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/8.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/9.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/todo.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/desktop-icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/desktop-icons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/start-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/start-menu.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/context/language-context.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/language-context.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/common/translations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/common/translations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/gallery/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/gallery/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/taskmanager/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/taskmanager/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/i18n-routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/i18n-routing.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/types/page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/types/page.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +112,7 @@
       <workItem from="1771842340497" duration="869000" />
       <workItem from="1771953240748" duration="9007000" />
       <workItem from="1771968907516" duration="987000" />
-      <workItem from="1772125339105" duration="9298000" />
+      <workItem from="1772125339105" duration="9751000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -420,7 +378,23 @@
       <option name="project" value="LOCAL" />
       <updated>1772133616701</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="update">
+      <option name="closed" value="true" />
+      <created>1772137798502</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1772137798502</updated>
+    </task>
+    <task id="LOCAL-00035" summary="update">
+      <option name="closed" value="true" />
+      <created>1772137843910</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1772137843910</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

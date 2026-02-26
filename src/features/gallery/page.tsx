@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'preact/hooks';
+import { useLanguage } from '../../context/language-context';
 import './gallery.css';
 
 type Image = {
@@ -8,7 +9,9 @@ type Image = {
 
 type Album = {
   name: string;
+  slug: string;
   path: string;
+  cover: string;
   images: Image[];
 };
 
@@ -16,7 +19,9 @@ type Album = {
 const ALBUMS: Album[] = [
   {
     name: 'Beginning',
+    slug: 'beginning',
     path: '/assets/gallery/beginning',
+    cover: '/assets/gallery/beginning/1.jpeg',
     images: [
       { filename: '1.jpeg', path: '/assets/gallery/beginning/1.jpeg' },
       { filename: '2.heic', path: '/assets/gallery/beginning/2.heic' },
@@ -57,17 +62,54 @@ const ALBUMS: Album[] = [
   },
 ];
 
-export function Gallery() {
-  const [currentAlbum, setCurrentAlbum] = useState<Album>(ALBUMS[0]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+// Helper to find album by slug
+function getAlbumBySlug(slug: string): Album | undefined {
+  return ALBUMS.find(a => a.slug === slug);
+}
+
+// Cover List View - shows all albums
+function CoverList({ onSelectAlbum }: { onSelectAlbum: (album: Album) => void }) {
+  return (
+    <div class="gallery-cover-list">
+      {ALBUMS.map((album) => (
+        <div
+          key={album.slug}
+          class="gallery-album-card"
+          onDblClick={() => onSelectAlbum(album)}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div class="gallery-album-cover">
+            <img src={album.cover} alt={album.name} />
+          </div>
+          <div class="gallery-album-info">
+            <span class="gallery-album-name">{album.name}</span>
+            <span class="gallery-album-count">{album.images.length} images</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Slideshow Viewer - shows images in an album
+function SlideshowViewer({
+  album,
+  currentIndex,
+  onNavigate,
+  onBack,
+}: {
+  album: Album;
+  currentIndex: number;
+  onNavigate: (index: number) => void;
+  onBack: () => void;
+}) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeMenu, setActiveMenu] = useState<'file' | 'view' | 'help' | null>(null);
-  const [showAlbumDropdown, setShowAlbumDropdown] = useState(false);
   const slideshowRef = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const thumbnailRef = useRef<HTMLDivElement>(null);
 
-  const currentImage = currentAlbum.images[currentIndex];
+  const currentImage = album.images[currentIndex];
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -84,7 +126,7 @@ export function Gallery() {
   useEffect(() => {
     if (isPlaying) {
       slideshowRef.current = window.setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % currentAlbum.images.length);
+        onNavigate((currentIndex + 1) % album.images.length);
       }, 3000);
     } else {
       if (slideshowRef.current) {
@@ -97,7 +139,7 @@ export function Gallery() {
         clearInterval(slideshowRef.current);
       }
     };
-  }, [isPlaying, currentAlbum.images.length]);
+  }, [isPlaying, currentIndex, album.images.length, onNavigate]);
 
   // Scroll active thumbnail into view
   useEffect(() => {
@@ -123,28 +165,23 @@ export function Gallery() {
       } else if (e.key === ' ') {
         e.preventDefault();
         setIsPlaying((prev) => !prev);
+      } else if (e.key === 'Escape') {
+        onBack();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentAlbum.images.length]);
+  }, [currentIndex, album.images.length, onBack]);
 
   const goToPrevious = useCallback(() => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? currentAlbum.images.length - 1 : prev - 1
-    );
-  }, [currentAlbum.images.length]);
+    const next = currentIndex === 0 ? album.images.length - 1 : currentIndex - 1;
+    onNavigate(next);
+  }, [currentIndex, album.images.length, onNavigate]);
 
   const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % currentAlbum.images.length);
-  }, [currentAlbum.images.length]);
-
-  const selectAlbum = (album: Album) => {
-    setCurrentAlbum(album);
-    setCurrentIndex(0);
-    setShowAlbumDropdown(false);
-    setIsPlaying(false);
-  };
+    const next = (currentIndex + 1) % album.images.length;
+    onNavigate(next);
+  }, [currentIndex, album.images.length, onNavigate]);
 
   return (
     <div class="gallery-container">
@@ -162,6 +199,10 @@ export function Gallery() {
           </span>
           {activeMenu === 'file' && (
             <div class="gallery-dropdown">
+              <button class="gallery-dropdown-item" onClick={() => { setActiveMenu(null); onBack(); }}>
+                Back to Albums
+              </button>
+              <div class="gallery-dropdown-separator" />
               <button class="gallery-dropdown-item" onClick={() => setActiveMenu(null)}>
                 Exit
               </button>
@@ -182,6 +223,15 @@ export function Gallery() {
 
       {/* Toolbar */}
       <div class="gallery-toolbar">
+        <button
+          class="gallery-toolbar-btn"
+          onClick={onBack}
+          title="Back to Albums"
+        >
+          📁
+        </button>
+        <div class="gallery-toolbar-separator" />
+
         <button
           class="gallery-toolbar-btn"
           onClick={goToPrevious}
@@ -206,34 +256,12 @@ export function Gallery() {
 
         <div class="gallery-toolbar-separator" />
 
-        {/* Album Selector */}
-        <div class="gallery-album-selector">
-          <button
-            class="gallery-album-btn"
-            onClick={() => setShowAlbumDropdown(!showAlbumDropdown)}
-          >
-            📁 {currentAlbum.name} ({currentAlbum.images.length})
-            <span class="gallery-album-arrow">▼</span>
-          </button>
-          {showAlbumDropdown && (
-            <div class="gallery-album-dropdown">
-              {ALBUMS.map((album) => (
-                <button
-                  key={album.name}
-                  class={`gallery-album-option ${album.name === currentAlbum.name ? 'selected' : ''}`}
-                  onClick={() => selectAlbum(album)}
-                >
-                  {album.name} ({album.images.length})
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        <span class="gallery-album-title">📁 {album.name}</span>
 
         <div class="gallery-toolbar-separator" />
 
         <span class="gallery-counter">
-          {currentIndex + 1} / {currentAlbum.images.length}
+          {currentIndex + 1} / {album.images.length}
         </span>
       </div>
 
@@ -252,11 +280,11 @@ export function Gallery() {
       {/* Thumbnail Slider */}
       <div class="gallery-thumbnails" ref={thumbnailRef}>
         <div class="gallery-thumbnails-track">
-          {currentAlbum.images.map((image, index) => (
+          {album.images.map((image, index) => (
             <div
               key={image.filename}
               class={`gallery-thumb ${index === currentIndex ? 'active' : ''}`}
-              onClick={() => setCurrentIndex(index)}
+              onClick={() => onNavigate(index)}
             >
               <img
                 src={image.path}
@@ -271,11 +299,119 @@ export function Gallery() {
           <div
             class="gallery-progress-fill"
             style={{
-              width: `${((currentIndex + 1) / currentAlbum.images.length) * 100}%`,
+              width: `${((currentIndex + 1) / album.images.length) * 100}%`,
             }}
           />
         </div>
       </div>
     </div>
+  );
+}
+
+export function Gallery() {
+  const { currentSubPath, navigateTo } = useLanguage();
+  const [view, setView] = useState<'cover' | 'slideshow'>('cover');
+  const [currentAlbum, setCurrentAlbum] = useState<Album | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const isNavigatingRef = useRef(false);
+
+  // Parse subPath to determine view and state
+  useEffect(() => {
+    if (!currentSubPath) {
+      // No subpath - show cover list
+      setView('cover');
+      setCurrentAlbum(null);
+      return;
+    }
+
+    // subPath format: "album-slug/image-index" or just "album-slug"
+    const parts = currentSubPath.split('/');
+    const albumSlug = parts[0];
+    const imageIndex = parts[1] ? parseInt(parts[1], 10) - 1 : 0; // URL is 1-indexed
+
+    const album = getAlbumBySlug(albumSlug);
+    if (album) {
+      setCurrentAlbum(album);
+      setView('slideshow');
+
+      // Clamp index to valid range
+      const validIndex = Math.max(0, Math.min(imageIndex, album.images.length - 1));
+      if (validIndex !== imageIndex || !parts[1]) {
+        // Invalid or missing index, update URL
+        isNavigatingRef.current = true;
+        navigateTo('gallery', `${album.slug}/1`, true);
+      }
+      setCurrentIndex(validIndex);
+    } else {
+      // Unknown album - show cover list
+      setView('cover');
+      setCurrentAlbum(null);
+    }
+  }, [currentSubPath, navigateTo]);
+
+  // Navigate to a specific image in an album
+  const handleNavigateImage = useCallback((index: number) => {
+    if (!currentAlbum) return;
+    if (isNavigatingRef.current) {
+      isNavigatingRef.current = false;
+      return;
+    }
+    setCurrentIndex(index);
+    const newSubPath = `${currentAlbum.slug}/${index + 1}`;
+    navigateTo('gallery', newSubPath, true);
+  }, [currentAlbum, navigateTo]);
+
+  // Open an album
+  const handleSelectAlbum = useCallback((album: Album) => {
+    setCurrentAlbum(album);
+    setCurrentIndex(0);
+    setView('slideshow');
+    navigateTo('gallery', `${album.slug}/1`, false);
+  }, [navigateTo]);
+
+  // Go back to cover list
+  const handleBack = useCallback(() => {
+    setView('cover');
+    setCurrentAlbum(null);
+    navigateTo('gallery', undefined, false);
+  }, [navigateTo]);
+
+  // Render cover list
+  if (view === 'cover' || !currentAlbum) {
+    return (
+      <div class="gallery-container">
+        {/* Menu Bar */}
+        <div class="gallery-menu-bar">
+          <span class="gallery-menu-item">File</span>
+          <span class="gallery-menu-item">View</span>
+          <span class="gallery-menu-item">Help</span>
+        </div>
+
+        {/* Toolbar */}
+        <div class="gallery-toolbar">
+          <span class="gallery-toolbar-title">📷 Image Gallery</span>
+        </div>
+
+        {/* Cover List */}
+        <div class="gallery-cover-area">
+          <CoverList onSelectAlbum={handleSelectAlbum} />
+        </div>
+
+        {/* Status Bar */}
+        <div class="gallery-status-bar">
+          <span>{ALBUMS.length} album(s) - Double-click to open</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Render slideshow viewer
+  return (
+    <SlideshowViewer
+      album={currentAlbum}
+      currentIndex={currentIndex}
+      onNavigate={handleNavigateImage}
+      onBack={handleBack}
+    />
   );
 }
