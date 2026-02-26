@@ -9,6 +9,7 @@ export const commonTranslations = {
       contact: 'Contact',
       music: 'Music',
       browser: 'Internet Explorer',
+      taskmanager: 'Task Manager',
     },
     footer: {
       builtWith: 'Built with Preact & 98.css',
@@ -30,6 +31,7 @@ export const commonTranslations = {
       contact: 'Kontakt',
       music: 'Musik',
       browser: 'Internet Explorer',
+      taskmanager: 'Opgavestyring',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',

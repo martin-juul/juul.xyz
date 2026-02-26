@@ -25,6 +25,7 @@ type Translations = {
     contact: string;
     music: string;
     browser: string;
+    taskmanager: string;
   };
   home: {
     title: string;

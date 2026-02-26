@@ -2121,3 +2121,329 @@ ul.tree-view {
   }
 }
 
+/* ============================================
+   Windows 98 Task Manager
+   ============================================ */
+
+.task-manager {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #c0c0c0;
+  font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+}
+
+/* Task Manager Menu Bar */
+.taskmgr-menu-bar {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #d4d0c8 0%, #c0c0c0 100%);
+  border-bottom: 1px solid #808080;
+  padding: 2px 4px;
+  min-height: 20px;
+}
+
+.taskmgr-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.taskmgr-menu-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+/* Task Manager Tabs */
+.taskmgr-tabs {
+  display: flex;
+  background: #c0c0c0;
+  padding: 2px 4px 0 4px;
+  gap: 2px;
+}
+
+.taskmgr-tab {
+  padding: 4px 12px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  border-bottom: none;
+  cursor: pointer;
+  font-size: 11px;
+  position: relative;
+  top: 2px;
+  margin-bottom: -2px;
+}
+
+.taskmgr-tab:hover {
+  background: #d4d0c8;
+}
+
+.taskmgr-tab.active {
+  background: #c0c0c0;
+  border-color: #808080 #fff #c0c0c0 #808080;
+  border-bottom: 2px solid #c0c0c0;
+  z-index: 1;
+}
+
+/* Task Manager Content */
+.taskmgr-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  margin: 0 4px;
+  overflow: hidden;
+}
+
+/* Task Manager List */
+.taskmgr-list {
+  flex: 1;
+  overflow: auto;
+  background: #fff;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  margin: 4px;
+}
+
+.taskmgr-list-full {
+  flex: 1;
+}
+
+/* Task Manager Table */
+.taskmgr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.taskmgr-table th {
+  text-align: left;
+  padding: 2px 4px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  font-weight: normal;
+  cursor: default;
+}
+
+.taskmgr-table td {
+  padding: 1px 4px;
+  border-bottom: 1px solid #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.taskmgr-table tr.selected td {
+  background: #000080;
+  color: #fff;
+}
+
+.taskmgr-table .taskmgr-num {
+  text-align: right;
+}
+
+/* Task Manager Buttons */
+.taskmgr-buttons {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #c0c0c0;
+  border-top: 1px solid #fff;
+}
+
+.taskmgr-buttons button {
+  padding: 2px 12px;
+  font-size: 11px;
+  font-family: 'Tahoma', sans-serif;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  cursor: pointer;
+  min-width: 75px;
+}
+
+.taskmgr-buttons button:hover:not(:disabled) {
+  background: #d4d0c8;
+}
+
+.taskmgr-buttons button:active:not(:disabled) {
+  border-color: #808080 #fff #fff #808080;
+}
+
+.taskmgr-buttons button:disabled {
+  color: #808080;
+  cursor: default;
+}
+
+/* Task Manager Status Bar */
+.taskmgr-status-bar {
+  display: flex;
+  align-items: center;
+  background: #c0c0c0;
+  border-top: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  padding: 2px 4px;
+  gap: 24px;
+  font-size: 11px;
+  min-height: 20px;
+}
+
+/* Task Manager Performance Tab */
+.taskmgr-performance {
+  padding: 8px;
+  overflow-y: auto;
+}
+
+.perf-section {
+  margin-bottom: 16px;
+}
+
+.perf-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.perf-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  height: 24px;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.perf-bar-inner {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.perf-bar-fill {
+  height: 100%;
+  width: 100%;
+}
+
+.perf-bar-green {
+  background: repeating-linear-gradient(
+    90deg,
+    #00aa00 0px,
+    #00aa00 2px,
+    #008800 2px,
+    #008800 4px
+  );
+}
+
+.perf-bar-blue {
+  background: repeating-linear-gradient(
+    90deg,
+    #0000aa 0px,
+    #0000aa 2px,
+    #000088 2px,
+    #000088 4px
+  );
+}
+
+.perf-bar-text {
+  position: absolute;
+  right: 8px;
+  font-weight: bold;
+}
+
+.perf-stats {
+  font-size: 10px;
+  color: #000;
+}
+
+.perf-stat-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 1px 0;
+}
+
+.perf-sections-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.perf-section-box {
+  flex: 1;
+  min-width: 150px;
+  background: #fff;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  padding: 4px 8px;
+}
+
+.perf-box-title {
+  font-weight: bold;
+  border-bottom: 1px solid #808080;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+}
+
+.perf-box-content {
+  font-size: 10px;
+}
+
+.perf-box-content .perf-stat-line {
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+/* ============================================
+   Taskbar Context Menu
+   ============================================ */
+
+.taskbar-context-menu {
+  position: fixed;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  min-width: 180px;
+  font-size: 11px;
+}
+
+.context-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 20px 4px 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.context-menu-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.context-menu-item-disabled {
+  color: #808080;
+  cursor: default;
+}
+
+.context-menu-item-disabled:hover {
+  background: transparent;
+  color: #808080;
+}
+
+.context-menu-icon {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+}
+
+.context-menu-separator {
+  height: 1px;
+  background: #808080;
+  margin: 2px 4px;
+}
+

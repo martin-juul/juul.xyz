@@ -8,6 +8,7 @@ import { Contact } from './features/contact';
 import { NotFound } from './features/errors';
 import { MusicPlayer } from './features/music';
 import { Browser } from './features/browser';
+import { TaskManager } from './features/taskmanager';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
@@ -275,6 +276,10 @@ function AppContent() {
             onMove={(pos) => moveWindow(windowData.id, pos)}
             onResizeStart={(edge, e) => handleResizeStart(windowData.id, edge, e)}
             onNavigate={openWindow}
+            windows={windows}
+            onCloseWindow={closeWindow}
+            onFocusWindow={focusWindow}
+            isMusicPlayerOpen={isMusicPlayerOpen}
           />
         ))}
       </div>
@@ -309,6 +314,7 @@ function AppContent() {
         isStartMenuOpen={isStartMenuOpen}
         onRestoreWindow={restoreWindow}
         onOpenMusicPlayer={() => setIsMusicPlayerOpen(true)}
+        onOpenTaskManager={() => openWindow('taskmanager')}
       />
     </>
   );
@@ -324,6 +330,10 @@ type WindowProps = {
   onMove: (pos: { x: number; y: number }) => void;
   onResizeStart: (edge: ResizeEdge, e: MouseEvent) => void;
   onNavigate: (page: Page) => void;
+  windows: WindowData[];
+  onCloseWindow: (id: string) => void;
+  onFocusWindow: (id: string) => void;
+  isMusicPlayerOpen: boolean;
 };
 
 // Status bar that reads from context
@@ -337,7 +347,7 @@ function WindowStatusBar({ onResizeStart }: { onResizeStart: (edge: ResizeEdge, 
   );
 }
 
-function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onMove, onResizeStart, onNavigate }: WindowProps) {
+function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onMove, onResizeStart, onNavigate, windows, onCloseWindow, onFocusWindow, isMusicPlayerOpen }: WindowProps) {
   const { t } = useLanguage();
   const [isDragging, setIsDragging] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -360,6 +370,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'contact': return t.nav.contact;
       case 'music': return t.nav.music;
       case 'browser': return t.nav.browser;
+      case 'taskmanager': return t.nav.taskmanager;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -372,6 +383,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'contact': return <Contact />;
       case 'music': return null; // Music is handled separately
       case 'browser': return <Browser />;
+      case 'taskmanager': return <TaskManager windows={windows} onCloseWindow={onCloseWindow} onFocusWindow={onFocusWindow} isMusicPlayerOpen={isMusicPlayerOpen} />;
       case 'notfound': return <NotFound />;
     }
   };

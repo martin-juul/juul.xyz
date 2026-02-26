@@ -16,6 +16,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     contact: 'contact',
     music: 'music',
     browser: 'browser',
+    taskmanager: 'task-manager',
     notfound: 'not-found',
   },
   da: {
@@ -25,6 +26,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     contact: 'kontakt',
     music: 'musik',
     browser: 'internet',
+    taskmanager: 'opgavestyring',
     notfound: 'not-found',
   },
 };
