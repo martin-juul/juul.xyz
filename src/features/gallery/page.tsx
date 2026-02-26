@@ -116,11 +116,77 @@ function SlideshowViewer({
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeMenu, setActiveMenu] = useState<'file' | 'view' | 'help' | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const slideshowRef = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const thumbnailRef = useRef<HTMLDivElement>(null);
+  const imageAreaRef = useRef<HTMLDivElement>(null);
 
   const currentImage = album.images[currentIndex];
+
+  // Reset zoom when changing images
+  useEffect(() => {
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+  }, [currentIndex]);
+
+  // Handle scroll zoom
+  const handleWheel = useCallback((e: WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+    setZoom((prev) => Math.min(Math.max(prev * delta, 0.5), 5));
+  }, []);
+
+  // Add wheel event listener
+  useEffect(() => {
+    const imageArea = imageAreaRef.current;
+    if (imageArea) {
+      imageArea.addEventListener('wheel', handleWheel, { passive: false });
+      return () => imageArea.removeEventListener('wheel', handleWheel);
+    }
+  }, [handleWheel]);
+
+  // Handle mouse drag for panning when zoomed
+  const handleMouseDown = useCallback((e: MouseEvent) => {
+    if (zoom > 1) {
+      setIsDragging(true);
+      setDragStart({ x: e.clientX - pan.x, y: e.clientY - pan.y });
+    }
+  }, [zoom, pan]);
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (isDragging && zoom > 1) {
+      setPan({
+        x: e.clientX - dragStart.x,
+        y: e.clientY - dragStart.y,
+      });
+    }
+  }, [isDragging, zoom, dragStart]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  // Add mouse event listeners for dragging
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging, handleMouseMove, handleMouseUp]);
+
+  // Reset zoom button
+  const handleResetZoom = useCallback(() => {
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+  }, []);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -274,16 +340,47 @@ function SlideshowViewer({
         <span class="gallery-counter">
           {currentIndex + 1} / {album.images.length}
         </span>
+
+        <div class="gallery-toolbar-separator" />
+
+        {/* Zoom controls */}
+        <button
+          class="gallery-toolbar-btn"
+          onClick={() => setZoom((z) => Math.max(z * 0.9, 0.5))}
+          title="Zoom Out"
+        >
+          ➖
+        </button>
+        <span class="gallery-zoom-level" onClick={handleResetZoom} style={{ cursor: 'pointer' }} title="Reset Zoom">
+          {Math.round(zoom * 100)}%
+        </span>
+        <button
+          class="gallery-toolbar-btn"
+          onClick={() => setZoom((z) => Math.min(z * 1.1, 5))}
+          title="Zoom In"
+        >
+          ➕
+        </button>
       </div>
 
       {/* Main Image Display */}
-      <div class="gallery-image-area">
+      <div
+        ref={imageAreaRef}
+        class="gallery-image-area"
+        style={{ cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
+        onMouseDown={handleMouseDown}
+      >
         {currentImage && (
           <img
             key={currentImage.path}
             src={currentImage.path}
             alt={currentImage.filename}
             class="gallery-main-image"
+            style={{
+              transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)`,
+              transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+            }}
+            draggable={false}
           />
         )}
       </div>
