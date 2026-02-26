@@ -10,7 +10,7 @@ export function SlideSidebar({ currentIndex, onSelectSlide }: SlideSidebarProps)
   const projects = t.projects.items;
 
   return (
-    <div class="ppt-slide-sidebar">
+    <nav class="ppt-slide-sidebar" data-nosnippet aria-label="Project slides">
       <div class="ppt-sidebar-header">
         <span>Slides</span>
       </div>
@@ -27,6 +27,6 @@ export function SlideSidebar({ currentIndex, onSelectSlide }: SlideSidebarProps)
           </div>
         ))}
       </div>
-    </div>
+    </nav>
   );
 }

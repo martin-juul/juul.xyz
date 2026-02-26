@@ -42,8 +42,8 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
 
   return (
     <>
-      <div class="start-menu-overlay" onClick={onClose} />
-      <div class="start-menu">
+      <div class="start-menu-overlay" onClick={onClose} data-nosnippet />
+      <div class="start-menu" data-nosnippet>
         <div class="start-menu-sidebar">
           <span class="start-menu-brand">
             Martin<span class="start-menu-brand-suffix">98</span>

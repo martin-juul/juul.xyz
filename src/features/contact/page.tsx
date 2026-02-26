@@ -78,7 +78,7 @@ export function Contact() {
   }
 
   return (
-    <div style={{ padding: '16px' }}>
+    <main style={{ padding: '16px' }}>
       <p style={{ marginBottom: '16px' }}>{t.contact.getInTouch}</p>
 
       <form onSubmit={handleSubmit}>
@@ -155,6 +155,6 @@ export function Contact() {
           </button>
         </div>
       </form>
-    </div>
+    </main>
   );
 }

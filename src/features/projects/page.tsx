@@ -66,7 +66,7 @@ export function Projects() {
   }, [nextSlide, prevSlide, goToSlide, projects.length]);
 
   return (
-    <div class="ppt-container">
+    <main class="ppt-container">
       {/* PowerPoint Toolbar */}
       <PowerPointToolbar />
 
@@ -85,6 +85,6 @@ export function Projects() {
           transitionDirection={transitionDirection}
         />
       </div>
-    </div>
+    </main>
   );
 }

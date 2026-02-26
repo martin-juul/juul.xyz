@@ -58,7 +58,7 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
   };
 
   return (
-    <div class="taskbar">
+    <div class="taskbar" data-nosnippet>
       <button
         class={`start-button ${isStartMenuOpen ? 'active' : ''}`}
         onClick={onStartClick}

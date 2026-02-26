@@ -282,6 +282,7 @@ function AppContent() {
       {resizing && (
         <div
           class="resize-ghost"
+          data-nosnippet
           style={{
             left: resizing.currentRect.x,
             top: resizing.currentRect.y,
@@ -329,7 +330,7 @@ type WindowProps = {
 function WindowStatusBar({ onResizeStart }: { onResizeStart: (edge: ResizeEdge, e: MouseEvent) => void }) {
   const { statusText } = useStatus();
   return (
-    <div class="status-bar">
+    <div class="status-bar" data-nosnippet>
       <div class="status-bar-field">{statusText || '\u00A0'}</div>
       <div class="resize-grip" onMouseDown={(e) => onResizeStart('se', e)} />
     </div>
@@ -453,7 +454,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       style={getWindowStyle()}
       onClick={onFocus}
     >
-      <div class={`title-bar${!isFocused ? ' inactive' : ''}`} onMouseDown={handleMouseDown} onDblClick={onMaximize}>
+      <div class={`title-bar${!isFocused ? ' inactive' : ''}`} data-nosnippet onMouseDown={handleMouseDown} onDblClick={onMaximize}>
         <div class="title-bar-text">
           {getPageTitle()} - {t.brand}
         </div>
@@ -476,7 +477,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       </StatusProvider>
       {/* Resize handles - only show when not maximized */}
       {data.state !== 'maximized' && (
-        <>
+        <div data-nosnippet>
           <div class="resize-handle resize-n" onMouseDown={(e) => onResizeStart('n', e)} />
           <div class="resize-handle resize-s" onMouseDown={(e) => onResizeStart('s', e)} />
           <div class="resize-handle resize-e" onMouseDown={(e) => onResizeStart('e', e)} />
@@ -484,7 +485,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
           <div class="resize-handle resize-nw" onMouseDown={(e) => onResizeStart('nw', e)} />
           <div class="resize-handle resize-ne" onMouseDown={(e) => onResizeStart('ne', e)} />
           <div class="resize-handle resize-sw" onMouseDown={(e) => onResizeStart('sw', e)} />
-        </>
+        </div>
       )}
     </div>
   );

@@ -1,33 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Home -->
   <url>
-    <loc>https://juul.xyz/</loc>
-    <lastmod>2026-02-24</lastmod>
+    <loc>https://www.juul.xyz/</loc>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/"/>
   </url>
   <url>
-    <loc>https://juul.xyz/projects</loc>
-    <lastmod>2026-02-24</lastmod>
+    <loc>https://www.juul.xyz/da/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/"/>
+  </url>
+  <!-- Projects -->
+  <url>
+    <loc>https://www.juul.xyz/en/projects</loc>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects"/>
   </url>
   <url>
-    <loc>https://juul.xyz/resume</loc>
-    <lastmod>2026-02-24</lastmod>
+    <loc>https://www.juul.xyz/da/projekter</loc>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects"/>
+  </url>
+  <!-- Resume -->
+  <url>
+    <loc>https://www.juul.xyz/en/resume</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume"/>
   </url>
   <url>
-    <loc>https://juul.xyz/contact</loc>
-    <lastmod>2026-02-24</lastmod>
+    <loc>https://www.juul.xyz/da/cv</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume"/>
+  </url>
+  <!-- Contact -->
+  <url>
+    <loc>https://www.juul.xyz/en/contact</loc>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/contact"/>
   </url>
   <url>
-    <loc>https://juul.xyz/music</loc>
-    <lastmod>2026-02-24</lastmod>
+    <loc>https://www.juul.xyz/da/kontakt</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/contact"/>
+  </url>
+  <!-- Browser -->
+  <url>
+    <loc>https://www.juul.xyz/en/browser</loc>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/browser"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/internet"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/browser"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/internet</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/browser"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/internet"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/browser"/>
   </url>
 </urlset>

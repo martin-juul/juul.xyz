@@ -25,7 +25,7 @@ export function PowerPointToolbar({ onPrint, onSave }: PowerPointToolbarProps) {
   };
 
   return (
-    <div class="powerpoint-toolbar">
+    <div class="powerpoint-toolbar" data-nosnippet>
       {/* Menu Bar */}
       <div class="ppt-menu-bar">
         <span class="ppt-menu-item">File</span>

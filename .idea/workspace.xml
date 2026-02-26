@@ -2,7 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fba190d-9d1b-4eca-959d-aca9c22b053b" name="Changes" comment="update">
-      <change beforePath="$PROJECT_DIR$/src/features/projects/data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/projects/data.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/plans/2026-02-24-refactor-feature-domain-organization-plan.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/sitemap.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/desktop-icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/desktop-icons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/start-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/start-menu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/taskbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/taskbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/contact/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/home/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/home/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/projects/components/SlideView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/projects/components/SlideView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/resume/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/resume/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +115,7 @@
       <workItem from="1771842340497" duration="869000" />
       <workItem from="1771953240748" duration="9007000" />
       <workItem from="1771968907516" duration="987000" />
-      <workItem from="1772125339105" duration="579000" />
+      <workItem from="1772125339105" duration="1314000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -267,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772125946614</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="update">
+      <option name="closed" value="true" />
+      <created>1772126064633</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1772126064633</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

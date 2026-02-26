@@ -11,7 +11,7 @@ type SlideViewProps = {
 
 export function SlideView({ project, isTransitioning, transitionDirection }: SlideViewProps) {
   return (
-    <div class="ppt-slide-area">
+    <article class="ppt-slide-area">
       <div class="ppt-slide-container">
         <div
           class={`ppt-slide ${isTransitioning ? 'transitioning' : ''} ${transitionDirection ? `slide-${transitionDirection}` : ''}`}
@@ -34,6 +34,6 @@ export function SlideView({ project, isTransitioning, transitionDirection }: Sli
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

@@ -55,7 +55,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
   }, []);
 
   return (
-    <div class="desktop-icons" ref={containerRef}>
+    <div class="desktop-icons" ref={containerRef} data-nosnippet>
       {icons.map((item) => (
         <div
           class={`desktop-icon ${selectedIcon === item.page ? 'desktop-icon-selected' : ''} ${openWindowPages.includes(item.page) ? 'desktop-icon-open' : ''}`}
