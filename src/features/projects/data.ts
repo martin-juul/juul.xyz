@@ -18,5 +18,11 @@ export const projectsData: ProjectItem[] = [
     name: 'Nytårstale',
     url: 'https://www.xn--nytrstale-72a.dk/',
     description: 'An archive of new years speeches from the danish royal family.'
+  },
+  {
+    id: 4,
+    name: 'Luft',
+    url: 'http://luft.dk',
+    description: 'Under construction'
   }
 ];
