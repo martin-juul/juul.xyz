@@ -11,26 +11,44 @@ export function Home({ onNavigate }: HomeProps) {
   const { t } = useLanguage();
   const editorRef = useRef<HTMLDivElement>(null);
 
-  const handleFontSizeChange = useCallback((size: string) => {
-    document.execCommand('fontSize', false, '7');
-    const fontElements = editorRef.current?.getElementsByTagName('font');
-    if (fontElements) {
-      for (let i = 0; i < fontElements.length; i++) {
-        if (fontElements[i].size === '7') {
-          fontElements[i].removeAttribute('size');
-          fontElements[i].style.fontSize = size + 'px';
-        }
-      }
+  const wrapSelection = useCallback((tagName: string, style?: Record<string, string>) => {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
+
+    const range = selection.getRangeAt(0);
+    if (range.collapsed) return;
+
+    const wrapper = document.createElement(tagName);
+    if (style) {
+      Object.assign(wrapper.style, style);
+    }
+
+    try {
+      range.surroundContents(wrapper);
+      selection.removeAllRanges();
+    } catch {
+      // If range spans multiple elements, extract and wrap
+      const fragment = range.extractContents();
+      wrapper.appendChild(fragment);
+      range.insertNode(wrapper);
     }
   }, []);
 
-  const handleFormat = useCallback((command: string, value?: string) => {
-    document.execCommand(command, false, value);
-  }, []);
+  const handleFontSizeChange = useCallback((size: string) => {
+    wrapSelection('span', { fontSize: `${size}px` });
+  }, [wrapSelection]);
 
-  const handleBold = useCallback(() => handleFormat('bold'), [handleFormat]);
-  const handleItalic = useCallback(() => handleFormat('italic'), [handleFormat]);
-  const handleUnderline = useCallback(() => handleFormat('underline'), [handleFormat]);
+  const handleBold = useCallback(() => {
+    wrapSelection('strong');
+  }, [wrapSelection]);
+
+  const handleItalic = useCallback(() => {
+    wrapSelection('em');
+  }, [wrapSelection]);
+
+  const handleUnderline = useCallback(() => {
+    wrapSelection('u');
+  }, [wrapSelection]);
 
   return (
     <div class="word-container">
