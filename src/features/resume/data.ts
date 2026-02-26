@@ -3,6 +3,7 @@ import { type ResumeItem } from './types';
 export const resumeData: ResumeItem[] = [
   {
     id: 4,
+    slug: 'autorola-software-development',
     title: 'Frontend Developer',
     company: 'Autorola Software Development',
     logo: 'assets/resume/autorola-software-development.jpeg',
@@ -15,6 +16,7 @@ export const resumeData: ResumeItem[] = [
   },
   {
     id: 3,
+    slug: 'evercall',
     title: 'Application Developer',
     company: 'evercall',
     logo: 'assets/resume/evercall.png',
@@ -28,6 +30,7 @@ export const resumeData: ResumeItem[] = [
   },
   {
     id: 2,
+    slug: 'sitetech',
     title: 'Software Developer',
     company: 'SiteTech',
     logo: 'assets/resume/sitetech.jpeg',
@@ -42,6 +45,7 @@ export const resumeData: ResumeItem[] = [
   },
   {
     id: 1,
+    slug: 'odense-municipality',
     title: 'Software Developer',
     company: 'Odense Municipality',
     logo: 'assets/resume/odense-municipalty.png',
@@ -58,6 +62,7 @@ export const resumeData: ResumeItem[] = [
 export const resumeDataDa: ResumeItem[] = [
   {
     id: 4,
+    slug: 'autorola-software-development',
     title: 'Frontend Udvikler',
     company: 'Autorola Software Development',
     logo: 'assets/resume/autorola-software-development.jpeg',
@@ -70,6 +75,7 @@ export const resumeDataDa: ResumeItem[] = [
   },
   {
     id: 3,
+    slug: 'evercall',
     title: 'Applikations Udvikler',
     company: 'evercall',
     logo: 'assets/resume/evercall.png',
@@ -83,6 +89,7 @@ export const resumeDataDa: ResumeItem[] = [
   },
   {
     id: 2,
+    slug: 'sitetech',
     title: 'Software Udvikler',
     company: 'SiteTech',
     logo: 'assets/resume/sitetech.jpeg',
@@ -97,6 +104,7 @@ export const resumeDataDa: ResumeItem[] = [
   },
   {
     id: 1,
+    slug: 'odense-municipality',
     title: 'Software Udvikler',
     company: 'Odense Kommune',
     logo: 'assets/resume/odense-municipalty.png',

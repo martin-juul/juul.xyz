@@ -1,12 +1,40 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import { useLanguage } from '../../context/language-context';
 
 export function Resume() {
-  const { t } = useLanguage();
+  const { t, currentSubPath, navigateTo, currentPage } = useLanguage();
   const { items } = t.resume;
-  const [selectedId, setSelectedId] = useState(items[0]?.id);
+
+  // Find item by slug, fallback to first item
+  const findItemBySlug = (slug: string | undefined) => {
+    if (!slug) return null;
+    return items.find(item => item.slug === slug);
+  };
+
+  const [selectedId, setSelectedId] = useState<number>(() => {
+    const item = findItemBySlug(currentSubPath);
+    return item?.id ?? items[0]?.id;
+  });
+
+  // Sync with URL subPath changes (e.g., browser back/forward)
+  useEffect(() => {
+    const item = findItemBySlug(currentSubPath);
+    if (item && item.id !== selectedId) {
+      setSelectedId(item.id);
+    } else if (!item && currentSubPath && items.length > 0) {
+      // Invalid slug - redirect to first item
+      setSelectedId(items[0].id);
+      navigateTo(currentPage, items[0].slug, true);
+    }
+  }, [currentSubPath]);
 
   const selectedItem = items.find(item => item.id === selectedId) || items[0];
+
+  // Update URL when selection changes
+  const handleSelect = (item: typeof items[0]) => {
+    setSelectedId(item.id);
+    navigateTo(currentPage, item.slug);
+  };
 
   return (
     <main style="display: flex; height: 100%; background: url('/assets/sky.webp') center center / cover no-repeat;">
@@ -32,7 +60,7 @@ export function Resume() {
             const borderColor = colors[index % colors.length];
             return (
               <button
-                onClick={() => setSelectedId(item.id)}
+                onClick={() => handleSelect(item)}
                 aria-pressed={selectedId === item.id}
                 style={{
                   background: selectedId === item.id ? '#000080' : 'transparent',

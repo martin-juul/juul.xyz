@@ -49,9 +49,10 @@ export const SLUG_TO_PAGE = buildSlugToPageMap();
  *   "/en/" -> { language: 'en', page: 'home' }
  *   "/da/" -> { language: 'da', page: 'home' }
  *   "/da/projekter" -> { language: 'da', page: 'projects' }
+ *   "/en/resume/autorola-software-development" -> { language: 'en', page: 'resume', subPath: 'autorola-software-development' }
  *   "/projects" -> { language: 'en', page: 'projects' } (legacy support)
  */
-export function parsePath(pathname: string): { language: Language; page: Page } {
+export function parsePath(pathname: string): { language: Language; page: Page; subPath?: string } {
   // Normalize pathname
   const normalized = pathname.replace(/^\/|\/$/g, '') || '';
 
@@ -61,9 +62,10 @@ export function parsePath(pathname: string): { language: Language; page: Page } 
   // Check if first part is a language code
   if (parts[0] === 'en' || parts[0] === 'da') {
     const language = parts[0] as Language;
-    const slug = parts.slice(1).join('/');
+    const slug = parts[1] || '';
+    const subPath = parts.slice(2).join('/') || undefined;
     const page = SLUG_TO_PAGE[language][slug] || 'notfound';
-    return { language, page };
+    return { language, page, subPath };
   }
 
   // No language prefix - treat as English (legacy support)
@@ -84,8 +86,9 @@ export function parsePath(pathname: string): { language: Language; page: Page } 
  *   ('da', 'home') -> '/da/'
  *   ('en', 'projects') -> '/en/projects'
  *   ('da', 'projects') -> '/da/projekter'
+ *   ('en', 'resume', 'autorola-software-development') -> '/en/resume/autorola-software-development'
  */
-export function buildPath(language: Language, page: Page): string {
+export function buildPath(language: Language, page: Page, subPath?: string): string {
   const slug = PAGE_SLUGS[language][page];
 
   if (language === 'en' && page === 'home') {
@@ -94,6 +97,10 @@ export function buildPath(language: Language, page: Page): string {
 
   if (page === 'home') {
     return `/${language}/`;
+  }
+
+  if (subPath) {
+    return `/${language}/${slug}/${subPath}`;
   }
 
   return `/${language}/${slug}`;

@@ -6,12 +6,31 @@ import { SlideSidebar } from './components/SlideSidebar';
 import { SlideView } from './components/SlideView';
 
 export function Projects() {
-  const { t } = useLanguage();
+  const { t, currentSubPath, navigateTo, currentPage } = useLanguage();
   const { setStatusText } = useStatus();
   const projects = t.projects.items;
+
+  // Find slide index by slug
+  const findSlideIndexBySlug = (slug: string | undefined): number => {
+    if (!slug) return -1;
+    return projects.findIndex(project => project.slug === slug);
+  };
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [transitionDirection, setTransitionDirection] = useState<'left' | 'right' | null>(null);
+
+  // Sync with URL subPath on mount and when subPath changes
+  useEffect(() => {
+    const slideIndex = findSlideIndexBySlug(currentSubPath);
+    if (slideIndex >= 0 && slideIndex !== currentSlide) {
+      setCurrentSlide(slideIndex);
+    } else if (currentSubPath && slideIndex < 0 && projects.length > 0) {
+      // Invalid slug - redirect to first slide
+      setCurrentSlide(0);
+      navigateTo(currentPage, projects[0].slug, true);
+    }
+  }, [currentSubPath]);
 
   // Update status bar with slide info
   useEffect(() => {
@@ -28,12 +47,14 @@ export function Projects() {
 
     setTimeout(() => {
       setCurrentSlide(index);
+      // Update URL
+      navigateTo(currentPage, projects[index].slug);
       setTimeout(() => {
         setIsTransitioning(false);
         setTransitionDirection(null);
       }, 50);
     }, 200);
-  }, [isTransitioning, currentSlide, projects.length]);
+  }, [isTransitioning, currentSlide, projects.length, currentPage, navigateTo]);
 
   const nextSlide = useCallback(() => {
     goToSlide(currentSlide + 1, 'left');

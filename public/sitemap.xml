@@ -39,6 +39,82 @@
     <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects"/>
   </url>
+  <!-- Project: Is it DNS? -->
+  <url>
+    <loc>https://www.juul.xyz/en/projects/is-it-dns</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/is-it-dns"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/is-it-dns"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/is-it-dns"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/projekter/is-it-dns</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/is-it-dns"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/is-it-dns"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/is-it-dns"/>
+  </url>
+  <!-- Project: Bånder -->
+  <url>
+    <loc>https://www.juul.xyz/en/projects/baander</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/baander"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/baander"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/baander"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/projekter/baander</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/baander"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/baander"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/baander"/>
+  </url>
+  <!-- Project: Nytårstale -->
+  <url>
+    <loc>https://www.juul.xyz/en/projects/nytarstale</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/nytarstale"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/nytarstale"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/nytarstale"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/projekter/nytarstale</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/nytarstale"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/nytarstale"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/nytarstale"/>
+  </url>
+  <!-- Project: Luft -->
+  <url>
+    <loc>https://www.juul.xyz/en/projects/luft</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/luft"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/luft"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/luft"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/projekter/luft</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/luft"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/luft"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/luft"/>
+  </url>
   <!-- Resume -->
   <url>
     <loc>https://www.juul.xyz/en/resume</loc>
@@ -57,6 +133,82 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume"/>
+  </url>
+  <!-- Resume: Autorola Software Development -->
+  <url>
+    <loc>https://www.juul.xyz/en/resume/autorola-software-development</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/autorola-software-development"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv/autorola-software-development"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume/autorola-software-development"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/cv/autorola-software-development</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/autorola-software-development"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv/autorola-software-development"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume/autorola-software-development"/>
+  </url>
+  <!-- Resume: evercall -->
+  <url>
+    <loc>https://www.juul.xyz/en/resume/evercall</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/evercall"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv/evercall"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume/evercall"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/cv/evercall</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/evercall"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv/evercall"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume/evercall"/>
+  </url>
+  <!-- Resume: SiteTech -->
+  <url>
+    <loc>https://www.juul.xyz/en/resume/sitetech</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/sitetech"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv/sitetech"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume/sitetech"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/cv/sitetech</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/sitetech"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv/sitetech"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume/sitetech"/>
+  </url>
+  <!-- Resume: Odense Municipality -->
+  <url>
+    <loc>https://www.juul.xyz/en/resume/odense-municipality</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/odense-municipality"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv/odense-municipality"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume/odense-municipality"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/cv/odense-municipality</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/odense-municipality"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/cv/odense-municipality"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/resume/odense-municipality"/>
   </url>
   <!-- Contact -->
   <url>

@@ -117,7 +117,8 @@ type LanguageContextType = {
   setLanguage: (lang: Language) => void;
   t: Translations;
   currentPage: Page;
-  navigateTo: (page: Page, replace?: boolean) => void;
+  currentSubPath?: string;
+  navigateTo: (page: Page, subPath?: string, replace?: boolean) => void;
   getAlternateUrls: (page: Page) => Record<Language, string>;
 };
 
@@ -156,23 +157,31 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
     return page;
   });
 
+  const [currentSubPath, setCurrentSubPath] = useState<string | undefined>(() => {
+    if (typeof window === 'undefined') return undefined;
+    const { subPath } = parsePath(window.location.pathname);
+    return subPath;
+  });
+
   // Handle legacy ?lang= redirects and path-based language detection
   useEffect(() => {
     const { hasParam, lang } = hasLegacyLangParam(window.location.search);
 
     if (hasParam && lang) {
       // Redirect from legacy ?lang= to path-based URL
-      const { page } = parsePath(window.location.pathname);
-      const newPath = buildPath(lang, page);
+      const { page, subPath } = parsePath(window.location.pathname);
+      const newPath = buildPath(lang, page, subPath);
       const newUrl = newPath + window.location.hash;
       window.history.replaceState({}, '', newUrl);
       setCurrentPage(page);
+      setCurrentSubPath(subPath);
       return;
     }
 
     // Set initial page from path
-    const { page } = parsePath(window.location.pathname);
+    const { page, subPath } = parsePath(window.location.pathname);
     setCurrentPage(page);
+    setCurrentSubPath(subPath);
 
     // If on root path without language prefix, redirect to proper URL
     if (window.location.pathname === '/' && language !== 'en') {
@@ -185,14 +194,15 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
     setLanguageState(lang);
     localStorage.setItem('language', lang);
 
-    // Navigate to same page in new language
-    const newPath = buildPath(lang, currentPage);
+    // Navigate to same page in new language, preserving subPath
+    const newPath = buildPath(lang, currentPage, currentSubPath);
     window.history.pushState({}, '', newPath);
-  }, [currentPage]);
+  }, [currentPage, currentSubPath]);
 
-  const navigateTo = useCallback((page: Page, replace: boolean = false) => {
+  const navigateTo = useCallback((page: Page, subPath?: string, replace: boolean = false) => {
     setCurrentPage(page);
-    const newPath = buildPath(language, page);
+    setCurrentSubPath(subPath);
+    const newPath = buildPath(language, page, subPath);
 
     if (replace) {
       window.history.replaceState({}, '', newPath);
@@ -204,7 +214,7 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
   // Handle browser back/forward navigation
   useEffect(() => {
     const handlePopState = () => {
-      const { language: pathLang, page } = parsePath(window.location.pathname);
+      const { language: pathLang, page, subPath } = parsePath(window.location.pathname);
 
       if (pathLang !== language) {
         setLanguageState(pathLang);
@@ -212,6 +222,7 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
       }
 
       setCurrentPage(page);
+      setCurrentSubPath(subPath);
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -226,7 +237,7 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
   const t = translations[language] || translations.en;
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t, currentPage, navigateTo, getAlternateUrls }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, currentPage, currentSubPath, navigateTo, getAlternateUrls }}>
       {children}
     </LanguageContext.Provider>
   );
