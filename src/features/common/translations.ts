@@ -10,6 +10,7 @@ export const commonTranslations = {
       music: 'Music',
       browser: 'Internet Explorer',
       taskmanager: 'Task Manager',
+      minesweeper: 'Minesweeper',
     },
     footer: {
       builtWith: 'Built with Preact & 98.css',
@@ -32,6 +33,7 @@ export const commonTranslations = {
       music: 'Musik',
       browser: 'Internet Explorer',
       taskmanager: 'Opgavestyring',
+      minesweeper: 'Minestryger',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',

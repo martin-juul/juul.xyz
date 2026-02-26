@@ -9,6 +9,7 @@ import { NotFound } from './features/errors';
 import { MusicPlayer } from './features/music';
 import { Browser } from './features/browser';
 import { TaskManager } from './features/taskmanager';
+import { Minesweeper } from './features/minesweeper';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
@@ -53,6 +54,16 @@ function AppContent() {
     setIsMusicPlayerOpen(false);
   }, []);
 
+  // Page-specific default window sizes
+  const getDefaultWindowSize = (page: Page): { width: number; height: number } => {
+    switch (page) {
+      case 'minesweeper':
+        return { width: 220, height: 310 };
+      default:
+        return { width: 640, height: 480 };
+    }
+  };
+
   const openWindow = useCallback((page: Page, updateUrl: boolean = true) => {
     // Music player is handled separately
     if (page === 'music') {
@@ -87,7 +98,7 @@ function AppContent() {
       page,
       state: 'normal',
       position: { x: 20 + (windows.length * 30), y: 20 + (windows.length * 30) },
-      size: { width: 640, height: 480 },
+      size: getDefaultWindowSize(page),
       zIndex: nextZIndex,
       isOpening: true,
     };
@@ -169,12 +180,24 @@ function AppContent() {
     });
   }, [windows]);
 
+  // Get minimum window size for a page
+  const getMinWindowSize = (page: Page): { width: number; height: number } => {
+    switch (page) {
+      case 'minesweeper':
+        return { width: 180, height: 280 };
+      default:
+        return { width: 320, height: 240 };
+    }
+  };
+
   // Handle resize mouse move and end
   useEffect(() => {
     if (!resizing) return;
 
-    const MIN_WIDTH = 320;
-    const MIN_HEIGHT = 240;
+    const resizingWindow = windows.find(w => w.id === resizing.windowId);
+    const minSize = resizingWindow ? getMinWindowSize(resizingWindow.page) : { width: 320, height: 240 };
+    const MIN_WIDTH = minSize.width;
+    const MIN_HEIGHT = minSize.height;
 
     const handleMouseMove = (e: MouseEvent) => {
       const deltaX = e.clientX - resizing.startX;
@@ -371,6 +394,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'music': return t.nav.music;
       case 'browser': return t.nav.browser;
       case 'taskmanager': return t.nav.taskmanager;
+      case 'minesweeper': return t.nav.minesweeper;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -384,6 +408,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'music': return null; // Music is handled separately
       case 'browser': return <Browser />;
       case 'taskmanager': return <TaskManager windows={windows} onCloseWindow={onCloseWindow} onFocusWindow={onFocusWindow} isMusicPlayerOpen={isMusicPlayerOpen} />;
+      case 'minesweeper': return <Minesweeper />;
       case 'notfound': return <NotFound />;
     }
   };

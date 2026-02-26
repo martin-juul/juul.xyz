@@ -37,6 +37,7 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   browser: 'iexplore.exe',
   music: 'winamp.exe',
   taskmanager: 'taskmgr.exe',
+  minesweeper: 'winmine.exe',
   notfound: 'explorer.exe',
 };
 
@@ -54,7 +55,7 @@ const processBaseMemory: Record<string, number> = {
 };
 
 // Get page display name
-function getPageDisplayName(page: Page | 'music' | 'taskmanager', t: typeof taskManagerTranslations.en): string {
+function getPageDisplayName(page: Page | 'music' | 'taskmanager'): string {
   switch (page) {
     case 'home': return 'Home';
     case 'projects': return 'Projects';
@@ -63,6 +64,7 @@ function getPageDisplayName(page: Page | 'music' | 'taskmanager', t: typeof task
     case 'browser': return 'Internet Explorer';
     case 'music': return 'Winamp';
     case 'taskmanager': return 'Task Manager';
+    case 'minesweeper': return 'Minesweeper';
     case 'notfound': return 'Explorer';
     default: return page;
   }
@@ -254,7 +256,7 @@ export function TaskManager({ windows = [], onCloseWindow, onFocusWindow, isMusi
     windows.forEach(window => {
       taskList.push({
         id: window.id,
-        name: getPageDisplayName(window.page, t),
+        name: getPageDisplayName(window.page),
         status: t.statusRunning,
         page: window.page,
       });
@@ -301,7 +303,6 @@ export function TaskManager({ windows = [], onCloseWindow, onFocusWindow, isMusi
 
   // Performance bar component
   const PerformanceBar = ({ value, color }: { value: number; color: string }) => {
-    const blocks = Math.floor(value / 5);
     return (
       <div class="perf-bar">
         <div class="perf-bar-inner" style={{ width: `${value}%` }}>

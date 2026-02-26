@@ -26,6 +26,7 @@ type Translations = {
     music: string;
     browser: string;
     taskmanager: string;
+    minesweeper: string;
   };
   home: {
     title: string;
