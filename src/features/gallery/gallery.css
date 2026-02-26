@@ -1,0 +1,284 @@
+/* Windows 98 Gallery Styles */
+
+.gallery-container {
+  background: #c0c0c0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  user-select: none;
+}
+
+/* Menu Bar */
+.gallery-menu-bar {
+  display: flex;
+  padding: 2px 4px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  position: relative;
+  z-index: 100;
+}
+
+.gallery-menu-trigger {
+  position: relative;
+}
+
+.gallery-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.gallery-menu-item:hover,
+.gallery-menu-item.active {
+  background: #000080;
+  color: white;
+}
+
+/* Dropdown Menu */
+.gallery-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-width: 120px;
+  padding: 2px 0;
+}
+
+.gallery-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 4px 20px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.gallery-dropdown-item:hover {
+  background: #000080;
+  color: white;
+}
+
+/* Toolbar */
+.gallery-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 4px 6px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  gap: 2px;
+}
+
+.gallery-toolbar-btn {
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.gallery-toolbar-btn:active,
+.gallery-toolbar-btn.active {
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 1px 0 0 1px;
+}
+
+.gallery-toolbar-btn:hover {
+  background: #d4d0c8;
+}
+
+.gallery-toolbar-separator {
+  width: 1px;
+  height: 20px;
+  background: #808080;
+  margin: 0 4px;
+}
+
+.gallery-counter {
+  padding: 0 8px;
+  color: #000;
+}
+
+/* Album Selector */
+.gallery-album-selector {
+  position: relative;
+}
+
+.gallery-album-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  min-width: 140px;
+}
+
+.gallery-album-btn:active {
+  border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+.gallery-album-arrow {
+  font-size: 8px;
+  margin-left: auto;
+}
+
+.gallery-album-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-width: 160px;
+  padding: 2px 0;
+  margin-top: 2px;
+}
+
+.gallery-album-option {
+  display: block;
+  width: 100%;
+  padding: 4px 20px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.gallery-album-option:hover {
+  background: #000080;
+  color: white;
+}
+
+.gallery-album-option.selected {
+  font-weight: bold;
+}
+
+/* Main Image Display */
+.gallery-image-area {
+  flex: 1;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.gallery-main-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Thumbnail Slider */
+.gallery-thumbnails {
+  background: #c0c0c0;
+  border-top: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 6px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gallery-thumbnails-track {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px;
+  flex: 1;
+  align-items: center;
+}
+
+/* Windows 98 style scrollbar */
+.gallery-thumbnails-track::-webkit-scrollbar {
+  height: 16px;
+}
+
+.gallery-thumbnails-track::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px solid #808080;
+}
+
+.gallery-thumbnails-track::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+.gallery-thumbnails-track::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  width: 16px;
+}
+
+.gallery-thumb {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  padding: 2px;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  cursor: pointer;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.1s;
+}
+
+.gallery-thumb:hover {
+  border-color: #000080;
+}
+
+.gallery-thumb.active {
+  border: 2px solid #000080;
+  padding: 1px;
+}
+
+.gallery-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Progress Bar */
+.gallery-progress {
+  height: 12px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  overflow: hidden;
+}
+
+.gallery-progress-fill {
+  height: 100%;
+  background: #000080;
+  transition: width 0.2s ease;
+}

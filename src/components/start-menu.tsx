@@ -28,6 +28,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
     { page: 'browser', icon: '/assets/icons/ie.png' },
     { page: 'minesweeper', icon: '/assets/icons/minesweeper.png' },
     { page: 'freecell', icon: '/assets/icons/freecell.png' },
+    { page: 'gallery', icon: '/assets/icons/gallery.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -40,6 +41,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
       case 'browser': return t.nav.browser;
       case 'minesweeper': return t.nav.minesweeper;
       case 'freecell': return t.nav.freecell;
+      case 'gallery': return t.nav.gallery;
       case 'notfound': return t.notFound.windowTitle;
     }
   };

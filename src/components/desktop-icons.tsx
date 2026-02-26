@@ -22,6 +22,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
     { page: 'browser' as Page, icon: '/assets/icons/ie.png' },
     { page: 'minesweeper' as Page, icon: '/assets/icons/minesweeper.png' },
     { page: 'freecell' as Page, icon: '/assets/icons/freecell.png' },
+    { page: 'gallery' as Page, icon: '/assets/icons/gallery.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -34,6 +35,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
       case 'browser': return t.nav.browser;
       case 'minesweeper': return t.nav.minesweeper;
       case 'freecell': return t.nav.freecell;
+      case 'gallery': return t.nav.gallery;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
