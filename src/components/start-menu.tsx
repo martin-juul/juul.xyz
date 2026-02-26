@@ -27,6 +27,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
     { page: 'music', icon: '/assets/icons/music.png' },
     { page: 'browser', icon: '/assets/icons/ie.png' },
     { page: 'minesweeper', icon: '/assets/icons/minesweeper.png' },
+    { page: 'freecell', icon: '/assets/icons/freecell.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -38,6 +39,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
       case 'music': return t.nav.music;
       case 'browser': return t.nav.browser;
       case 'minesweeper': return t.nav.minesweeper;
+      case 'freecell': return t.nav.freecell;
       case 'notfound': return t.notFound.windowTitle;
     }
   };

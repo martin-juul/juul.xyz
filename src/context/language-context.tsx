@@ -27,6 +27,7 @@ type Translations = {
     browser: string;
     taskmanager: string;
     minesweeper: string;
+    freecell: string;
   };
   home: {
     title: string;

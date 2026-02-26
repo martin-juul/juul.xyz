@@ -18,6 +18,8 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     browser: 'browser',
     taskmanager: 'task-manager',
     minesweeper: 'minesweeper',
+    freecell: 'freecell',
+    gallery: 'gallery',
     notfound: 'not-found',
   },
   da: {
@@ -29,6 +31,8 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     browser: 'internet',
     taskmanager: 'opgavestyring',
     minesweeper: 'minestryger',
+    freecell: 'freecell',
+    gallery: 'billedgalleri',
     notfound: 'not-found',
   },
 };

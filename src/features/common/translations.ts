@@ -11,6 +11,8 @@ export const commonTranslations = {
       browser: 'Internet Explorer',
       taskmanager: 'Task Manager',
       minesweeper: 'Minesweeper',
+      freecell: 'FreeCell',
+      gallery: 'Image Gallery',
     },
     footer: {
       builtWith: 'Built with Preact & 98.css',
@@ -34,6 +36,8 @@ export const commonTranslations = {
       browser: 'Internet Explorer',
       taskmanager: 'Opgavestyring',
       minesweeper: 'Minestryger',
+      freecell: 'FreeCell',
+      gallery: 'Billedgalleri',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',

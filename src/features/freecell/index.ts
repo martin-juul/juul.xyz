@@ -1,0 +1,1 @@
+export { FreeCell } from './page';

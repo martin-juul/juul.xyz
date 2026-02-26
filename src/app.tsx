@@ -10,6 +10,7 @@ import { MusicPlayer } from './features/music';
 import { Browser } from './features/browser';
 import { TaskManager } from './features/taskmanager';
 import { Minesweeper } from './features/minesweeper';
+import { FreeCell } from './features/freecell';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
@@ -59,6 +60,8 @@ function AppContent() {
     switch (page) {
       case 'minesweeper':
         return { width: 220, height: 310 };
+      case 'freecell':
+        return { width: 600, height: 480 };
       default:
         return { width: 640, height: 480 };
     }
@@ -185,6 +188,8 @@ function AppContent() {
     switch (page) {
       case 'minesweeper':
         return { width: 180, height: 280 };
+      case 'freecell':
+        return { width: 500, height: 400 };
       default:
         return { width: 320, height: 240 };
     }
@@ -395,6 +400,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'browser': return t.nav.browser;
       case 'taskmanager': return t.nav.taskmanager;
       case 'minesweeper': return t.nav.minesweeper;
+      case 'freecell': return t.nav.freecell;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -409,6 +415,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'browser': return <Browser />;
       case 'taskmanager': return <TaskManager windows={windows} onCloseWindow={onCloseWindow} onFocusWindow={onFocusWindow} isMusicPlayerOpen={isMusicPlayerOpen} />;
       case 'minesweeper': return <Minesweeper />;
+      case 'freecell': return <FreeCell />;
       case 'notfound': return <NotFound />;
     }
   };

@@ -2,6 +2,43 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fba190d-9d1b-4eca-959d-aca9c22b053b" name="Changes" comment="update">
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/36.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/1.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/10.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/11.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/12.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/13.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/14.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/15.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/16.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/17.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/18.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/19.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/2.heic" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/20.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/21.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/22.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/23.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/24.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/25.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/26.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/27.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/28.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/29.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/3.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/30.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/31.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/32.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/33.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/34.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/35.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/4.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/5.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/6.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/7.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/8.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/gallery/beginning/9.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/todo.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/desktop-icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/desktop-icons.tsx" afterDir="false" />
@@ -38,7 +75,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "last_opened_file_path": "/Users/martin/dev/juulxyznew/public/music",
+    "last_opened_file_path": "/Users/martin/dev/juulxyznew/public/assets/gallery",
     "nodejs_package_manager_path": "npm",
     "npm.build.executor": "Run",
     "npm.dev.executor": "Run",
@@ -50,7 +87,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/gallery" />
       <recent name="$PROJECT_DIR$/public/music" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/gallery/beginning" />
     </key>
   </component>
   <component name="RunManager" selected="npm.dev">
@@ -113,7 +154,7 @@
       <workItem from="1771842340497" duration="869000" />
       <workItem from="1771953240748" duration="9007000" />
       <workItem from="1771968907516" duration="987000" />
-      <workItem from="1772125339105" duration="6399000" />
+      <workItem from="1772125339105" duration="9298000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -363,7 +404,23 @@
       <option name="project" value="LOCAL" />
       <updated>1772132431946</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="update">
+      <option name="closed" value="true" />
+      <created>1772133567179</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1772133567179</updated>
+    </task>
+    <task id="LOCAL-00033" summary="update">
+      <option name="closed" value="true" />
+      <created>1772133616701</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1772133616701</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

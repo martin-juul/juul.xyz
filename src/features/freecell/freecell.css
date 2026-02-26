@@ -1,0 +1,509 @@
+/* Windows 98 FreeCell Styles */
+
+.fc-container {
+  background: #008000;
+  padding: 0;
+  user-select: none;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Menu Bar */
+.fc-menu-bar {
+  display: flex;
+  padding: 2px 4px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  position: relative;
+}
+
+.fc-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.fc-menu-item:hover,
+.fc-menu-item.active {
+  background: #000080;
+  color: white;
+}
+
+/* Dropdown Menu */
+.fc-menu-trigger {
+  position: relative;
+}
+
+.fc-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-width: 150px;
+  padding: 2px 0;
+}
+
+.fc-dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.fc-dropdown-item:hover {
+  background: #000080;
+  color: white;
+}
+
+.fc-dropdown-item.checked {
+  font-weight: normal;
+}
+
+.fc-dropdown-check {
+  width: 16px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.fc-dropdown-text {
+  flex: 1;
+}
+
+.fc-dropdown-separator {
+  height: 1px;
+  background: #808080;
+  margin: 2px 4px;
+}
+
+.fc-dropdown-shortcut {
+  color: #808080;
+  font-size: 10px;
+  margin-left: 20px;
+}
+
+.fc-dropdown-item:hover .fc-dropdown-shortcut {
+  color: #ccc;
+}
+
+.fc-dropdown-item:disabled {
+  color: #808080;
+  cursor: default;
+}
+
+.fc-dropdown-item:disabled:hover {
+  background: transparent;
+  color: #808080;
+}
+
+/* Game Area */
+.fc-game-area {
+  flex: 1;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Top Row - Free Cells and Foundations */
+.fc-top-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px;
+}
+
+.fc-cells-group {
+  display: flex;
+  gap: 8px;
+}
+
+/* Card Slots */
+.fc-slot {
+  width: 50px;
+  height: 70px;
+  background: #008000;
+  border: 2px solid;
+  border-color: #006000 #00a000 #00a000 #006000;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.fc-slot-empty {
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  background: transparent;
+}
+
+/* Cards */
+.fc-card {
+  width: 48px;
+  height: 68px;
+  background: white;
+  border: 1px solid #000;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  position: absolute;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  font-family: 'Times New Roman', serif;
+}
+
+.fc-card:hover {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.fc-card:active {
+  cursor: grabbing;
+}
+
+.fc-card.selected {
+  box-shadow: 0 0 8px 3px #ffff00;
+  z-index: 100;
+}
+
+.fc-card.hint {
+  box-shadow: 0 0 8px 3px #00aaff;
+  z-index: 100;
+}
+
+.fc-card.dragging {
+  opacity: 0.5;
+}
+
+/* Drop target indicators */
+.fc-slot.fc-drop-valid,
+.fc-column.fc-drop-valid {
+  box-shadow: inset 0 0 8px 3px rgba(0, 200, 0, 0.6);
+}
+
+.fc-slot.fc-drop-invalid,
+.fc-column.fc-drop-invalid {
+  box-shadow: inset 0 0 8px 3px rgba(200, 0, 0, 0.4);
+}
+
+.fc-column.fc-drop-valid,
+.fc-column.fc-drop-invalid {
+  border-radius: 4px;
+}
+
+.fc-card.red {
+  color: #cc0000;
+}
+
+.fc-card.black {
+  color: #000000;
+}
+
+.fc-card-rank {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.fc-card-suit {
+  font-size: 24px;
+  line-height: 1;
+}
+
+/* Foundation slot with suit indicator */
+.fc-foundation-slot::before {
+  position: absolute;
+  font-size: 28px;
+  opacity: 0.3;
+}
+
+/* Tableau */
+.fc-tableau {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  padding-top: 8px;
+}
+
+.fc-column {
+  width: 50px;
+  position: relative;
+  min-height: 200px;
+}
+
+.fc-column .fc-card {
+  position: absolute;
+  left: 0;
+}
+
+/* Win overlay */
+.fc-win-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.fc-win-message {
+  background: #c0c0c0;
+  padding: 20px 40px;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  text-align: center;
+}
+
+.fc-win-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.fc-win-stats {
+  margin-bottom: 16px;
+}
+
+.fc-win-streak {
+  margin-top: 8px;
+  font-weight: bold;
+  color: #000080;
+}
+
+.fc-win-btn {
+  padding: 6px 24px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.fc-win-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+/* Status bar */
+.fc-status {
+  background: #c0c0c0;
+  padding: 2px 8px;
+  border-top: 1px solid #808080;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.fc-autocomplete-btn {
+  padding: 2px 12px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.fc-autocomplete-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+/* Game number input */
+.fc-game-number {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fc-game-number input {
+  width: 60px;
+  padding: 2px 4px;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  background: white;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+/* Help Dialog */
+.fc-help-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.fc-help-dialog {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  width: 400px;
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.fc-help-titlebar {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: white;
+  padding: 3px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.fc-help-close {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.fc-help-close:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.fc-help-content {
+  padding: 12px;
+  overflow-y: auto;
+  flex: 1;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.fc-help-content h3 {
+  margin: 0 0 6px 0;
+  font-size: 11px;
+  color: #000;
+}
+
+.fc-help-content h3:not(:first-child) {
+  margin-top: 12px;
+}
+
+.fc-help-content p {
+  margin: 0 0 8px 0;
+}
+
+.fc-help-content ul {
+  margin: 0 0 8px 0;
+  padding-left: 20px;
+}
+
+.fc-help-content li {
+  margin-bottom: 4px;
+}
+
+.fc-help-content em {
+  font-style: italic;
+  color: #000080;
+}
+
+.fc-help-buttons {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid #808080;
+}
+
+/* Statistics Dialog */
+.fc-stats-dialog {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.fc-stats-content {
+  padding: 16px;
+}
+
+.fc-stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dotted #808080;
+}
+
+.fc-stat-row:last-child {
+  border-bottom: none;
+}
+
+.fc-stat-label {
+  font-weight: bold;
+}
+
+.fc-stat-value {
+  color: #000080;
+}
+
+.fc-stats-buttons {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  border-top: 1px solid #808080;
+}
+
+/* Select Game Dialog */
+.fc-selectgame-content {
+  padding: 16px;
+  text-align: center;
+}
+
+.fc-selectgame-content p {
+  margin: 0 0 12px 0;
+}
+
+.fc-selectgame-content input {
+  width: 120px;
+  padding: 4px 8px;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  background: white;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 12px;
+  text-align: center;
+}
