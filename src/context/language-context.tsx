@@ -28,6 +28,7 @@ type Translations = {
     taskmanager: string;
     minesweeper: string;
     freecell: string;
+    spider: string;
     gallery: string;
   };
   home: {

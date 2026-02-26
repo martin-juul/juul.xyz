@@ -12,6 +12,7 @@ export const commonTranslations = {
       taskmanager: 'Task Manager',
       minesweeper: 'Minesweeper',
       freecell: 'FreeCell',
+      spider: 'Spider Solitaire',
       gallery: 'Image Gallery',
     },
     footer: {
@@ -37,6 +38,7 @@ export const commonTranslations = {
       taskmanager: 'Opgavestyring',
       minesweeper: 'Minestryger',
       freecell: 'FreeCell',
+      spider: 'Edderkop',
       gallery: 'Billedgalleri',
     },
     footer: {

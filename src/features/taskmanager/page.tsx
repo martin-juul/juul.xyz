@@ -39,6 +39,8 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   taskmanager: 'taskmgr.exe',
   minesweeper: 'winmine.exe',
   freecell: 'freecell.exe',
+  spider: 'spider.exe',
+  solitaire: 'sol.exe',
   gallery: 'shimgvw.exe',
   notfound: 'explorer.exe',
 };
