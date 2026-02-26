@@ -1699,3 +1699,425 @@ ul.tree-view {
   margin: 0;
 }
 
+/* ============================================
+   Word 97 Style for Home Page
+   ============================================ */
+
+/* Word Container */
+.word-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #808080;
+  font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+}
+
+/* Word Toolbar */
+.word-toolbar {
+  flex-shrink: 0;
+}
+
+/* Menu Bar */
+.word-menu-bar {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #d4d0c8 0%, #c0c0c0 100%);
+  border-bottom: 1px solid #808080;
+  padding: 2px 4px;
+  min-height: 20px;
+}
+
+.word-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.word-menu-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+/* Standard & Format Toolbar */
+.word-standard-toolbar,
+.word-format-toolbar {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #d4d0c8 0%, #c8c4bc 100%);
+  border-bottom: 1px solid #808080;
+  padding: 2px 4px;
+  min-height: 26px;
+  gap: 1px;
+}
+
+/* Toolbar Buttons */
+.word-toolbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: unset;
+  min-width: unset;
+  width: 24px !important;
+  height: 22px !important;
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #fff #808080 #808080 #fff;
+  cursor: pointer;
+  padding: 1px;
+  position: relative;
+}
+
+.word-toolbar-btn:hover {
+  background: #d4d0c8;
+}
+
+.word-toolbar-btn:active {
+  border-color: #808080 #fff #fff #808080;
+}
+
+/* Tooltips for Word toolbar buttons */
+.word-toolbar-btn[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 4px;
+  padding: 2px 6px;
+  background: #ffffcc;
+  border: 1px dotted #000;
+  font-size: 11px;
+  font-family: 'Tahoma', sans-serif;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 1px 1px 0 #808080;
+}
+
+/* Toolbar Separator */
+.word-toolbar-separator {
+  width: 2px;
+  height: 22px;
+  margin: 0 2px;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #fff;
+}
+
+/* Font Select */
+.word-font-select {
+  width: 120px;
+  height: 22px;
+  font-size: 11px;
+  font-family: 'Tahoma', sans-serif;
+}
+
+.word-size-select {
+  width: 50px;
+  height: 22px;
+  font-size: 11px;
+  font-family: 'Tahoma', sans-serif;
+}
+
+/* Icon Images */
+.word-icon-img {
+  width: 14px;
+  height: 14px;
+  image-rendering: pixelated;
+}
+
+/* Text-based icons */
+.word-icon-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  font-size: 11px;
+}
+
+.word-icon-bold { font-weight: bold; }
+.word-icon-italic { font-style: italic; }
+.word-icon-underline { text-decoration: underline; }
+
+/* Horizontal Ruler */
+.word-ruler-horizontal {
+  display: flex;
+  align-items: flex-end;
+  height: 24px;
+  background: #fff;
+  border-bottom: 1px solid #808080;
+  padding: 0 72px;
+  position: relative;
+}
+
+.word-ruler-indent-left {
+  width: 72px;
+  background: #f0f0f0;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  border-right: 2px solid #808080;
+}
+
+.word-ruler-scale {
+  flex: 1;
+  position: relative;
+  height: 100%;
+}
+
+.word-ruler-tick {
+  position: absolute;
+  bottom: 0;
+  font-size: 8px;
+  color: #000;
+}
+
+/* Document Area */
+.word-document-area {
+  flex: 1;
+  background: #c0c0c0;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  overflow: auto;
+}
+
+/* White Paper */
+.word-paper {
+  background: #ffffff;
+  width: 100%;
+  max-width: 816px; /* Letter width at 96dpi */
+  min-height: calc(100vh - 250px);
+  padding: 72px 72px; /* Word default 1" margins */
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+/* Word Document Typography */
+.word-paper h1 {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  margin: 0 0 12px 0;
+  text-align: center;
+}
+
+.word-paper h2 {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  margin: 24px 0 12px 0;
+  border-bottom: 1px solid #000;
+  padding-bottom: 4px;
+}
+
+.word-paper p {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #000;
+  margin: 0 0 12px 0;
+}
+
+.word-paper strong {
+  font-weight: bold;
+}
+
+/* Navigation styled as Word buttons */
+.word-nav {
+  margin-top: 24px;
+  display: flex;
+  gap: 10px;
+}
+
+.word-btn {
+  display: inline-block;
+  padding: 6px 16px;
+  background: linear-gradient(180deg, #d4d0c8 0%, #c0c0c0 100%);
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  color: #000;
+  text-decoration: none;
+  font-size: 11px;
+  font-family: 'Tahoma', sans-serif;
+  cursor: pointer;
+}
+
+.word-btn:hover {
+  background: linear-gradient(180deg, #e4e0d8 0%, #d0ccc4 100%);
+  color: #000080;
+}
+
+.word-btn:active {
+  border-color: #808080 #fff #fff #808080;
+}
+
+/* Status Bar */
+.word-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #c0c0c0 0%, #a0a0a0 100%);
+  border-top: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  padding: 2px 8px;
+  min-height: 24px;
+  font-size: 11px;
+}
+
+.word-status-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.word-status-section {
+  padding: 0 8px;
+  border-right: 1px solid #808080;
+}
+
+.word-status-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.word-status-view-btn {
+  width: 20px;
+  height: 18px;
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #808080 #fff #fff #808080;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+.word-status-view-btn:hover {
+  background: #d4d0c8;
+}
+
+/* Blinking cursor effect */
+.word-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 14px;
+  background: #000;
+  animation: wordBlink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
+@keyframes wordBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Print Styles */
+@media print {
+  /* Reset page */
+  @page {
+    margin: 0.75in;
+    size: letter;
+  }
+
+  body, html {
+    background: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide all desktop/OS UI */
+  .desktop-icons,
+  .taskbar,
+  .start-menu,
+  .music-player,
+  .resize-ghost,
+  .resize-handle {
+    display: none !important;
+  }
+
+  /* Hide window chrome */
+  .app-window .title-bar,
+  .app-window .status-bar {
+    display: none !important;
+  }
+
+  /* Make window container take full page */
+  .app-window {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  .app-window .window-body {
+    overflow: visible !important;
+    height: auto !important;
+    display: block !important;
+  }
+
+  /* Word container - remove all decorative styling */
+  .word-container {
+    background: #fff !important;
+    display: block !important;
+    height: auto !important;
+  }
+
+  /* Hide Word UI elements */
+  .word-toolbar,
+  .word-status-bar,
+  .word-ruler-horizontal,
+  .word-nav,
+  .word-cursor {
+    display: none !important;
+  }
+
+  /* Remove decorative styling from document area */
+  .word-document-area {
+    background: #fff !important;
+    padding: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  /* Paper content only */
+  .word-paper {
+    box-shadow: none !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    background: #fff !important;
+  }
+
+  /* Typography for print */
+  .word-paper h1 {
+    font-size: 24pt !important;
+    page-break-after: avoid;
+  }
+
+  .word-paper h2 {
+    font-size: 16pt !important;
+    page-break-after: avoid;
+  }
+
+  .word-paper p {
+    font-size: 12pt !important;
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Ensure text is black */
+  .word-paper * {
+    color: #000 !important;
+  }
+}
+
