@@ -19,13 +19,13 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
     onClose();
   };
 
-  const menuItems = [
-    { page: 'home' as Page, icon: '/assets/icons/home.png' },
-    { page: 'projects' as Page, icon: '/assets/icons/folder.png' },
-    { page: 'resume' as Page, icon: '/assets/icons/document.png' },
-    { page: 'contact' as Page, icon: '/assets/icons/mail.png' },
-    { page: 'music' as Page, icon: '/assets/icons/music.png' },
-    { page: 'browser' as Page, icon: '/assets/icons/ie.png' },
+  const menuItems: {page: Page, icon: string}[] = [
+    { page: 'home', icon: '/assets/icons/home.png' },
+    { page: 'projects', icon: '/assets/icons/folder.png' },
+    { page: 'resume', icon: '/assets/icons/document.png' },
+    { page: 'contact', icon: '/assets/icons/mail.png' },
+    { page: 'music', icon: '/assets/icons/music.png' },
+    { page: 'browser', icon: '/assets/icons/ie.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -46,7 +46,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
       <div class="start-menu" data-nosnippet>
         <div class="start-menu-sidebar">
           <span class="start-menu-brand">
-            Martin<span class="start-menu-brand-suffix">98</span>
+            Martin<span class="start-menu-brand-suffix">97</span>
           </span>
         </div>
         <div class="start-menu-items">
