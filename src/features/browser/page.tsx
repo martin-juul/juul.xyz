@@ -237,7 +237,6 @@ export function Browser() {
 
   return (
     <div class="ie-browser">
-      {/* IE 5.0 Menu Bar */}
       <div class="ie-menu-bar">
         <span class="ie-menu-item">File</span>
         <span class="ie-menu-item">Edit</span>
@@ -247,7 +246,6 @@ export function Browser() {
         <span class="ie-menu-item">Help</span>
       </div>
 
-      {/* IE 5.0 Toolbar */}
       <div class="ie-toolbar">
         <button
           class={`ie-toolbar-btn win98-tooltip ${!canGoBack ? 'ie-toolbar-btn-disabled' : ''}`}
@@ -282,7 +280,6 @@ export function Browser() {
         </button>
       </div>
 
-      {/* Address Bar */}
       <div class="ie-address-bar">
         <span class="ie-address-label">Address</span>
         <div class="ie-address-input-wrapper">

@@ -13,4 +13,10 @@ export const projectsData: ProjectItem[] = [
     url: 'https://github.com/baander-app',
     description: 'Music server with cover view, song list and synchronized lyric viewer.',
   },
+  {
+    id: 3,
+    name: 'Nytårstale',
+    url: 'https://www.xn--nytrstale-72a.dk/',
+    description: 'An archive of new years speeches from the danish royal family.'
+  }
 ];

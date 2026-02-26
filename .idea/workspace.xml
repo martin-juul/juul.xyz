@@ -3,17 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6fba190d-9d1b-4eca-959d-aca9c22b053b" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/desktop-icons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/desktop-icons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/powerpoint-toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/powerpoint-toolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/slide-view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/slide-view.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/start-menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/start-menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/taskbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/taskbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/language-context.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/language-context.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/status-context.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/status-context.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/i18n-routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/i18n-routing.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/browser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/browser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/browser/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/browser/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/projects/data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/projects/data.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,22 +26,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/martin/dev/juulxyznew/public/music&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.build.executor&quot;: &quot;Run&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;npm.preview.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/martin/dev/juulxyznew/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "last_opened_file_path": "/Users/martin/dev/juulxyznew/public/music",
+    "nodejs_package_manager_path": "npm",
+    "npm.build.executor": "Run",
+    "npm.dev.executor": "Run",
+    "npm.preview.executor": "Run",
+    "settings.editor.selected.configurable": "preferences.sourceCode.TypeScript",
+    "ts.external.directory.path": "/Users/martin/dev/juulxyznew/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/music" />
@@ -115,7 +106,8 @@
       <workItem from="1771705741671" duration="3863000" />
       <workItem from="1771842340497" duration="869000" />
       <workItem from="1771953240748" duration="9007000" />
-      <workItem from="1771968907516" duration="471000" />
+      <workItem from="1771968907516" duration="987000" />
+      <workItem from="1772125339105" duration="487000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
