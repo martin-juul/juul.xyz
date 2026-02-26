@@ -48,8 +48,8 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
 
   return (
     <>
-      <div class="start-menu-overlay" onClick={onClose} data-nosnippet />
-      <div class="start-menu" data-nosnippet>
+      <div class="start-menu-overlay" onClick={onClose} aria-hidden="true" data-nosnippet />
+      <div id="start-menu" class="start-menu" role="menu" aria-label="Start menu" data-nosnippet>
         <div class="start-menu-sidebar">
           <span class="start-menu-brand">
             Martin<span class="start-menu-brand-suffix">97</span>
@@ -61,14 +61,15 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
               <button
                 class={`start-menu-item ${openWindowPages.includes(item.page) ? 'start-menu-item-open' : ''}`}
                 onClick={() => handleNavigate(item.page)}
+                role="menuitem"
               >
                 <span class="start-menu-icon">
-                  <img src={item.icon} alt="" />
+                  <img src={item.icon} alt="" aria-hidden="true" />
                 </span>
                 <span class="start-menu-item-title">{getPageLabel(item.page)}</span>
               </button>
-              {index === 0 && <div class="start-menu-separator" />}
-              {index === 3 && <div class="start-menu-separator" />}
+              {index === 0 && <div class="start-menu-separator" role="separator" />}
+              {index === 3 && <div class="start-menu-separator" role="separator" />}
             </>
           ))}
         </div>

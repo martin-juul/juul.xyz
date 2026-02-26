@@ -6,8 +6,138 @@ type SeoHeadProps = {
   page: Page;
 };
 
-const SITE_URL = 'https://juul.xyz';
+export const SITE_URL = 'https://www.juul.xyz';
 
+export type SeoData = {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  alternateUrls: Record<Language, string>;
+  ogLocale: string;
+  ogLocaleAlternate: string;
+  jsonLd: object[];
+};
+
+const localeMap: Record<Language, string> = {
+  en: 'en_US',
+  da: 'da_DK',
+};
+
+// Page meta data for SEO
+const pageMeta: Record<string, Record<Language, { title: string; description: string }>> = {
+  home: {
+    en: {
+      title: 'Martin Christiansen - Software Developer',
+      description: 'Personal portfolio of Martin Christiansen - Software Developer based in Denmark',
+    },
+    da: {
+      title: 'Martin Christiansen - Softwareudvikler',
+      description: 'Personlig portefølje af Martin Christiansen - Softwareudvikler i Danmark',
+    },
+  },
+  projects: {
+    en: {
+      title: 'Projects - Martin Christiansen',
+      description: 'Explore my software projects and work',
+    },
+    da: {
+      title: 'Projekter - Martin Christiansen',
+      description: 'Udforsk mine softwareprojekter og arbejde',
+    },
+  },
+  resume: {
+    en: {
+      title: 'Resume - Martin Christiansen',
+      description: 'Professional resume and work experience',
+    },
+    da: {
+      title: 'CV - Martin Christiansen',
+      description: 'Professionelt CV og arbejdserfaring',
+    },
+  },
+  contact: {
+    en: {
+      title: 'Contact - Martin Christiansen',
+      description: 'Get in touch with Martin Christiansen',
+    },
+    da: {
+      title: 'Kontakt - Martin Christiansen',
+      description: 'Kontakt Martin Christiansen',
+    },
+  },
+  music: {
+    en: {
+      title: 'Music - Martin Christiansen',
+      description: 'Listen to my music collection',
+    },
+    da: {
+      title: 'Musik - Martin Christiansen',
+      description: 'Lyt til min musiksamling',
+    },
+  },
+  browser: {
+    en: {
+      title: 'Browser - Martin Christiansen',
+      description: 'A simple web browser simulation',
+    },
+    da: {
+      title: 'Internet - Martin Christiansen',
+      description: 'En simpel webbrowser-simulering',
+    },
+  },
+  taskmanager: {
+    en: {
+      title: 'Task Manager - Martin Christiansen',
+      description: 'System task manager simulation',
+    },
+    da: {
+      title: 'Opgavestyring - Martin Christiansen',
+      description: 'System opgavestyring-simulering',
+    },
+  },
+  minesweeper: {
+    en: {
+      title: 'Minesweeper - Martin Christiansen',
+      description: 'Classic Minesweeper game',
+    },
+    da: {
+      title: 'Minestryger - Martin Christiansen',
+      description: 'Klassisk minestryger-spil',
+    },
+  },
+  freecell: {
+    en: {
+      title: 'FreeCell - Martin Christiansen',
+      description: 'Classic FreeCell solitaire game',
+    },
+    da: {
+      title: 'FreeCell - Martin Christiansen',
+      description: 'Klassisk FreeCell kabale-spil',
+    },
+  },
+  gallery: {
+    en: {
+      title: 'Gallery - Martin Christiansen',
+      description: 'Photo gallery collection',
+    },
+    da: {
+      title: 'Billedgalleri - Martin Christiansen',
+      description: 'Fotogalleri samling',
+    },
+  },
+  notfound: {
+    en: {
+      title: 'Page Not Found - Martin Christiansen',
+      description: 'The page you are looking for does not exist',
+    },
+    da: {
+      title: 'Siden blev ikke fundet - Martin Christiansen',
+      description: 'Siden du leder efter findes ikke',
+    },
+  },
+};
+
+// JSON-LD structured data
 const jsonLdData: Record<string, Record<Language, object[]>> = {
   home: {
     en: [
@@ -175,91 +305,95 @@ const jsonLdData: Record<string, Record<Language, object[]>> = {
   },
 };
 
-const pageMeta: Record<string, Record<Language, { title: string; description: string }>> = {
-  home: {
-    en: {
-      title: 'Martin Christiansen - Software Developer',
-      description: 'Personal portfolio of Martin Christiansen - Software Developer based in Denmark',
-    },
-    da: {
-      title: 'Martin Christiansen - Softwareudvikler',
-      description: 'Personlig portefølje af Martin Christiansen - Softwareudvikler i Danmark',
-    },
-  },
-  projects: {
-    en: {
-      title: 'Projects - Martin Christiansen',
-      description: 'Explore my software projects and work',
-    },
-    da: {
-      title: 'Projekter - Martin Christiansen',
-      description: 'Udforsk mine softwareprojekter og arbejde',
-    },
-  },
-  resume: {
-    en: {
-      title: 'Resume - Martin Christiansen',
-      description: 'Professional resume and work experience',
-    },
-    da: {
-      title: 'CV - Martin Christiansen',
-      description: 'Professionelt CV og arbejdserfaring',
-    },
-  },
-  contact: {
-    en: {
-      title: 'Contact - Martin Christiansen',
-      description: 'Get in touch with Martin Christiansen',
-    },
-    da: {
-      title: 'Kontakt - Martin Christiansen',
-      description: 'Kontakt Martin Christiansen',
-    },
-  },
-  music: {
-    en: {
-      title: 'Music - Martin Christiansen',
-      description: 'Listen to my music collection',
-    },
-    da: {
-      title: 'Musik - Martin Christiansen',
-      description: 'Lyt til min musiksamling',
-    },
-  },
-  notfound: {
-    en: {
-      title: 'Page Not Found - Martin Christiansen',
-      description: 'The page you are looking for does not exist',
-    },
-    da: {
-      title: 'Siden blev ikke fundet - Martin Christiansen',
-      description: 'Siden du leder efter findes ikke',
-    },
-  },
-};
-
-const localeMap: Record<Language, string> = {
-  en: 'en_US',
-  da: 'da_DK',
-};
-
-export function SeoHead({ page }: SeoHeadProps) {
-  const { language } = useLanguage();
+/**
+ * Pure function to get SEO data for a given page and language.
+ * This can be used both at build time (prerendering) and runtime.
+ */
+export function getSeoData(page: Page, language: Language): SeoData {
   const pageMetaForLang = pageMeta[page] || pageMeta.home;
   const meta = pageMetaForLang[language] || pageMetaForLang.en;
 
-  // Build URLs for current page
   const currentPath = buildPath(language, page);
-  const currentUrl = `${SITE_URL}${currentPath}`;
+  const canonicalUrl = `${SITE_URL}${currentPath}`;
 
-  // Build alternate language URLs
   const alternateUrls: Record<Language, string> = {
     en: `${SITE_URL}${buildPath('en', page)}`,
     da: `${SITE_URL}${buildPath('da', page)}`,
   };
 
+  const jsonLd = jsonLdData[page]?.[language] || jsonLdData[page]?.en || [];
+
+  return {
+    title: meta.title,
+    description: meta.description,
+    canonicalUrl,
+    alternateUrls,
+    ogLocale: localeMap[language],
+    ogLocaleAlternate: localeMap[language === 'en' ? 'da' : 'en'],
+    jsonLd,
+  };
+}
+
+/**
+ * Generate meta tags HTML string for prerendering.
+ */
+export function generateMetaTags(seoData: SeoData): string {
+  const tags: string[] = [];
+
+  // Basic meta tags
+  tags.push(`<title>${escapeHtml(seoData.title)}</title>`);
+  tags.push(`<meta name="description" content="${escapeHtml(seoData.description)}" />`);
+
+  // Open Graph tags
+  tags.push(`<meta property="og:title" content="${escapeHtml(seoData.title)}" />`);
+  tags.push(`<meta property="og:description" content="${escapeHtml(seoData.description)}" />`);
+  tags.push(`<meta property="og:type" content="website" />`);
+  tags.push(`<meta property="og:url" content="${escapeHtml(seoData.canonicalUrl)}" />`);
+  tags.push(`<meta property="og:locale" content="${seoData.ogLocale}" />`);
+  tags.push(`<meta property="og:locale:alternate" content="${seoData.ogLocaleAlternate}" />`);
+  tags.push(`<meta property="og:site_name" content="Martin Christiansen" />`);
+
+  // Twitter Card tags
+  tags.push(`<meta name="twitter:card" content="summary_large_image" />`);
+  tags.push(`<meta name="twitter:title" content="${escapeHtml(seoData.title)}" />`);
+  tags.push(`<meta name="twitter:description" content="${escapeHtml(seoData.description)}" />`);
+
+  // Canonical URL
+  tags.push(`<link rel="canonical" href="${escapeHtml(seoData.canonicalUrl)}" />`);
+
+  // Hreflang links
+  for (const [lang, url] of Object.entries(seoData.alternateUrls)) {
+    tags.push(`<link rel="alternate" hreflang="${lang}" href="${escapeHtml(url)}" />`);
+  }
+  tags.push(`<link rel="alternate" hreflang="x-default" href="${escapeHtml(seoData.alternateUrls.en)}" />`);
+
+  // JSON-LD structured data
+  for (const schema of seoData.jsonLd) {
+    tags.push(`<script type="application/ld+json">${JSON.stringify(schema)}</script>`);
+  }
+
+  return tags.join('\n    ');
+}
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
+ * SEO Head component for client-side navigation.
+ * Updates document head dynamically when page or language changes.
+ */
+export function SeoHead({ page }: SeoHeadProps) {
+  const { language } = useLanguage();
+  const seoData = getSeoData(page, language);
+
   useEffect(() => {
-    document.title = meta.title;
+    document.title = seoData.title;
 
     const updateMeta = (name: string, content: string) => {
       let element = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
@@ -271,7 +405,7 @@ export function SeoHead({ page }: SeoHeadProps) {
       element.content = content;
     };
 
-    updateMeta('description', meta.description);
+    updateMeta('description', seoData.description);
 
     // Update Open Graph tags
     const updateOg = (property: string, content: string) => {
@@ -284,14 +418,12 @@ export function SeoHead({ page }: SeoHeadProps) {
       element.content = content;
     };
 
-    updateOg('og:title', meta.title);
-    updateOg('og:description', meta.description);
+    updateOg('og:title', seoData.title);
+    updateOg('og:description', seoData.description);
     updateOg('og:type', 'website');
-    updateOg('og:url', currentUrl);
-    updateOg('og:locale', localeMap[language]);
-
-    // Add alternate locale
-    updateOg('og:locale:alternate', localeMap[language === 'en' ? 'da' : 'en']);
+    updateOg('og:url', seoData.canonicalUrl);
+    updateOg('og:locale', seoData.ogLocale);
+    updateOg('og:locale:alternate', seoData.ogLocaleAlternate);
 
     // Update or create canonical link
     let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
@@ -300,13 +432,13 @@ export function SeoHead({ page }: SeoHeadProps) {
       canonicalLink.rel = 'canonical';
       document.head.appendChild(canonicalLink);
     }
-    canonicalLink.href = currentUrl;
+    canonicalLink.href = seoData.canonicalUrl;
 
     // Update or create hreflang links
     const existingHreflang = document.querySelectorAll('link[rel="alternate"][hreflang]');
     existingHreflang.forEach(link => link.remove());
 
-    for (const [lang, url] of Object.entries(alternateUrls)) {
+    for (const [lang, url] of Object.entries(seoData.alternateUrls)) {
       const link = document.createElement('link');
       link.rel = 'alternate';
       link.hreflang = lang;
@@ -318,10 +450,10 @@ export function SeoHead({ page }: SeoHeadProps) {
     const xDefaultLink = document.createElement('link');
     xDefaultLink.rel = 'alternate';
     xDefaultLink.hreflang = 'x-default';
-    xDefaultLink.href = alternateUrls.en;
+    xDefaultLink.href = seoData.alternateUrls.en;
     document.head.appendChild(xDefaultLink);
 
-  }, [meta, page, language, currentUrl, alternateUrls]);
+  }, [seoData]);
 
   // Inject JSON-LD structured data
   useEffect(() => {
@@ -330,16 +462,15 @@ export function SeoHead({ page }: SeoHeadProps) {
     existingScripts.forEach((script) => script.remove());
 
     // Add new JSON-LD scripts for the current page and language
-    const schemas = jsonLdData[page]?.[language] || jsonLdData[page]?.en;
-    if (schemas) {
-      schemas.forEach((schema) => {
+    if (seoData.jsonLd) {
+      seoData.jsonLd.forEach((schema) => {
         const script = document.createElement('script');
         script.type = 'application/ld+json';
         script.textContent = JSON.stringify(schema);
         document.head.appendChild(script);
       });
     }
-  }, [page, language]);
+  }, [seoData.jsonLd]);
 
   return null;
 }

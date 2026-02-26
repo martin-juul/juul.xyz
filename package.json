@@ -17,6 +17,7 @@
   "devDependencies": {
     "@preact/preset-vite": "^2.8.2",
     "canvas": "^3.2.1",
+    "cheerio": "^1.2.0",
     "pngjs": "^7.0.0",
     "typescript": "^5.3.3",
     "vite": "^5.0.12"

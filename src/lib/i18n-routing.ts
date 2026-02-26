@@ -123,7 +123,7 @@ export function getAlternateUrls(page: Page): Record<Language, string> {
 
   for (const lang of SUPPORTED_LANGUAGES) {
     const path = buildPath(lang, page);
-    urls[lang] = `https://juul.xyz${path}`;
+    urls[lang] = `https://www.juul.xyz${path}`;
   }
 
   return urls;

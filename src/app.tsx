@@ -292,11 +292,15 @@ function AppContent() {
   return (
     <>
       <SeoHead page={windows[windows.length - 1]?.page || 'home'} />
+      {/* Skip to main content link for screen readers */}
+      <a href="#main-content" class="skip-link" data-nosnippet>
+        Skip to main content
+      </a>
       <DesktopIcons
         onNavigate={openWindow}
         openWindowPages={openWindowPages}
       />
-      <div class="desktop">
+      <div id="main-content" class="desktop" role="main" tabIndex={-1}>
         {windows.map(windowData => (
           <Window
             key={windowData.id}

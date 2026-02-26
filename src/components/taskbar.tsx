@@ -91,10 +91,13 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
   };
 
   return (
-    <div class="taskbar" data-nosnippet onContextMenu={handleContextMenu}>
+    <div class="taskbar" role="navigation" aria-label="Taskbar" data-nosnippet onContextMenu={handleContextMenu}>
       <button
         class={`start-button ${isStartMenuOpen ? 'active' : ''}`}
         onClick={onStartClick}
+        aria-expanded={isStartMenuOpen}
+        aria-controls="start-menu"
+        aria-haspopup="menu"
       >
         <img src="/assets/icons/windows.png" alt="" style="width: 16px; height: 16px;" />
         <span>{t.start}</span>

@@ -25,13 +25,6 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
       initialTracks: [
         {
           metaData: {
-            artist: "Dj Cammy",
-            title: "Celebrate the Summer",
-          },
-          url: "/music/Dj Cammy - Celebrate the Summer.mp3",
-        },
-        {
-          metaData: {
             artist: "Eisblume",
             title: "Ice flowers HQ",
           },
