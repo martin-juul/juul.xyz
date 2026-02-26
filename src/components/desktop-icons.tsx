@@ -61,7 +61,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
   }, []);
 
   return (
-    <div class="desktop-icons" ref={containerRef} data-nosnippet>
+    <div class="desktop-icons" ref={containerRef} data-nosnippet data-testid="desktop-icons">
       {icons.map((item) => (
         <div
           class={`desktop-icon ${selectedIcon === item.page ? 'desktop-icon-selected' : ''} ${openWindowPages.includes(item.page) ? 'desktop-icon-open' : ''}`}
@@ -73,6 +73,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
             e.stopPropagation();
             handleDoubleClick(item.page);
           }}
+          data-testid={`desktop-icon-${item.page}`}
         >
           <div class="desktop-icon-image">
             <img src={item.icon} alt="" draggable={false} />

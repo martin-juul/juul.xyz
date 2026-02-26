@@ -24,18 +24,20 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <div class="tray-language" ref={ref}>
+    <div class="tray-language" ref={ref} data-testid="language-switcher">
       <button
         class="tray-language-button"
         onClick={() => setIsOpen(!isOpen)}
+        data-testid="language-switcher-button"
       >
         {language.toUpperCase()}
       </button>
       {isOpen && (
-        <div class="tray-menu">
+        <div class="tray-menu" data-testid="language-menu">
           <button
             class={`tray-menu-item ${language === 'en' ? 'active' : ''}`}
             onClick={() => handleSelect('en')}
+            data-testid="language-option-en"
           >
             <span class="tray-menu-check">{language === 'en' ? '✓' : ''}</span>
             English
@@ -43,6 +45,7 @@ export function LanguageSwitcher() {
           <button
             class={`tray-menu-item ${language === 'da' ? 'active' : ''}`}
             onClick={() => handleSelect('da')}
+            data-testid="language-option-da"
           >
             <span class="tray-menu-check">{language === 'da' ? '✓' : ''}</span>
             Dansk

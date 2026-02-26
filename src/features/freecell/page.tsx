@@ -787,7 +787,12 @@ export function FreeCell() {
     const colorClass = SUIT_COLORS[card.suit];
 
     return (
-      <div class={`fc-card ${colorClass} ${isSelected ? 'selected' : ''} ${isHint ? 'hint' : ''} ${isDragging ? 'dragging' : ''}`}>
+      <div
+        class={`fc-card ${colorClass} ${isSelected ? 'selected' : ''} ${isHint ? 'hint' : ''} ${isDragging ? 'dragging' : ''}`}
+        data-testid={`freecell-card-${card.suit}-${card.rank}`}
+        data-suit={card.suit}
+        data-rank={card.rank}
+      >
         <div class="fc-card-rank">{card.rank}</div>
         <div class="fc-card-suit">{SUIT_SYMBOLS[card.suit]}</div>
       </div>

@@ -91,23 +91,25 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
   };
 
   return (
-    <div class="taskbar" role="navigation" aria-label="Taskbar" data-nosnippet onContextMenu={handleContextMenu}>
+    <div class="taskbar" role="navigation" aria-label="Taskbar" data-nosnippet onContextMenu={handleContextMenu} data-testid="taskbar">
       <button
         class={`start-button ${isStartMenuOpen ? 'active' : ''}`}
         onClick={onStartClick}
         aria-expanded={isStartMenuOpen}
         aria-controls="start-menu"
         aria-haspopup="menu"
+        data-testid="start-button"
       >
         <img src="/assets/icons/windows.png" alt="" style="width: 16px; height: 16px;" />
         <span>{t.start}</span>
       </button>
-      <div class="taskbar-windows">
+      <div class="taskbar-windows" data-testid="taskbar-windows">
         {windows.map(window => (
           <div
             key={window.id}
             class={`taskbar-window ${window.id === focusedWindowId && window.state !== 'minimized' ? 'active' : ''}`}
             onClick={() => onRestoreWindow(window.id)}
+            data-testid={`taskbar-window-${window.page}`}
           >
             <img src={getPageIcon(window.page)} alt="" style="width: 16px; height: 16px;" />
             <span>{getPageLabel(window.page)}</span>
@@ -117,15 +119,16 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
           <div
             class="taskbar-window active"
             onClick={onOpenMusicPlayer}
+            data-testid="taskbar-window-music"
           >
             <img src={getPageIcon('music')} alt="" style="width: 16px; height: 16px;" />
             <span>{getPageLabel('music')}</span>
           </div>
         )}
       </div>
-      <div class="system-tray">
+      <div class="system-tray" data-testid="system-tray">
         <LanguageSwitcher />
-        <div class="system-tray-clock">
+        <div class="system-tray-clock" data-testid="system-tray-clock">
           {formatTime(time)}
         </div>
       </div>

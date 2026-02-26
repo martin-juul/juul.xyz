@@ -17,5 +17,3 @@ based on freecell
 ## goldminer
 
 ## bubble trouble
-
-## playwright

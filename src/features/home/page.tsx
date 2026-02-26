@@ -51,7 +51,7 @@ export function Home({ onNavigate }: HomeProps) {
   }, [wrapSelection]);
 
   return (
-    <div class="word-container">
+    <div class="word-container" data-testid="home-container">
       <WordToolbar
         onFontSizeChange={handleFontSizeChange}
         onBold={handleBold}
@@ -65,6 +65,7 @@ export function Home({ onNavigate }: HomeProps) {
           class="word-paper"
           ref={editorRef}
           contentEditable={true}
+          data-testid="home-editor"
         >
           <h1>{t.home.title}</h1>
           <p style="text-align: center;"><strong>{t.home.subtitle}</strong></p>
@@ -74,10 +75,10 @@ export function Home({ onNavigate }: HomeProps) {
           <p style="white-space: pre-wrap;">{t.home.content}</p>
 
           <nav class="word-nav" data-nosnippet contentEditable={false}>
-            <button class="word-btn" onClick={() => onNavigate('projects')}>
+            <button class="word-btn" onClick={() => onNavigate('projects')} data-testid="home-nav-projects">
               {t.home.viewProjects}
             </button>
-            <button class="word-btn" onClick={() => onNavigate('resume')}>
+            <button class="word-btn" onClick={() => onNavigate('resume')} data-testid="home-nav-resume">
               {t.home.viewResume}
             </button>
           </nav>

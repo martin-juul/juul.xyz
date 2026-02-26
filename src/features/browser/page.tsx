@@ -236,7 +236,7 @@ export function Browser() {
   const canGoForward = historyIndex < history.length - 1;
 
   return (
-    <div class="ie-browser">
+    <div class="ie-browser" data-testid="browser-container">
       <div class="ie-menu-bar">
         <span class="ie-menu-item">File</span>
         <span class="ie-menu-item">Edit</span>
@@ -246,12 +246,13 @@ export function Browser() {
         <span class="ie-menu-item">Help</span>
       </div>
 
-      <div class="ie-toolbar">
+      <div class="ie-toolbar" data-testid="browser-toolbar">
         <button
           class={`ie-toolbar-btn win98-tooltip ${!canGoBack ? 'ie-toolbar-btn-disabled' : ''}`}
           onClick={goBack}
           disabled={!canGoBack}
           title="Back"
+          data-testid="browser-back-button"
         >
           <img src="/assets/icons/ie-back.png" alt="Back" class="ie-toolbar-icon" />
         </button>
@@ -260,6 +261,7 @@ export function Browser() {
           onClick={goForward}
           disabled={!canGoForward}
           title="Forward"
+          data-testid="browser-forward-button"
         >
           <img src="/assets/icons/ie-forward.png" alt="Forward" class="ie-toolbar-icon" />
         </button>
@@ -268,6 +270,7 @@ export function Browser() {
           onClick={() => setIsLoading(false)}
           disabled={!isLoading}
           title="Stop"
+          data-testid="browser-stop-button"
         >
           <img src="/assets/icons/ie-stop.png" alt="Stop" class="ie-toolbar-icon" />
         </button>
@@ -275,6 +278,7 @@ export function Browser() {
           class="ie-toolbar-btn win98-tooltip"
           onClick={goHome}
           title="Home"
+          data-testid="browser-home-button"
         >
           <img src="/assets/icons/ie-home.png" alt="Home" class="ie-toolbar-icon" />
         </button>
@@ -288,10 +292,12 @@ export function Browser() {
             class="ie-address-input"
             value={displayUrl}
             readOnly
+            data-testid="browser-address-input"
           />
         </div>
         <button
           class="ie-go-btn"
+          data-testid="browser-go-button"
           onClick={() => {
             if (currentUrl) {
               if (isGitHub) {
@@ -494,7 +500,7 @@ export function Browser() {
           )
         ) : (
           // Juuliverse Homepage
-          <div class="aol-homepage">
+          <div class="aol-homepage" data-testid="browser-homepage">
             {/* Juuliverse Style Header */}
             <div class="aol-header">
               <div class="aol-logo">Juuliverse</div>
@@ -507,12 +513,13 @@ export function Browser() {
             {/* Channels Section */}
             <div class="aol-section">
               <h2 class="aol-section-title">{t.browser.myProjects}</h2>
-              <div class="aol-channels">
+              <div class="aol-channels" data-testid="browser-project-links">
                 {projects.map((project) => (
                   <button
                     key={project.id}
                     class="aol-channel-btn"
                     onClick={() => navigateTo(project.url, project.name)}
+                    data-testid={`browser-project-link-${project.slug}`}
                   >
                     <div class="aol-channel-icon">
                       <span class="aol-icon-globe"></span>

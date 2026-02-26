@@ -508,15 +508,16 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       class={windowClasses}
       style={getWindowStyle()}
       onClick={onFocus}
+      data-testid={`window-${data.page}`}
     >
-      <div class={`title-bar${!isFocused ? ' inactive' : ''}`} data-nosnippet onMouseDown={handleMouseDown} onDblClick={onMaximize}>
+      <div class={`title-bar${!isFocused ? ' inactive' : ''}`} data-nosnippet onMouseDown={handleMouseDown} onDblClick={onMaximize} data-testid="window-title-bar">
         <div class="title-bar-text">
           {getPageTitle()} - {t.brand}
         </div>
         <div class="title-bar-controls">
-          <button aria-label="Minimize" onClick={onMinimize}></button>
-          <button aria-label="Maximize" onClick={onMaximize}></button>
-          <button aria-label="Close" onClick={handleClose}></button>
+          <button aria-label="Minimize" onClick={onMinimize} data-testid="window-minimize-button"></button>
+          <button aria-label="Maximize" onClick={onMaximize} data-testid="window-maximize-button"></button>
+          <button aria-label="Close" onClick={handleClose} data-testid="window-close-button"></button>
         </div>
       </div>
       <StatusProvider>

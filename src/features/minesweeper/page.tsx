@@ -345,6 +345,12 @@ export function Minesweeper() {
         }}
         onContextMenu={(e) => handleCellContextMenu(row, col, e)}
         onDblClick={(e) => handleCellDoubleClick(row, col, e)}
+        data-testid={`minesweeper-cell-${row}-${col}`}
+        data-row={row}
+        data-col={col}
+        data-revealed={cell.isRevealed}
+        data-flagged={cell.isFlagged}
+        data-mine={cell.isMine}
       >
         {content}
       </div>
@@ -352,8 +358,8 @@ export function Minesweeper() {
   };
 
   return (
-    <div class="ms-container">
-      <div class="ms-menu-bar" ref={menuRef}>
+    <div class="ms-container" data-testid="minesweeper-container">
+      <div class="ms-menu-bar" ref={menuRef} data-testid="minesweeper-menu-bar">
         <div class="ms-menu-trigger">
           <span
             class={`ms-menu-item ${activeMenu === 'game' ? 'active' : ''}`}
@@ -361,18 +367,20 @@ export function Minesweeper() {
               e.stopPropagation();
               setActiveMenu(activeMenu === 'game' ? null : 'game');
             }}
+            data-testid="minesweeper-menu-game"
           >
             Game
           </span>
           {activeMenu === 'game' && (
-            <div class="ms-dropdown">
-              <button class="ms-dropdown-item" onClick={() => resetGame()}>
+            <div class="ms-dropdown" data-testid="minesweeper-game-dropdown">
+              <button class="ms-dropdown-item" onClick={() => resetGame()} data-testid="minesweeper-new-game">
                 <span class="ms-dropdown-text">New</span>
               </button>
               <div class="ms-dropdown-separator" />
               <button
                 class={`ms-dropdown-item ${difficulty === 'beginner' ? 'checked' : ''}`}
                 onClick={() => resetGame('beginner')}
+                data-testid="minesweeper-difficulty-beginner"
               >
                 <span class="ms-dropdown-check">{difficulty === 'beginner' ? '✓' : ''}</span>
                 <span class="ms-dropdown-text">Beginner</span>
@@ -380,6 +388,7 @@ export function Minesweeper() {
               <button
                 class={`ms-dropdown-item ${difficulty === 'intermediate' ? 'checked' : ''}`}
                 onClick={() => resetGame('intermediate')}
+                data-testid="minesweeper-difficulty-intermediate"
               >
                 <span class="ms-dropdown-check">{difficulty === 'intermediate' ? '✓' : ''}</span>
                 <span class="ms-dropdown-text">Intermediate</span>
@@ -387,6 +396,7 @@ export function Minesweeper() {
               <button
                 class={`ms-dropdown-item ${difficulty === 'expert' ? 'checked' : ''}`}
                 onClick={() => resetGame('expert')}
+                data-testid="minesweeper-difficulty-expert"
               >
                 <span class="ms-dropdown-check">{difficulty === 'expert' ? '✓' : ''}</span>
                 <span class="ms-dropdown-text">Expert</span>
@@ -394,21 +404,22 @@ export function Minesweeper() {
             </div>
           )}
         </div>
-        <span class="ms-menu-item">Help</span>
+        <span class="ms-menu-item" data-testid="minesweeper-menu-help">Help</span>
       </div>
 
-      <div class="ms-game-area">
-        <div class="ms-controls">
-          <div class="ms-led ms-mines-left">{formatNumber(minesLeft)}</div>
+      <div class="ms-game-area" data-testid="minesweeper-game-area">
+        <div class="ms-controls" data-testid="minesweeper-controls">
+          <div class="ms-led ms-mines-left" data-testid="minesweeper-mine-counter">{formatNumber(minesLeft)}</div>
           <button
             class="ms-face-btn"
             onClick={() => resetGame()}
             onMouseDown={() => setIsMouseDown(true)}
             onMouseUp={() => setIsMouseDown(false)}
+            data-testid="minesweeper-face-button"
           >
             {getFaceEmoji()}
           </button>
-          <div class="ms-led ms-timer">{formatNumber(timer)}</div>
+          <div class="ms-led ms-timer" data-testid="minesweeper-timer">{formatNumber(timer)}</div>
         </div>
 
         <div
@@ -417,6 +428,7 @@ export function Minesweeper() {
             gridTemplateColumns: `repeat(${config.cols}, 16px)`,
             gridTemplateRows: `repeat(${config.rows}, 16px)`,
           }}
+          data-testid="minesweeper-grid"
         >
           {grid.map((row, rowIndex) =>
             row.map((cell, colIndex) => renderCell(cell, rowIndex, colIndex))

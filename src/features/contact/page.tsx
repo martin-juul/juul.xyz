@@ -19,7 +19,7 @@ function SuccessMessage({ onDismiss }: { onDismiss: () => void }) {
   });
 
   return (
-    <div style={{ textAlign: 'center', padding: '32px 16px' }}>
+    <div style={{ textAlign: 'center', padding: '32px 16px' }} data-testid="contact-success">
       <div style={{ marginBottom: '16px' }}>
         <img src="/assets/icons/success.png" alt="Success" style={{ width: '32px', height: '32px' }} />
       </div>
@@ -28,7 +28,7 @@ function SuccessMessage({ onDismiss }: { onDismiss: () => void }) {
         <img src="/assets/icons/send.png" alt="" style={{ ...iconStyle, width: '20px', height: '20px' }} />
         {t.contact.success || 'Message sent successfully!'}
       </p>
-      <button onClick={onDismiss}>OK</button>
+      <button onClick={onDismiss} data-testid="contact-success-ok">OK</button>
     </div>
   );
 }
@@ -78,10 +78,10 @@ export function Contact() {
   }
 
   return (
-    <main style={{ padding: '16px' }}>
+    <main style={{ padding: '16px' }} data-testid="contact-form-container">
       <p style={{ marginBottom: '16px' }}>{t.contact.getInTouch}</p>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-testid="contact-form">
         <fieldset>
           <legend>Contact Information</legend>
 
@@ -96,6 +96,7 @@ export function Contact() {
               value={name}
               onInput={(e) => setName((e.target as HTMLInputElement).value)}
               style={{ width: '100%' }}
+              data-testid="contact-name-input"
             />
           </div>
 
@@ -110,6 +111,7 @@ export function Contact() {
               value={email}
               onInput={(e) => setEmail((e.target as HTMLInputElement).value)}
               style={{ width: '100%' }}
+              data-testid="contact-email-input"
             />
           </div>
         </fieldset>
@@ -128,6 +130,7 @@ export function Contact() {
               value={message}
               onInput={(e) => setMessage((e.target as HTMLTextAreaElement).value)}
               style={{ width: '100%', resize: 'vertical' }}
+              data-testid="contact-message-input"
             ></textarea>
           </div>
         </fieldset>
@@ -140,6 +143,7 @@ export function Contact() {
               marginTop: '16px',
               backgroundColor: '#fbf5f5'
             }}
+            data-testid="contact-error"
           >
             <p style={{ color: '#800000', margin: 0, fontSize: '12px' }}>
               <img src="/assets/icons/warning.png" alt="" style={{ ...iconStyle, verticalAlign: 'text-bottom' }} />
@@ -149,7 +153,7 @@ export function Contact() {
         )}
 
         <div class="field-row" style={{ justifyContent: 'flex-end', marginTop: '16px' }}>
-          <button type="submit" class="default">
+          <button type="submit" class="default" data-testid="contact-submit-button">
             <img src="/assets/icons/send.png" alt="" style={{ ...iconStyle, verticalAlign: 'text-bottom' }} />
             {t.contact.send}
           </button>
