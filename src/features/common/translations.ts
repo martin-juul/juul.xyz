@@ -15,6 +15,7 @@ export const commonTranslations = {
       spider: 'Spider Solitaire',
       solitaire: 'Solitaire',
       gallery: 'Image Gallery',
+      matador: 'Matador',
     },
     footer: {
       builtWith: 'Built with Preact & 98.css',
@@ -42,6 +43,7 @@ export const commonTranslations = {
       spider: 'Edderkop',
       solitaire: 'Kabale',
       gallery: 'Billedgalleri',
+      matador: 'Matador',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',

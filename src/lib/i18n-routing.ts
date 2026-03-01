@@ -22,6 +22,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     spider: 'spider',
     solitaire: 'solitaire',
     gallery: 'gallery',
+    matador: 'matador',
     notfound: 'not-found',
   },
   da: {
@@ -37,6 +38,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     spider: 'edderkop',
     solitaire: 'kabale',
     gallery: 'billedgalleri',
+    matador: 'matador',
     notfound: 'not-found',
   },
 };

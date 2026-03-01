@@ -14,11 +14,13 @@ import { FreeCell } from './features/freecell';
 import { Spider } from './features/spider';
 import { Solitaire } from './features/solitaire';
 import { Gallery } from './features/gallery';
+import { Matador } from './features/matador';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
 import { DesktopIcons } from './components/desktop-icons';
 import { type Page } from './lib/i18n-routing';
+import { commonTranslations } from './features/common/translations';
 
 type WindowData = {
   id: string;
@@ -71,6 +73,8 @@ function AppContent() {
         return { width: 650, height: 500 };
       case 'gallery':
         return { width: 640, height: 480 };
+      case 'matador':
+        return { width: 700, height: 600 };
       default:
         return { width: 640, height: 480 };
     }
@@ -205,6 +209,8 @@ function AppContent() {
         return { width: 550, height: 400 };
       case 'gallery':
         return { width: 480, height: 360 };
+      case 'matador':
+        return { width: 600, height: 500 };
       default:
         return { width: 320, height: 240 };
     }
@@ -423,6 +429,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'spider': return t.nav.spider;
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
+      case 'matador': return t.nav.matador;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -441,6 +448,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'spider': return <Spider />;
       case 'solitaire': return <Solitaire />;
       case 'gallery': return <Gallery />;
+      case 'matador': return <Matador language={t === commonTranslations.da ? 'da' : 'en'} />;
       case 'notfound': return <NotFound />;
     }
   };

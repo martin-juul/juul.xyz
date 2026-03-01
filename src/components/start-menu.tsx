@@ -31,6 +31,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
     { page: 'spider', icon: '/assets/icons/spider.png' },
     { page: 'solitaire', icon: '/assets/icons/solitaire.png' },
     { page: 'gallery', icon: '/assets/icons/gallery.png' },
+    { page: 'matador', icon: '/assets/icons/matador.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -46,6 +47,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
       case 'spider': return t.nav.spider;
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
+      case 'matador': return t.nav.matador;
       case 'notfound': return t.notFound.windowTitle;
     }
   };

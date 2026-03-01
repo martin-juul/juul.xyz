@@ -42,6 +42,7 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   spider: 'spider.exe',
   solitaire: 'sol.exe',
   gallery: 'shimgvw.exe',
+  matador: 'matador.exe',
   notfound: 'explorer.exe',
 };
 

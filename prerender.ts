@@ -12,7 +12,7 @@ const DIST_DIR = join(__dirname, 'dist');
 
 // Types
 type Language = 'en' | 'da';
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'gallery' | 'notfound';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'gallery' | 'matador' | 'notfound';
 
 const SITE_URL = 'https://www.juul.xyz';
 
@@ -31,6 +31,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     spider: 'spider',
     solitaire: 'solitaire',
     gallery: 'gallery',
+    matador: 'matador',
     notfound: 'not-found',
   },
   da: {
@@ -46,6 +47,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     spider: 'edderkop',
     solitaire: 'kabale',
     gallery: 'billedgaleri',
+    matador: 'matador',
     notfound: 'not-found',
   },
 };
@@ -175,6 +177,16 @@ const pageMeta: Record<string, Record<Language, { title: string; description: st
     da: {
       title: 'Billedgalleri - Martin Christiansen',
       description: 'Fotogalleri samling',
+    },
+  },
+  matador: {
+    en: {
+      title: 'Matador - Martin Christiansen',
+      description: 'Classic Danish Monopoly board game',
+    },
+    da: {
+      title: 'Matador - Martin Christiansen',
+      description: 'Klassisk dansk Matador brætspil',
     },
   },
   notfound: {
@@ -339,7 +351,7 @@ function generateStaticRoutes(): Route[] {
   const routes: Route[] = [];
   const staticPages: Page[] = [
     'home', 'projects', 'resume', 'contact', 'music',
-    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'gallery', 'notfound',
+    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'gallery', 'matador', 'notfound',
   ];
   const languages: Language[] = ['en', 'da'];
 

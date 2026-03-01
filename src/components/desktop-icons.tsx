@@ -25,6 +25,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
     { page: 'spider' as Page, icon: '/assets/icons/spider.png' },
     { page: 'solitaire' as Page, icon: '/assets/icons/solitaire.png' },
     { page: 'gallery' as Page, icon: '/assets/icons/gallery.png' },
+    { page: 'matador' as Page, icon: '/assets/icons/matador.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -40,6 +41,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
       case 'spider': return t.nav.spider;
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
+      case 'matador': return t.nav.matador;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
