@@ -34,116 +34,124 @@
   width: 400px;
   height: 400px;
   position: relative;
-  background: #e8e0d0;
+  background: #2d5016; /* Green felt center */
   border-radius: 50%;
   border: 4px solid #8B7355;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
-/* Board spaces - wedge/cheese slice layout */
+/* Board spaces - wedge/cheese slice using clip-path */
 .board-space {
   position: absolute;
-  width: 60px;
-  height: 35px;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
   background: #f5f0e6;
-  border: 1px solid #8B7355;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 7px;
-  text-align: center;
-  transform-origin: center;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: filter 0.15s;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .board-space:hover {
-  background: #fff;
+  filter: brightness(1.1);
   z-index: 10;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.board-space.corner {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+/* Content container inside wedge */
+.wedge-content {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  text-align: center;
+  font-size: 6px;
+  z-index: 5;
+  pointer-events: none;
 }
 
-/* Space color groups - colored strip at top */
-.board-space.brown::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: #8B4513; }
-.board-space.lightblue::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: #87CEEB; }
-.board-space.pink::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: #FF69B4; }
-.board-space.orange::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: #FFA500; }
-.board-space.red::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: #FF0000; }
-.board-space.yellow::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: #FFD700; }
-.board-space.green::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: #008000; }
-.board-space.darkblue::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: #00008B; }
+/* Color groups - colored strip at outer edge of wedge */
+.board-space.brown { background: linear-gradient(to bottom, #8B4513 0%, #8B4513 12px, #f5f0e6 12px); }
+.board-space.lightblue { background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 12px, #f5f0e6 12px); }
+.board-space.pink { background: linear-gradient(to bottom, #FF69B4 0%, #FF69B4 12px, #f5f0e6 12px); }
+.board-space.orange { background: linear-gradient(to bottom, #FFA500 0%, #FFA500 12px, #f5f0e6 12px); }
+.board-space.red { background: linear-gradient(to bottom, #FF0000 0%, #FF0000 12px, #f5f0e6 12px); }
+.board-space.yellow { background: linear-gradient(to bottom, #FFD700 0%, #FFD700 12px, #f5f0e6 12px); }
+.board-space.green { background: linear-gradient(to bottom, #008000 0%, #008000 12px, #f5f0e6 12px); }
+.board-space.darkblue { background: linear-gradient(to bottom, #00008B 0%, #00008B 12px, #f5f0e6 12px); }
 
 /* Special spaces */
 .board-space.start {
-  background: radial-gradient(circle, #ff0000, #ff6600);
-  border-radius: 50%;
+  background: linear-gradient(to bottom, #ff0000 0%, #ff6347 100%);
 }
 
 .board-space.jail {
-  background: #c0c0c0;
+  background: linear-gradient(to bottom, #808080 0%, #c0c0c0 100%);
 }
 
 .board-space.gotojail {
-  background: #ff9999;
+  background: linear-gradient(to bottom, #cc6666 0%, #ff9999 100%);
 }
 
 .board-space.parking {
-  background: #90EE90;
+  background: linear-gradient(to bottom, #66cc66 0%, #90EE90 100%);
 }
 
 .board-space.chance {
-  background: #ff6600;
-  color: white;
+  background: linear-gradient(to bottom, #cc5500 0%, #ff6600 50%, #ff9933 100%);
 }
 
 .board-space.chest {
-  background: #3366cc;
-  color: white;
+  background: linear-gradient(to bottom, #2255aa 0%, #3366cc 50%, #4488ee 100%);
 }
 
 .board-space.tax {
-  background: #ffcc00;
+  background: linear-gradient(to bottom, #cc9900 0%, #ffcc00 100%);
 }
 
 .space-name {
   font-weight: bold;
-  white-space: nowrap;
+  font-size: 6px;
+  line-height: 1.2;
+  max-width: 30px;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
-  padding: 0 2px;
-  margin-top: 6px;
+  color: #333;
+}
+
+.corner .space-name {
+  font-size: 7px;
+  max-width: 36px;
 }
 
 .space-price {
-  font-size: 6px;
+  font-size: 5px;
   color: #404040;
+  margin-top: 2px;
 }
 
 /* Houses and hotels on spaces */
 .buildings {
   display: flex;
   gap: 1px;
-  margin-top: 2px;
+  margin-top: 3px;
+  justify-content: center;
 }
 
 .house {
-  width: 6px;
-  height: 5px;
+  width: 5px;
+  height: 4px;
   background: #00aa00;
   border: 1px solid #006600;
 }
 
 .hotel {
-  width: 10px;
-  height: 6px;
+  width: 7px;
+  height: 5px;
   background: #cc0000;
   border: 1px solid #990000;
 }
@@ -172,8 +180,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 160px;
-  height: 160px;
+  width: 156px;
+  height: 156px;
   background: #2d5016;
   border-radius: 50%;
   border: 3px solid #8B7355;
@@ -182,6 +190,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 20;
 }
 
 .game-logo {
@@ -730,14 +739,35 @@
   }
 
   .board-space {
-    width: 45px;
-    height: 30px;
-    font-size: 6px;
+    width: 320px;
+    height: 320px;
+  }
+
+  .wedge-content {
+    top: 8px;
+    width: 26px;
+  }
+
+  .space-name {
+    font-size: 5px;
+    max-width: 24px;
+  }
+
+  .space-price {
+    font-size: 4px;
   }
 
   .board-center {
-    width: 120px;
-    height: 120px;
+    width: 124px;
+    height: 124px;
+  }
+
+  .game-logo {
+    font-size: 18px;
+  }
+
+  .game-subtitle {
+    font-size: 7px;
   }
 
   .scoreboard {

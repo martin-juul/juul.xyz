@@ -11,27 +11,50 @@ interface BoardProps {
   onSpaceClick: (position: number) => void;
 }
 
-// Calculate position for each space on the board
-function getSpaceStyle(position: number): preact.JSX.CSSProperties {
-  // Board layout: circular with 40 spaces
-  // Top: 0-10, Right: 11-20, Bottom: 21-30, Left: 31-39
+// Calculate wedge style for each space on the circular board
+function getWedgeStyle(position: number, _isCorner: boolean): preact.JSX.CSSProperties {
+  // 40 spaces, each spanning 9 degrees (360/40)
+  // Position 0 is at the top
+  const degreesPerSpace = 9;
+  const rotationAngle = position * degreesPerSpace;
 
+  // Wedge dimensions
+  const outerRadius = 196; // Almost to edge of 400px board
+  const innerRadius = 80; // Inner edge of the ring
+  const halfWedge = 4.4; // Half of wedge angle in degrees (slightly less than 4.5 to have small gaps)
+
+  // Convert to radians
+  const halfWedgeRad = halfWedge * (Math.PI / 180);
+
+  // Calculate clip path points for a wedge pointing UP (before rotation)
+  // The wedge is centered on the vertical axis, so we calculate points
+  // for a wedge that goes from the center toward the top of the board
   const centerX = 200;
   const centerY = 200;
-  const radius = 165;
 
-  // Angle for each space (360 / 40 = 9 degrees per space)
-  // Start from top (270 degrees / -90)
-  const angle = ((position * 9) - 90) * (Math.PI / 180);
+  // For a wedge pointing up (toward -Y), at the top of the board:
+  // - Outer edge is at y = centerY - outerRadius (near top of board)
+  // - Inner edge is at y = centerY - innerRadius (closer to center)
+  // - Left side angles off to the left
+  // - Right side angles off to the right
 
-  const x = centerX + (radius * Math.cos(angle));
-  const y = centerY + (radius * Math.sin(angle));
+  const points = [
+    // Outer-left point
+    { x: centerX - outerRadius * Math.sin(halfWedgeRad), y: centerY - outerRadius * Math.cos(halfWedgeRad) },
+    // Outer-right point
+    { x: centerX + outerRadius * Math.sin(halfWedgeRad), y: centerY - outerRadius * Math.cos(halfWedgeRad) },
+    // Inner-right point
+    { x: centerX + innerRadius * Math.sin(halfWedgeRad), y: centerY - innerRadius * Math.cos(halfWedgeRad) },
+    // Inner-left point
+    { x: centerX - innerRadius * Math.sin(halfWedgeRad), y: centerY - innerRadius * Math.cos(halfWedgeRad) },
+  ];
+
+  const clipPath = `polygon(${points.map(p => `${p.x}px ${p.y}px`).join(', ')})`;
 
   return {
-    position: 'absolute' as const,
-    left: `${x}px`,
-    top: `${y}px`,
-    transform: 'translate(-50%, -50%)',
+    clipPath,
+    transform: `rotate(${rotationAngle}deg)`,
+    transformOrigin: `${centerX}px ${centerY}px`,
   };
 }
 
@@ -115,7 +138,8 @@ export function Board({ state, language, onSpaceClick }: BoardProps) {
       {state.spaces.map((space) => {
         const colorClass = getSpaceColorClass(space);
         const typeClass = getSpaceTypeClass(space);
-        const cornerClass = isCorner(space.position) ? 'corner' : '';
+        const isCornerSpace = isCorner(space.position);
+        const cornerClass = isCornerSpace ? 'corner' : '';
         const owner = getPropertyOwner(state, space.position);
         const ownedProps = owner !== null
           ? state.players[owner].properties.find(p => p.property.position === space.position)
@@ -125,15 +149,17 @@ export function Board({ state, language, onSpaceClick }: BoardProps) {
           <div
             key={space.position}
             className={`board-space ${colorClass} ${typeClass} ${cornerClass}`}
-            style={getSpaceStyle(space.position)}
+            style={getWedgeStyle(space.position, isCornerSpace)}
             onClick={() => onSpaceClick(space.position)}
           >
-            <SpaceContent
-              space={space}
-              owner={owner}
-              ownedProps={ownedProps}
-              lang={language}
-            />
+            <div className="wedge-content">
+              <SpaceContent
+                space={space}
+                owner={owner}
+                ownedProps={ownedProps}
+                lang={language}
+              />
+            </div>
           </div>
         );
       })}
