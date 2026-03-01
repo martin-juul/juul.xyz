@@ -12,7 +12,7 @@ const DIST_DIR = join(__dirname, 'dist');
 
 // Types
 type Language = 'en' | 'da';
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'gallery' | 'notfound';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'gallery' | 'notfound';
 
 const SITE_URL = 'https://www.juul.xyz';
 
@@ -28,6 +28,8 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     taskmanager: 'task-manager',
     minesweeper: 'minesweeper',
     freecell: 'freecell',
+    spider: 'spider',
+    solitaire: 'solitaire',
     gallery: 'gallery',
     notfound: 'not-found',
   },
@@ -41,6 +43,8 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     taskmanager: 'opgavestyring',
     minesweeper: 'minestryger',
     freecell: 'freecell',
+    spider: 'edderkop',
+    solitaire: 'kabale',
     gallery: 'billedgaleri',
     notfound: 'not-found',
   },
@@ -141,6 +145,26 @@ const pageMeta: Record<string, Record<Language, { title: string; description: st
     da: {
       title: 'FreeCell - Martin Christiansen',
       description: 'Klassisk FreeCell kabale-spil',
+    },
+  },
+  spider: {
+    en: {
+      title: 'Spider Solitaire - Martin Christiansen',
+      description: 'Classic Spider Solitaire card game',
+    },
+    da: {
+      title: 'Edderkop Kabale - Martin Christiansen',
+      description: 'Klassisk edderkop kabale-spil',
+    },
+  },
+  solitaire: {
+    en: {
+      title: 'Solitaire - Martin Christiansen',
+      description: 'Classic Klondike Solitaire card game',
+    },
+    da: {
+      title: 'Kabale - Martin Christiansen',
+      description: 'Klassisk Klondike kabale-spil',
     },
   },
   gallery: {
@@ -315,7 +339,7 @@ function generateStaticRoutes(): Route[] {
   const routes: Route[] = [];
   const staticPages: Page[] = [
     'home', 'projects', 'resume', 'contact', 'music',
-    'browser', 'taskmanager', 'minesweeper', 'freecell', 'gallery', 'notfound',
+    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'gallery', 'notfound',
   ];
   const languages: Language[] = ['en', 'da'];
 

@@ -12,6 +12,7 @@ import { TaskManager } from './features/taskmanager';
 import { Minesweeper } from './features/minesweeper';
 import { FreeCell } from './features/freecell';
 import { Spider } from './features/spider';
+import { Solitaire } from './features/solitaire';
 import { Gallery } from './features/gallery';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
@@ -66,6 +67,8 @@ function AppContent() {
         return { width: 600, height: 480 };
       case 'spider':
         return { width: 700, height: 520 };
+      case 'solitaire':
+        return { width: 650, height: 500 };
       case 'gallery':
         return { width: 640, height: 480 };
       default:
@@ -198,6 +201,8 @@ function AppContent() {
         return { width: 500, height: 400 };
       case 'spider':
         return { width: 600, height: 450 };
+      case 'solitaire':
+        return { width: 550, height: 400 };
       case 'gallery':
         return { width: 480, height: 360 };
       default:
@@ -416,6 +421,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'minesweeper': return t.nav.minesweeper;
       case 'freecell': return t.nav.freecell;
       case 'spider': return t.nav.spider;
+      case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
       case 'notfound': return t.notFound.windowTitle;
     }
@@ -433,6 +439,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'minesweeper': return <Minesweeper />;
       case 'freecell': return <FreeCell />;
       case 'spider': return <Spider />;
+      case 'solitaire': return <Solitaire />;
       case 'gallery': return <Gallery />;
       case 'notfound': return <NotFound />;
     }

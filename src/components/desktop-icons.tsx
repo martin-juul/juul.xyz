@@ -38,6 +38,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
       case 'minesweeper': return t.nav.minesweeper;
       case 'freecell': return t.nav.freecell;
       case 'spider': return t.nav.spider;
+      case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
       case 'notfound': return t.notFound.windowTitle;
     }

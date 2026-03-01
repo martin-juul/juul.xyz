@@ -13,6 +13,7 @@ export const commonTranslations = {
       minesweeper: 'Minesweeper',
       freecell: 'FreeCell',
       spider: 'Spider Solitaire',
+      solitaire: 'Solitaire',
       gallery: 'Image Gallery',
     },
     footer: {
@@ -39,6 +40,7 @@ export const commonTranslations = {
       minesweeper: 'Minestryger',
       freecell: 'FreeCell',
       spider: 'Edderkop',
+      solitaire: 'Kabale',
       gallery: 'Billedgalleri',
     },
     footer: {

@@ -61,6 +61,11 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       case 'music': return t.nav.music;
       case 'browser': return t.nav.browser;
       case 'taskmanager': return t.nav.taskmanager;
+      case 'minesweeper': return t.nav.minesweeper;
+      case 'freecell': return t.nav.freecell;
+      case 'spider': return t.nav.spider;
+      case 'solitaire': return t.nav.solitaire;
+      case 'gallery': return t.nav.gallery;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -74,6 +79,11 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       case 'music': return '/assets/icons/music.png';
       case 'browser': return '/assets/icons/ie.png';
       case 'taskmanager': return '/assets/icons/windows.png';
+      case 'minesweeper': return '/assets/icons/minesweeper.png';
+      case 'freecell': return '/assets/icons/freecell.png';
+      case 'spider': return '/assets/icons/spider.png';
+      case 'solitaire': return '/assets/icons/solitaire.png';
+      case 'gallery': return '/assets/icons/gallery.png';
       case 'notfound': return '/assets/icons/windows.png';
     }
   };

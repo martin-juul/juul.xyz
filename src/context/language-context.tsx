@@ -29,6 +29,7 @@ type Translations = {
     minesweeper: string;
     freecell: string;
     spider: string;
+    solitaire: string;
     gallery: string;
   };
   home: {

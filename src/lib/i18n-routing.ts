@@ -20,6 +20,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     minesweeper: 'minesweeper',
     freecell: 'freecell',
     spider: 'spider',
+    solitaire: 'solitaire',
     gallery: 'gallery',
     notfound: 'not-found',
   },
