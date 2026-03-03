@@ -70,6 +70,7 @@ export const ludoTranslations = {
     hintReasonBlock: 'Block opponents',
 
     // Win/lose
+    gameOverTitle: 'Game Over',
     congratulations: 'Congratulations!',
     youWin: 'You won!',
     youLose: 'Game Over',
@@ -77,6 +78,7 @@ export const ludoTranslations = {
     finalStandings: 'Final Standings',
     turns: 'Turns',
     playAgain: 'Play Again',
+    close: 'Close',
 
     // Tutorial
     tutorialTitle: 'Welcome to Ludo!',
@@ -219,6 +221,7 @@ export const ludoTranslations = {
     hintReasonBlock: 'Blokér modstandere',
 
     // Win/lose
+    gameOverTitle: 'Spillet Slut',
     congratulations: 'Tillykke!',
     youWin: 'Du vandt!',
     youLose: 'Spillet Slut',
@@ -226,6 +229,7 @@ export const ludoTranslations = {
     finalStandings: 'Slutstilling',
     turns: 'Ture',
     playAgain: 'Spil Igen',
+    close: 'Luk',
 
     // Tutorial
     tutorialTitle: 'Velkommen til Ludo!',
