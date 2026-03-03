@@ -3,8 +3,16 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/en/gallery/",
+      "destination": "/en/gallery"
+    },
+    {
       "source": "/en/gallery/:path*/",
       "destination": "/en/gallery/:path"
+    },
+    {
+      "source": "/da/billedgalleri/",
+      "destination": "/da/billedgalleri"
     },
     {
       "source": "/da/billedgalleri/:path*/",
