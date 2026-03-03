@@ -7,6 +7,7 @@ type SeoHeadProps = {
 };
 
 export const SITE_URL = 'https://www.juul.xyz';
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/assets/avatar.png`;
 
 export type SeoData = {
   title: string;
@@ -15,6 +16,7 @@ export type SeoData = {
   alternateUrls: Record<Language, string>;
   ogLocale: string;
   ogLocaleAlternate: string;
+  ogImage?: string;
   jsonLd: object[];
 };
 
@@ -146,6 +148,7 @@ const jsonLdData: Record<string, Record<Language, object[]>> = {
         '@type': 'Person',
         name: 'Martin Christiansen',
         jobTitle: 'Software Developer',
+        image: DEFAULT_OG_IMAGE,
         address: {
           '@type': 'PostalAddress',
           addressCountry: 'DK',
@@ -169,6 +172,7 @@ const jsonLdData: Record<string, Record<Language, object[]>> = {
         '@type': 'Person',
         name: 'Martin Christiansen',
         jobTitle: 'Softwareudvikler',
+        image: DEFAULT_OG_IMAGE,
         address: {
           '@type': 'PostalAddress',
           addressCountry: 'DK',
@@ -330,6 +334,7 @@ export function getSeoData(page: Page, language: Language): SeoData {
     alternateUrls,
     ogLocale: localeMap[language],
     ogLocaleAlternate: localeMap[language === 'en' ? 'da' : 'en'],
+    ogImage: DEFAULT_OG_IMAGE,
     jsonLd,
   };
 }
@@ -352,11 +357,17 @@ export function generateMetaTags(seoData: SeoData): string {
   tags.push(`<meta property="og:locale" content="${seoData.ogLocale}" />`);
   tags.push(`<meta property="og:locale:alternate" content="${seoData.ogLocaleAlternate}" />`);
   tags.push(`<meta property="og:site_name" content="Martin Christiansen" />`);
+  if (seoData.ogImage) {
+    tags.push(`<meta property="og:image" content="${escapeHtml(seoData.ogImage)}" />`);
+  }
 
   // Twitter Card tags
   tags.push(`<meta name="twitter:card" content="summary_large_image" />`);
   tags.push(`<meta name="twitter:title" content="${escapeHtml(seoData.title)}" />`);
   tags.push(`<meta name="twitter:description" content="${escapeHtml(seoData.description)}" />`);
+  if (seoData.ogImage) {
+    tags.push(`<meta name="twitter:image" content="${escapeHtml(seoData.ogImage)}" />`);
+  }
 
   // Canonical URL
   tags.push(`<link rel="canonical" href="${escapeHtml(seoData.canonicalUrl)}" />`);
@@ -424,6 +435,24 @@ export function SeoHead({ page }: SeoHeadProps) {
     updateOg('og:url', seoData.canonicalUrl);
     updateOg('og:locale', seoData.ogLocale);
     updateOg('og:locale:alternate', seoData.ogLocaleAlternate);
+    if (seoData.ogImage) {
+      updateOg('og:image', seoData.ogImage);
+    }
+
+    // Update Twitter Card tags
+    const updateTwitter = (name: string, content: string) => {
+      let element = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!element) {
+        element = document.createElement('meta');
+        element.name = name;
+        document.head.appendChild(element);
+      }
+      element.content = content;
+    };
+
+    if (seoData.ogImage) {
+      updateTwitter('twitter:image', seoData.ogImage);
+    }
 
     // Update or create canonical link
     let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
