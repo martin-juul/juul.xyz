@@ -670,6 +670,9 @@ export function Matador({ language }: MatadorProps) {
             setGameState(auctionState);
             setDialogs(d => ({ ...d, auction: true }));
 
+            // Reset processing flag so AI can continue after auction
+            isProcessingRef.current = false;
+
             // AI bidding will be handled by the AuctionDialog's auto-bid effect
             // Don't automatically finish - let the auction play out
             return;

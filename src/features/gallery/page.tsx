@@ -69,6 +69,15 @@ const ALBUMS: Album[] = [
       { filename: '36.jpeg', path: '/assets/gallery/beginning/36.jpeg' },
     ],
   },
+  {
+    name: 'Certificates',
+    slug: 'certificates',
+    path: '/assets/gallery/certificates',
+    cover: '/assets/gallery/certificates/angular-certificate.png',
+    images: [
+      { filename: 'angular-certificate.png', path: '/assets/gallery/certificates/angular-certificate.png' },
+    ]
+  }
 ];
 
 // Helper to find album by slug
