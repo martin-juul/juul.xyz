@@ -3,12 +3,8 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/gallery/:path*",
-      "destination": "/gallery/index.html"
-    },
-    {
       "source": "/en/gallery/:path*",
-      "destination": "/gallery/index.html"
+      "destination": "/en/gallery/index.html"
     },
     {
       "source": "/da/billedgalleri/:path*",
