@@ -25,6 +25,13 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
       initialTracks: [
         {
           metaData: {
+            artist: 'B-Complex',
+            title: 'Beautiful Lies (Edit)',
+          },
+          url: '/music/B-Complex - Beautiful Lies (Edit).mp3'
+        },
+        {
+          metaData: {
             artist: "Eisblume",
             title: "Ice flowers HQ",
           },
