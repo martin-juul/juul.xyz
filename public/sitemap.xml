@@ -4,7 +4,7 @@
   <!-- Home -->
   <url>
     <loc>https://www.juul.xyz/</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/"/>
@@ -13,7 +13,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/"/>
@@ -23,7 +23,7 @@
   <!-- Projects -->
   <url>
     <loc>https://www.juul.xyz/en/projects</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects"/>
@@ -32,7 +32,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/projekter</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects"/>
@@ -42,7 +42,7 @@
   <!-- Project: Is it DNS? -->
   <url>
     <loc>https://www.juul.xyz/en/projects/is-it-dns</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/is-it-dns"/>
@@ -51,7 +51,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/projekter/is-it-dns</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/is-it-dns"/>
@@ -61,7 +61,7 @@
   <!-- Project: Bånder -->
   <url>
     <loc>https://www.juul.xyz/en/projects/baander</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/baander"/>
@@ -70,7 +70,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/projekter/baander</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/baander"/>
@@ -80,7 +80,7 @@
   <!-- Project: Nytårstale -->
   <url>
     <loc>https://www.juul.xyz/en/projects/nytarstale</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/nytarstale"/>
@@ -89,7 +89,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/projekter/nytarstale</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/nytarstale"/>
@@ -99,7 +99,7 @@
   <!-- Project: Luft -->
   <url>
     <loc>https://www.juul.xyz/en/projects/luft</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/luft"/>
@@ -108,17 +108,36 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/projekter/luft</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/luft"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/luft"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/luft"/>
   </url>
+  <!-- Project: Electron Angle Patcher -->
+  <url>
+    <loc>https://www.juul.xyz/en/projects/electron-angle-patcher</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/electron-angle-patcher"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/electron-angle-patcher"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/electron-angle-patcher"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/projekter/electron-angle-patcher</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/projects/electron-angle-patcher"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/projekter/electron-angle-patcher"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/projects/electron-angle-patcher"/>
+  </url>
   <!-- Resume -->
   <url>
     <loc>https://www.juul.xyz/en/resume</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume"/>
@@ -127,7 +146,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/cv</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume"/>
@@ -137,7 +156,7 @@
   <!-- Resume: Autorola Software Development -->
   <url>
     <loc>https://www.juul.xyz/en/resume/autorola-software-development</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/autorola-software-development"/>
@@ -146,7 +165,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/cv/autorola-software-development</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/autorola-software-development"/>
@@ -156,7 +175,7 @@
   <!-- Resume: evercall -->
   <url>
     <loc>https://www.juul.xyz/en/resume/evercall</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/evercall"/>
@@ -165,7 +184,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/cv/evercall</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/evercall"/>
@@ -175,7 +194,7 @@
   <!-- Resume: SiteTech -->
   <url>
     <loc>https://www.juul.xyz/en/resume/sitetech</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/sitetech"/>
@@ -184,7 +203,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/cv/sitetech</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/sitetech"/>
@@ -194,7 +213,7 @@
   <!-- Resume: Odense Municipality -->
   <url>
     <loc>https://www.juul.xyz/en/resume/odense-municipality</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/odense-municipality"/>
@@ -203,7 +222,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/cv/odense-municipality</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/resume/odense-municipality"/>
@@ -213,7 +232,7 @@
   <!-- Contact -->
   <url>
     <loc>https://www.juul.xyz/en/contact</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/contact"/>
@@ -222,7 +241,7 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/kontakt</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/contact"/>
@@ -232,7 +251,7 @@
   <!-- Browser -->
   <url>
     <loc>https://www.juul.xyz/en/browser</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/browser"/>
@@ -241,11 +260,125 @@
   </url>
   <url>
     <loc>https://www.juul.xyz/da/internet</loc>
-    <lastmod>2026-02-26</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/browser"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/internet"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/browser"/>
+  </url>
+  <!-- Task Manager -->
+  <url>
+    <loc>https://www.juul.xyz/en/task-manager</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/task-manager"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/opgavestyring"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/task-manager"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/opgavestyring</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/task-manager"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/opgavestyring"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/task-manager"/>
+  </url>
+  <!-- Minesweeper -->
+  <url>
+    <loc>https://www.juul.xyz/en/minesweeper</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/minesweeper"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/minestryger"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/minesweeper"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/minestryger</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/minesweeper"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/minestryger"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/minesweeper"/>
+  </url>
+  <!-- FreeCell -->
+  <url>
+    <loc>https://www.juul.xyz/en/freecell</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/freecell"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/freecell"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/freecell"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/freecell</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/freecell"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/freecell"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/freecell"/>
+  </url>
+  <!-- Spider -->
+  <url>
+    <loc>https://www.juul.xyz/en/spider</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/spider"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/edderkop"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/spider"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/edderkop</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/spider"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/edderkop"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/spider"/>
+  </url>
+  <!-- Solitaire -->
+  <url>
+    <loc>https://www.juul.xyz/en/solitaire</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/solitaire"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/kabale"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/solitaire"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/kabale</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/solitaire"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/kabale"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/solitaire"/>
+  </url>
+  <!-- Matador -->
+  <url>
+    <loc>https://www.juul.xyz/en/matador</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/matador"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/matador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/matador"/>
+  </url>
+  <url>
+    <loc>https://www.juul.xyz/da/matador</loc>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.juul.xyz/en/matador"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.juul.xyz/da/matador"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.juul.xyz/en/matador"/>
   </url>
 </urlset>
