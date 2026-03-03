@@ -46,7 +46,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     freecell: 'freecell',
     spider: 'edderkop',
     solitaire: 'kabale',
-    gallery: 'billedgaleri',
+    gallery: 'billedgalleri',
     matador: 'matador',
     notfound: 'not-found',
   },
