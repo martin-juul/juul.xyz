@@ -26,4 +26,16 @@ function prerenderPlugin() {
 
 export default defineConfig({
   plugins: [preact(), prerenderPlugin()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split Webamp into its own chunk (it's ~500KB)
+          webamp: ['webamp'],
+          // Split Preact into vendor chunk
+          preact: ['preact'],
+        },
+      },
+    },
+  },
 });
