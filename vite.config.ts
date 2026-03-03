@@ -11,7 +11,7 @@ function prerenderPlugin() {
     closeBundle: async () => {
       console.log('\nRunning prerender...');
       try {
-        const { stdout, stderr } = await execAsync('node --experimental-strip-types prerender.ts', {
+        const { stdout, stderr } = await execAsync('node prerender.ts', {
           cwd: process.cwd(),
         });
         if (stdout) console.log(stdout);

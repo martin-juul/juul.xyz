@@ -1,14 +1,48 @@
 import { useState, useCallback, useEffect, useRef } from 'preact/hooks';
+import { memo } from 'preact/compat';
 import './freecell.css';
+import {
+  type Suit,
+  type Card,
+  type GameStats,
+  SUIT_SYMBOLS,
+  SUIT_COLORS,
+  createSeededRandom,
+  shuffleDeck,
+  createDeck,
+  getRankValue,
+  isRed,
+  loadStats,
+  saveStats,
+} from '../../lib/card-games';
 
-type Suit = 'hearts' | 'diamonds' | 'clubs' | 'spades';
-type Rank = 'A' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'J' | 'Q' | 'K';
-
-type Card = {
-  suit: Suit;
-  rank: Rank;
-  id: string;
+type FreeCellCardProps = {
+  card: Card;
+  isSelected?: boolean;
+  isHint?: boolean;
+  isDragging?: boolean;
 };
+
+const FreeCellCard = memo(function FreeCellCard({
+  card,
+  isSelected = false,
+  isHint = false,
+  isDragging = false,
+}: FreeCellCardProps) {
+  const colorClass = SUIT_COLORS[card.suit];
+
+  return (
+    <div
+      class={`fc-card ${colorClass} ${isSelected ? 'selected' : ''} ${isHint ? 'hint' : ''} ${isDragging ? 'dragging' : ''}`}
+      data-testid={`freecell-card-${card.suit}-${card.rank}`}
+      data-suit={card.suit}
+      data-rank={card.rank}
+    >
+      <div class="fc-card-rank">{card.rank}</div>
+      <div class="fc-card-suit">{SUIT_SYMBOLS[card.suit]}</div>
+    </div>
+  );
+});
 
 type GameState = {
   tableau: (Card | null)[][]; // 8 columns
@@ -16,12 +50,7 @@ type GameState = {
   foundations: (Card | null)[]; // 4 piles (one per suit)
 };
 
-type Stats = {
-  gamesPlayed: number;
-  gamesWon: number;
-  currentStreak: number;
-  bestStreak: number;
-};
+type Stats = GameStats;
 
 type Hint = {
   source: string;
@@ -38,55 +67,19 @@ type DragInfo = {
   cards: Card[];
 };
 
-const SUITS: Suit[] = ['hearts', 'diamonds', 'clubs', 'spades'];
-const RANKS: Rank[] = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-
-const SUIT_SYMBOLS: Record<Suit, string> = {
-  hearts: '♥',
-  diamonds: '♦',
-  clubs: '♣',
-  spades: '♠',
-};
-
-const SUIT_COLORS: Record<Suit, 'red' | 'black'> = {
-  hearts: 'red',
-  diamonds: 'red',
-  clubs: 'black',
-  spades: 'black',
-};
-
 const FOUNDATION_SUITS: Suit[] = ['hearts', 'diamonds', 'clubs', 'spades'];
-
-function getRankValue(rank: Rank): number {
-  return RANKS.indexOf(rank);
-}
-
-function isRed(suit: Suit): boolean {
-  return suit === 'hearts' || suit === 'diamonds';
-}
 
 // Create a shuffled deck and deal to tableau
 function createInitialGame(gameNumber?: number): GameState {
-  // Create deck
-  const deck: Card[] = [];
-  for (const suit of SUITS) {
-    for (const rank of RANKS) {
-      deck.push({ suit, rank, id: `${suit}-${rank}` });
-    }
-  }
+  // Create deck using shared library
+  const deck = createDeck();
 
-  // Seed random with game number (simple implementation)
+  // Seed random with game number
   let seed = gameNumber || Math.floor(Math.random() * 32000) + 1;
-  const random = () => {
-    seed = (seed * 214013 + 2531011) % 2147483648;
-    return (seed >> 16) / 32768;
-  };
+  const random = createSeededRandom(seed);
 
-  // Fisher-Yates shuffle with seeded random
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
-  }
+  // Shuffle using shared library
+  shuffleDeck(deck, random);
 
   // Deal to 8 columns (first 4 get 7 cards, last 4 get 6)
   const tableau: (Card | null)[][] = [[], [], [], [], [], [], [], []];
@@ -171,15 +164,8 @@ export function FreeCell() {
   const [draggedCard, setDraggedCard] = useState<DragInfo | null>(null);
   const [dropTarget, setDropTarget] = useState<{ type: string; index: number } | null>(null);
 
-  // Statistics
-  const [stats, setStats] = useState<Stats>(() => {
-    try {
-      const saved = localStorage.getItem('freecell-stats');
-      return saved ? JSON.parse(saved) : { gamesPlayed: 0, gamesWon: 0, currentStreak: 0, bestStreak: 0 };
-    } catch {
-      return { gamesPlayed: 0, gamesWon: 0, currentStreak: 0, bestStreak: 0 };
-    }
-  });
+  // Statistics - use shared library
+  const [stats, setStats] = useState<Stats>(() => loadStats('freecell-stats'));
 
   // Track if game has been counted as played
   const gameCountedRef = useRef(false);
@@ -187,9 +173,9 @@ export function FreeCell() {
   const timerRef = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Save stats to localStorage
+  // Save stats to localStorage using shared library
   useEffect(() => {
-    localStorage.setItem('freecell-stats', JSON.stringify(stats));
+    saveStats('freecell-stats', stats);
   }, [stats]);
 
   // Close menu when clicking outside
@@ -781,24 +767,6 @@ export function FreeCell() {
     handleCardClick(type, index);
   }, [selectedCard, gameState.tableau, handleCardClick]);
 
-  const renderCard = (card: Card | null, isSelected: boolean = false, isHint: boolean = false, isDragging: boolean = false) => {
-    if (!card) return null;
-
-    const colorClass = SUIT_COLORS[card.suit];
-
-    return (
-      <div
-        class={`fc-card ${colorClass} ${isSelected ? 'selected' : ''} ${isHint ? 'hint' : ''} ${isDragging ? 'dragging' : ''}`}
-        data-testid={`freecell-card-${card.suit}-${card.rank}`}
-        data-suit={card.suit}
-        data-rank={card.rank}
-      >
-        <div class="fc-card-rank">{card.rank}</div>
-        <div class="fc-card-suit">{SUIT_SYMBOLS[card.suit]}</div>
-      </div>
-    );
-  };
-
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -916,7 +884,7 @@ export function FreeCell() {
                   onDragLeave={handleDragLeave}
                   onDrop={(e) => handleDrop(e, 'freecell', i)}
                 >
-                  {card && renderCard(card, isSelected, isHint, isBeingDragged)}
+                  {card && <FreeCellCard card={card} isSelected={isSelected} isHint={isHint} isDragging={isBeingDragged} />}
                 </div>
               );
             })}
@@ -947,7 +915,7 @@ export function FreeCell() {
                       {SUIT_SYMBOLS[targetSuit]}
                     </span>
                   )}
-                  {card && renderCard(card)}
+                  {card && <FreeCellCard card={card} />}
                 </div>
               );
             })}
@@ -1003,7 +971,7 @@ export function FreeCell() {
                       onDragStart={(e) => handleDragStart(e, 'tableau', colIndex, cardIndex)}
                       onDragEnd={handleDragEnd}
                     >
-                      {renderCard(card, isSelected, isHint, isBeingDragged)}
+                      <FreeCellCard card={card} isSelected={isSelected} isHint={isHint} isDragging={isBeingDragged} />
                     </div>
                   );
                 })}

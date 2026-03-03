@@ -1,0 +1,751 @@
+/* Matador Game Styles - Windows 98 Theme */
+
+/* Game container */
+.matador-game {
+  width: 100%;
+  height: 100%;
+  background: #2d5016; /* Green felt background */
+  display: flex;
+  flex-direction: column;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Main game area */
+.game-container {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Board styling */
+.board-container {
+  flex: 1;
+  position: relative;
+  padding: 8px;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.board {
+  /* Center the board */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Make the board fit - use 100% height as base, constrained by width */
+  height: calc(100% - 16px);
+  max-height: calc(100% - 16px);
+  width: auto;
+  max-width: calc(100% - 16px);
+  aspect-ratio: 1;
+  background: #2d5016; /* Green felt center */
+  border-radius: 50%;
+  border: 2px solid #8B7355;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Board spaces - wedge/cheese slice using clip-path */
+.board-space {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f5f0e6;
+  cursor: pointer;
+  transition: filter 0.15s;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.board-space:hover {
+  filter: brightness(1.1);
+  z-index: 10;
+}
+
+/* Content container inside wedge */
+.wedge-content {
+  position: absolute;
+  top: 2.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8%;
+  text-align: center;
+  font-size: 0.6em;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Color groups - colored strip at outer edge of wedge */
+.board-space.brown { background: linear-gradient(to bottom, #8B4513 0%, #8B4513 3%, #f5f0e6 3%); }
+.board-space.lightblue { background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 3%, #f5f0e6 3%); }
+.board-space.pink { background: linear-gradient(to bottom, #FF69B4 0%, #FF69B4 3%, #f5f0e6 3%); }
+.board-space.orange { background: linear-gradient(to bottom, #FFA500 0%, #FFA500 3%, #f5f0e6 3%); }
+.board-space.red { background: linear-gradient(to bottom, #FF0000 0%, #FF0000 3%, #f5f0e6 3%); }
+.board-space.yellow { background: linear-gradient(to bottom, #FFD700 0%, #FFD700 3%, #f5f0e6 3%); }
+.board-space.green { background: linear-gradient(to bottom, #008000 0%, #008000 3%, #f5f0e6 3%); }
+.board-space.darkblue { background: linear-gradient(to bottom, #00008B 0%, #00008B 3%, #f5f0e6 3%); }
+
+/* Special spaces */
+.board-space.start {
+  background: linear-gradient(to bottom, #ff0000 0%, #ff6347 100%);
+}
+
+.board-space.jail {
+  background: linear-gradient(to bottom, #808080 0%, #c0c0c0 100%);
+}
+
+.board-space.gotojail {
+  background: linear-gradient(to bottom, #cc6666 0%, #ff9999 100%);
+}
+
+.board-space.parking {
+  background: linear-gradient(to bottom, #66cc66 0%, #90EE90 100%);
+}
+
+.board-space.chance {
+  background: linear-gradient(to bottom, #cc5500 0%, #ff6600 50%, #ff9933 100%);
+}
+
+.board-space.chest {
+  background: linear-gradient(to bottom, #2255aa 0%, #3366cc 50%, #4488ee 100%);
+}
+
+.board-space.tax {
+  background: linear-gradient(to bottom, #cc9900 0%, #ffcc00 100%);
+}
+
+.space-name {
+  font-weight: bold;
+  font-size: 0.9em;
+  line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
+
+.corner .space-name {
+  font-size: 1em;
+}
+
+.space-price {
+  font-size: 0.7em;
+  color: #404040;
+  margin-top: 2%;
+}
+
+/* Houses and hotels on spaces */
+.buildings {
+  display: flex;
+  gap: 2%;
+  margin-top: 3%;
+  justify-content: center;
+}
+
+.house {
+  width: 12%;
+  height: 8%;
+  background: #00aa00;
+  border: 1px solid #006600;
+}
+
+.hotel {
+  width: 18%;
+  height: 10%;
+  background: #cc0000;
+  border: 1px solid #990000;
+}
+
+/* Player tokens */
+.player-token {
+  position: absolute;
+  font-size: 1.2em;
+  z-index: 20;
+  transition: all 0.3s ease;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.player-token.current {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.3); }
+}
+
+/* Center area */
+.board-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 39%;
+  height: 39%;
+  background: #2d5016;
+  border-radius: 50%;
+  border: 1.5% solid #8B7355;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 20;
+}
+
+.game-logo {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 2px 2px 0 #000;
+  margin-bottom: 1%;
+}
+
+.game-subtitle {
+  font-size: 0.6em;
+  color: #90EE90;
+  margin-bottom: 4%;
+}
+
+/* Dice display */
+.dice-container {
+  display: flex;
+  gap: 4%;
+  margin: 4% 0;
+}
+
+.die {
+  width: 20%;
+  height: auto;
+  aspect-ratio: 1;
+  background: #fff;
+  border: 2px solid #404040;
+  border-radius: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.die.rolling {
+  animation: diceRoll 0.3s ease-in-out;
+}
+
+@keyframes diceRoll {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.doubles-indicator {
+  font-size: 0.8em;
+  color: #FFD700;
+  font-weight: bold;
+  margin-top: 2%;
+}
+
+/* Scoreboard - Windows 98 Style */
+.scoreboard {
+  width: 180px;
+  background: #c0c0c0;
+  border-left: 2px solid;
+  border-color: #808080;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.scoreboard-title {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: #fff;
+  padding: 3px 6px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 11px;
+}
+
+.scoreboard-players {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.player-card {
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 4px 6px;
+  margin-bottom: 4px;
+  background: #c0c0c0;
+}
+
+.player-card.current {
+  background: #000080;
+  color: #fff;
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.player-card.bankrupt {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.player-token-icon {
+  font-size: 14px;
+}
+
+.player-name {
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.player-stats {
+  font-size: 10px;
+}
+
+.player-stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 1px 0;
+}
+
+.player-stat-label {
+  color: #404040;
+}
+
+.player-card.current .player-stat-label {
+  color: #aaa;
+}
+
+.player-stat-value {
+  font-weight: bold;
+}
+
+.player-stat-value.cash {
+  color: #006600;
+}
+
+.player-card.current .player-stat-value.cash {
+  color: #00ff00;
+}
+
+.player-stat-value.low {
+  color: #cc0000;
+}
+
+/* Action panel - Windows 98 Style */
+.action-panel {
+  background: #c0c0c0;
+  border-top: 1px solid #808080;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.action-btn {
+  padding: 4px 12px;
+  font-size: 11px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+}
+
+.action-btn:hover {
+  background: #d0d0d0;
+}
+
+.action-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.action-btn:disabled {
+  color: #808080;
+  cursor: not-allowed;
+}
+
+.action-btn.primary {
+  background: #000080;
+  color: #fff;
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.action-btn.primary:hover {
+  background: #0000a0;
+}
+
+.action-btn.primary:disabled {
+  background: #808080;
+  color: #c0c0c0;
+}
+
+.message-box {
+  background: #fff;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 4px 8px;
+  font-size: 11px;
+  text-align: center;
+  min-height: 20px;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* Dialog styles */
+.matador-dialog {
+  position: absolute;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #404040 #404040 #fff;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  min-width: 250px;
+  max-width: 350px;
+  z-index: 100;
+}
+
+.dialog-header {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: #fff;
+  padding: 3px 6px;
+  font-weight: bold;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialog-close {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #404040 #404040 #fff;
+  width: 16px;
+  height: 14px;
+  font-size: 10px;
+  line-height: 10px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.dialog-close:active {
+  border-color: #404040 #fff #fff #404040;
+}
+
+.dialog-content {
+  padding: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dialog-footer {
+  padding: 8px 12px;
+  border-top: 1px solid #808080;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Property deed card */
+.property-deed {
+  background: #fff;
+  border: 2px solid #404040;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.property-deed.brown { border-top: 6px solid #8B4513; }
+.property-deed.lightblue { border-top: 6px solid #87CEEB; }
+.property-deed.pink { border-top: 6px solid #FF69B4; }
+.property-deed.orange { border-top: 6px solid #FFA500; }
+.property-deed.red { border-top: 6px solid #FF0000; }
+.property-deed.yellow { border-top: 6px solid #FFD700; }
+.property-deed.green { border-top: 6px solid #008000; }
+.property-deed.darkblue { border-top: 6px solid #00008B; }
+
+.deed-title {
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.deed-price {
+  text-align: center;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.deed-rents {
+  font-size: 10px;
+}
+
+.deed-rent-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1px 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+.deed-rent-label {
+  color: #404040;
+}
+
+/* Auction dialog */
+.auction-bids {
+  margin: 8px 0;
+}
+
+.auction-player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+  margin: 2px 0;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.auction-player.current-bidder {
+  background: #ffffcc;
+}
+
+.bid-input {
+  width: 80px;
+  padding: 2px 4px;
+  font-size: 11px;
+  font-family: inherit;
+}
+
+/* Build dialog */
+.build-property {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  margin: 4px 0;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.build-houses-display {
+  display: flex;
+  gap: 2px;
+}
+
+.build-mini-house {
+  width: 6px;
+  height: 4px;
+  background: #00aa00;
+  border: 1px solid #006600;
+}
+
+.build-mini-hotel {
+  width: 8px;
+  height: 5px;
+  background: #cc0000;
+  border: 1px solid #990000;
+}
+
+/* Help dialog */
+.help-tabs {
+  display: flex;
+  border-bottom: 2px solid #808080;
+  margin-bottom: 8px;
+}
+
+.help-tab {
+  padding: 4px 12px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #404040 #c0c0c0 #fff;
+  border-bottom: none;
+  margin-right: 2px;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.help-tab.active {
+  background: #fff;
+  border-bottom-color: #fff;
+}
+
+.help-content {
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.help-section {
+  margin-bottom: 8px;
+}
+
+.help-section h4 {
+  font-size: 11px;
+  margin-bottom: 4px;
+  color: #000080;
+}
+
+/* Game over dialog */
+.game-over-content {
+  text-align: center;
+}
+
+.winner-announcement {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+.final-standings {
+  text-align: left;
+  margin: 8px 0;
+}
+
+.standing-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.standing-row.winner {
+  background: #ffffcc;
+  font-weight: bold;
+}
+
+/* Setup screen */
+.setup-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(45, 80, 22, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.setup-dialog {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #404040 #404040 #fff;
+  padding: 0;
+  min-width: 300px;
+}
+
+.setup-header {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: #fff;
+  padding: 6px 12px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.setup-content {
+  padding: 16px;
+}
+
+.setup-player {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.setup-player.human {
+  background: #ffffcc;
+}
+
+.setup-player-name {
+  flex: 1;
+}
+
+.setup-difficulty {
+  font-size: 10px;
+  padding: 2px 6px;
+}
+
+.setup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Overlay for dialogs */
+.dialog-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+
+/* Mortgaged indicator */
+.mortgaged-indicator {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 0, 0, 0.3) 2px,
+    rgba(255, 0, 0, 0.3) 4px
+  );
+}
+
+/* Owner indicator */
+.owner-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+}
+
+/* Responsive adjustments - using relative units now so minimal overrides needed */
+@media (max-width: 600px) {
+  .scoreboard {
+    width: 140px;
+  }
+
+  .wedge-content {
+    font-size: 0.5em;
+  }
+}

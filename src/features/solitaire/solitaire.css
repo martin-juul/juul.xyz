@@ -1,0 +1,448 @@
+/* Windows 98 Solitaire Styles */
+
+.solitaire-container {
+  background: #008000;
+  padding: 0;
+  user-select: none;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #c0c0c0;
+}
+::-webkit-scrollbar-thumb {
+  background: #808080;
+}
+/* Menu Bar */
+.solitaire-menu-bar {
+  display: flex;
+  padding: 2px 4px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  position: relative;
+}
+.solitaire-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+}
+.solitaire-menu-item:hover,
+.solitaire-menu-item.active {
+  background: #000080;
+  color: white;
+}
+/* Dropdown Menu */
+.solitaire-menu-trigger {
+  position: relative;
+}
+.solitaire-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-width: 150px;
+  padding: 2px 0;
+}
+.solitaire-dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+.solitaire-dropdown-item:hover {
+  background: #000080;
+  color: white;
+}
+.solitaire-dropdown-item:disabled {
+  color: #808080;
+  cursor: default;
+}
+.solitaire-dropdown-item:disabled:hover {
+  background: transparent;
+  color: #808080;
+}
+.solitaire-dropdown-check {
+  width: 16px;
+  text-align: center;
+  font-size: 10px;
+}
+.solitaire-dropdown-text {
+  flex: 1;
+}
+.solitaire-dropdown-separator {
+  height: 1px;
+  background: #808080;
+  margin: 2px 4px;
+}
+.solitaire-dropdown-shortcut {
+  color: #808080;
+  font-size: 10px;
+  margin-left: 20px;
+}
+.solitaire-dropdown-item:hover .solitaire-dropdown-shortcut {
+  color: #ccc;
+}
+/* Game Area */
+.solitaire-game-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow: auto;
+}
+/* Top Row - Stock, Waste, and Foundations */
+.solitaire-top-row {
+  display: flex;
+  justify-content: space-between;
+  height: 95px;
+  margin-bottom: 20px;
+}
+/* Stock and Waste */
+.solitaire-stock-area {
+  display: flex;
+  gap: 10px;
+}
+.solitaire-stock,
+.solitaire-waste {
+  width: 71px;
+  height: 95px;
+  position: relative;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  background: #008000;
+  cursor: pointer;
+}
+.solitaire-stock {
+  background: #c0c0c0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.solitaire-stock::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  background: repeating-linear-gradient(
+    45deg,
+    #1a5a31 0px,
+    #1a5a31 2px,
+    #2d7a4a 2px,
+    #2d7a4a 4px
+  );
+}
+.solitaire-stock.empty {
+  background: #008000;
+  cursor: pointer;
+}
+.solitaire-stock.empty::after {
+  display: none;
+}
+.solitaire-stock-count {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 10px;
+  color: #000;
+}
+.solitaire-waste.empty {
+  background: #008000;
+}
+/* Foundations */
+.solitaire-foundations {
+  display: flex;
+  gap: 10px;
+}
+.solitaire-foundation {
+  width: 71px;
+  height: 95px;
+  position: relative;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  background: #008000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.solitaire-foundation-placeholder {
+  font-size: 32px;
+  opacity: 0.4;
+}
+/* Tableau */
+.solitaire-tableau {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+}
+.solitaire-column {
+  width: 71px;
+  position: relative;
+  min-height: 95px;
+}
+.solitaire-column.solitaire-drop-valid {
+  background: rgba(255, 255, 0, 0.2);
+  border: 2px solid yellow;
+}
+.solitaire-column.solitaire-drop-invalid {
+  background: rgba(255, 0, 0, 0.2);
+}
+/* Empty slot */
+.solitaire-slot {
+  width: 71px;
+  height: 95px;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  background: rgba(0, 128, 0, 0.3);
+}
+/* Cards */
+.solitaire-card {
+  width: 71px;
+  height: 95px;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 2px 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+}
+.solitaire-card.face-down {
+  background: #c0c0c0;
+  cursor: default;
+}
+.solitaire-card.face-down::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  background: repeating-linear-gradient(
+    45deg,
+    #1a5a31 0px,
+    #1a5a31 2px,
+    #2d7a4a 2px,
+    #2d7a4a 4px
+  );
+}
+.solitaire-card.red {
+  color: #cc0000;
+}
+.solitaire-card.black {
+  color: #000;
+}
+.solitaire-card.selected {
+  border-color: #ffff00;
+  box-shadow: 0 0 5px 2px rgba(255, 255, 0, 0.8);
+}
+.solitaire-card.hint {
+  border-color: #00ff00;
+  box-shadow: 0 0 5px 2px rgba(0, 255, 0, 0.5);
+}
+.solitaire-card.dragging {
+  opacity: 0.5;
+}
+.solitaire-card-rank {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 1;
+}
+.solitaire-card-suit {
+  font-size: 24px;
+  line-height: 1;
+  margin-top: -2px;
+}
+/* Status bar */
+.solitaire-status {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 4px;
+  background: #c0c0c0;
+  border-top: 1px solid #808080;
+  font-size: 11px;
+}
+.solitaire-status-left {
+  display: flex;
+  gap: 20px;
+}
+.solitaire-status-right {
+  display: flex;
+  gap: 20px;
+}
+/* Win overlay */
+.solitaire-win-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.solitaire-win-message {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+.solitaire-win-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #000080;
+}
+.solitaire-win-stats {
+  margin: 10px 0;
+  line-height: 1.8;
+}
+.solitaire-win-streak {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #000080;
+}
+.solitaire-win-btn {
+  margin-top: 15px;
+  padding: 5px 20px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 12px;
+}
+.solitaire-win-btn:hover {
+  background: #d4d0d0;
+}
+/* Help Dialog */
+.solitaire-help-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.solitaire-help-dialog {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  width: 400px;
+  max-height: 450px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+.solitaire-help-titlebar {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: white;
+  padding: 2px 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+.solitaire-help-close {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  color: #000;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.solitaire-help-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  line-height: 1.5;
+}
+.solitaire-help-content h3 {
+  margin: 10px 0 5px;
+  color: #000080;
+}
+.solitaire-help-content ul {
+  margin: 5px 0;
+  padding-left: 20px;
+}
+.solitaire-help-content li {
+  margin: 3px 0;
+}
+.solitaire-help-buttons {
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid #808080;
+}
+/* Stats Dialog */
+.solitaire-stats-dialog {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+.solitaire-stats-content {
+  padding: 10px;
+}
+.solitaire-stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px dotted #808080;
+}
+.solitaire-stat-label {
+  color: #000;
+}
+.solitaire-stat-value {
+  font-weight: bold;
+}
+.solitaire-stats-buttons {
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid #808080;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.solitaire-selectgame-content {
+  padding: 10px;
+}

@@ -19,7 +19,10 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     taskmanager: 'task-manager',
     minesweeper: 'minesweeper',
     freecell: 'freecell',
+    spider: 'spider',
+    solitaire: 'solitaire',
     gallery: 'gallery',
+    matador: 'matador',
     notfound: 'not-found',
   },
   da: {
@@ -32,7 +35,10 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     taskmanager: 'opgavestyring',
     minesweeper: 'minestryger',
     freecell: 'freecell',
+    spider: 'edderkop',
+    solitaire: 'kabale',
     gallery: 'billedgalleri',
+    matador: 'matador',
     notfound: 'not-found',
   },
 };
