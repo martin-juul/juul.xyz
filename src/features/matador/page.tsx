@@ -1,6 +1,4 @@
-// Matador Game Main Page Component
-
-import { useState, useCallback, useEffect } from 'preact/hooks';
+import { useState, useCallback, useEffect, useRef } from 'preact/hooks';
 import type { GameState, Player, DialogState, Language, OwnableProperty, Difficulty } from './types';
 import { t } from './translations';
 import { TOKEN_EMOJIS } from './constants';
@@ -136,6 +134,16 @@ export function Matador({ language }: MatadorProps) {
   });
   const [pendingProperty, setPendingProperty] = useState<OwnableProperty | null>(null);
   const [rolling, setRolling] = useState(false);
+
+  // Ref to always get fresh game state (solves stale closure issues)
+  const gameStateRef = useRef(gameState);
+  gameStateRef.current = gameState;
+
+  // Turn counter to force AI effect re-runs on turn changes
+  const [turnCounter, setTurnCounter] = useState(0);
+
+  // Track last dice for doubles check after async operations
+  const lastDiceRef = useRef<[number, number] | null>(null);
 
   // Start new game
   const handleStartGame = useCallback((players: Omit<Player, 'cash' | 'position' | 'properties' | 'inJail' | 'jailTurns' | 'getOutOfJailCards' | 'doublesCount' | 'bankrupt'>[]) => {
@@ -431,231 +439,370 @@ export function Matador({ language }: MatadorProps) {
     console.log('Clicked space:', position);
   }, []);
 
-  // AI turns
-  useEffect(() => {
-    if (!gameState || gameState.phase === 'gameover') return;
+  // Track which player the AI was last processing to detect player changes
+  const lastProcessedPlayerRef = useRef<number>(-1);
 
-    const player = gameState.players[gameState.currentPlayer];
+  // Track if we're currently processing an AI turn (prevents re-entry)
+  const isProcessingRef = useRef(false);
+
+  // Store timeout IDs in a ref so they survive effect cleanups
+  const timeoutIdsRef = useRef<number[]>([]);
+
+  // Helper to schedule a timeout that survives effect cleanups
+  const scheduleTimeout = useCallback((fn: () => void, ms: number) => {
+    const id = window.setTimeout(() => {
+      // Remove this timeout from the list
+      timeoutIdsRef.current = timeoutIdsRef.current.filter(t => t !== id);
+      fn();
+    }, ms);
+    timeoutIdsRef.current.push(id);
+    return id;
+  }, []);
+
+  // Clear all timeouts
+  const clearAllTimeouts = useCallback(() => {
+    timeoutIdsRef.current.forEach(id => clearTimeout(id));
+    timeoutIdsRef.current = [];
+  }, []);
+
+  // AI turns - Fixed implementation with ref-based state access
+  useEffect(() => {
+    // Get fresh state from ref
+    const currentState = gameStateRef.current;
+    if (!currentState || currentState.phase === 'gameover') {
+      console.log('[AI] Effect: No state or game over');
+      return;
+    }
+
+    const player = currentState.players[currentState.currentPlayer];
+    console.log('[AI] Effect: Player:', player.name, 'isHuman:', player.isHuman, 'diceRolled:', currentState.diceRolled);
 
     // Only process AI turns, not human players
     if (player.isHuman) {
+      console.log('[AI] Human player turn - enabling controls');
+      lastProcessedPlayerRef.current = currentState.currentPlayer;
+      isProcessingRef.current = false;
       return;
     }
 
-    if (player.bankrupt) {
-      // Skip bankrupt player
-      const timer = window.setTimeout(() => {
-        setGameState(prev => prev ? endTurn(prev) : prev);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
+    // Check if this is a new player's turn (not already being processed)
+    const playerChanged = lastProcessedPlayerRef.current !== currentState.currentPlayer;
 
     // Only process if dice hasn't been rolled yet this turn
-    if (gameState.diceRolled) {
+    if (currentState.diceRolled) {
+      console.log('[AI] Dice already rolled, waiting for turn to complete...');
       return;
     }
 
-    console.log('Processing AI turn for:', player.name);
+    // Prevent re-entry: if we're already processing this player, don't start again
+    if (!playerChanged && isProcessingRef.current) {
+      console.log('[AI] Already processing this player, skipping');
+      return;
+    }
 
-    let cancelled = false;
-    const timeouts: number[] = [];
+    console.log('[AI] Starting AI turn for:', player.name);
+    lastProcessedPlayerRef.current = currentState.currentPlayer;
+    isProcessingRef.current = true;
 
-    const addTimeout = (fn: () => void, delay: number) => {
-      const id = window.setTimeout(() => {
-        if (!cancelled) fn();
-      }, delay);
-      timeouts.push(id);
-      return id;
+    // Process end of turn - check doubles and continue or end
+    const finishTurn = (wasDoubles: boolean, currentDice: [number, number]) => {
+      console.log('[AI] FinishTurn - wasDoubles:', wasDoubles, 'dice:', currentDice);
+
+      if (wasDoubles) {
+        // Doubles - continue turn: reset processing flag to allow re-entry
+        scheduleTimeout(() => {
+          console.log('[AI] Continuing turn for doubles');
+          isProcessingRef.current = false;
+          setGameState(prev => {
+            if (!prev) return prev;
+            return { ...prev, diceRolled: false };
+          });
+          setTurnCounter(c => c + 1);
+        }, 800);
+      } else {
+        // No doubles - end turn and hand over to next player
+        scheduleTimeout(() => {
+          console.log('[AI] Ending turn - no doubles, handing over to next player');
+          isProcessingRef.current = false;
+          setGameState(prev => {
+            if (!prev) return prev;
+            const next = endTurn(prev);
+            console.log('[AI] Next player:', next.players[next.currentPlayer].name, '(Human:', next.players[next.currentPlayer].isHuman + ')');
+            lastProcessedPlayerRef.current = next.currentPlayer;
+            return next;
+          });
+          setTurnCounter(c => c + 1);
+        }, 800);
+      }
     };
 
-    // AI turn processing - can be called recursively for doubles
-    const processAITurn = (currentState: GameState, isExtraRoll: boolean = false) => {
-      if (cancelled) return;
-
-      let newState: GameState = { ...currentState };
-
-      // Handle jail
-      if (newState.players[newState.currentPlayer].inJail && !isExtraRoll) {
-        const aiPlayer = newState.players[newState.currentPlayer];
-        const decision = decideJailEscape(newState, aiPlayer.difficulty || 'medium');
-
-        addTimeout(() => {
-          if (cancelled) return;
-
-          if (decision === 'pay') {
-            newState = payJailFine(newState);
-          } else if (decision === 'card' && aiPlayer.getOutOfJailCards > 0) {
-            newState = useJailCard(newState);
-          } else {
-            const dice = rollDice();
-            newState = jailRollForDoubles(newState, dice);
-          }
-
-          setGameState(newState);
-
-          // After jail, end turn if not doubles
-          if (!isDoubles(newState.dice)) {
-            addTimeout(() => {
-              setGameState(prev => prev ? endTurn(prev) : prev);
-            }, 500);
-          } else {
-            // Got out of jail with doubles, continue turn
-            newState.diceRolled = false;
-            setGameState(newState);
-          }
-        }, 1000);
+    // Process a single roll/action for AI
+    const processRoll = () => {
+      // Always get fresh state from ref
+      const currentState = gameStateRef.current;
+      if (!currentState || currentState.phase === 'gameover') {
+        console.log('[AI] No state or game over, aborting');
         return;
       }
 
-      // Roll and move
-      addTimeout(() => {
-        if (cancelled) return;
+      const currentPlayer = currentState.players[currentState.currentPlayer];
 
-        const dice = rollDice();
-        const doubles = isDoubles(dice);
-        const aiPlayer = newState.players[newState.currentPlayer];
+      // Handle jail
+      if (currentPlayer.inJail) {
+        console.log('[AI] Player in jail, handling jail turn');
+        const decision = decideJailEscape(currentState, currentPlayer.difficulty || 'medium');
+        console.log('[AI] Jail decision:', decision);
 
-        newState = { ...newState, dice, lastRoll: dice, diceRolled: true };
+        if (decision === 'pay') {
+          setGameState(payJailFine(currentState));
+          scheduleTimeout(() => processRoll(), 500);
+        } else if (decision === 'card' && currentPlayer.getOutOfJailCards > 0) {
+          setGameState(useJailCard(currentState));
+          scheduleTimeout(() => processRoll(), 500);
+        } else {
+          const dice = rollDice();
+          const doubles = isDoubles(dice);
+          console.log('[AI] Jail roll:', dice, 'doubles:', doubles);
 
-        // Check for three doubles
-        if (doubles) {
-          const newDoublesCount = (aiPlayer.doublesCount || 0) + 1;
-          if (newDoublesCount >= 3) {
-            newState = goToJail(newState);
-            newState.players[newState.currentPlayer].doublesCount = 0;
-            setGameState(newState);
-            addTimeout(() => {
-              setGameState(prev => prev ? endTurn(prev) : prev);
+          const newState = jailRollForDoubles(currentState, dice);
+          lastDiceRef.current = dice;
+          setGameState(newState);
+
+          if (doubles) {
+            console.log('[AI] Escaped jail with doubles, continuing turn');
+            scheduleTimeout(() => processRoll(), 800);
+          } else {
+            finishTurn(false, dice);
+          }
+        }
+        return;
+      }
+
+      // Roll dice
+      const dice = rollDice();
+      const doubles = isDoubles(dice);
+      console.log('[AI] Rolled:', dice, 'doubles:', doubles);
+      lastDiceRef.current = dice;
+
+      let newState: GameState = {
+        ...currentState,
+        dice,
+        lastRoll: dice,
+        diceRolled: true,
+      };
+
+      // Check for three doubles
+      if (doubles) {
+        const newDoublesCount = (currentPlayer.doublesCount || 0) + 1;
+        console.log('[AI] Doubles count:', newDoublesCount);
+        if (newDoublesCount >= 3) {
+          console.log('[AI] Three doubles! Going to jail');
+          newState = goToJail(newState);
+          newState.players[newState.currentPlayer].doublesCount = 0;
+          setGameState(newState);
+          finishTurn(false, dice);
+          return;
+        }
+        newState.players[newState.currentPlayer].doublesCount = newDoublesCount;
+      } else {
+        newState.players[newState.currentPlayer].doublesCount = 0;
+      }
+
+      // Move player
+      const total = dice[0] + dice[1];
+      newState = movePlayer(newState, total);
+      console.log('[AI] Moved', total, 'spaces to position', newState.players[newState.currentPlayer].position);
+
+      // Handle landing
+      const space = newState.spaces[newState.players[newState.currentPlayer].position];
+      console.log('[AI] Landed on:', space.type, space.nameDa);
+
+      if (space.type === 'street' || space.type === 'railway' || space.type === 'brewery') {
+        const property = space as OwnableProperty;
+        const owner = getPropertyOwner(newState, property.position);
+
+        if (owner === null) {
+          const shouldBuy = decideBuy(newState, property, currentPlayer.difficulty || 'medium');
+          console.log('[AI] Unowned property, shouldBuy:', shouldBuy);
+
+          if (shouldBuy && newState.players[newState.currentPlayer].cash >= property.price) {
+            setGameState(prev => {
+              if (!prev) return prev;
+              const updatedState = buyProperty(prev, prev.currentPlayer, property);
+              console.log('[AI] Bought property:', property.nameDa);
+              return updatedState;
+            });
+            finishTurn(doubles, dice);
+            return;
+          } else {
+            console.log('[AI] Starting auction for:', property.nameDa);
+            const auctionState = startAuction(newState, property);
+            setGameState(auctionState);
+
+            scheduleTimeout(() => {
+              const currentAuctionState = gameStateRef.current;
+              if (!currentAuctionState?.auction) {
+                finishTurn(doubles, dice);
+                return;
+              }
+
+              setGameState(prev => {
+                if (!prev) return prev;
+                let auctionState = prev;
+                if (!auctionState.auction) return prev;
+
+                const auction = auctionState.auction;
+
+                for (const bidderIndex of auction.participants) {
+                  const bidder = auctionState.players[bidderIndex];
+                  if (bidder.isHuman || auction.passed.includes(bidderIndex)) continue;
+
+                  const bid = decideAuctionBid(auctionState, auction.property, auction.currentBid, bidder.difficulty || 'medium');
+                  if (bid !== null && bid > auction.currentBid) {
+                    auctionState = {
+                      ...auctionState,
+                      auction: {
+                        ...auction,
+                        currentBid: bid,
+                        currentBidder: bidderIndex,
+                      }
+                    };
+                    console.log('[AI] Auction bid by', bidder.name, ':', bid);
+                  } else {
+                    auctionState = {
+                      ...auctionState,
+                      auction: {
+                        ...auction,
+                        passed: [...auction.passed, bidderIndex],
+                      }
+                    };
+                    console.log('[AI] Auction pass by', bidder.name);
+                  }
+                }
+
+                const currentAuction = auctionState.auction;
+                if (!currentAuction) return prev;
+
+                const activeBidders = currentAuction.participants.filter(
+                  p => !currentAuction.passed.includes(p)
+                );
+
+                const allAIsPassed = currentAuction.participants
+                  .filter(idx => !auctionState.players[idx].isHuman)
+                  .every(idx => currentAuction.passed.includes(idx));
+
+                if (currentAuction.currentBidder !== null && (activeBidders.length <= 1 || allAIsPassed)) {
+                  const winnerIndex = currentAuction.currentBidder;
+                  const winner = auctionState.players[winnerIndex];
+                  const prop = currentAuction.property;
+                  const bidAmount = currentAuction.currentBid;
+
+                  console.log('[AI] Auction won by', winner.name, 'for', bidAmount);
+
+                  const updatedPlayers = [...auctionState.players];
+                  updatedPlayers[winnerIndex] = {
+                    ...winner,
+                    cash: winner.cash - bidAmount,
+                    properties: [...winner.properties, { property: prop, mortgaged: false, houses: 0 }],
+                  };
+
+                  auctionState = {
+                    ...auctionState,
+                    players: updatedPlayers,
+                    auction: null,
+                    phase: 'rolling',
+                    diceRolled: true,
+                  };
+                } else if (allAIsPassed && currentAuction.currentBidder === null) {
+                  console.log('[AI] No one bid on', property.nameDa);
+                  auctionState = {
+                    ...auctionState,
+                    auction: null,
+                    phase: 'rolling',
+                    diceRolled: true,
+                  };
+                }
+
+                return auctionState;
+              });
+
+              scheduleTimeout(() => {
+                finishTurn(doubles, dice);
+              }, 500);
             }, 1000);
             return;
           }
-          newState.players[newState.currentPlayer].doublesCount = newDoublesCount;
-        } else {
-          newState.players[newState.currentPlayer].doublesCount = 0;
+        } else if (owner !== newState.currentPlayer) {
+          console.log('[AI] Paying rent to player', owner);
+          newState = payRent(newState, property, total);
         }
-
-        // Move
-        const total = dice[0] + dice[1];
-        newState = movePlayer(newState, total);
-
-        // Handle landing
-        const space = newState.spaces[newState.players[newState.currentPlayer].position];
-
-        if (space.type === 'street' || space.type === 'railway' || space.type === 'brewery') {
-          const property = space as OwnableProperty;
-          const owner = getPropertyOwner(newState, property.position);
-
-          if (owner === null) {
-            // Decide to buy or auction
-            const shouldBuy = decideBuy(newState, property, aiPlayer.difficulty || 'medium');
-
-            if (shouldBuy && newState.players[newState.currentPlayer].cash >= property.price) {
-              newState = buyProperty(newState, newState.currentPlayer, property);
-              console.log(`AI ${aiPlayer.name} bought ${property.nameDa} for ${property.price} kr`);
-            } else {
-              newState = startAuction(newState, property);
-              setGameState(newState);
-              return; // Auction will handle state updates
-            }
-          } else if (owner !== newState.currentPlayer) {
-            newState = payRent(newState, property, total);
-          }
-        } else if (space.type === 'chance') {
-          newState = drawCard(newState, 'chance');
-          if (newState.currentCard) {
-            setGameState(newState);
-            addTimeout(() => {
-              if (cancelled) return;
-              let updatedState = executeCardAction(newState, dice);
-              updatedState.diceRolled = true;
-              setGameState(updatedState);
-
-              // End AI turn after card
-              if (!doubles) {
-                addTimeout(() => {
-                  setGameState(prev => prev ? endTurn(prev) : prev);
-                }, 500);
-              } else {
-                // Doubles after card - roll again
-                updatedState.diceRolled = false;
-                setGameState(updatedState);
-              }
-            }, 1500);
-            return;
-          }
-        } else if (space.type === 'chest') {
-          newState = drawCard(newState, 'chest');
-          if (newState.currentCard) {
-            setGameState(newState);
-            addTimeout(() => {
-              if (cancelled) return;
-              let updatedState = executeCardAction(newState, dice);
-              updatedState.diceRolled = true;
-              setGameState(updatedState);
-
-              // End AI turn after card
-              if (!doubles) {
-                addTimeout(() => {
-                  setGameState(prev => prev ? endTurn(prev) : prev);
-                }, 500);
-              } else {
-                // Doubles after card - roll again
-                updatedState.diceRolled = false;
-                setGameState(updatedState);
-              }
-            }, 1500);
-            return;
-          }
-        } else if (space.type === 'gotojail') {
-          newState = goToJail(newState);
+      } else if (space.type === 'chance' || space.type === 'chest') {
+        console.log('[AI] Drawing card');
+        newState = drawCard(newState, space.type === 'chance' ? 'chance' : 'chest');
+        if (newState.currentCard) {
           setGameState(newState);
-          addTimeout(() => {
-            setGameState(prev => prev ? endTurn(prev) : prev);
-          }, 1000);
+          scheduleTimeout(() => {
+            console.log('[AI] Executing card action');
+            setGameState(prev => {
+              if (!prev) return prev;
+              let updated = executeCardAction(prev, dice);
+              updated.diceRolled = true;
+              return updated;
+            });
+            finishTurn(doubles, dice);
+          }, 1500);
           return;
-        } else if (space.type === 'tax') {
-          const taxSpace = space;
-          const taxAmount = taxSpace.amount;
-          newState.players[newState.currentPlayer].cash -= taxAmount;
         }
+      } else if (space.type === 'gotojail') {
+        console.log('[AI] Go to jail!');
+        newState = goToJail(newState);
+        setGameState(newState);
+        finishTurn(false, dice);
+        return;
+      } else if (space.type === 'tax') {
+        const taxAmount = (space as any).amount || 0;
+        console.log('[AI] Paying tax:', taxAmount);
+        newState.players[newState.currentPlayer].cash -= taxAmount;
+      }
 
-        // AI building phase (only at end of turn, not between doubles rolls)
-        if (!doubles) {
-          const builds = decideBuild(newState, aiPlayer.difficulty || 'medium');
+      // AI building phase (only if not doubles)
+      if (!doubles) {
+        const builds = decideBuild(newState, currentPlayer.difficulty || 'medium');
+        if (builds.length > 0) {
+          console.log('[AI] Building houses');
           builds.forEach(build => {
             for (let i = 0; i < build.houses; i++) {
-              newState = buildHouse(newState, build.position);
+              const result = buildHouse(newState, build.position);
+              if (result !== newState) {
+                newState = result;
+              }
             }
           });
         }
+      }
 
-        setGameState(newState);
-
-        // End turn if not doubles, otherwise continue with extra roll
-        if (!doubles) {
-          addTimeout(() => {
-            setGameState(prev => prev ? endTurn(prev) : prev);
-          }, 1000);
-        } else {
-          // Roll again for doubles - reset diceRolled and process again
-          addTimeout(() => {
-            if (cancelled) return;
-            newState.diceRolled = false;
-            setGameState(newState);
-            // Continue processing for doubles
-            processAITurn(newState, true);
-          }, 1000);
-        }
-      }, 1000);
+      setGameState(newState);
+      finishTurn(doubles, dice);
     };
 
-    addTimeout(() => processAITurn(gameState), 500);
+    // Start AI turn after short delay
+    scheduleTimeout(() => processRoll(), 500);
 
+    // No cleanup needed for effect re-runs - timeouts are stored in ref
+    // But we still return a cleanup for component unmount
     return () => {
-      cancelled = true;
-      timeouts.forEach(t => clearTimeout(t));
+      // Only clear timeouts if component is being unmounted
+      // We detect this by checking if the effect will run again
     };
-  }, [gameState?.currentPlayer, gameState?.phase]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameState?.currentPlayer, gameState?.diceRolled, turnCounter]);
+
+  // Cleanup timeouts on unmount
+  useEffect(() => {
+    return () => {
+      clearAllTimeouts();
+    };
+  }, [clearAllTimeouts]);
 
   // Check for game over
   useEffect(() => {

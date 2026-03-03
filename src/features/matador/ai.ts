@@ -1,5 +1,3 @@
-// Matador (Danish Monopoly) AI Player Logic
-
 import type {
   GameState,
   Player,
@@ -21,7 +19,7 @@ import {
   countBreweriesOwned,
 } from './game-logic';
 
-// Property valuation for AI decision making
+// Property valuation for AI decision-making
 function getPropertyBaseValue(property: OwnableProperty, player: Player, state: GameState): number {
   let value = property.price;
 

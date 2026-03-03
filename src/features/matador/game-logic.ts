@@ -1,5 +1,3 @@
-// Matador (Danish Monopoly) Game Logic Engine
-
 import type {
   GameState,
   Player,

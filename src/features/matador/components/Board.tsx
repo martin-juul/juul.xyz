@@ -18,26 +18,20 @@ function getWedgeStyle(position: number, _isCorner: boolean): preact.JSX.CSSProp
   const degreesPerSpace = 9;
   const rotationAngle = position * degreesPerSpace;
 
-  // Wedge dimensions
-  const outerRadius = 196; // Almost to edge of 400px board
-  const innerRadius = 80; // Inner edge of the ring
-  const halfWedge = 4.4; // Half of wedge angle in degrees (slightly less than 4.5 to have small gaps)
+  // Wedge dimensions as percentages of the board
+  const outerRadius = 49; // 49% from center to edge
+  const innerRadius = 20; // 20% from center (leaves room for center circle)
+  const halfWedge = 4.4; // Half of wedge angle in degrees
 
   // Convert to radians
   const halfWedgeRad = halfWedge * (Math.PI / 180);
 
-  // Calculate clip path points for a wedge pointing UP (before rotation)
-  // The wedge is centered on the vertical axis, so we calculate points
-  // for a wedge that goes from the center toward the top of the board
-  const centerX = 200;
-  const centerY = 200;
+  // Center is at 50%, 50%
+  const centerX = 50;
+  const centerY = 50;
 
-  // For a wedge pointing up (toward -Y), at the top of the board:
-  // - Outer edge is at y = centerY - outerRadius (near top of board)
-  // - Inner edge is at y = centerY - innerRadius (closer to center)
-  // - Left side angles off to the left
-  // - Right side angles off to the right
-
+  // Calculate clip path points as percentages
+  // For a wedge pointing up (toward top of board)
   const points = [
     // Outer-left point
     { x: centerX - outerRadius * Math.sin(halfWedgeRad), y: centerY - outerRadius * Math.cos(halfWedgeRad) },
@@ -49,12 +43,12 @@ function getWedgeStyle(position: number, _isCorner: boolean): preact.JSX.CSSProp
     { x: centerX - innerRadius * Math.sin(halfWedgeRad), y: centerY - innerRadius * Math.cos(halfWedgeRad) },
   ];
 
-  const clipPath = `polygon(${points.map(p => `${p.x}px ${p.y}px`).join(', ')})`;
+  const clipPath = `polygon(${points.map(p => `${p.x}% ${p.y}%`).join(', ')})`;
 
   return {
     clipPath,
     transform: `rotate(${rotationAngle}deg)`,
-    transformOrigin: `${centerX}px ${centerY}px`,
+    transformOrigin: '50% 50%',
   };
 }
 

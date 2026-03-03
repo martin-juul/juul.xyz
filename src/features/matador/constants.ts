@@ -1,6 +1,3 @@
-// Matador (Danish Monopoly) Game Constants
-// Based on authentic BRIO/Algas Copenhagen edition
-
 import type {
   BoardSpace,
   Card,

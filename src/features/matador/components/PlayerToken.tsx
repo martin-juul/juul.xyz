@@ -11,31 +11,29 @@ interface PlayerTokenProps {
   index: number; // For offset when multiple tokens on same space
 }
 
-// Calculate position on circular board with wedge layout
+// Calculate position on circular board with wedge layout (percentage-based)
 function getTokenPosition(position: number, index: number): { top: string; left: string } {
-  // Board center is 200,200 (400px board)
-  const centerX = 200;
-  const centerY = 200;
-  // Tokens should be in the middle of the wedge ring
-  // Inner radius: 80, Outer radius: 196, Middle: ~138
-  const radius = 138;
+  // Board center is 50%, 50%
+  const centerX = 50;
+  const centerY = 50;
+  // Tokens should be in the middle of the wedge ring (between 20% and 49%)
+  const radius = 35; // Middle of the wedge ring
 
   // Calculate angle (each space is 9 degrees)
-  // Position 0 is at top, so we don't need the -90 offset like before
-  // because the wedges start at 0 degrees rotation (pointing up)
+  // Position 0 is at top, wedges start at 0 degrees rotation (pointing up)
   const baseAngle = position * 9;
   const angle = (baseAngle - 90) * (Math.PI / 180); // -90 to start at top
 
   // Small offset for multiple tokens on same space
-  const offsetRadius = index * 10;
+  const offsetRadius = index * 2.5;
   const offsetAngle = index * 2 * (Math.PI / 180);
 
   const x = centerX + ((radius + offsetRadius) * Math.cos(angle + offsetAngle));
   const y = centerY + ((radius + offsetRadius) * Math.sin(angle + offsetAngle));
 
   return {
-    top: `${y}px`,
-    left: `${x}px`,
+    top: `${y}%`,
+    left: `${x}%`,
   };
 }
 
