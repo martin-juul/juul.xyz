@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'preact/hooks';
 import { memo } from 'preact/compat';
+import { useLanguage } from '../../context/language-context';
 import './freecell.css';
 import {
   type Suit,
@@ -141,6 +142,8 @@ function canPlaceOnTableau(card: Card, column: (Card | null)[]): boolean {
 }
 
 export function FreeCell() {
+  const { t } = useLanguage();
+  const txt = t.freecell;
   const [gameState, setGameState] = useState<GameState>(() => createInitialGame());
   const [selectedCard, setSelectedCard] = useState<{ source: string; index: number; cardIndex?: number } | null>(null);
   const [gameNumber, setGameNumber] = useState<number>(() => Math.floor(Math.random() * 32000) + 1);
@@ -788,34 +791,34 @@ export function FreeCell() {
               setActiveMenu(activeMenu === 'game' ? null : 'game');
             }}
           >
-            Game
+            {txt.menu.game}
           </span>
           {activeMenu === 'game' && (
             <div class="fc-dropdown">
               <button class="fc-dropdown-item" onClick={() => { newGame(); setActiveMenu(null); }}>
                 <span class="fc-dropdown-check"></span>
-                <span class="fc-dropdown-text">New Game</span>
+                <span class="fc-dropdown-text">{txt.game.newGame}</span>
                 <span class="fc-dropdown-shortcut">F2</span>
               </button>
               <button class="fc-dropdown-item" onClick={() => { newGame(gameNumber); setActiveMenu(null); }}>
                 <span class="fc-dropdown-check"></span>
-                <span class="fc-dropdown-text">Restart Game</span>
+                <span class="fc-dropdown-text">{txt.game.restartGame}</span>
               </button>
               <button class="fc-dropdown-item" onClick={() => { setShowSelectGame(true); setActiveMenu(null); }}>
                 <span class="fc-dropdown-check"></span>
-                <span class="fc-dropdown-text">Select Game...</span>
+                <span class="fc-dropdown-text">{txt.game.selectGame}</span>
                 <span class="fc-dropdown-shortcut">F3</span>
               </button>
               <div class="fc-dropdown-separator" />
               <button class="fc-dropdown-item" onClick={() => { undo(); setActiveMenu(null); }} disabled={moveHistory.length === 0}>
                 <span class="fc-dropdown-check"></span>
-                <span class="fc-dropdown-text">Undo</span>
+                <span class="fc-dropdown-text">{txt.game.undo}</span>
                 <span class="fc-dropdown-shortcut">Ctrl+Z</span>
               </button>
               <div class="fc-dropdown-separator" />
               <button class="fc-dropdown-item" onClick={() => { setShowStats(true); setActiveMenu(null); }}>
                 <span class="fc-dropdown-check"></span>
-                <span class="fc-dropdown-text">Statistics...</span>
+                <span class="fc-dropdown-text">{txt.game.statistics}</span>
               </button>
             </div>
           )}
@@ -828,23 +831,23 @@ export function FreeCell() {
               setActiveMenu(activeMenu === 'help' ? null : 'help');
             }}
           >
-            Help
+            {txt.menu.help}
           </span>
           {activeMenu === 'help' && (
             <div class="fc-dropdown">
               <button class="fc-dropdown-item" onClick={() => { setShowHelp(true); setActiveMenu(null); }}>
                 <span class="fc-dropdown-check"></span>
-                <span class="fc-dropdown-text">How to Play</span>
+                <span class="fc-dropdown-text">{txt.help.howToPlay}</span>
               </button>
               <button class="fc-dropdown-item" onClick={() => { showHint(); setActiveMenu(null); }}>
                 <span class="fc-dropdown-check"></span>
-                <span class="fc-dropdown-text">Hint</span>
+                <span class="fc-dropdown-text">{txt.help.hint}</span>
                 <span class="fc-dropdown-shortcut">H</span>
               </button>
               <div class="fc-dropdown-separator" />
               <button class="fc-dropdown-item" onClick={() => setActiveMenu(null)}>
                 <span class="fc-dropdown-check"></span>
-                <span class="fc-dropdown-text">About FreeCell</span>
+                <span class="fc-dropdown-text">{txt.help.about}</span>
               </button>
             </div>
           )}
@@ -983,12 +986,12 @@ export function FreeCell() {
 
       {/* Status bar */}
       <div class="fc-status">
-        <span>Moves: {moves}</span>
-        <span>Time: {formatTime(timer)}</span>
-        <span>Game: {gameNumber}</span>
+        <span>{txt.status.moves}: {moves}</span>
+        <span>{txt.status.time}: {formatTime(timer)}</span>
+        <span>{txt.status.game}: {gameNumber}</span>
         {canAutoComplete() && (
           <button class="fc-autocomplete-btn" onClick={autoComplete}>
-            Auto Complete
+            {txt.status.autoComplete}
           </button>
         )}
       </div>
@@ -997,15 +1000,15 @@ export function FreeCell() {
       {isWon && (
         <div class="fc-win-overlay">
           <div class="fc-win-message">
-            <div class="fc-win-title">Congratulations!</div>
+            <div class="fc-win-title">{txt.win.congratulations}</div>
             <div class="fc-win-stats">
-              <div>You won in {moves} moves!</div>
-              <div>Time: {formatTime(timer)}</div>
-              <div>Game #{gameNumber}</div>
-              <div class="fc-win-streak">Current Streak: {stats.currentStreak}</div>
+              <div>{txt.win.youWonInMoves.replace('{moves}', String(moves))}</div>
+              <div>{txt.win.time}: {formatTime(timer)}</div>
+              <div>{txt.win.gameNumber.replace('{number}', String(gameNumber))}</div>
+              <div class="fc-win-streak">{txt.win.currentStreak}: {stats.currentStreak}</div>
             </div>
             <button class="fc-win-btn" onClick={() => newGame()}>
-              New Game
+              {txt.win.newGame}
             </button>
           </div>
         </div>
@@ -1016,7 +1019,7 @@ export function FreeCell() {
         <div class="fc-help-overlay" onClick={() => setShowHelp(false)}>
           <div class="fc-help-dialog" onClick={(e) => e.stopPropagation()}>
             <div class="fc-help-titlebar">
-              <span>FreeCell Help</span>
+              <span>{txt.helpDialog.title}</span>
               <button class="fc-help-close" onClick={() => setShowHelp(false)}>×</button>
             </div>
             <div class="fc-help-content">
@@ -1062,7 +1065,7 @@ export function FreeCell() {
               </ul>
             </div>
             <div class="fc-help-buttons">
-              <button class="fc-win-btn" onClick={() => setShowHelp(false)}>OK</button>
+              <button class="fc-win-btn" onClick={() => setShowHelp(false)}>{txt.helpDialog.ok}</button>
             </div>
           </div>
         </div>
@@ -1073,34 +1076,34 @@ export function FreeCell() {
         <div class="fc-help-overlay" onClick={() => setShowStats(false)}>
           <div class="fc-stats-dialog" onClick={(e) => e.stopPropagation()}>
             <div class="fc-help-titlebar">
-              <span>FreeCell Statistics</span>
+              <span>{txt.stats.title}</span>
               <button class="fc-help-close" onClick={() => setShowStats(false)}>×</button>
             </div>
             <div class="fc-stats-content">
               <div class="fc-stat-row">
-                <span class="fc-stat-label">Games Played:</span>
+                <span class="fc-stat-label">{txt.stats.gamesPlayed}:</span>
                 <span class="fc-stat-value">{stats.gamesPlayed}</span>
               </div>
               <div class="fc-stat-row">
-                <span class="fc-stat-label">Games Won:</span>
+                <span class="fc-stat-label">{txt.stats.gamesWon}:</span>
                 <span class="fc-stat-value">{stats.gamesWon}</span>
               </div>
               <div class="fc-stat-row">
-                <span class="fc-stat-label">Win Percentage:</span>
+                <span class="fc-stat-label">{txt.stats.winPercentage}:</span>
                 <span class="fc-stat-value">{stats.gamesPlayed > 0 ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100) : 0}%</span>
               </div>
               <div class="fc-stat-row">
-                <span class="fc-stat-label">Current Streak:</span>
+                <span class="fc-stat-label">{txt.stats.currentStreak}:</span>
                 <span class="fc-stat-value">{stats.currentStreak}</span>
               </div>
               <div class="fc-stat-row">
-                <span class="fc-stat-label">Best Streak:</span>
+                <span class="fc-stat-label">{txt.stats.bestStreak}:</span>
                 <span class="fc-stat-value">{stats.bestStreak}</span>
               </div>
             </div>
             <div class="fc-stats-buttons">
-              <button class="fc-win-btn" onClick={resetStats}>Reset</button>
-              <button class="fc-win-btn" onClick={() => setShowStats(false)}>OK</button>
+              <button class="fc-win-btn" onClick={resetStats}>{txt.stats.reset}</button>
+              <button class="fc-win-btn" onClick={() => setShowStats(false)}>{txt.stats.ok}</button>
             </div>
           </div>
         </div>
@@ -1111,11 +1114,11 @@ export function FreeCell() {
         <div class="fc-help-overlay" onClick={() => setShowSelectGame(false)}>
           <div class="fc-stats-dialog" onClick={(e) => e.stopPropagation()}>
             <div class="fc-help-titlebar">
-              <span>Select Game</span>
+              <span>{txt.selectGame.title}</span>
               <button class="fc-help-close" onClick={() => setShowSelectGame(false)}>×</button>
             </div>
             <div class="fc-selectgame-content">
-              <p>Enter a game number (1-32000):</p>
+              <p>{txt.selectGame.prompt}</p>
               <input
                 type="number"
                 min="1"
@@ -1143,8 +1146,8 @@ export function FreeCell() {
                   setShowSelectGame(false);
                   setSelectGameInput('');
                 }
-              }}>OK</button>
-              <button class="fc-win-btn" onClick={() => { setShowSelectGame(false); setSelectGameInput(''); }}>Cancel</button>
+              }}>{txt.selectGame.ok}</button>
+              <button class="fc-win-btn" onClick={() => { setShowSelectGame(false); setSelectGameInput(''); }}>{txt.selectGame.cancel}</button>
             </div>
           </div>
         </div>

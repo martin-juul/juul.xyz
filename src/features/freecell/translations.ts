@@ -1,0 +1,106 @@
+export const freecellTranslations = {
+  en: {
+    menu: {
+      game: 'Game',
+      help: 'Help',
+    },
+    game: {
+      newGame: 'New Game',
+      restartGame: 'Restart Game',
+      selectGame: 'Select Game...',
+      undo: 'Undo',
+      statistics: 'Statistics...',
+    },
+    help: {
+      howToPlay: 'How to Play',
+      hint: 'Hint',
+      about: 'About FreeCell',
+    },
+    status: {
+      moves: 'Moves',
+      time: 'Time',
+      game: 'Game',
+      autoComplete: 'Auto Complete',
+    },
+    win: {
+      congratulations: 'Congratulations!',
+      youWonInMoves: 'You won in {moves} moves!',
+      time: 'Time',
+      gameNumber: 'Game #{number}',
+      currentStreak: 'Current Streak',
+      newGame: 'New Game',
+    },
+    stats: {
+      title: 'FreeCell Statistics',
+      gamesPlayed: 'Games Played',
+      gamesWon: 'Games Won',
+      winPercentage: 'Win Percentage',
+      currentStreak: 'Current Streak',
+      bestStreak: 'Best Streak',
+      reset: 'Reset',
+      ok: 'OK',
+    },
+    selectGame: {
+      title: 'Select Game',
+      prompt: 'Enter a game number (1-32000):',
+      ok: 'OK',
+      cancel: 'Cancel',
+    },
+    helpDialog: {
+      title: 'FreeCell Help',
+      ok: 'OK',
+    },
+  },
+  da: {
+    menu: {
+      game: 'Spil',
+      help: 'Hjælp',
+    },
+    game: {
+      newGame: 'Nyt spil',
+      restartGame: 'Genstart spil',
+      selectGame: 'Vælg spil...',
+      undo: 'Fortryd',
+      statistics: 'Statistik...',
+    },
+    help: {
+      howToPlay: 'Sådan spiller du',
+      hint: 'Tip',
+      about: 'Om FreeCell',
+    },
+    status: {
+      moves: 'Træk',
+      time: 'Tid',
+      game: 'Spil',
+      autoComplete: 'Auto-udfyld',
+    },
+    win: {
+      congratulations: 'Tillykke!',
+      youWonInMoves: 'Du vandt på {moves} træk!',
+      time: 'Tid',
+      gameNumber: 'Spil #{number}',
+      currentStreak: 'Nuværende streak',
+      newGame: 'Nyt spil',
+    },
+    stats: {
+      title: 'FreeCell Statistik',
+      gamesPlayed: 'Spil spillet',
+      gamesWon: 'Spil vundet',
+      winPercentage: 'Vundet procent',
+      currentStreak: 'Nuværende streak',
+      bestStreak: 'Bedste streak',
+      reset: 'Nulstil',
+      ok: 'OK',
+    },
+    selectGame: {
+      title: 'Vælg spil',
+      prompt: 'Indtast et spilnummer (1-32000):',
+      ok: 'OK',
+      cancel: 'Annuller',
+    },
+    helpDialog: {
+      title: 'FreeCell Hjælp',
+      ok: 'OK',
+    },
+  },
+};
