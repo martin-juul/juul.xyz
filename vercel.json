@@ -1,6 +1,16 @@
 {
-  "trailingSlash": true,
+  "trailingSlash": false,
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/en/gallery/:path*/",
+      "destination": "/en/gallery/:path"
+    },
+    {
+      "source": "/da/billedgalleri/:path*/",
+      "destination": "/da/billedgalleri/:path"
+    }
+  ],
   "rewrites": [
     {
       "source": "/en/gallery/:path*",
