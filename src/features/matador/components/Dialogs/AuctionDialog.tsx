@@ -18,7 +18,7 @@ type AuctionPhase = 'human-turn' | 'ai-turn' | 'complete';
 
 export function AuctionDialog({ state, language, onBid, onPass, onClose }: AuctionDialogProps) {
   const auction = state.auction;
-  const [bidAmount, setBidAmount] = useState(auction?.currentBid + 10 || 10);
+  const [bidAmount, setBidAmount] = useState(auction!.currentBid + 10 || 10);
   const [phase, setPhase] = useState<AuctionPhase>('human-turn');
   const [currentAIIndex, setCurrentAIIndex] = useState<number | null>(null);
 
