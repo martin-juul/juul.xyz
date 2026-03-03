@@ -44,6 +44,13 @@ export function MusicPlayer({ isOpen, onClose }: MusicPlayerProps) {
           },
           url: "/music/Yinglee - Your Heart For My Number.mp3",
         },
+        {
+          metaData: {
+            artist: 'Labrat',
+            title: 'Toronto is Broken',
+          },
+          url: '/music/Labrat - Toronto is Broken.mp3',
+        }
       ],
       enableHotkeys: true,
       enableMediaSession: true,
