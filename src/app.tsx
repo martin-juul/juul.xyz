@@ -10,6 +10,7 @@ import { NotFound } from './features/errors';
 import { Browser } from './features/browser';
 import { TaskManager } from './features/taskmanager';
 import { Gallery } from './features/gallery';
+import { MediaPlayer } from './features/mediaplayer';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
@@ -78,6 +79,8 @@ function AppContent() {
         return { width: 640, height: 480 };
       case 'matador':
         return { width: 700, height: 600 };
+      case 'mediaplayer':
+        return { width: 480, height: 400 };
       default:
         return { width: 640, height: 480 };
     }
@@ -214,6 +217,8 @@ function AppContent() {
         return { width: 480, height: 360 };
       case 'matador':
         return { width: 600, height: 500 };
+      case 'mediaplayer':
+        return { width: 400, height: 320 };
       default:
         return { width: 320, height: 240 };
     }
@@ -435,6 +440,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
       case 'matador': return t.nav.matador;
+      case 'mediaplayer': return t.nav.mediaplayer;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -454,6 +460,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'solitaire': return <Suspense fallback={null}><Solitaire /></Suspense>;
       case 'gallery': return <Gallery />;
       case 'matador': return <Suspense fallback={null}><Matador language={t === commonTranslations.da ? 'da' : 'en'} /></Suspense>;
+      case 'mediaplayer': return <MediaPlayer />;
       case 'notfound': return <NotFound />;
     }
   };
