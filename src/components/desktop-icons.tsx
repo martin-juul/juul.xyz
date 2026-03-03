@@ -26,6 +26,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
     { page: 'solitaire' as Page, icon: '/assets/icons/solitaire.png' },
     { page: 'gallery' as Page, icon: '/assets/icons/gallery.png' },
     { page: 'matador' as Page, icon: '/assets/icons/matador.png' },
+    { page: 'mediaplayer' as Page, icon: '/assets/icons/mediaplayer.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -42,6 +43,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
       case 'matador': return t.nav.matador;
+      case 'mediaplayer': return t.nav.mediaplayer;
       case 'notfound': return t.notFound.windowTitle;
     }
   };

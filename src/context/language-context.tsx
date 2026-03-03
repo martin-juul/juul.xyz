@@ -36,6 +36,7 @@ type Translations = {
     solitaire: string;
     gallery: string;
     matador: string;
+    mediaplayer: string;
   };
   home: {
     title: string;

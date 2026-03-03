@@ -1,0 +1,555 @@
+/* Ludo Game Styles - Windows 98 Theme */
+
+.ludo-game {
+  display: flex;
+  height: 100%;
+  gap: 8px;
+  padding: 4px;
+  background: #c0c0c0;
+}
+
+/* Board Container */
+.ludo-board-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ludo-board-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+/* Main Board */
+.ludo-board {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+  gap: 1px;
+  background: #808080;
+  border: 2px inset #dfdfdf;
+  width: min(100%, 400px);
+  aspect-ratio: 1;
+}
+
+/* Board Squares */
+.board-square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5dc;
+  position: relative;
+  font-size: 8px;
+}
+
+.board-square.safe {
+  background: #e8e8d0;
+}
+
+.board-square.safe::after {
+  content: '★';
+  position: absolute;
+  font-size: 8px;
+  color: #666;
+  opacity: 0.5;
+}
+
+.board-square.red-home {
+  background: #f8d7da;
+}
+
+.board-square.green-home {
+  background: #d4edda;
+}
+
+.board-square.yellow-home {
+  background: #fff3cd;
+}
+
+.board-square.blue-home {
+  background: #cce5ff;
+}
+
+.board-square.red-track {
+  background: #ffb3ba;
+}
+
+.board-square.green-track {
+  background: #baf2bb;
+}
+
+.board-square.yellow-track {
+  background: #ffffb5;
+}
+
+.board-square.blue-track {
+  background: #b5d8ff;
+}
+
+.board-square.red-stretch {
+  background: #dc3545;
+}
+
+.board-square.green-stretch {
+  background: #28a745;
+}
+
+.board-square.yellow-stretch {
+  background: #ffc107;
+}
+
+.board-square.blue-stretch {
+  background: #007bff;
+}
+
+.board-square.finish {
+  background: linear-gradient(45deg, #dc3545 25%, #28a745 25%, #28a745 50%, #ffc107 50%, #ffc107 75%, #007bff 75%);
+  background-size: 10px 10px;
+}
+
+.board-square.empty {
+  background: transparent;
+}
+
+/* Home Base Areas */
+.home-base {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.home-base.red {
+  background: #dc3545;
+}
+
+.home-base.green {
+  background: #28a745;
+}
+
+.home-base.yellow {
+  background: #ffc107;
+}
+
+.home-base.blue {
+  background: #007bff;
+}
+
+/* Tokens */
+.token {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s, box-shadow 0.15s;
+  z-index: 10;
+}
+
+.token.red {
+  background: radial-gradient(circle at 30% 30%, #ff6b6b, #dc3545);
+}
+
+.token.green {
+  background: radial-gradient(circle at 30% 30%, #5fd35f, #28a745);
+}
+
+.token.yellow {
+  background: radial-gradient(circle at 30% 30%, #ffe066, #ffc107);
+}
+
+.token.blue {
+  background: radial-gradient(circle at 30% 30%, #66b3ff, #007bff);
+}
+
+.token.movable {
+  cursor: pointer;
+  animation: pulse 1s infinite;
+}
+
+.token.movable:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.token.hint-recommended {
+  box-shadow: 0 0 6px 2px #28a745;
+}
+
+.token.hint-suggested {
+  box-shadow: 0 0 4px 1px #ffc107;
+}
+
+.token.finished {
+  opacity: 0.5;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Sidebar */
+.ludo-sidebar {
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Action Panel */
+.action-panel {
+  background: #c0c0c0;
+  border: 2px outset #dfdfdf;
+  padding: 8px;
+}
+
+.dice-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* Dice */
+.dice {
+  width: 48px;
+  height: 48px;
+  background: white;
+  border: 2px inset #808080;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+.dice.rolling {
+  animation: dice-roll 0.3s ease-in-out;
+}
+
+@keyframes dice-roll {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.1); }
+  50% { transform: rotate(180deg) scale(1); }
+  75% { transform: rotate(270deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.dice-value {
+  font-size: 32px;
+  line-height: 1;
+}
+
+/* Roll Button */
+.roll-button {
+  width: 100%;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.roll-button:disabled {
+  opacity: 0.6;
+}
+
+/* Message Area */
+.message-area {
+  min-height: 40px;
+  padding: 4px;
+  font-size: 12px;
+  text-align: center;
+  background: white;
+  border: 1px inset #808080;
+  margin-top: 8px;
+}
+
+.message-area.highlight {
+  background: #ffffcc;
+}
+
+/* Hint Toggle */
+.hint-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.hint-toggle input {
+  margin: 0;
+}
+
+/* Score Board */
+.score-board {
+  flex: 1;
+  background: #c0c0c0;
+  border: 2px outset #dfdfdf;
+  padding: 8px;
+  overflow-y: auto;
+}
+
+.score-board h3 {
+  font-size: 12px;
+  margin: 0 0 8px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #808080;
+}
+
+.player-score {
+  padding: 6px;
+  margin-bottom: 4px;
+  border: 1px solid #808080;
+  font-size: 11px;
+}
+
+.player-score.current {
+  border-width: 2px;
+  border-color: #000;
+  background: #e0e0e0;
+}
+
+.player-score-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.player-score-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid #333;
+}
+
+.player-score-color.red { background: #dc3545; }
+.player-score-color.green { background: #28a745; }
+.player-score-color.yellow { background: #ffc107; }
+.player-score-color.blue { background: #007bff; }
+
+.player-score-name {
+  font-weight: bold;
+  flex: 1;
+}
+
+.player-score-status {
+  display: flex;
+  gap: 8px;
+  font-size: 10px;
+  color: #666;
+}
+
+/* Help Button */
+.help-button {
+  margin-top: 8px;
+  width: 100%;
+}
+
+/* Dialogs */
+.ludo-dialog {
+  max-width: 400px;
+}
+
+.ludo-dialog fieldset {
+  margin: 8px 0;
+}
+
+.difficulty-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.difficulty-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.difficulty-option label {
+  cursor: pointer;
+}
+
+.difficulty-desc {
+  font-size: 11px;
+  color: #666;
+  margin-left: 24px;
+}
+
+/* Tutorial Dialog */
+.tutorial-content {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 8px;
+  line-height: 1.5;
+}
+
+.tutorial-step {
+  display: none;
+}
+
+.tutorial-step.active {
+  display: block;
+}
+
+.tutorial-step h4 {
+  margin: 0 0 8px 0;
+}
+
+.tutorial-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 8px;
+  border-top: 1px solid #808080;
+}
+
+.tutorial-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.tutorial-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #808080;
+}
+
+.tutorial-dot.active {
+  background: #000;
+}
+
+/* Help Dialog */
+.help-content {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.help-section {
+  margin-bottom: 12px;
+}
+
+.help-section h4 {
+  margin: 0 0 4px 0;
+  font-size: 13px;
+  color: #000;
+}
+
+.help-section p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #333;
+}
+
+/* Game Over Dialog */
+.game-over-content {
+  text-align: center;
+}
+
+.game-over-content h3 {
+  margin: 0 0 16px 0;
+}
+
+.game-over-winner {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.final-standings {
+  text-align: left;
+  margin-top: 16px;
+}
+
+.standing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.standing-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #333;
+}
+
+.standing-name {
+  flex: 1;
+}
+
+.standing-tokens {
+  font-size: 12px;
+  color: #666;
+}
+
+/* First Turn Guide */
+.first-turn-guide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.first-turn-guide .arrow {
+  position: absolute;
+  font-size: 24px;
+  animation: bounce 1s infinite;
+}
+
+.first-turn-guide .guide-text {
+  position: absolute;
+  background: #ffffcc;
+  border: 2px solid #000;
+  padding: 8px 12px;
+  font-size: 12px;
+  max-width: 150px;
+  pointer-events: auto;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .ludo-game {
+    flex-direction: column;
+  }
+
+  .ludo-sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .action-panel,
+  .score-board {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .ludo-board {
+    width: min(100%, 300px);
+  }
+}

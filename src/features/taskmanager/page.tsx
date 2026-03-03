@@ -43,6 +43,7 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   solitaire: 'sol.exe',
   gallery: 'shimgvw.exe',
   matador: 'matador.exe',
+  mediaplayer: 'mplayer2.exe',
   notfound: 'explorer.exe',
 };
 
@@ -57,6 +58,7 @@ const processBaseMemory: Record<string, number> = {
   'taskmgr.exe': 2192,
   'freecell.exe': 2100,
   'shimgvw.exe': 2844,
+  'mplayer2.exe': 3200,
   'explorer.exe': 1624,
   'System': 424,
 };

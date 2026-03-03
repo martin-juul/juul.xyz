@@ -16,6 +16,7 @@ export const commonTranslations = {
       solitaire: 'Solitaire',
       gallery: 'Image Gallery',
       matador: 'Matador',
+      mediaplayer: 'Windows Media Player',
     },
     footer: {
       builtWith: 'Built with Preact & 98.css',
@@ -44,6 +45,7 @@ export const commonTranslations = {
       solitaire: 'Kabale',
       gallery: 'Billedgalleri',
       matador: 'Matador',
+      mediaplayer: 'Windows Media Player',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',

@@ -23,6 +23,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     solitaire: 'solitaire',
     gallery: 'gallery',
     matador: 'matador',
+    mediaplayer: 'media-player',
     notfound: 'not-found',
   },
   da: {
@@ -39,6 +40,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     solitaire: 'kabale',
     gallery: 'billedgalleri',
     matador: 'matador',
+    mediaplayer: 'medieafspiller',
     notfound: 'not-found',
   },
 };
