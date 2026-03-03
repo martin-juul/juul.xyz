@@ -282,39 +282,8 @@ function SlideshowViewer({
     return () => clearTimeout(timer);
   }, [currentIndex, album.images]);
 
-  // Virtualized thumbnail visibility
-  const [visibleRange, setVisibleRange] = useState({ start: 0, end: 10 });
+  // Track refs for scroll-into-view (no virtualization - thumbnails are small)
   const thumbRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleIndices = new Set<number>();
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = parseInt(entry.target.getAttribute('data-index') || '0', 10);
-            visibleIndices.add(index);
-          }
-        });
-
-        if (visibleIndices.size > 0) {
-          const indices = Array.from(visibleIndices).sort((a, b) => a - b);
-          const buffer = 5;
-          setVisibleRange({
-            start: Math.max(0, indices[0] - buffer),
-            end: Math.min(album.images.length - 1, indices[indices.length - 1] + buffer),
-          });
-        }
-      },
-      { root: thumbnailRef.current, threshold: 0 }
-    );
-
-    thumbRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, [album.images.length]);
 
   return (
     <div class="gallery-container">
@@ -444,25 +413,20 @@ function SlideshowViewer({
       {/* Thumbnail Slider */}
       <div class="gallery-thumbnails" ref={thumbnailRef}>
         <div class="gallery-thumbnails-track">
-          {album.images.map((image, index) => {
-            const isVisible = index >= visibleRange.start && index <= visibleRange.end;
-            return (
-              <div
-                key={image.filename}
-                ref={(el) => { thumbRefs.current[index] = el; }}
-                data-index={index}
-                class={`gallery-thumb ${index === currentIndex ? 'active' : ''}`}
-                onClick={() => onNavigate(index)}
-              >
-                {isVisible && (
-                  <img
-                    src={image.thumb}
-                    alt={image.filename}
-                  />
-                )}
-              </div>
-            );
-          })}
+          {album.images.map((image, index) => (
+            <div
+              key={image.filename}
+              ref={(el) => { thumbRefs.current[index] = el; }}
+              data-index={index}
+              class={`gallery-thumb ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => onNavigate(index)}
+            >
+              <img
+                src={image.thumb}
+                alt={image.filename}
+              />
+            </div>
+          ))}
         </div>
         {/* Progress Bar */}
         <div class="gallery-progress">
