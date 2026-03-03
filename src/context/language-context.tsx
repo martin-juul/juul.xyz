@@ -10,10 +10,14 @@ import {
 } from '../lib/i18n-routing';
 import { commonTranslations } from '../features/common';
 import { homeTranslations } from '../features/home';
-import { projectsTranslations, projectsData } from '../features/projects';
+import { projectsTranslations, projectsData, projectsDataDa } from '../features/projects';
 import { resumeTranslations, resumeData, resumeDataDa } from '../features/resume';
 import { contactTranslations } from '../features/contact';
 import { browserTranslations } from '../features/browser';
+import { minesweeperTranslations } from '../features/minesweeper';
+import { freecellTranslations } from '../features/freecell';
+import { spiderTranslations } from '../features/spider';
+import { solitaireTranslations } from '../features/solitaire';
 
 type Translations = {
   brand: string;
@@ -86,6 +90,10 @@ type Translations = {
     message: string;
     hint: string;
   };
+  minesweeper: typeof minesweeperTranslations.en;
+  freecell: typeof freecellTranslations.en;
+  spider: typeof spiderTranslations.en;
+  solitaire: typeof solitaireTranslations.en;
 };
 
 const translations: Record<Language, Translations> = {
@@ -102,13 +110,17 @@ const translations: Record<Language, Translations> = {
     },
     contact: contactTranslations.en,
     browser: browserTranslations.en,
+    minesweeper: minesweeperTranslations.en,
+    freecell: freecellTranslations.en,
+    spider: spiderTranslations.en,
+    solitaire: solitaireTranslations.en,
   },
   da: {
     ...commonTranslations.da,
     home: homeTranslations.da,
     projects: {
       ...projectsTranslations.da,
-      items: projectsData,
+      items: projectsDataDa,
     },
     resume: {
       ...resumeTranslations.da,
@@ -116,6 +128,10 @@ const translations: Record<Language, Translations> = {
     },
     contact: contactTranslations.da,
     browser: browserTranslations.da,
+    minesweeper: minesweeperTranslations.da,
+    freecell: freecellTranslations.da,
+    spider: spiderTranslations.da,
+    solitaire: solitaireTranslations.da,
   },
 };
 

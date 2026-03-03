@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'preact/hooks';
 import { memo } from 'preact/compat';
+import { useLanguage } from '../../context/language-context';
 import './solitaire.css';
 import {
   type Card,
@@ -95,6 +96,8 @@ const SolitaireCard = memo(function SolitaireCard({
 });
 
 export function Solitaire() {
+  const { t } = useLanguage();
+  const txt = t.solitaire;
   // Game state
   const [gameState, setGameState] = useState<KlondikeGameState>(() => createInitialGame());
   const [gameNumber, setGameNumber] = useState<number>(() => Math.floor(Math.random() * 32000) + 1);
@@ -522,34 +525,34 @@ export function Solitaire() {
               setActiveMenu(activeMenu === 'game' ? null : 'game');
             }}
           >
-            Game
+            {txt.menu.game}
           </span>
           {activeMenu === 'game' && (
             <div class="solitaire-dropdown">
               <button class="solitaire-dropdown-item" onClick={() => { newGame(); setActiveMenu(null); }}>
                 <span class="solitaire-dropdown-check"></span>
-                <span class="solitaire-dropdown-text">New Game</span>
+                <span class="solitaire-dropdown-text">{txt.game.newGame}</span>
                 <span class="solitaire-dropdown-shortcut">F2</span>
               </button>
               <button class="solitaire-dropdown-item" onClick={() => { newGame(gameNumber); setActiveMenu(null); }}>
                 <span class="solitaire-dropdown-check"></span>
-                <span class="solitaire-dropdown-text">Restart Game</span>
+                <span class="solitaire-dropdown-text">{txt.game.restartGame}</span>
               </button>
               <button class="solitaire-dropdown-item" onClick={() => { setShowSelectGame(true); setActiveMenu(null); }}>
                 <span class="solitaire-dropdown-check"></span>
-                <span class="solitaire-dropdown-text">Select Game...</span>
+                <span class="solitaire-dropdown-text">{txt.game.selectGame}</span>
                 <span class="solitaire-dropdown-shortcut">F3</span>
               </button>
               <div class="solitaire-dropdown-separator" />
               <button class="solitaire-dropdown-item" onClick={() => { undo(); setActiveMenu(null); }} disabled={moveHistory.length === 0}>
                 <span class="solitaire-dropdown-check"></span>
-                <span class="solitaire-dropdown-text">Undo</span>
+                <span class="solitaire-dropdown-text">{txt.game.undo}</span>
                 <span class="solitaire-dropdown-shortcut">Ctrl+Z</span>
               </button>
               <div class="solitaire-dropdown-separator" />
               <button class="solitaire-dropdown-item" onClick={() => { setShowStats(true); setActiveMenu(null); }}>
                 <span class="solitaire-dropdown-check"></span>
-                <span class="solitaire-dropdown-text">Statistics...</span>
+                <span class="solitaire-dropdown-text">{txt.game.statistics}</span>
               </button>
             </div>
           )}
@@ -562,23 +565,23 @@ export function Solitaire() {
               setActiveMenu(activeMenu === 'help' ? null : 'help');
             }}
           >
-            Help
+            {txt.menu.help}
           </span>
           {activeMenu === 'help' && (
             <div class="solitaire-dropdown">
               <button class="solitaire-dropdown-item" onClick={() => { setShowHelp(true); setActiveMenu(null); }}>
                 <span class="solitaire-dropdown-check"></span>
-                <span class="solitaire-dropdown-text">How to Play</span>
+                <span class="solitaire-dropdown-text">{txt.help.howToPlay}</span>
               </button>
               <button class="solitaire-dropdown-item" onClick={() => { showHint(); setActiveMenu(null); }}>
                 <span class="solitaire-dropdown-check"></span>
-                <span class="solitaire-dropdown-text">Hint</span>
+                <span class="solitaire-dropdown-text">{txt.help.hint}</span>
                 <span class="solitaire-dropdown-shortcut">H</span>
               </button>
               <div class="solitaire-dropdown-separator" />
               <button class="solitaire-dropdown-item" onClick={() => setActiveMenu(null)}>
                 <span class="solitaire-dropdown-check"></span>
-                <span class="solitaire-dropdown-text">About Solitaire</span>
+                <span class="solitaire-dropdown-text">{txt.help.about}</span>
               </button>
             </div>
           )}
@@ -750,12 +753,12 @@ export function Solitaire() {
       {/* Status bar */}
       <div class="solitaire-status">
         <div class="solitaire-status-left">
-          <span>Score: {score}</span>
-          <span>Moves: {moves}</span>
-          <span>Time: {formatTime(timer)}</span>
+          <span>{txt.status.score}: {score}</span>
+          <span>{txt.status.moves}: {moves}</span>
+          <span>{txt.status.time}: {formatTime(timer)}</span>
         </div>
         <div class="solitaire-status-right">
-          <span>Game: {gameNumber}</span>
+          <span>{txt.status.game}: {gameNumber}</span>
         </div>
       </div>
 
@@ -763,17 +766,17 @@ export function Solitaire() {
       {isWon && (
         <div class="solitaire-win-overlay">
           <div class="solitaire-win-message">
-            <div class="solitaire-win-title">Congratulations!</div>
+            <div class="solitaire-win-title">{txt.win.congratulations}</div>
             <div class="solitaire-win-stats">
-              <div>You won!</div>
-              <div>Score: {score}</div>
-              <div>Time: {formatTime(timer)}</div>
-              <div>Moves: {moves}</div>
-              <div>Game #{gameNumber}</div>
-              <div class="solitaire-win-streak">Current Streak: {stats.currentStreak}</div>
+              <div>{txt.win.youWon}</div>
+              <div>{txt.win.score}: {score}</div>
+              <div>{txt.win.time}: {formatTime(timer)}</div>
+              <div>{txt.win.moves}: {moves}</div>
+              <div>{txt.win.gameNumber.replace('{number}', String(gameNumber))}</div>
+              <div class="solitaire-win-streak">{txt.win.currentStreak}: {stats.currentStreak}</div>
             </div>
             <button class="solitaire-win-btn" onClick={() => newGame()}>
-              New Game
+              {txt.win.newGame}
             </button>
           </div>
         </div>
@@ -784,7 +787,7 @@ export function Solitaire() {
         <div class="solitaire-help-overlay" onClick={() => setShowHelp(false)}>
           <div class="solitaire-help-dialog" onClick={(e) => e.stopPropagation()}>
             <div class="solitaire-help-titlebar">
-              <span>Solitaire Help</span>
+              <span>{txt.helpDialog.title}</span>
               <button class="solitaire-help-close" onClick={() => setShowHelp(false)}>×</button>
             </div>
             <div class="solitaire-help-content">
@@ -832,7 +835,7 @@ export function Solitaire() {
               </ul>
             </div>
             <div class="solitaire-help-buttons">
-              <button class="solitaire-win-btn" onClick={() => setShowHelp(false)}>OK</button>
+              <button class="solitaire-win-btn" onClick={() => setShowHelp(false)}>{txt.helpDialog.ok}</button>
             </div>
           </div>
         </div>
@@ -843,42 +846,42 @@ export function Solitaire() {
         <div class="solitaire-help-overlay" onClick={() => setShowStats(false)}>
           <div class="solitaire-stats-dialog" onClick={(e) => e.stopPropagation()}>
             <div class="solitaire-help-titlebar">
-              <span>Solitaire Statistics</span>
+              <span>{txt.stats.title}</span>
               <button class="solitaire-help-close" onClick={() => setShowStats(false)}>×</button>
             </div>
             <div class="solitaire-stats-content">
               <div class="solitaire-stat-row">
-                <span class="solitaire-stat-label">Games Played:</span>
+                <span class="solitaire-stat-label">{txt.stats.gamesPlayed}:</span>
                 <span class="solitaire-stat-value">{stats.gamesPlayed}</span>
               </div>
               <div class="solitaire-stat-row">
-                <span class="solitaire-stat-label">Games Won:</span>
+                <span class="solitaire-stat-label">{txt.stats.gamesWon}:</span>
                 <span class="solitaire-stat-value">{stats.gamesWon}</span>
               </div>
               <div class="solitaire-stat-row">
-                <span class="solitaire-stat-label">Win Percentage:</span>
+                <span class="solitaire-stat-label">{txt.stats.winPercentage}:</span>
                 <span class="solitaire-stat-value">{stats.gamesPlayed > 0 ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100) : 0}%</span>
               </div>
               <div class="solitaire-stat-row">
-                <span class="solitaire-stat-label">Current Streak:</span>
+                <span class="solitaire-stat-label">{txt.stats.currentStreak}:</span>
                 <span class="solitaire-stat-value">{stats.currentStreak}</span>
               </div>
               <div class="solitaire-stat-row">
-                <span class="solitaire-stat-label">Best Streak:</span>
+                <span class="solitaire-stat-label">{txt.stats.bestStreak}:</span>
                 <span class="solitaire-stat-value">{stats.bestStreak}</span>
               </div>
               <div class="solitaire-stat-row">
-                <span class="solitaire-stat-label">Best Score:</span>
+                <span class="solitaire-stat-label">{txt.stats.bestScore}:</span>
                 <span class="solitaire-stat-value">{stats.bestScore || 0}</span>
               </div>
               <div class="solitaire-stat-row">
-                <span class="solitaire-stat-label">Best Time:</span>
+                <span class="solitaire-stat-label">{txt.stats.bestTime}:</span>
                 <span class="solitaire-stat-value">{stats.bestTime ? formatTime(stats.bestTime) : '-'}</span>
               </div>
             </div>
             <div class="solitaire-stats-buttons">
-              <button class="solitaire-win-btn" onClick={resetStats}>Reset</button>
-              <button class="solitaire-win-btn" onClick={() => setShowStats(false)}>OK</button>
+              <button class="solitaire-win-btn" onClick={resetStats}>{txt.stats.reset}</button>
+              <button class="solitaire-win-btn" onClick={() => setShowStats(false)}>{txt.stats.ok}</button>
             </div>
           </div>
         </div>
@@ -889,11 +892,11 @@ export function Solitaire() {
         <div class="solitaire-help-overlay" onClick={() => setShowSelectGame(false)}>
           <div class="solitaire-stats-dialog" onClick={(e) => e.stopPropagation()}>
             <div class="solitaire-help-titlebar">
-              <span>Select Game</span>
+              <span>{txt.selectGame.title}</span>
               <button class="solitaire-help-close" onClick={() => setShowSelectGame(false)}>×</button>
             </div>
             <div class="solitaire-selectgame-content">
-              <p>Enter a game number (1-32000):</p>
+              <p>{txt.selectGame.prompt}</p>
               <input
                 type="number"
                 min="1"
@@ -922,8 +925,8 @@ export function Solitaire() {
                   setShowSelectGame(false);
                   setSelectGameInput('');
                 }
-              }}>OK</button>
-              <button class="solitaire-win-btn" onClick={() => { setShowSelectGame(false); setSelectGameInput(''); }}>Cancel</button>
+              }}>{txt.selectGame.ok}</button>
+              <button class="solitaire-win-btn" onClick={() => { setShowSelectGame(false); setSelectGameInput(''); }}>{txt.selectGame.cancel}</button>
             </div>
           </div>
         </div>

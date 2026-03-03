@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'preact/hooks';
 import { memo } from 'preact/compat';
+import { useLanguage } from '../../context/language-context';
 import './spider.css';
 import {
   type Card,
@@ -89,6 +90,8 @@ const SpiderCard = memo(function SpiderCard({
 });
 
 export function Spider() {
+  const { t } = useLanguage();
+  const txt = t.spider;
   // Game settings
   const [difficulty, setDifficulty] = useState<SpiderDifficulty>(1);
   const [gameNumber, setGameNumber] = useState<number>(() => Math.floor(Math.random() * 32000) + 1);
@@ -453,39 +456,39 @@ export function Spider() {
               setActiveMenu(activeMenu === 'game' ? null : 'game');
             }}
           >
-            Game
+            {txt.menu.game}
           </span>
           {activeMenu === 'game' && (
             <div class="spider-dropdown">
               <button class="spider-dropdown-item" onClick={() => { newGame(); setActiveMenu(null); }}>
                 <span class="spider-dropdown-check"></span>
-                <span class="spider-dropdown-text">New Game</span>
+                <span class="spider-dropdown-text">{txt.game.newGame}</span>
                 <span class="spider-dropdown-shortcut">F2</span>
               </button>
               <button class="spider-dropdown-item" onClick={() => { newGame(gameNumber); setActiveMenu(null); }}>
                 <span class="spider-dropdown-check"></span>
-                <span class="spider-dropdown-text">Restart Game</span>
+                <span class="spider-dropdown-text">{txt.game.restartGame}</span>
               </button>
               <button class="spider-dropdown-item" onClick={() => { setShowSelectGame(true); setActiveMenu(null); }}>
                 <span class="spider-dropdown-check"></span>
-                <span class="spider-dropdown-text">Select Game...</span>
+                <span class="spider-dropdown-text">{txt.game.selectGame}</span>
                 <span class="spider-dropdown-shortcut">F3</span>
               </button>
               <div class="spider-dropdown-separator" />
               <button class="spider-dropdown-item" onClick={() => { undo(); setActiveMenu(null); }} disabled={moveHistory.length === 0}>
                 <span class="spider-dropdown-check"></span>
-                <span class="spider-dropdown-text">Undo</span>
+                <span class="spider-dropdown-text">{txt.game.undo}</span>
                 <span class="spider-dropdown-shortcut">Ctrl+Z</span>
               </button>
               <div class="spider-dropdown-separator" />
               <button class="spider-dropdown-item" onClick={() => { setShowStats(true); setActiveMenu(null); }}>
                 <span class="spider-dropdown-check"></span>
-                <span class="spider-dropdown-text">Statistics...</span>
+                <span class="spider-dropdown-text">{txt.game.statistics}</span>
               </button>
               <div class="spider-dropdown-separator" />
               <button class="spider-dropdown-item" onClick={() => { setShowDifficulty(true); setActiveMenu(null); }}>
                 <span class="spider-dropdown-check"></span>
-                <span class="spider-dropdown-text">Difficulty...</span>
+                <span class="spider-dropdown-text">{txt.game.difficulty}</span>
               </button>
             </div>
           )}
@@ -498,23 +501,23 @@ export function Spider() {
               setActiveMenu(activeMenu === 'help' ? null : 'help');
             }}
           >
-            Help
+            {txt.menu.help}
           </span>
           {activeMenu === 'help' && (
             <div class="spider-dropdown">
               <button class="spider-dropdown-item" onClick={() => { setShowHelp(true); setActiveMenu(null); }}>
                 <span class="spider-dropdown-check"></span>
-                <span class="spider-dropdown-text">How to Play</span>
+                <span class="spider-dropdown-text">{txt.help.howToPlay}</span>
               </button>
               <button class="spider-dropdown-item" onClick={() => { showHint(); setActiveMenu(null); }}>
                 <span class="spider-dropdown-check"></span>
-                <span class="spider-dropdown-text">Hint</span>
+                <span class="spider-dropdown-text">{txt.help.hint}</span>
                 <span class="spider-dropdown-shortcut">H</span>
               </button>
               <div class="spider-dropdown-separator" />
               <button class="spider-dropdown-item" onClick={() => setActiveMenu(null)}>
                 <span class="spider-dropdown-check"></span>
-                <span class="spider-dropdown-text">About Spider</span>
+                <span class="spider-dropdown-text">{txt.help.about}</span>
               </button>
             </div>
           )}
@@ -618,13 +621,13 @@ export function Spider() {
       {/* Status bar */}
       <div class="spider-status">
         <div class="spider-status-left">
-          <span>Moves: {moves}</span>
-          <span>Score: {score}</span>
-          <span>Time: {formatTime(timer)}</span>
+          <span>{txt.status.moves}: {moves}</span>
+          <span>{txt.status.score}: {score}</span>
+          <span>{txt.status.time}: {formatTime(timer)}</span>
         </div>
         <div class="spider-status-right">
           <span class="spider-difficulty-badge">{getDifficultyLabel()}</span>
-          <span>Game: {gameNumber}</span>
+          <span>{txt.status.game}: {gameNumber}</span>
         </div>
       </div>
 
@@ -632,17 +635,17 @@ export function Spider() {
       {isWon && (
         <div class="spider-win-overlay">
           <div class="spider-win-message">
-            <div class="spider-win-title">Congratulations!</div>
+            <div class="spider-win-title">{txt.win.congratulations}</div>
             <div class="spider-win-stats">
-              <div>You won!</div>
-              <div>Score: {score}</div>
-              <div>Time: {formatTime(timer)}</div>
-              <div>Moves: {moves}</div>
-              <div>Game #{gameNumber}</div>
-              <div class="spider-win-streak">Current Streak: {stats.currentStreak}</div>
+              <div>{txt.win.youWon}</div>
+              <div>{txt.win.score}: {score}</div>
+              <div>{txt.win.time}: {formatTime(timer)}</div>
+              <div>{txt.win.moves}: {moves}</div>
+              <div>{txt.win.gameNumber.replace('{number}', String(gameNumber))}</div>
+              <div class="spider-win-streak">{txt.win.currentStreak}: {stats.currentStreak}</div>
             </div>
             <button class="spider-win-btn" onClick={() => newGame()}>
-              New Game
+              {txt.win.newGame}
             </button>
           </div>
         </div>
@@ -653,7 +656,7 @@ export function Spider() {
         <div class="spider-help-overlay" onClick={() => setShowHelp(false)}>
           <div class="spider-help-dialog" onClick={(e) => e.stopPropagation()}>
             <div class="spider-help-titlebar">
-              <span>Spider Solitaire Help</span>
+              <span>{txt.helpDialog.title}</span>
               <button class="spider-help-close" onClick={() => setShowHelp(false)}>×</button>
             </div>
             <div class="spider-help-content">
@@ -705,7 +708,7 @@ export function Spider() {
               </ul>
             </div>
             <div class="spider-help-buttons">
-              <button class="spider-win-btn" onClick={() => setShowHelp(false)}>OK</button>
+              <button class="spider-win-btn" onClick={() => setShowHelp(false)}>{txt.helpDialog.ok}</button>
             </div>
           </div>
         </div>
@@ -716,38 +719,38 @@ export function Spider() {
         <div class="spider-help-overlay" onClick={() => setShowStats(false)}>
           <div class="spider-stats-dialog" onClick={(e) => e.stopPropagation()}>
             <div class="spider-help-titlebar">
-              <span>Spider Statistics</span>
+              <span>{txt.stats.title}</span>
               <button class="spider-help-close" onClick={() => setShowStats(false)}>×</button>
             </div>
             <div class="spider-stats-content">
               <div class="spider-stat-row">
-                <span class="spider-stat-label">Games Played:</span>
+                <span class="spider-stat-label">{txt.stats.gamesPlayed}:</span>
                 <span class="spider-stat-value">{stats.gamesPlayed}</span>
               </div>
               <div class="spider-stat-row">
-                <span class="spider-stat-label">Games Won:</span>
+                <span class="spider-stat-label">{txt.stats.gamesWon}:</span>
                 <span class="spider-stat-value">{stats.gamesWon}</span>
               </div>
               <div class="spider-stat-row">
-                <span class="spider-stat-label">Win Percentage:</span>
+                <span class="spider-stat-label">{txt.stats.winPercentage}:</span>
                 <span class="spider-stat-value">{stats.gamesPlayed > 0 ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100) : 0}%</span>
               </div>
               <div class="spider-stat-row">
-                <span class="spider-stat-label">Current Streak:</span>
+                <span class="spider-stat-label">{txt.stats.currentStreak}:</span>
                 <span class="spider-stat-value">{stats.currentStreak}</span>
               </div>
               <div class="spider-stat-row">
-                <span class="spider-stat-label">Best Streak:</span>
+                <span class="spider-stat-label">{txt.stats.bestStreak}:</span>
                 <span class="spider-stat-value">{stats.bestStreak}</span>
               </div>
               <div class="spider-stat-row">
-                <span class="spider-stat-label">Best Score:</span>
+                <span class="spider-stat-label">{txt.stats.bestScore}:</span>
                 <span class="spider-stat-value">{stats.bestScore || 0}</span>
               </div>
             </div>
             <div class="spider-stats-buttons">
-              <button class="spider-win-btn" onClick={resetStats}>Reset</button>
-              <button class="spider-win-btn" onClick={() => setShowStats(false)}>OK</button>
+              <button class="spider-win-btn" onClick={resetStats}>{txt.stats.reset}</button>
+              <button class="spider-win-btn" onClick={() => setShowStats(false)}>{txt.stats.ok}</button>
             </div>
           </div>
         </div>
@@ -758,11 +761,11 @@ export function Spider() {
         <div class="spider-help-overlay" onClick={() => setShowDifficulty(false)}>
           <div class="spider-difficulty-dialog" onClick={(e) => e.stopPropagation()}>
             <div class="spider-help-titlebar">
-              <span>Select Difficulty</span>
+              <span>{txt.difficulty.title}</span>
               <button class="spider-help-close" onClick={() => setShowDifficulty(false)}>×</button>
             </div>
             <div class="spider-difficulty-content">
-              <p>Choose a difficulty level:</p>
+              <p>{txt.difficulty.prompt}</p>
               <div class="spider-difficulty-options">
                 {([1, 2, 4] as SpiderDifficulty[]).map((diff) => (
                   <div
@@ -773,7 +776,7 @@ export function Spider() {
                     }}
                   >
                     <div class="spider-difficulty-radio" />
-                    <span class="spider-difficulty-label">{DIFFICULTY_CONFIG[diff].label}</span>
+                    <span class="spider-difficulty-label">{diff === 1 ? txt.difficulty.oneSuit : diff === 2 ? txt.difficulty.twoSuits : txt.difficulty.fourSuits}</span>
                   </div>
                 ))}
               </div>
@@ -787,11 +790,11 @@ export function Spider() {
         <div class="spider-help-overlay" onClick={() => setShowSelectGame(false)}>
           <div class="spider-stats-dialog" onClick={(e) => e.stopPropagation()}>
             <div class="spider-help-titlebar">
-              <span>Select Game</span>
+              <span>{txt.selectGame.title}</span>
               <button class="spider-help-close" onClick={() => setShowSelectGame(false)}>×</button>
             </div>
             <div class="spider-difficulty-content">
-              <p>Enter a game number (1-32000):</p>
+              <p>{txt.selectGame.prompt}</p>
               <input
                 type="number"
                 min="1"
@@ -820,8 +823,8 @@ export function Spider() {
                   setShowSelectGame(false);
                   setSelectGameInput('');
                 }
-              }}>OK</button>
-              <button class="spider-win-btn" onClick={() => { setShowSelectGame(false); setSelectGameInput(''); }}>Cancel</button>
+              }}>{txt.selectGame.ok}</button>
+              <button class="spider-win-btn" onClick={() => { setShowSelectGame(false); setSelectGameInput(''); }}>{txt.selectGame.cancel}</button>
             </div>
           </div>
         </div>

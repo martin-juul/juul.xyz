@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'preact/hooks';
+import { useLanguage } from '../../context/language-context';
 import './minesweeper.css';
 
 type Difficulty = 'beginner' | 'intermediate' | 'expert';
@@ -142,6 +143,8 @@ function formatNumber(num: number): string {
 }
 
 export function Minesweeper() {
+  const { t } = useLanguage();
+  const txt = t.minesweeper;
   const [difficulty, setDifficulty] = useState<Difficulty>('beginner');
   const [grid, setGrid] = useState<Cell[][]>(() => {
     const config = DIFFICULTY_CONFIG['beginner'];
@@ -369,12 +372,12 @@ export function Minesweeper() {
             }}
             data-testid="minesweeper-menu-game"
           >
-            Game
+            {txt.menu.game}
           </span>
           {activeMenu === 'game' && (
             <div class="ms-dropdown" data-testid="minesweeper-game-dropdown">
               <button class="ms-dropdown-item" onClick={() => resetGame()} data-testid="minesweeper-new-game">
-                <span class="ms-dropdown-text">New</span>
+                <span class="ms-dropdown-text">{txt.game.new}</span>
               </button>
               <div class="ms-dropdown-separator" />
               <button
@@ -383,7 +386,7 @@ export function Minesweeper() {
                 data-testid="minesweeper-difficulty-beginner"
               >
                 <span class="ms-dropdown-check">{difficulty === 'beginner' ? '✓' : ''}</span>
-                <span class="ms-dropdown-text">Beginner</span>
+                <span class="ms-dropdown-text">{txt.game.beginner}</span>
               </button>
               <button
                 class={`ms-dropdown-item ${difficulty === 'intermediate' ? 'checked' : ''}`}
@@ -391,7 +394,7 @@ export function Minesweeper() {
                 data-testid="minesweeper-difficulty-intermediate"
               >
                 <span class="ms-dropdown-check">{difficulty === 'intermediate' ? '✓' : ''}</span>
-                <span class="ms-dropdown-text">Intermediate</span>
+                <span class="ms-dropdown-text">{txt.game.intermediate}</span>
               </button>
               <button
                 class={`ms-dropdown-item ${difficulty === 'expert' ? 'checked' : ''}`}
@@ -399,12 +402,12 @@ export function Minesweeper() {
                 data-testid="minesweeper-difficulty-expert"
               >
                 <span class="ms-dropdown-check">{difficulty === 'expert' ? '✓' : ''}</span>
-                <span class="ms-dropdown-text">Expert</span>
+                <span class="ms-dropdown-text">{txt.game.expert}</span>
               </button>
             </div>
           )}
         </div>
-        <span class="ms-menu-item" data-testid="minesweeper-menu-help">Help</span>
+        <span class="ms-menu-item" data-testid="minesweeper-menu-help">{txt.menu.help}</span>
       </div>
 
       <div class="ms-game-area" data-testid="minesweeper-game-area">
