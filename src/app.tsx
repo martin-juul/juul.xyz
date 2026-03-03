@@ -9,6 +9,7 @@ import { Contact } from './features/contact';
 import { NotFound } from './features/errors';
 import { Browser } from './features/browser';
 import { TaskManager } from './features/taskmanager';
+import { Gallery } from './features/gallery';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
@@ -22,7 +23,6 @@ const Minesweeper = lazy(() => import('./features/minesweeper').then(m => ({ def
 const FreeCell = lazy(() => import('./features/freecell').then(m => ({ default: m.FreeCell })));
 const Spider = lazy(() => import('./features/spider').then(m => ({ default: m.Spider })));
 const Solitaire = lazy(() => import('./features/solitaire').then(m => ({ default: m.Solitaire })));
-const Gallery = lazy(() => import('./features/gallery').then(m => ({ default: m.Gallery })));
 const Matador = lazy(() => import('./features/matador').then(m => ({ default: m.Matador })));
 
 type WindowData = {
@@ -452,7 +452,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'freecell': return <Suspense fallback={null}><FreeCell /></Suspense>;
       case 'spider': return <Suspense fallback={null}><Spider /></Suspense>;
       case 'solitaire': return <Suspense fallback={null}><Solitaire /></Suspense>;
-      case 'gallery': return <Suspense fallback={null}><Gallery /></Suspense>;
+      case 'gallery': return <Gallery />;
       case 'matador': return <Suspense fallback={null}><Matador language={t === commonTranslations.da ? 'da' : 'en'} /></Suspense>;
       case 'notfound': return <NotFound />;
     }
