@@ -1,5 +1,3 @@
-// Buy Property Dialog
-
 import type { OwnableProperty, Language, StreetProperty } from '../../types';
 import { t } from '../../translations';
 

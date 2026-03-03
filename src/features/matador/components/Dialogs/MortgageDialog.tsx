@@ -1,5 +1,3 @@
-// Mortgage Dialog
-
 import { useMemo } from 'preact/hooks';
 import type { GameState, Language, OwnedProperty, StreetProperty } from '../../types';
 import { t } from '../../translations';

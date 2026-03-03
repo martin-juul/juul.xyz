@@ -1,5 +1,3 @@
-// Card Dialog (Chance/Community Chest)
-
 import type { Card, Language } from '../../types';
 import { t } from '../../translations';
 

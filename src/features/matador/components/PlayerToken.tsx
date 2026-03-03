@@ -1,5 +1,3 @@
-// Player Token Component
-
 import { useMemo } from 'preact/hooks';
 import type { TokenType } from '../types';
 import { TOKEN_EMOJIS } from '../constants';

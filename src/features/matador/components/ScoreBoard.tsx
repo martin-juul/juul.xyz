@@ -1,5 +1,3 @@
-// ScoreBoard Component
-
 import type { GameState, Language } from '../types';
 import { TOKEN_EMOJIS } from '../constants';
 import { calculateNetWorth } from '../game-logic';

@@ -293,29 +293,58 @@ export function Matador({ language }: MatadorProps) {
           cash: winner.cash - auction.currentBid,
           properties: [...winner.properties, { property: auction.property, mortgaged: false, houses: 0 }],
         };
-        setGameState({
+        const newState = {
           ...gameState,
           players: updatedPlayers,
           auction: null,
-          phase: 'rolling',
+          phase: 'rolling' as const,
+          diceRolled: true,
           message: {
             en: `${winner.name} won ${auction.property.nameDa} for ${auction.currentBid} kr`,
             da: `${winner.name} vandt ${auction.property.nameDa} for ${auction.currentBid} kr`,
           },
-        });
+        };
+        setGameState(newState);
       } else {
         // No one bought it
-        setGameState({
+        const newState = {
           ...gameState,
           auction: null,
-          phase: 'rolling',
+          phase: 'rolling' as const,
+          diceRolled: true,
           message: {
             en: 'No one bought the property',
             da: 'Ingen købte grunden',
           },
-        });
+        };
+        setGameState(newState);
       }
       setDialogs(d => ({ ...d, auction: false }));
+
+      // After auction completes, we need to continue the turn flow
+      // Check if current player is AI - if so, schedule finishTurn
+      const currentPlayer = gameState.players[gameState.currentPlayer];
+      if (!currentPlayer.isHuman && gameState.lastRoll) {
+        const doubles = isDoubles(gameState.lastRoll);
+        setTimeout(() => {
+          if (doubles) {
+            // Continue turn for doubles
+            setGameState(prev => {
+              if (!prev) return prev;
+              return { ...prev, diceRolled: false };
+            });
+            setTurnCounter(c => c + 1);
+          } else {
+            // End turn
+            setGameState(prev => {
+              if (!prev) return prev;
+              const next = endTurn(prev);
+              return next;
+            });
+            setTurnCounter(c => c + 1);
+          }
+        }, 800);
+      }
     } else {
       // Continue auction
       const newState = { ...gameState };
@@ -635,101 +664,14 @@ export function Matador({ language }: MatadorProps) {
             finishTurn(doubles, dice);
             return;
           } else {
+            // Start auction - show dialog so human can participate
             console.log('[AI] Starting auction for:', property.nameDa);
             const auctionState = startAuction(newState, property);
             setGameState(auctionState);
+            setDialogs(d => ({ ...d, auction: true }));
 
-            scheduleTimeout(() => {
-              const currentAuctionState = gameStateRef.current;
-              if (!currentAuctionState?.auction) {
-                finishTurn(doubles, dice);
-                return;
-              }
-
-              setGameState(prev => {
-                if (!prev) return prev;
-                let auctionState = prev;
-                if (!auctionState.auction) return prev;
-
-                const auction = auctionState.auction;
-
-                for (const bidderIndex of auction.participants) {
-                  const bidder = auctionState.players[bidderIndex];
-                  if (bidder.isHuman || auction.passed.includes(bidderIndex)) continue;
-
-                  const bid = decideAuctionBid(auctionState, auction.property, auction.currentBid, bidder.difficulty || 'medium');
-                  if (bid !== null && bid > auction.currentBid) {
-                    auctionState = {
-                      ...auctionState,
-                      auction: {
-                        ...auction,
-                        currentBid: bid,
-                        currentBidder: bidderIndex,
-                      }
-                    };
-                    console.log('[AI] Auction bid by', bidder.name, ':', bid);
-                  } else {
-                    auctionState = {
-                      ...auctionState,
-                      auction: {
-                        ...auction,
-                        passed: [...auction.passed, bidderIndex],
-                      }
-                    };
-                    console.log('[AI] Auction pass by', bidder.name);
-                  }
-                }
-
-                const currentAuction = auctionState.auction;
-                if (!currentAuction) return prev;
-
-                const activeBidders = currentAuction.participants.filter(
-                  p => !currentAuction.passed.includes(p)
-                );
-
-                const allAIsPassed = currentAuction.participants
-                  .filter(idx => !auctionState.players[idx].isHuman)
-                  .every(idx => currentAuction.passed.includes(idx));
-
-                if (currentAuction.currentBidder !== null && (activeBidders.length <= 1 || allAIsPassed)) {
-                  const winnerIndex = currentAuction.currentBidder;
-                  const winner = auctionState.players[winnerIndex];
-                  const prop = currentAuction.property;
-                  const bidAmount = currentAuction.currentBid;
-
-                  console.log('[AI] Auction won by', winner.name, 'for', bidAmount);
-
-                  const updatedPlayers = [...auctionState.players];
-                  updatedPlayers[winnerIndex] = {
-                    ...winner,
-                    cash: winner.cash - bidAmount,
-                    properties: [...winner.properties, { property: prop, mortgaged: false, houses: 0 }],
-                  };
-
-                  auctionState = {
-                    ...auctionState,
-                    players: updatedPlayers,
-                    auction: null,
-                    phase: 'rolling',
-                    diceRolled: true,
-                  };
-                } else if (allAIsPassed && currentAuction.currentBidder === null) {
-                  console.log('[AI] No one bid on', property.nameDa);
-                  auctionState = {
-                    ...auctionState,
-                    auction: null,
-                    phase: 'rolling',
-                    diceRolled: true,
-                  };
-                }
-
-                return auctionState;
-              });
-
-              scheduleTimeout(() => {
-                finishTurn(doubles, dice);
-              }, 500);
-            }, 1000);
+            // AI bidding will be handled by the AuctionDialog's auto-bid effect
+            // Don't automatically finish - let the auction play out
             return;
           }
         } else if (owner !== newState.currentPlayer) {
@@ -789,10 +731,9 @@ export function Matador({ language }: MatadorProps) {
     scheduleTimeout(() => processRoll(), 500);
 
     // No cleanup needed for effect re-runs - timeouts are stored in ref
-    // But we still return a cleanup for component unmount
+    // Timeouts are only cleared on component unmount via the separate effect
     return () => {
-      // Only clear timeouts if component is being unmounted
-      // We detect this by checking if the effect will run again
+      // Intentionally empty - timeouts survive effect re-runs
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState?.currentPlayer, gameState?.diceRolled, turnCounter]);

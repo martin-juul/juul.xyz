@@ -1,5 +1,3 @@
-// Game Over Dialog
-
 import type { GameState, Language } from '../../types';
 import { t } from '../../translations';
 import { TOKEN_EMOJIS } from '../../constants';

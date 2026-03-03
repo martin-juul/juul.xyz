@@ -1,5 +1,3 @@
-// Build Dialog
-
 import { useMemo } from 'preact/hooks';
 import type { GameState, Language, StreetProperty, OwnedProperty } from '../../types';
 import { t } from '../../translations';

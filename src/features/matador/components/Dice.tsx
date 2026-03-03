@@ -1,5 +1,3 @@
-// Dice Component
-
 import { useMemo } from 'preact/hooks';
 
 interface DiceProps {

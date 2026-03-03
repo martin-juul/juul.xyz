@@ -1,5 +1,3 @@
-// Jail Dialog
-
 import type { Player, Language } from '../../types';
 import { t } from '../../translations';
 import { JAIL_FINE, MAX_JAIL_TURNS } from '../../constants';

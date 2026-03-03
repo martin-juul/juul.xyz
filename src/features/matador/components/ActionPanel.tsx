@@ -1,5 +1,3 @@
-// ActionPanel Component
-
 import type { GameState, Language } from '../types';
 import { t } from '../translations';
 import { canAfford } from '../game-logic';

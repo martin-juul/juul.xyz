@@ -20,8 +20,9 @@ import {
 } from './game-logic';
 
 // Property valuation for AI decision-making
-function getPropertyBaseValue(property: OwnableProperty, player: Player, state: GameState): number {
-  let value = property.price;
+// Returns a multiplier (1.0 to max 1.15) for strategic value
+function getPropertyStrategicMultiplier(property: OwnableProperty, player: Player): number {
+  let multiplier = 1.0;
 
   // Bonus for completing color group
   if (property.type === 'street') {
@@ -33,31 +34,32 @@ function getPropertyBaseValue(property: OwnableProperty, player: Player, state: 
 
     // Higher value if close to monopoly
     if (ownedInGroup === groupPositions.length - 1) {
-      value *= 1.5; // Would complete monopoly
+      multiplier += 0.10; // Would complete monopoly
     } else if (ownedInGroup > 0) {
-      value *= 1.2; // Already own in group
+      multiplier += 0.05; // Already own in group
     }
 
-    // Premium for dark blue and green (high rent)
+    // Small premium for dark blue and green (high rent)
     if (street.colorGroup === 'darkblue' || street.colorGroup === 'green') {
-      value *= 1.3;
+      multiplier += 0.03;
     }
   }
 
   // Railway value increases with ownership
   if (property.type === 'railway') {
     const owned = countRailwaysOwned(player);
-    if (owned === 3) value *= 1.4; // Would have all 4
-    else if (owned >= 2) value *= 1.2;
+    if (owned === 3) multiplier += 0.08; // Would have all 4
+    else if (owned >= 2) multiplier += 0.04;
   }
 
   // Brewery value increases with ownership
   if (property.type === 'brewery') {
     const owned = countBreweriesOwned(player);
-    if (owned === 1) value *= 1.3; // Would have both
+    if (owned === 1) multiplier += 0.05; // Would have both
   }
 
-  return value;
+  // Cap at 1.15 (15% over base price)
+  return Math.min(multiplier, 1.15);
 }
 
 // AI decision to buy property
@@ -75,8 +77,7 @@ export function decideBuy(
     return Math.random() > 0.3; // 70% chance to buy
   }
 
-  const propertyValue = getPropertyBaseValue(property, player, state);
-  const valueRatio = propertyValue / property.price;
+  const strategicMultiplier = getPropertyStrategicMultiplier(property, player);
 
   // Medium: Strategic buying
   if (difficulty === 'medium') {
@@ -92,13 +93,13 @@ export function decideBuy(
       }
     }
 
-    // Buy if good value and enough cash
-    if (valueRatio > 1.1 && cashAfterPurchase > 1000) {
+    // Buy if good strategic value and enough cash
+    if (strategicMultiplier > 1.05 && cashAfterPurchase > 1000) {
       return true;
     }
 
     // Buy if affordable and not too low on cash
-    return cashAfterPurchase > 2000 && valueRatio >= 1;
+    return cashAfterPurchase > 2000 && strategicMultiplier >= 1;
   }
 
   // Hard: Optimal decision making
@@ -130,7 +131,7 @@ export function decideBuy(
       return true;
     }
 
-    return valueRatio > 1.15 && cashAfterPurchase > 1500;
+    return strategicMultiplier > 1.08 && cashAfterPurchase > 1500;
   }
 
   return false;
@@ -183,39 +184,47 @@ export function decideAuctionBid(
   state: GameState,
   property: OwnableProperty,
   currentBid: number,
-  difficulty: Difficulty
+  difficulty: Difficulty,
+  bidderIndex: number
 ): number | null { // null means pass
-  const player = state.players[state.currentPlayer];
-  const propertyValue = getPropertyBaseValue(property, player, state);
-  const maxBid = Math.min(player.cash, Math.floor(propertyValue * 1.2));
+  const bidder = state.players[bidderIndex];
 
+  // Don't bid if we can't afford even the minimum
+  if (bidder.cash <= currentBid) return null;
+
+  // Get strategic multiplier for this property (max 1.15)
+  const multiplier = getPropertyStrategicMultiplier(property, bidder);
+  const maxBid = Math.min(bidder.cash, Math.floor(property.price * multiplier));
+
+  // Never bid more than our max
   if (currentBid >= maxBid) return null;
 
-  // Easy: Random bidding
+  // Easy: Random bidding, tends to pass more often
   if (difficulty === 'easy') {
-    if (Math.random() < 0.4) return null; // 40% chance to pass
-    const increase = Math.floor(Math.random() * 200) + 100;
-    return Math.min(currentBid + increase, maxBid);
+    if (Math.random() < 0.5) return null; // 50% chance to pass
+    const increase = Math.floor(Math.random() * 100) + 50;
+    const newBid = currentBid + increase;
+    return newBid <= maxBid ? newBid : null;
   }
 
   // Medium: Value-based bidding
   if (difficulty === 'medium') {
-    if (currentBid >= propertyValue) return null;
-    const increase = Math.min(200, maxBid - currentBid);
-    return currentBid + increase;
+    if (currentBid >= maxBid) return null;
+    const increase = Math.min(100, maxBid - currentBid);
+    return increase > 0 ? currentBid + increase : null;
   }
 
   // Hard: Strategic bidding
   if (difficulty === 'hard') {
-    // Calculate if winning this auction blocks an opponent's monopoly
+    // Small blocking bonus
     const blockingValue = calculateBlockingValue(property, state);
-    const strategicValue = propertyValue + blockingValue;
+    const hardMaxBid = Math.min(bidder.cash, Math.floor(maxBid + blockingValue * 0.5));
 
-    if (currentBid >= strategicValue * 1.1) return null;
+    if (currentBid >= hardMaxBid) return null;
 
     // Bid in small increments to minimize cost
-    const increase = Math.min(100, maxBid - currentBid);
-    return currentBid + increase;
+    const increase = Math.min(50, hardMaxBid - currentBid);
+    return increase > 0 ? currentBid + increase : null;
   }
 
   return null;

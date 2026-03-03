@@ -1,5 +1,3 @@
-// Help Dialog
-
 import { useState } from 'preact/hooks';
 import type { Language } from '../../types';
 import { t } from '../../translations';

@@ -1,5 +1,3 @@
-// Board Component
-
 import { useMemo } from 'preact/hooks';
 import type { GameState, BoardSpace, Player, Language } from '../types';
 import { PlayerToken } from './PlayerToken';
