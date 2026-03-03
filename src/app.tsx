@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'preact/hooks';
+import { lazy, Suspense } from 'preact/compat';
 import { LanguageProvider, useLanguage } from './context/language-context';
 import { StatusProvider, useStatus } from './context/status-context';
 import { Home } from './features/home';
@@ -6,21 +7,23 @@ import { Projects } from './features/projects';
 import { Resume } from './features/resume';
 import { Contact } from './features/contact';
 import { NotFound } from './features/errors';
-import { MusicPlayer } from './features/music';
 import { Browser } from './features/browser';
 import { TaskManager } from './features/taskmanager';
-import { Minesweeper } from './features/minesweeper';
-import { FreeCell } from './features/freecell';
-import { Spider } from './features/spider';
-import { Solitaire } from './features/solitaire';
-import { Gallery } from './features/gallery';
-import { Matador } from './features/matador';
 import { SeoHead } from './components/seo-head';
 import { Taskbar } from './components/taskbar';
 import { StartMenu } from './components/start-menu';
 import { DesktopIcons } from './components/desktop-icons';
 import { type Page } from './lib/i18n-routing';
 import { commonTranslations } from './features/common/translations';
+
+// Lazy load heavy features (games + music player with webamp)
+const MusicPlayer = lazy(() => import('./features/music').then(m => ({ default: m.MusicPlayer })));
+const Minesweeper = lazy(() => import('./features/minesweeper').then(m => ({ default: m.Minesweeper })));
+const FreeCell = lazy(() => import('./features/freecell').then(m => ({ default: m.FreeCell })));
+const Spider = lazy(() => import('./features/spider').then(m => ({ default: m.Spider })));
+const Solitaire = lazy(() => import('./features/solitaire').then(m => ({ default: m.Solitaire })));
+const Gallery = lazy(() => import('./features/gallery').then(m => ({ default: m.Gallery })));
+const Matador = lazy(() => import('./features/matador').then(m => ({ default: m.Matador })));
 
 type WindowData = {
   id: string;
@@ -349,10 +352,12 @@ function AppContent() {
           }}
         />
       )}
-      <MusicPlayer
-        isOpen={isMusicPlayerOpen}
-        onClose={closeMusicPlayer}
+      <Suspense fallback={null}>
+        <MusicPlayer
+          isOpen={isMusicPlayerOpen}
+          onClose={closeMusicPlayer}
       />
+      </Suspense>
       <StartMenu
         isOpen={isStartMenuOpen}
         onClose={() => setIsStartMenuOpen(false)}
@@ -443,12 +448,12 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'music': return null; // Music is handled separately
       case 'browser': return <Browser />;
       case 'taskmanager': return <TaskManager windows={windows} onCloseWindow={onCloseWindow} onFocusWindow={onFocusWindow} isMusicPlayerOpen={isMusicPlayerOpen} />;
-      case 'minesweeper': return <Minesweeper />;
-      case 'freecell': return <FreeCell />;
-      case 'spider': return <Spider />;
-      case 'solitaire': return <Solitaire />;
-      case 'gallery': return <Gallery />;
-      case 'matador': return <Matador language={t === commonTranslations.da ? 'da' : 'en'} />;
+      case 'minesweeper': return <Suspense fallback={null}><Minesweeper /></Suspense>;
+      case 'freecell': return <Suspense fallback={null}><FreeCell /></Suspense>;
+      case 'spider': return <Suspense fallback={null}><Spider /></Suspense>;
+      case 'solitaire': return <Suspense fallback={null}><Solitaire /></Suspense>;
+      case 'gallery': return <Suspense fallback={null}><Gallery /></Suspense>;
+      case 'matador': return <Suspense fallback={null}><Matador language={t === commonTranslations.da ? 'da' : 'en'} /></Suspense>;
       case 'notfound': return <NotFound />;
     }
   };
