@@ -4,78 +4,76 @@ import './gallery.css';
 
 type Image = {
   filename: string;
-  path: string;
+  thumb: string;
+  full: string;
 };
 
 type Album = {
   name: string;
   slug: string;
-  path: string;
   cover: string;
   images: Image[];
 };
 
-// Hardcoded album manifest
+// Album manifest with WebP thumbnails and full-size images
 const ALBUMS: Album[] = [
   {
     name: 'Beginning',
     slug: 'beginning',
-    path: '/assets/gallery/beginning',
-    cover: '/assets/gallery/beginning/1.jpeg',
+    cover: '/assets/gallery/beginning/thumbs/1.webp',
     images: [
-      { filename: '1.jpeg', path: '/assets/gallery/beginning/1.jpeg' },
-      { filename: '3.jpeg', path: '/assets/gallery/beginning/3.jpeg' },
-      { filename: '3-3.jpeg', path: '/assets/gallery/beginning/3-3.jpeg' },
-      { filename: '3-4.jpeg', path: '/assets/gallery/beginning/3-4.jpeg' },
-      { filename: '3-5.jpeg', path: '/assets/gallery/beginning/3-5.jpeg' },
-      { filename: '3-6.jpeg', path: '/assets/gallery/beginning/3-6.jpeg' },
-      { filename: '3-7.jpeg', path: '/assets/gallery/beginning/3-7.jpeg' },
-      { filename: '3-8.jpeg', path: '/assets/gallery/beginning/3-8.jpeg' },
-      { filename: '4.jpeg', path: '/assets/gallery/beginning/4.jpeg' },
-      { filename: '5.jpeg', path: '/assets/gallery/beginning/5.jpeg' },
-      { filename: '6.jpeg', path: '/assets/gallery/beginning/6.jpeg' },
-      { filename: '6-5.jpeg', path: '/assets/gallery/beginning/6-5.jpeg' },
-      { filename: '7.jpeg', path: '/assets/gallery/beginning/7.jpeg' },
-      { filename: '7-5.jpeg', path: '/assets/gallery/beginning/7-5.jpeg' },
-      { filename: '8.jpeg', path: '/assets/gallery/beginning/8.jpeg' },
-      { filename: '8-6.jpeg', path: '/assets/gallery/beginning/8-6.jpeg' },
-      { filename: '9.jpeg', path: '/assets/gallery/beginning/9.jpeg' },
-      { filename: '9-3.jpeg', path: '/assets/gallery/beginning/9-3.jpeg' },
-      { filename: '10.jpeg', path: '/assets/gallery/beginning/10.jpeg' },
-      { filename: '11.jpeg', path: '/assets/gallery/beginning/11.jpeg' },
-      { filename: '12.jpeg', path: '/assets/gallery/beginning/12.jpeg' },
-      { filename: '14.jpeg', path: '/assets/gallery/beginning/14.jpeg' },
-      { filename: '15.jpeg', path: '/assets/gallery/beginning/15.jpeg' },
-      { filename: '16.jpeg', path: '/assets/gallery/beginning/16.jpeg' },
-      { filename: '17.jpeg', path: '/assets/gallery/beginning/17.jpeg' },
-      { filename: '18.jpeg', path: '/assets/gallery/beginning/18.jpeg' },
-      { filename: '19.jpeg', path: '/assets/gallery/beginning/19.jpeg' },
-      { filename: '20.jpeg', path: '/assets/gallery/beginning/20.jpeg' },
-      { filename: '21.jpeg', path: '/assets/gallery/beginning/21.jpeg' },
-      { filename: '22.jpeg', path: '/assets/gallery/beginning/22.jpeg' },
-      { filename: '23.jpeg', path: '/assets/gallery/beginning/23.jpeg' },
-      { filename: '24.jpeg', path: '/assets/gallery/beginning/24.jpeg' },
-      { filename: '25.jpeg', path: '/assets/gallery/beginning/25.jpeg' },
-      { filename: '26.jpeg', path: '/assets/gallery/beginning/26.jpeg' },
-      { filename: '27.jpeg', path: '/assets/gallery/beginning/27.jpeg' },
-      { filename: '28.jpeg', path: '/assets/gallery/beginning/28.jpeg' },
-      { filename: '29.jpeg', path: '/assets/gallery/beginning/29.jpeg' },
-      { filename: '30.jpeg', path: '/assets/gallery/beginning/30.jpeg' },
-      { filename: '31.jpeg', path: '/assets/gallery/beginning/31.jpeg' },
-      { filename: '32.jpeg', path: '/assets/gallery/beginning/32.jpeg' },
-      { filename: '33.jpeg', path: '/assets/gallery/beginning/33.jpeg' },
-      { filename: '34.jpeg', path: '/assets/gallery/beginning/34.jpeg' },
-      { filename: '35.jpeg', path: '/assets/gallery/beginning/35.jpeg' },
-      { filename: '36.jpeg', path: '/assets/gallery/beginning/36.jpeg' },
+      { filename: '1', thumb: '/assets/gallery/beginning/thumbs/1.webp', full: '/assets/gallery/beginning/full/1.webp' },
+      { filename: '3-3', thumb: '/assets/gallery/beginning/thumbs/3-3.webp', full: '/assets/gallery/beginning/full/3-3.webp' },
+      { filename: '3-4', thumb: '/assets/gallery/beginning/thumbs/3-4.webp', full: '/assets/gallery/beginning/full/3-4.webp' },
+      { filename: '3-5', thumb: '/assets/gallery/beginning/thumbs/3-5.webp', full: '/assets/gallery/beginning/full/3-5.webp' },
+      { filename: '3-6', thumb: '/assets/gallery/beginning/thumbs/3-6.webp', full: '/assets/gallery/beginning/full/3-6.webp' },
+      { filename: '3-7', thumb: '/assets/gallery/beginning/thumbs/3-7.webp', full: '/assets/gallery/beginning/full/3-7.webp' },
+      { filename: '3-8', thumb: '/assets/gallery/beginning/thumbs/3-8.webp', full: '/assets/gallery/beginning/full/3-8.webp' },
+      { filename: '3', thumb: '/assets/gallery/beginning/thumbs/3.webp', full: '/assets/gallery/beginning/full/3.webp' },
+      { filename: '4', thumb: '/assets/gallery/beginning/thumbs/4.webp', full: '/assets/gallery/beginning/full/4.webp' },
+      { filename: '5', thumb: '/assets/gallery/beginning/thumbs/5.webp', full: '/assets/gallery/beginning/full/5.webp' },
+      { filename: '6-5', thumb: '/assets/gallery/beginning/thumbs/6-5.webp', full: '/assets/gallery/beginning/full/6-5.webp' },
+      { filename: '6', thumb: '/assets/gallery/beginning/thumbs/6.webp', full: '/assets/gallery/beginning/full/6.webp' },
+      { filename: '7-5', thumb: '/assets/gallery/beginning/thumbs/7-5.webp', full: '/assets/gallery/beginning/full/7-5.webp' },
+      { filename: '7', thumb: '/assets/gallery/beginning/thumbs/7.webp', full: '/assets/gallery/beginning/full/7.webp' },
+      { filename: '8-6', thumb: '/assets/gallery/beginning/thumbs/8-6.webp', full: '/assets/gallery/beginning/full/8-6.webp' },
+      { filename: '8', thumb: '/assets/gallery/beginning/thumbs/8.webp', full: '/assets/gallery/beginning/full/8.webp' },
+      { filename: '9-3', thumb: '/assets/gallery/beginning/thumbs/9-3.webp', full: '/assets/gallery/beginning/full/9-3.webp' },
+      { filename: '9', thumb: '/assets/gallery/beginning/thumbs/9.webp', full: '/assets/gallery/beginning/full/9.webp' },
+      { filename: '10', thumb: '/assets/gallery/beginning/thumbs/10.webp', full: '/assets/gallery/beginning/full/10.webp' },
+      { filename: '11', thumb: '/assets/gallery/beginning/thumbs/11.webp', full: '/assets/gallery/beginning/full/11.webp' },
+      { filename: '12', thumb: '/assets/gallery/beginning/thumbs/12.webp', full: '/assets/gallery/beginning/full/12.webp' },
+      { filename: '14', thumb: '/assets/gallery/beginning/thumbs/14.webp', full: '/assets/gallery/beginning/full/14.webp' },
+      { filename: '15', thumb: '/assets/gallery/beginning/thumbs/15.webp', full: '/assets/gallery/beginning/full/15.webp' },
+      { filename: '16', thumb: '/assets/gallery/beginning/thumbs/16.webp', full: '/assets/gallery/beginning/full/16.webp' },
+      { filename: '17', thumb: '/assets/gallery/beginning/thumbs/17.webp', full: '/assets/gallery/beginning/full/17.webp' },
+      { filename: '18', thumb: '/assets/gallery/beginning/thumbs/18.webp', full: '/assets/gallery/beginning/full/18.webp' },
+      { filename: '19', thumb: '/assets/gallery/beginning/thumbs/19.webp', full: '/assets/gallery/beginning/full/19.webp' },
+      { filename: '20', thumb: '/assets/gallery/beginning/thumbs/20.webp', full: '/assets/gallery/beginning/full/20.webp' },
+      { filename: '21', thumb: '/assets/gallery/beginning/thumbs/21.webp', full: '/assets/gallery/beginning/full/21.webp' },
+      { filename: '22', thumb: '/assets/gallery/beginning/thumbs/22.webp', full: '/assets/gallery/beginning/full/22.webp' },
+      { filename: '23', thumb: '/assets/gallery/beginning/thumbs/23.webp', full: '/assets/gallery/beginning/full/23.webp' },
+      { filename: '24', thumb: '/assets/gallery/beginning/thumbs/24.webp', full: '/assets/gallery/beginning/full/24.webp' },
+      { filename: '25', thumb: '/assets/gallery/beginning/thumbs/25.webp', full: '/assets/gallery/beginning/full/25.webp' },
+      { filename: '26', thumb: '/assets/gallery/beginning/thumbs/26.webp', full: '/assets/gallery/beginning/full/26.webp' },
+      { filename: '27', thumb: '/assets/gallery/beginning/thumbs/27.webp', full: '/assets/gallery/beginning/full/27.webp' },
+      { filename: '28', thumb: '/assets/gallery/beginning/thumbs/28.webp', full: '/assets/gallery/beginning/full/28.webp' },
+      { filename: '29', thumb: '/assets/gallery/beginning/thumbs/29.webp', full: '/assets/gallery/beginning/full/29.webp' },
+      { filename: '30', thumb: '/assets/gallery/beginning/thumbs/30.webp', full: '/assets/gallery/beginning/full/30.webp' },
+      { filename: '31', thumb: '/assets/gallery/beginning/thumbs/31.webp', full: '/assets/gallery/beginning/full/31.webp' },
+      { filename: '32', thumb: '/assets/gallery/beginning/thumbs/32.webp', full: '/assets/gallery/beginning/full/32.webp' },
+      { filename: '33', thumb: '/assets/gallery/beginning/thumbs/33.webp', full: '/assets/gallery/beginning/full/33.webp' },
+      { filename: '34', thumb: '/assets/gallery/beginning/thumbs/34.webp', full: '/assets/gallery/beginning/full/34.webp' },
+      { filename: '35', thumb: '/assets/gallery/beginning/thumbs/35.webp', full: '/assets/gallery/beginning/full/35.webp' },
+      { filename: '36', thumb: '/assets/gallery/beginning/thumbs/36.webp', full: '/assets/gallery/beginning/full/36.webp' },
     ],
   },
   {
     name: 'Certificates',
     slug: 'certificates',
-    path: '/assets/gallery/certificates',
-    cover: '/assets/gallery/certificates/angular-certificate.png',
+    cover: '/assets/gallery/certificates/thumbs/angular-certificate.webp',
     images: [
-      { filename: 'angular-certificate.png', path: '/assets/gallery/certificates/angular-certificate.png' },
+      { filename: 'angular-certificate', thumb: '/assets/gallery/certificates/thumbs/angular-certificate.webp', full: '/assets/gallery/certificates/full/angular-certificate.webp' },
     ]
   }
 ];
@@ -267,6 +265,57 @@ function SlideshowViewer({
     onNavigate(next);
   }, [currentIndex, album.images.length, onNavigate]);
 
+  // Prefetch adjacent images after a delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // Prefetch previous image
+      const prevIndex = currentIndex === 0 ? album.images.length - 1 : currentIndex - 1;
+      const prevImg = new Image();
+      prevImg.src = album.images[prevIndex].full;
+
+      // Prefetch next image
+      const nextIndex = (currentIndex + 1) % album.images.length;
+      const nextImg = new Image();
+      nextImg.src = album.images[nextIndex].full;
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, album.images]);
+
+  // Virtualized thumbnail visibility
+  const [visibleRange, setVisibleRange] = useState({ start: 0, end: 10 });
+  const thumbRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleIndices = new Set<number>();
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute('data-index') || '0', 10);
+            visibleIndices.add(index);
+          }
+        });
+
+        if (visibleIndices.size > 0) {
+          const indices = Array.from(visibleIndices).sort((a, b) => a - b);
+          const buffer = 5;
+          setVisibleRange({
+            start: Math.max(0, indices[0] - buffer),
+            end: Math.min(album.images.length - 1, indices[indices.length - 1] + buffer),
+          });
+        }
+      },
+      { root: thumbnailRef.current, threshold: 0 }
+    );
+
+    thumbRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [album.images.length]);
+
   return (
     <div class="gallery-container">
       {/* Menu Bar */}
@@ -379,8 +428,8 @@ function SlideshowViewer({
       >
         {currentImage && (
           <img
-            key={currentImage.path}
-            src={currentImage.path}
+            key={currentImage.full}
+            src={currentImage.full}
             alt={currentImage.filename}
             class="gallery-main-image"
             style={{
@@ -395,19 +444,25 @@ function SlideshowViewer({
       {/* Thumbnail Slider */}
       <div class="gallery-thumbnails" ref={thumbnailRef}>
         <div class="gallery-thumbnails-track">
-          {album.images.map((image, index) => (
-            <div
-              key={image.filename}
-              class={`gallery-thumb ${index === currentIndex ? 'active' : ''}`}
-              onClick={() => onNavigate(index)}
-            >
-              <img
-                src={image.path}
-                alt={image.filename}
-                loading="lazy"
-              />
-            </div>
-          ))}
+          {album.images.map((image, index) => {
+            const isVisible = index >= visibleRange.start && index <= visibleRange.end;
+            return (
+              <div
+                key={image.filename}
+                ref={(el) => { thumbRefs.current[index] = el; }}
+                data-index={index}
+                class={`gallery-thumb ${index === currentIndex ? 'active' : ''}`}
+                onClick={() => onNavigate(index)}
+              >
+                {isVisible && (
+                  <img
+                    src={image.thumb}
+                    alt={image.filename}
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
         {/* Progress Bar */}
         <div class="gallery-progress">
