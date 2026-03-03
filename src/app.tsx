@@ -155,11 +155,17 @@ function AppContent() {
   }, [nextZIndex]);
 
   const focusWindow = useCallback((id: string) => {
-    setWindows(prev => prev.map(w =>
-      w.id === id ? { ...w, zIndex: nextZIndex, isOpening: false } : w
-    ));
-    setNextZIndex(prev => prev + 1);
-  }, [nextZIndex]);
+    const window = windows.find(w => w.id === id);
+    if (window) {
+      setWindows(prev => prev.map(w =>
+        w.id === id ? { ...w, zIndex: nextZIndex, isOpening: false } : w
+      ));
+      setNextZIndex(prev => prev + 1);
+      // Update URL to reflect focused window (using replace to avoid polluting history)
+      isNavigatingRef.current = true;
+      navigateTo(window.page, undefined, true);
+    }
+  }, [nextZIndex, windows, navigateTo]);
 
   const moveWindow = useCallback((id: string, position: { x: number; y: number }) => {
     setWindows(prev => prev.map(w =>

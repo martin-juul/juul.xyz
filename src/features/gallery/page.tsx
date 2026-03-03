@@ -24,7 +24,6 @@ const ALBUMS: Album[] = [
     cover: '/assets/gallery/beginning/1.jpeg',
     images: [
       { filename: '1.jpeg', path: '/assets/gallery/beginning/1.jpeg' },
-      { filename: '2.heic', path: '/assets/gallery/beginning/2.heic' },
       { filename: '3.jpeg', path: '/assets/gallery/beginning/3.jpeg' },
       { filename: '3-3.jpeg', path: '/assets/gallery/beginning/3-3.jpeg' },
       { filename: '3-4.jpeg', path: '/assets/gallery/beginning/3-4.jpeg' },
@@ -55,7 +54,6 @@ const ALBUMS: Album[] = [
       { filename: '20.jpeg', path: '/assets/gallery/beginning/20.jpeg' },
       { filename: '21.jpeg', path: '/assets/gallery/beginning/21.jpeg' },
       { filename: '22.jpeg', path: '/assets/gallery/beginning/22.jpeg' },
-      { filename: '23.jpeg', path: '/assets/gallery/beginning/23.jpeg' },
       { filename: '24.jpeg', path: '/assets/gallery/beginning/24.jpeg' },
       { filename: '25.jpeg', path: '/assets/gallery/beginning/25.jpeg' },
       { filename: '26.jpeg', path: '/assets/gallery/beginning/26.jpeg' },
