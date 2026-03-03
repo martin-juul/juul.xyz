@@ -1,13 +1,38 @@
 {
-  "trailingSlash": true,
-  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/en/gallery/",
+      "destination": "/en/gallery"
+    },
+    {
+      "source": "/en/gallery/:path*/",
+      "destination": "/en/gallery/:path"
+    },
+    {
+      "source": "/da/billedgalleri/",
+      "destination": "/da/billedgalleri"
+    },
+    {
+      "source": "/da/billedgalleri/:path*/",
+      "destination": "/da/billedgalleri/:path"
+    }
+  ],
   "rewrites": [
     {
-      "source": "/en/gallery/:path*",
+      "source": "/en/gallery/:album",
       "destination": "/en/gallery/index.html"
     },
     {
-      "source": "/da/billedgalleri/:path*",
+      "source": "/en/gallery/:album/:image",
+      "destination": "/en/gallery/index.html"
+    },
+    {
+      "source": "/da/billedgalleri/:album",
+      "destination": "/da/billedgalleri/index.html"
+    },
+    {
+      "source": "/da/billedgalleri/:album/:image",
       "destination": "/da/billedgalleri/index.html"
     }
   ],
