@@ -7,8 +7,12 @@
       "destination": "/gallery/index.html"
     },
     {
-      "source": "/da/billedgaleri/:path*",
-      "destination": "/da/billedgaleri/index.html"
+      "source": "/en/gallery/:path*",
+      "destination": "/gallery/index.html"
+    },
+    {
+      "source": "/da/billedgalleri/:path*",
+      "destination": "/da/billedgalleri/index.html"
     }
   ],
   "headers": [
