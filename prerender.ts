@@ -15,6 +15,7 @@ type Language = 'en' | 'da';
 type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'gallery' | 'matador' | 'notfound';
 
 const SITE_URL = 'https://www.juul.xyz';
+const DEFAULT_OG_IMAGE = `${SITE_URL}/assets/avatar.png`;
 
 // Page slugs
 const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
@@ -210,6 +211,7 @@ const jsonLdData: Record<string, Record<Language, object[]>> = {
         '@type': 'Person',
         name: 'Martin Christiansen',
         jobTitle: 'Software Developer',
+        image: DEFAULT_OG_IMAGE,
         address: { '@type': 'PostalAddress', addressCountry: 'DK' },
         url: SITE_URL,
       },
@@ -227,6 +229,7 @@ const jsonLdData: Record<string, Record<Language, object[]>> = {
         '@type': 'Person',
         name: 'Martin Christiansen',
         jobTitle: 'Softwareudvikler',
+        image: DEFAULT_OG_IMAGE,
         address: { '@type': 'PostalAddress', addressCountry: 'DK' },
         url: SITE_URL,
       },
@@ -246,6 +249,7 @@ const jsonLdData: Record<string, Record<Language, object[]>> = {
         '@type': 'Person',
         name: 'Martin Christiansen',
         jobTitle: 'Software Developer',
+        image: DEFAULT_OG_IMAGE,
         url: SITE_URL,
       },
     ],
@@ -255,6 +259,7 @@ const jsonLdData: Record<string, Record<Language, object[]>> = {
         '@type': 'Person',
         name: 'Martin Christiansen',
         jobTitle: 'Softwareudvikler',
+        image: DEFAULT_OG_IMAGE,
         url: SITE_URL,
       },
     ],
