@@ -30,6 +30,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
     { page: 'freecell', icon: '/assets/icons/freecell.png' },
     { page: 'spider', icon: '/assets/icons/spider.png' },
     { page: 'solitaire', icon: '/assets/icons/solitaire.png' },
+    { page: 'sudoku', icon: '/assets/icons/sudoku.png' },
     { page: 'gallery', icon: '/assets/icons/gallery.png' },
     { page: 'matador', icon: '/assets/icons/matador.png' },
     { page: 'mediaplayer', icon: '/assets/icons/mediaplayer.png' },
@@ -48,6 +49,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
       case 'spider': return t.nav.spider;
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
+      case 'sudoku': return t.nav.sudoku;
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
       case 'notfound': return t.notFound.windowTitle;

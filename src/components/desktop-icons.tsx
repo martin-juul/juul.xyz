@@ -24,6 +24,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
     { page: 'freecell' as Page, icon: '/assets/icons/freecell.png' },
     { page: 'spider' as Page, icon: '/assets/icons/spider.png' },
     { page: 'solitaire' as Page, icon: '/assets/icons/solitaire.png' },
+    { page: 'sudoku' as Page, icon: '/assets/icons/sudoku.png' },
     { page: 'gallery' as Page, icon: '/assets/icons/gallery.png' },
     { page: 'matador' as Page, icon: '/assets/icons/matador.png' },
     { page: 'mediaplayer' as Page, icon: '/assets/icons/mediaplayer.png' },
@@ -42,6 +43,7 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
       case 'spider': return t.nav.spider;
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
+      case 'sudoku': return t.nav.sudoku;
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
       case 'notfound': return t.notFound.windowTitle;

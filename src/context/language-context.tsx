@@ -18,6 +18,7 @@ import { minesweeperTranslations } from '../features/minesweeper';
 import { freecellTranslations } from '../features/freecell';
 import { spiderTranslations } from '../features/spider';
 import { solitaireTranslations } from '../features/solitaire';
+import { sudokuTranslations } from '../features/sudoku';
 
 type Translations = {
   brand: string;
@@ -34,6 +35,7 @@ type Translations = {
     freecell: string;
     spider: string;
     solitaire: string;
+    sudoku: string;
     gallery: string;
     matador: string;
     mediaplayer: string;
@@ -95,6 +97,7 @@ type Translations = {
   freecell: typeof freecellTranslations.en;
   spider: typeof spiderTranslations.en;
   solitaire: typeof solitaireTranslations.en;
+  sudoku: typeof sudokuTranslations.en;
 };
 
 const translations: Record<Language, Translations> = {
@@ -115,6 +118,7 @@ const translations: Record<Language, Translations> = {
     freecell: freecellTranslations.en,
     spider: spiderTranslations.en,
     solitaire: solitaireTranslations.en,
+    sudoku: sudokuTranslations.en,
   },
   da: {
     ...commonTranslations.da,
@@ -133,6 +137,7 @@ const translations: Record<Language, Translations> = {
     freecell: freecellTranslations.da,
     spider: spiderTranslations.da,
     solitaire: solitaireTranslations.da,
+    sudoku: sudokuTranslations.da,
   },
 };
 

@@ -41,6 +41,7 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   freecell: 'freecell.exe',
   spider: 'spider.exe',
   solitaire: 'sol.exe',
+  sudoku: 'sudoku.exe',
   gallery: 'shimgvw.exe',
   matador: 'matador.exe',
   mediaplayer: 'mplayer2.exe',
@@ -57,6 +58,7 @@ const processBaseMemory: Record<string, number> = {
   'winamp.exe': 3844,
   'taskmgr.exe': 2192,
   'freecell.exe': 2100,
+  'sudoku.exe': 2200,
   'shimgvw.exe': 2844,
   'mplayer2.exe': 3200,
   'explorer.exe': 1624,
@@ -75,6 +77,7 @@ function getPageDisplayName(page: Page | 'music' | 'taskmanager'): string {
     case 'taskmanager': return 'Task Manager';
     case 'minesweeper': return 'Minesweeper';
     case 'freecell': return 'FreeCell';
+    case 'sudoku': return 'Sudoku';
     case 'gallery': return 'Image Gallery';
     case 'notfound': return 'Explorer';
     default: return page;

@@ -1,0 +1,261 @@
+/* Windows 98 Sudoku Styles */
+
+.sudoku-container {
+  background: #c0c0c0;
+  padding: 0;
+  user-select: none;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Menu Bar */
+.sudoku-menu-bar {
+  display: flex;
+  padding: 2px 4px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  position: relative;
+}
+
+.sudoku-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.sudoku-menu-item:hover,
+.sudoku-menu-item.active {
+  background: #000080;
+  color: white;
+}
+
+/* Dropdown Menu */
+.sudoku-menu-trigger {
+  position: relative;
+}
+
+.sudoku-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-width: 120px;
+  padding: 2px 0;
+}
+
+.sudoku-dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.sudoku-dropdown-item:hover {
+  background: #000080;
+  color: white;
+}
+
+.sudoku-dropdown-item.checked {
+  font-weight: normal;
+}
+
+.sudoku-dropdown-check {
+  width: 16px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.sudoku-dropdown-text {
+  flex: 1;
+}
+
+.sudoku-dropdown-separator {
+  height: 1px;
+  background: #808080;
+  margin: 2px 4px;
+}
+
+/* Game Area */
+.sudoku-game-area {
+  margin: 6px;
+  padding: 6px;
+  background: #c0c0c0;
+  border: 3px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Controls Bar */
+.sudoku-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 4px 8px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  box-sizing: border-box;
+}
+
+.sudoku-timer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #000;
+  color: #ff0000;
+  font-family: 'Digital', 'Consolas', 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border: 1px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.sudoku-timer-label {
+  color: #ff0000;
+}
+
+.sudoku-timer-value {
+  min-width: 45px;
+  text-align: right;
+}
+
+.sudoku-new-btn {
+  padding: 2px 12px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.sudoku-new-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 3px 11px 1px 13px;
+}
+
+/* Win Message */
+.sudoku-win-message {
+  background: #000080;
+  color: #ffff00;
+  padding: 4px 12px;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+/* Grid */
+.sudoku-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 28px);
+  grid-template-rows: repeat(9, 28px);
+  border: 3px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  background: #808080;
+  gap: 1px;
+}
+
+/* Cells */
+.sudoku-cell {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  background: #c0c0c0;
+  border: 1px solid #808080;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* 3x3 box borders */
+.sudoku-cell-box-left {
+  border-left: 2px solid #000;
+}
+
+.sudoku-cell-box-top {
+  border-top: 2px solid #000;
+}
+
+/* Cell states */
+.sudoku-cell-given {
+  font-weight: bold;
+  color: #000;
+  background: #d4d0c8;
+}
+
+.sudoku-cell-user {
+  color: #0000ff;
+}
+
+.sudoku-cell-selected {
+  background: #000080 !important;
+  color: #fff !important;
+}
+
+.sudoku-cell-conflict {
+  background: #ff0000 !important;
+  color: #fff !important;
+}
+
+/* Number Pad */
+.sudoku-number-pad {
+  display: grid;
+  grid-template-columns: repeat(5, 32px);
+  grid-template-rows: repeat(2, 28px);
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.sudoku-number-btn {
+  min-width: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  padding: 0;
+  line-height: 1;
+}
+
+.sudoku-number-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 1px 0 0 1px;
+}
+
+.sudoku-number-btn:hover {
+  background: #d4d0c8;
+}
+
+.sudoku-clear-btn {
+  font-size: 12px;
+  color: #ff0000;
+}

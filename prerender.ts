@@ -12,7 +12,7 @@ const DIST_DIR = join(__dirname, 'dist');
 
 // Types
 type Language = 'en' | 'da';
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'gallery' | 'matador' | 'notfound';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'sudoku' | 'gallery' | 'matador' | 'notfound';
 
 const SITE_URL = 'https://www.juul.xyz';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/assets/avatar.png`;
@@ -31,6 +31,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     freecell: 'freecell',
     spider: 'spider',
     solitaire: 'solitaire',
+    sudoku: 'sudoku',
     gallery: 'gallery',
     matador: 'matador',
     notfound: 'not-found',
@@ -47,6 +48,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     freecell: 'freecell',
     spider: 'edderkop',
     solitaire: 'kabale',
+    sudoku: 'sudoku',
     gallery: 'billedgalleri',
     matador: 'matador',
     notfound: 'not-found',
@@ -188,6 +190,16 @@ const pageMeta: Record<string, Record<Language, { title: string; description: st
     da: {
       title: 'Matador - Martin Christiansen',
       description: 'Klassisk dansk Matador brætspil',
+    },
+  },
+  sudoku: {
+    en: {
+      title: 'Sudoku - Martin Christiansen',
+      description: 'Classic Sudoku puzzle game',
+    },
+    da: {
+      title: 'Sudoku - Martin Christiansen',
+      description: 'Klassisk Sudoku puslespil',
     },
   },
   notfound: {
@@ -356,7 +368,7 @@ function generateStaticRoutes(): Route[] {
   const routes: Route[] = [];
   const staticPages: Page[] = [
     'home', 'projects', 'resume', 'contact', 'music',
-    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'gallery', 'matador', 'notfound',
+    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'sudoku', 'gallery', 'matador', 'notfound',
   ];
   const languages: Language[] = ['en', 'da'];
 
