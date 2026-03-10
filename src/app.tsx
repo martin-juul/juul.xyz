@@ -25,6 +25,7 @@ const FreeCell = lazy(() => import('./features/freecell').then(m => ({ default: 
 const Spider = lazy(() => import('./features/spider').then(m => ({ default: m.Spider })));
 const Solitaire = lazy(() => import('./features/solitaire').then(m => ({ default: m.Solitaire })));
 const Matador = lazy(() => import('./features/matador').then(m => ({ default: m.Matador })));
+const Sudoku = lazy(() => import('./features/sudoku').then(m => ({ default: m.Sudoku })));
 
 type WindowData = {
   id: string;
@@ -77,6 +78,8 @@ function AppContent() {
         return { width: 650, height: 500 };
       case 'gallery':
         return { width: 640, height: 480 };
+      case 'sudoku':
+        return { width: 400, height: 520 };
       case 'matador':
         return { width: 700, height: 600 };
       case 'mediaplayer':
@@ -215,6 +218,8 @@ function AppContent() {
         return { width: 550, height: 400 };
       case 'gallery':
         return { width: 480, height: 360 };
+      case 'sudoku':
+        return { width: 350, height: 460 };
       case 'matador':
         return { width: 600, height: 500 };
       case 'mediaplayer':
@@ -439,6 +444,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'spider': return t.nav.spider;
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
+      case 'sudoku': return t.nav.sudoku;
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
       case 'notfound': return t.notFound.windowTitle;
@@ -459,6 +465,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'spider': return <Suspense fallback={null}><Spider /></Suspense>;
       case 'solitaire': return <Suspense fallback={null}><Solitaire /></Suspense>;
       case 'gallery': return <Gallery />;
+      case 'sudoku': return <Suspense fallback={null}><Sudoku /></Suspense>;
       case 'matador': return <Suspense fallback={null}><Matador language={t === commonTranslations.da ? 'da' : 'en'} /></Suspense>;
       case 'mediaplayer': return <MediaPlayer />;
       case 'notfound': return <NotFound />;
