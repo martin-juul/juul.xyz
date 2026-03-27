@@ -1,0 +1,1 @@
+export { ludoTranslations } from './translations';
