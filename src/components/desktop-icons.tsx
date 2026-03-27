@@ -1,17 +1,20 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
 import { useLanguage } from '../context/language-context';
+import { useDesktopContextMenu } from './context-menu';
 
 import { type Page } from '../shared/types';
 
 type DesktopIconsProps = {
   onNavigate: (page: Page) => void;
   openWindowPages: Page[];
+  onOpenTaskManager?: () => void;
 };
 
-export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps) {
+export function DesktopIcons({ onNavigate, openWindowPages, onOpenTaskManager }: DesktopIconsProps) {
   const { t } = useLanguage();
   const [selectedIcon, setSelectedIcon] = useState<Page | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { openContextMenu, ContextMenuRenderer } = useDesktopContextMenu(onOpenTaskManager);
 
   const icons = [
     { page: 'home' as Page, icon: '/assets/icons/home.png' },
@@ -71,8 +74,15 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
   }, []);
 
   return (
-    <div class="desktop-icons" ref={containerRef} data-nosnippet data-testid="desktop-icons">
-      {icons.map((item) => (
+    <>
+      <div
+        class="desktop-icons"
+        ref={containerRef}
+        data-nosnippet
+        data-testid="desktop-icons"
+        onContextMenu={openContextMenu}
+      >
+        {icons.map((item) => (
         <div
           class={`desktop-icon ${selectedIcon === item.page ? 'desktop-icon-selected' : ''} ${openWindowPages.includes(item.page) ? 'desktop-icon-open' : ''}`}
           onClick={(e) => {
@@ -91,6 +101,8 @@ export function DesktopIcons({ onNavigate, openWindowPages }: DesktopIconsProps)
           <span class="desktop-icon-label">{getPageLabel(item.page)}</span>
         </div>
       ))}
-    </div>
+      </div>
+      <ContextMenuRenderer />
+    </>
   );
 }

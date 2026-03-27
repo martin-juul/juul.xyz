@@ -328,6 +328,7 @@ function AppContent() {
       <DesktopIcons
         onNavigate={openWindow}
         openWindowPages={openWindowPages}
+        onOpenTaskManager={() => openWindow('taskmanager')}
       />
       <div id="main-content" class="desktop" role="main" tabIndex={-1}>
         {windows.map(windowData => (
