@@ -65,7 +65,11 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       case 'freecell': return t.nav.freecell;
       case 'spider': return t.nav.spider;
       case 'solitaire': return t.nav.solitaire;
+      case 'sudoku': return t.nav.sudoku;
       case 'gallery': return t.nav.gallery;
+      case 'ludo': return t.nav.ludo;
+      case 'matador': return t.nav.matador;
+      case 'mediaplayer': return t.nav.mediaplayer;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -83,7 +87,11 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       case 'freecell': return '/assets/icons/freecell.png';
       case 'spider': return '/assets/icons/spider.png';
       case 'solitaire': return '/assets/icons/solitaire.png';
+      case 'sudoku': return '/assets/icons/sudoku.png';
       case 'gallery': return '/assets/icons/gallery.png';
+      case 'ludo': return '/assets/icons/windows.png';
+      case 'matador': return '/assets/icons/matador.png';
+      case 'mediaplayer': return '/assets/icons/mediaplayer.png';
       case 'notfound': return '/assets/icons/windows.png';
     }
   };
