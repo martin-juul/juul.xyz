@@ -417,7 +417,9 @@ ul.tree-view {
   top: 12px;
   left: 12px;
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  height: calc(100vh - 36px - 24px);
   gap: 8px;
   z-index: 1;
 }
