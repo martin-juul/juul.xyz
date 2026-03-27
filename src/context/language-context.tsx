@@ -36,6 +36,7 @@ type Translations = {
     spider: string;
     solitaire: string;
     sudoku: string;
+    ludo: string;
     gallery: string;
     matador: string;
     mediaplayer: string;

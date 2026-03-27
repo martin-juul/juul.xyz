@@ -416,7 +416,7 @@ function WindowStatusBar({ onResizeStart }: { onResizeStart: (edge: ResizeEdge, 
 }
 
 function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onMove, onResizeStart, onNavigate, windows, onCloseWindow, onFocusWindow, isMusicPlayerOpen }: WindowProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isDragging, setIsDragging] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [hasOpened, setHasOpened] = useState(false);
@@ -445,6 +445,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
       case 'sudoku': return t.nav.sudoku;
+      case 'ludo': return t.nav.ludo;
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
       case 'notfound': return t.notFound.windowTitle;
@@ -466,7 +467,8 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'solitaire': return <Suspense fallback={null}><Solitaire /></Suspense>;
       case 'gallery': return <Gallery />;
       case 'sudoku': return <Suspense fallback={null}><Sudoku /></Suspense>;
-      case 'matador': return <Suspense fallback={null}><Matador language={t === commonTranslations.da ? 'da' : 'en'} /></Suspense>;
+      case 'ludo': return <div style="padding: 20px">Ludo game coming soon!</div>;
+      case 'matador': return <Suspense fallback={null}><Matador language={language} /></Suspense>;
       case 'mediaplayer': return <MediaPlayer />;
       case 'notfound': return <NotFound />;
     }
