@@ -26,6 +26,7 @@ import { pipedreamTranslations } from '../features/pipedream';
 import { matadorTranslations } from '../features/matador';
 import { heartsTranslations } from '../features/hearts';
 import { skifreeTranslations } from '../features/skifree';
+import { nibblesTranslations } from '../features/nibbles';
 import { mediaplayerTranslations } from '../features/mediaplayer';
 import { musicTranslations } from '../features/music';
 
@@ -52,6 +53,7 @@ type Translations = {
     pipedream: string;
     hearts: string;
     skifree: string;
+    nibbles: string;
     matador: string;
     mediaplayer: string;
   };
@@ -119,6 +121,7 @@ type Translations = {
   pipedream: typeof pipedreamTranslations.en;
   hearts: typeof heartsTranslations.en;
   skifree: typeof skifreeTranslations.en;
+  nibbles: typeof nibblesTranslations.en;
   matador: typeof matadorTranslations.en;
   mediaplayer: typeof mediaplayerTranslations.en;
   music: typeof musicTranslations.en;
@@ -149,6 +152,7 @@ const translations: Record<Language, Translations> = {
     pipedream: pipedreamTranslations.en,
     hearts: heartsTranslations.en,
     skifree: skifreeTranslations.en,
+    nibbles: nibblesTranslations.en,
     matador: matadorTranslations.en,
     mediaplayer: mediaplayerTranslations.en,
     music: musicTranslations.en,
@@ -177,6 +181,7 @@ const translations: Record<Language, Translations> = {
     pipedream: pipedreamTranslations.da,
     hearts: heartsTranslations.da,
     skifree: skifreeTranslations.da,
+    nibbles: nibblesTranslations.da,
     matador: matadorTranslations.da,
     mediaplayer: mediaplayerTranslations.da,
     music: musicTranslations.da,

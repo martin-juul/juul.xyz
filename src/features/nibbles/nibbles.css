@@ -1,0 +1,374 @@
+/* Windows 98 Nibbles Styles */
+
+.nibbles-container {
+  background: #c0c0c0;
+  padding: 0;
+  user-select: none;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Menu Bar */
+.nibbles-menu-bar {
+  display: flex;
+  padding: 2px 4px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  position: relative;
+}
+
+.nibbles-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.nibbles-menu-item:hover,
+.nibbles-menu-item.active {
+  background: #000080;
+  color: white;
+}
+
+/* Dropdown Menu */
+.nibbles-menu-trigger {
+  position: relative;
+}
+
+.nibbles-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-width: 140px;
+  padding: 2px 0;
+}
+
+.nibbles-dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.nibbles-dropdown-item:hover {
+  background: #000080;
+  color: white;
+}
+
+.nibbles-dropdown-item.checked {
+  font-weight: normal;
+}
+
+.nibbles-dropdown-check {
+  width: 16px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.nibbles-dropdown-text {
+  flex: 1;
+}
+
+.nibbles-dropdown-separator {
+  height: 1px;
+  background: #808080;
+  margin: 2px 4px;
+}
+
+/* Game Area */
+.nibbles-game-area {
+  margin: 6px;
+  padding: 6px;
+  background: #c0c0c0;
+  border: 3px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+/* Controls Panel */
+.nibbles-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  background: #ffffff;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.nibbles-stats {
+  display: flex;
+  gap: 16px;
+}
+
+.nibbles-stat {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.nibbles-stat-label {
+  color: #000080;
+  font-weight: normal;
+}
+
+.nibbles-stat-value {
+  font-weight: bold;
+  color: #000000;
+  min-width: 30px;
+}
+
+/* Timer Display */
+.nibbles-timer {
+  font-family: 'Digital', 'Consolas', 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000000;
+  padding: 2px 6px;
+  background: #ffffff;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  min-width: 50px;
+  text-align: center;
+}
+
+/* Game Grid */
+.nibbles-grid-container {
+  display: flex;
+  justify-content: center;
+  padding: 4px;
+  background: #000000;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.nibbles-grid {
+  display: grid;
+  grid-template-columns: repeat(25, 16px);
+  grid-template-rows: repeat(20, 16px);
+  gap: 0;
+  background: #000000;
+}
+
+.nibbles-cell {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  box-sizing: border-box;
+}
+
+/* Snake */
+.nibbles-snake {
+  background: #00ff00;
+  border: 1px solid #008000;
+}
+
+.nibbles-snake-head {
+  background: #00cc00;
+  border: 2px solid #006600;
+}
+
+/* Food */
+.nibbles-food {
+  background: #ff0000;
+  border-radius: 50%;
+  border: 1px solid #8b0000;
+  position: relative;
+}
+
+.nibbles-food::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  width: 4px;
+  height: 4px;
+  background: #00ff00;
+  border-radius: 50%;
+}
+
+.nibbles-food::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 9px;
+  width: 4px;
+  height: 3px;
+  background: rgba(0, 255, 0, 0.7);
+  border-radius: 50%;
+}
+
+/* Message Overlays */
+.nibbles-message-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 12px 20px;
+  text-align: center;
+  z-index: 100;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.nibbles-message-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.nibbles-message-text {
+  font-size: 12px;
+}
+
+.nibbles-message-gameover {
+  color: #ff0000;
+}
+
+.nibbles-message-paused {
+  color: #000080;
+}
+
+.nibbles-message-info {
+  color: #008000;
+}
+
+.nibbles-message-idle {
+  color: #000000;
+}
+
+/* Dialog */
+.nibbles-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.nibbles-dialog-header {
+  background: #000080;
+  color: white;
+  padding: 4px 8px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nibbles-dialog-close {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  width: 16px;
+  height: 14px;
+  font-size: 10px;
+  line-height: 10px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nibbles-dialog-close:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.nibbles-dialog-content {
+  padding: 16px;
+}
+
+.nibbles-dialog-title {
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.nibbles-dialog-rules {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.nibbles-dialog-rules li {
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.nibbles-dialog-footer {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid #808080;
+}
+
+.nibbles-button {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 4px 16px;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.nibbles-button:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 5px 15px 3px 17px;
+}
+
+/* High Score Dialog */
+.nibbles-highscore-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nibbles-highscore-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.nibbles-highscore-item:nth-child(odd) {
+  background: #ffffff;
+}
+
+.nibbles-highscore-item:nth-child(even) {
+  background: #e0e0e0;
+}
+
+.nibbles-highscore-rank {
+  font-weight: bold;
+  width: 30px;
+}
+
+.nibbles-highscore-score {
+  color: #000080;
+}
+
+.nibbles-highscore-date {
+  color: #808080;
+}

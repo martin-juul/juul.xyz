@@ -40,6 +40,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
     { page: 'pipedream', icon: '/assets/icons/pipedream.png' },
     { page: 'ludo', icon: '/assets/icons/ludo.png' },
     { page: 'skifree', icon: '/assets/icons/skifree.png' },
+    { page: 'nibbles', icon: '/assets/icons/nibbles.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -64,6 +65,7 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
       case 'pipedream': return t.nav.pipedream;
       case 'ludo': return t.nav.ludo;
       case 'skifree': return t.nav.skifree;
+      case 'nibbles': return t.nav.nibbles;
       case 'notfound': return t.notFound.windowTitle;
     }
   };

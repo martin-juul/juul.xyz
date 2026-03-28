@@ -31,6 +31,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     pipedream: 'pipe-dream',
     hearts: 'hearts',
     skifree: 'skifree',
+    nibbles: 'nibbles',
     notfound: 'not-found',
   },
   da: {
@@ -55,6 +56,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     pipedream: 'roerdroem',
     hearts: 'hjerter',
     skifree: 'skifri',
+    nibbles: 'nibbles',
     notfound: 'not-found',
   },
 };

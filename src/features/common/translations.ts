@@ -24,6 +24,7 @@ export const commonTranslations = {
       skifree: 'SkiFree',
       matador: 'Matador',
       mediaplayer: 'Windows Media Player',
+      nibbles: 'Nibbles',
     },
     footer: {
       builtWith: 'Built with Preact & 98.css',
@@ -60,6 +61,7 @@ export const commonTranslations = {
       skifree: 'SkiFree',
       matador: 'Matador',
       mediaplayer: 'Medieafspiller',
+      nibbles: 'Nibbles',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',
