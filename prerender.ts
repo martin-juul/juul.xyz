@@ -12,7 +12,7 @@ const DIST_DIR = join(__dirname, 'dist');
 
 // Types
 type Language = 'en' | 'da';
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'sudoku' | 'gallery' | 'jezzball' | 'pipedream' | 'hearts' | 'skifree' | 'matador' | 'notfound';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'sudoku' | 'gallery' | 'jezzball' | 'pipedream' | 'hearts' | 'skifree' | 'matador' | 'tetris' | 'notfound';
 
 const SITE_URL = 'https://www.juul.xyz';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/assets/avatar.png`;
@@ -38,6 +38,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     hearts: 'hearts',
     skifree: 'skifree',
     matador: 'matador',
+    tetris: 'tetris',
     notfound: 'not-found',
   },
   da: {
@@ -59,6 +60,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     hearts: 'hjerter',
     skifree: 'skifri',
     matador: 'matador',
+    tetris: 'tetris',
     notfound: 'not-found',
   },
 };

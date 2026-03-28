@@ -1,0 +1,250 @@
+/**
+ * Tetris Styling
+ * Windows 98 aesthetic
+ */
+
+.tetris-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 12px;
+}
+
+/* Menu Bar */
+.tetris-menu-bar {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+}
+
+.tetris-menu-item {
+  position: relative;
+}
+
+.tetris-menu-item button {
+  padding: 2px 8px;
+  background: #c0c0c0;
+  border: 1px solid #c0c0c0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.tetris-menu-item button:hover {
+  background: #000080;
+  color: white;
+}
+
+.tetris-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  z-index: 100;
+  box-shadow: 2px 2px 0 #000000;
+}
+
+.tetris-dropdown div {
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+.tetris-dropdown div:hover {
+  background: #000080;
+  color: white;
+}
+
+/* Game Area */
+.tetris-game-area {
+  display: flex;
+  flex: 1;
+  padding: 8px;
+  gap: 8px;
+  overflow: hidden;
+}
+
+/* Game Board */
+.tetris-board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  gap: 1px;
+  background: #000;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 2px;
+  aspect-ratio: 10 / 20;
+}
+
+.tetris-cell {
+  background: #000;
+  border: 1px solid #1a1a1a;
+}
+
+.tetris-piece,
+.tetris-locked {
+  border: 2px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  box-sizing: border-box;
+}
+
+.tetris-ghost {
+  border: 1px dashed rgba(255, 255, 255, 0.5);
+}
+
+/* Side Panel */
+.tetris-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 120px;
+}
+
+.tetris-section-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #000;
+}
+
+.tetris-next-section,
+.tetris-stats-section {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 8px;
+}
+
+.tetris-next-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: 4px;
+}
+
+.tetris-next-cell {
+  aspect-ratio: 1;
+  background: #000;
+  border: 1px solid #1a1a1a;
+}
+
+.tetris-next-piece {
+  border: 2px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  box-sizing: border-box;
+}
+
+.tetris-stat-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000080;
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* Overlay */
+.tetris-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.tetris-overlay-content {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 16px;
+  text-align: center;
+  min-width: 200px;
+}
+
+.tetris-overlay-content h2 {
+  margin: 0 0 8px 0;
+  color: #000080;
+}
+
+.tetris-overlay-content p {
+  margin: 8px 0;
+}
+
+.tetris-overlay-content button {
+  margin-top: 12px;
+  padding: 4px 16px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.tetris-overlay-content button:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+/* Dialog */
+.tetris-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.tetris-dialog-content {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 16px;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.tetris-dialog-content h2 {
+  margin: 0 0 12px 0;
+  color: #000080;
+}
+
+.tetris-dialog-content p {
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+.tetris-controls-list {
+  margin: 12px 0;
+  line-height: 1.8;
+}
+
+.tetris-stats-list {
+  margin: 12px 0;
+  line-height: 1.8;
+}
+
+.tetris-dialog-content button {
+  margin-top: 12px;
+  padding: 4px 16px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.tetris-dialog-content button:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}

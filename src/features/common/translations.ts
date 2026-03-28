@@ -25,6 +25,7 @@ export const commonTranslations = {
       matador: 'Matador',
       mediaplayer: 'Windows Media Player',
       nibbles: 'Nibbles',
+      tetris: 'Tetris',
     },
     footer: {
       builtWith: 'Built with Preact & 98.css',
@@ -62,6 +63,7 @@ export const commonTranslations = {
       matador: 'Matador',
       mediaplayer: 'Medieafspiller',
       nibbles: 'Nibbles',
+      tetris: 'Tetris',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',

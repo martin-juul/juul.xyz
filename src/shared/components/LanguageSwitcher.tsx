@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { useLanguage } from '../../context/language-context';
 import { type Language } from '../../lib/i18n-routing';
 
 export function LanguageSwitcher() {
-  const { language, setLanguage } = useLanguage();
+  const {language, setLanguage} = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 

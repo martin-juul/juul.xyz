@@ -52,6 +52,7 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   gallery: 'shimgvw.exe',
   matador: 'matador.exe',
   mediaplayer: 'mplayer2.exe',
+  tetris: 'tetris.exe',
   notfound: 'explorer.exe',
 };
 

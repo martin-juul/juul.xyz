@@ -27,6 +27,7 @@ import { matadorTranslations } from '../features/matador';
 import { heartsTranslations } from '../features/hearts';
 import { skifreeTranslations } from '../features/skifree';
 import { nibblesTranslations } from '../features/nibbles';
+import { tetrisTranslations } from '../features/tetris';
 import { mediaplayerTranslations } from '../features/mediaplayer';
 import { musicTranslations } from '../features/music';
 
@@ -56,6 +57,7 @@ type Translations = {
     nibbles: string;
     matador: string;
     mediaplayer: string;
+    tetris: string;
   };
   home: {
     title: string;
@@ -125,6 +127,7 @@ type Translations = {
   matador: typeof matadorTranslations.en;
   mediaplayer: typeof mediaplayerTranslations.en;
   music: typeof musicTranslations.en;
+  tetris: typeof tetrisTranslations.en;
 };
 
 const translations: Record<Language, Translations> = {
@@ -156,6 +159,7 @@ const translations: Record<Language, Translations> = {
     matador: matadorTranslations.en,
     mediaplayer: mediaplayerTranslations.en,
     music: musicTranslations.en,
+    tetris: tetrisTranslations.en,
   },
   da: {
     ...commonTranslations.da,
@@ -185,6 +189,7 @@ const translations: Record<Language, Translations> = {
     matador: matadorTranslations.da,
     mediaplayer: mediaplayerTranslations.da,
     music: musicTranslations.da,
+    tetris: tetrisTranslations.da,
   },
 };
 
