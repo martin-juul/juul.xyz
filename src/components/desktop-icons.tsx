@@ -34,6 +34,9 @@ export function DesktopIcons({ onNavigate, openWindowPages, onOpenTaskManager }:
     { page: 'gallery' as Page, icon: '/assets/icons/gallery.png' },
     { page: 'matador' as Page, icon: '/assets/icons/matador.png' },
     { page: 'mediaplayer' as Page, icon: '/assets/icons/mediaplayer.png' },
+    { page: 'hearts' as Page, icon: '/assets/icons/hearts.png' },
+    { page: 'ludo' as Page, icon: '/assets/icons/ludo.png' },
+    { page: 'skifree' as Page, icon: '/assets/icons/skifree.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -55,6 +58,9 @@ export function DesktopIcons({ onNavigate, openWindowPages, onOpenTaskManager }:
       case 'pipedream': return t.nav.pipedream;
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
+      case 'hearts': return t.nav.hearts;
+      case 'ludo': return t.nav.ludo;
+      case 'skifree': return t.nav.skifree;
       case 'notfound': return t.notFound.windowTitle;
     }
   };

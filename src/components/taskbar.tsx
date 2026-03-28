@@ -58,6 +58,9 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       case 'jezzball': return t.nav.jezzball;
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
+      case 'hearts': return t.nav.hearts;
+      case 'pipedream': return t.nav.pipedream;
+      case 'skifree': return t.nav.skifree;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -82,6 +85,9 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       case 'jezzball': return '/assets/icons/jezzball.png';
       case 'matador': return '/assets/icons/matador.png';
       case 'mediaplayer': return '/assets/icons/mediaplayer.png';
+      case 'hearts': return '/assets/icons/hearts.png';
+      case 'pipedream': return '/assets/icons/pipedream.png';
+      case 'skifree': return '/assets/icons/skifree.png';
       case 'notfound': return '/assets/icons/windows.png';
     }
   };

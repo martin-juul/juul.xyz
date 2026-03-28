@@ -35,6 +35,11 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
     { page: 'gallery', icon: '/assets/icons/gallery.png' },
     { page: 'matador', icon: '/assets/icons/matador.png' },
     { page: 'mediaplayer', icon: '/assets/icons/mediaplayer.png' },
+    { page: 'chips', icon: '/assets/icons/chips.png' },
+    { page: 'jezzball', icon: '/assets/icons/jezzball.png' },
+    { page: 'pipedream', icon: '/assets/icons/pipedream.png' },
+    { page: 'ludo', icon: '/assets/icons/ludo.png' },
+    { page: 'skifree', icon: '/assets/icons/skifree.png' },
   ];
 
   const getPageLabel = (page: Page) => {
@@ -54,6 +59,11 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
       case 'sudoku': return t.nav.sudoku;
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
+      case 'chips': return t.nav.chips;
+      case 'jezzball': return t.nav.jezzball;
+      case 'pipedream': return t.nav.pipedream;
+      case 'ludo': return t.nav.ludo;
+      case 'skifree': return t.nav.skifree;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
