@@ -47,6 +47,7 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   jezzball: 'jezzball.exe',
   pipedream: 'pipedream.exe',
   hearts: 'hearts.exe',
+  skifree: 'skifree.exe',
   gallery: 'shimgvw.exe',
   matador: 'matador.exe',
   mediaplayer: 'mplayer2.exe',

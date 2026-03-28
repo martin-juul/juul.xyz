@@ -30,6 +30,7 @@ const Chip = lazy(() => import('./features/chips').then(m => ({ default: m.Chip 
 const Jezzball = lazy(() => import('./features/jezzball').then(m => ({ default: m.Jezzball })));
 const PipeDream = lazy(() => import('./features/pipedream').then(m => ({ default: m.PipeDream })));
 const Hearts = lazy(() => import('./features/hearts').then(m => ({ default: m.Hearts })));
+const Skifree = lazy(() => import('./features/skifree').then(m => ({ default: m.Skifree })));
 
 type WindowData = {
   id: string;
@@ -94,6 +95,8 @@ function AppContent() {
         return { width: 700, height: 600 };
       case 'hearts':
         return { width: 700, height: 550 };
+      case 'skifree':
+        return { width: 450, height: 650 };
       case 'mediaplayer':
         return { width: 480, height: 400 };
       default:
@@ -471,6 +474,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'jezzball': return t.nav.jezzball;
       case 'pipedream': return t.nav.pipedream;
       case 'hearts': return t.nav.hearts;
+      case 'skifree': return t.nav.skifree;
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
       case 'notfound': return t.notFound.windowTitle;
@@ -496,6 +500,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'jezzball': return <Suspense fallback={null}><Jezzball /></Suspense>;
       case 'pipedream': return <Suspense fallback={null}><PipeDream /></Suspense>;
       case 'hearts': return <Suspense fallback={null}><Hearts /></Suspense>;
+      case 'skifree': return <Suspense fallback={null}><Skifree /></Suspense>;
       case 'ludo': return <div style="padding: 20px">Ludo game coming soon!</div>;
       case 'matador': return <Suspense fallback={null}><Matador language={language} /></Suspense>;
       case 'mediaplayer': return <MediaPlayer />;

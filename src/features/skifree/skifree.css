@@ -1,0 +1,194 @@
+.skifree-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #dfdfdf #000 #000 #dfdfdf;
+}
+
+.skifree-menu-bar {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+}
+
+.skifree-menu-trigger {
+  position: relative;
+}
+
+.skifree-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.skifree-menu-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.skifree-menu-item.active {
+  background: #000080;
+  color: #fff;
+}
+
+.skifree-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #dfdfdf #000 #000 #dfdfdf;
+  z-index: 1000;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.skifree-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 4px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.skifree-dropdown-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.skifree-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.skifree-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.skifree-stats {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.skifree-stat {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.skifree-stat-label {
+  font-weight: bold;
+}
+
+.skifree-stat-value {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+.skifree-new-btn {
+  padding: 4px 16px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #dfdfdf #000 #000 #dfdfdf;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.skifree-new-btn:active {
+  border-color: #000 #dfdfdf #dfdfdf #000;
+}
+
+.skifree-instructions {
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #fff;
+  border: 2px solid;
+  border-color: #dfdfdf #000 #000 #dfdfdf;
+  font-size: 13px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.skifree-instructions h3 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+}
+
+.skifree-instructions p {
+  margin: 4px 0;
+}
+
+.skifree-instructions ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.skifree-instructions li {
+  margin: 2px 0;
+}
+
+.skifree-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 16px 24px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #dfdfdf #000 #000 #dfdfdf;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.skifree-message-start {
+  background: #ffff00;
+  color: #000;
+}
+
+.skifree-message-gameover {
+  background: #ff0000;
+  color: #fff;
+}
+
+.skifree-message-yeti {
+  background: #800080;
+  color: #fff;
+}
+
+.skifree-canvas-container {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  overflow: hidden;
+}
+
+.skifree-canvas {
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  cursor: crosshair;
+  image-rendering: pixelated;
+}

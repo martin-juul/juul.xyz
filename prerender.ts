@@ -12,7 +12,7 @@ const DIST_DIR = join(__dirname, 'dist');
 
 // Types
 type Language = 'en' | 'da';
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'sudoku' | 'gallery' | 'jezzball' | 'pipedream' | 'hearts' | 'matador' | 'notfound';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'sudoku' | 'gallery' | 'jezzball' | 'pipedream' | 'hearts' | 'skifree' | 'matador' | 'notfound';
 
 const SITE_URL = 'https://www.juul.xyz';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/assets/avatar.png`;
@@ -36,6 +36,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     jezzball: 'jezzball',
     pipedream: 'pipe-dream',
     hearts: 'hearts',
+    skifree: 'skifree',
     matador: 'matador',
     notfound: 'not-found',
   },
@@ -56,6 +57,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     jezzball: 'jezzball',
     pipedream: 'roerdroem',
     hearts: 'hjerter',
+    skifree: 'skifri',
     matador: 'matador',
     notfound: 'not-found',
   },
@@ -206,6 +208,16 @@ const pageMeta: Record<string, Record<Language, { title: string; description: st
     da: {
       title: 'Sudoku - Martin Christiansen',
       description: 'Klassisk Sudoku puslespil',
+    },
+  },
+  skifree: {
+    en: {
+      title: 'SkiFree - Martin Christiansen',
+      description: 'Classic SkiFree skiing game - avoid obstacles and the Yeti!',
+    },
+    da: {
+      title: 'SkiFree - Martin Christiansen',
+      description: 'Klassisk SkiFree skispil - undgå forhindringer og Yetien!',
     },
   },
   notfound: {
@@ -374,7 +386,7 @@ function generateStaticRoutes(): Route[] {
   const routes: Route[] = [];
   const staticPages: Page[] = [
     'home', 'projects', 'resume', 'contact', 'music',
-    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'sudoku', 'gallery', 'jezzball', 'pipedream', 'hearts', 'matador', 'notfound',
+    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'sudoku', 'gallery', 'jezzball', 'pipedream', 'hearts', 'skifree', 'matador', 'notfound',
   ];
   const languages: Language[] = ['en', 'da'];
 
