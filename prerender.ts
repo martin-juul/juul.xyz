@@ -12,7 +12,7 @@ const DIST_DIR = join(__dirname, 'dist');
 
 // Types
 type Language = 'en' | 'da';
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'sudoku' | 'gallery' | 'jezzball' | 'pipedream' | 'matador' | 'notfound';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'sudoku' | 'gallery' | 'jezzball' | 'pipedream' | 'hearts' | 'matador' | 'notfound';
 
 const SITE_URL = 'https://www.juul.xyz';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/assets/avatar.png`;
@@ -35,6 +35,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     gallery: 'gallery',
     jezzball: 'jezzball',
     pipedream: 'pipe-dream',
+    hearts: 'hearts',
     matador: 'matador',
     notfound: 'not-found',
   },
@@ -54,6 +55,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     gallery: 'billedgalleri',
     jezzball: 'jezzball',
     pipedream: 'roerdroem',
+    hearts: 'hjerter',
     matador: 'matador',
     notfound: 'not-found',
   },
@@ -372,7 +374,7 @@ function generateStaticRoutes(): Route[] {
   const routes: Route[] = [];
   const staticPages: Page[] = [
     'home', 'projects', 'resume', 'contact', 'music',
-    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'sudoku', 'gallery', 'jezzball', 'pipedream', 'matador', 'notfound',
+    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'sudoku', 'gallery', 'jezzball', 'pipedream', 'hearts', 'matador', 'notfound',
   ];
   const languages: Language[] = ['en', 'da'];
 

@@ -24,6 +24,7 @@ import { ludoTranslations } from '../features/ludo';
 import { jezzballTranslations } from '../features/jezzball';
 import { pipedreamTranslations } from '../features/pipedream';
 import { matadorTranslations } from '../features/matador';
+import { heartsTranslations } from '../features/hearts';
 import { mediaplayerTranslations } from '../features/mediaplayer';
 import { musicTranslations } from '../features/music';
 
@@ -48,6 +49,7 @@ type Translations = {
     gallery: string;
     jezzball: string;
     pipedream: string;
+    hearts: string;
     matador: string;
     mediaplayer: string;
   };
@@ -113,6 +115,7 @@ type Translations = {
   ludo: typeof ludoTranslations.en;
   jezzball: typeof jezzballTranslations.en;
   pipedream: typeof pipedreamTranslations.en;
+  hearts: typeof heartsTranslations.en;
   matador: typeof matadorTranslations.en;
   mediaplayer: typeof mediaplayerTranslations.en;
   music: typeof musicTranslations.en;
@@ -141,6 +144,7 @@ const translations: Record<Language, Translations> = {
     ludo: ludoTranslations.en,
     jezzball: jezzballTranslations.en,
     pipedream: pipedreamTranslations.en,
+    hearts: heartsTranslations.en,
     matador: matadorTranslations.en,
     mediaplayer: mediaplayerTranslations.en,
     music: musicTranslations.en,
@@ -167,6 +171,7 @@ const translations: Record<Language, Translations> = {
     ludo: ludoTranslations.da,
     jezzball: jezzballTranslations.da,
     pipedream: pipedreamTranslations.da,
+    hearts: heartsTranslations.da,
     matador: matadorTranslations.da,
     mediaplayer: mediaplayerTranslations.da,
     music: musicTranslations.da,

@@ -1,0 +1,321 @@
+/* Windows 98 Hearts Styles */
+
+.hearts-container {
+  background: #006400; /* Dark green felt */
+  padding: 0;
+  user-select: none;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Menu */
+.hearts-menu {
+  display: flex;
+  padding: 2px 4px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  gap: 4px;
+}
+
+.hearts-btn {
+  padding: 4px 12px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.hearts-btn:hover {
+  background: #000080;
+  color: white;
+}
+
+.hearts-btn:disabled {
+  color: #808080;
+  cursor: not-allowed;
+}
+
+.hearts-btn:disabled:hover {
+  background: #c0c0c0;
+  color: #808080;
+}
+
+/* Passing UI */
+.hearts-passing-ui {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+}
+
+.hearts-passing-info p {
+  margin: 0;
+  padding: 2px 0;
+}
+
+.hearts-pass-btn {
+  padding: 4px 16px;
+}
+
+/* Table Layout */
+.hearts-table {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.hearts-trick-area {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hearts-trick-card {
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+.hearts-trick-north {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hearts-trick-south {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hearts-trick-west {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hearts-trick-east {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hearts-trick-empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  font-size: 12px;
+}
+
+/* AI Players */
+.hearts-ai-player {
+  position: absolute;
+  text-align: center;
+  color: white;
+  padding: 8px;
+  transition: all 0.3s ease;
+}
+
+.hearts-ai-player.active {
+  box-shadow: 0 0 10px 3px rgba(255, 255, 0, 0.5);
+  border-radius: 8px;
+}
+
+.hearts-player-north {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hearts-player-west {
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hearts-player-east {
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hearts-player-name {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.hearts-player-score {
+  font-size: 11px;
+  font-weight: normal;
+  color: #ffff00;
+}
+
+.hearts-cards-count {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* South (Human) Player */
+.hearts-south-player {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+}
+
+.hearts-player-hand {
+  display: flex;
+  justify-content: center;
+  gap: -20px; /* Overlap cards */
+  margin-top: 8px;
+}
+
+.hearts-player-hand > div {
+  margin-left: -20px;
+}
+
+.hearts-player-hand > div:first-child {
+  margin-left: 0;
+}
+
+/* Cards */
+.hearts-card {
+  width: 55px;
+  height: 78px;
+  background: white;
+  border: 1px solid #000;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  font-family: 'Times New Roman', serif;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.hearts-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.hearts-card.selected {
+  box-shadow: 0 0 8px 3px #ffff00;
+  transform: translateY(-10px);
+  z-index: 100;
+}
+
+.hearts-card.red {
+  color: #cc0000;
+}
+
+.hearts-card.black {
+  color: #000000;
+}
+
+.hearts-card-rank {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.hearts-card-suit {
+  font-size: 24px;
+  line-height: 1;
+}
+
+/* Small cards for trick area */
+.hearts-card-small {
+  width: 45px;
+  height: 64px;
+  font-size: 0.9em;
+}
+
+.hearts-card-small .hearts-card-rank {
+  font-size: 12px;
+}
+
+.hearts-card-small .hearts-card-suit {
+  font-size: 20px;
+}
+
+/* Scoreboard */
+.hearts-scoreboard-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.hearts-scoreboard {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 16px;
+  min-width: 300px;
+}
+
+.hearts-scoreboard h2 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.hearts-scoreboard table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+
+.hearts-scoreboard th,
+.hearts-scoreboard td {
+  padding: 6px 8px;
+  text-align: left;
+  border: 1px solid #808080;
+}
+
+.hearts-scoreboard th {
+  background: #000080;
+  color: white;
+}
+
+.hearts-winner-message {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #006400;
+}
+
+.hearts-scoreboard button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+}

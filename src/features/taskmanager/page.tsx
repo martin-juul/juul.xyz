@@ -46,6 +46,7 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   ludo: 'ludo.exe',
   jezzball: 'jezzball.exe',
   pipedream: 'pipedream.exe',
+  hearts: 'hearts.exe',
   gallery: 'shimgvw.exe',
   matador: 'matador.exe',
   mediaplayer: 'mplayer2.exe',
