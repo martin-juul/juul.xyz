@@ -27,6 +27,7 @@ const Solitaire = lazy(() => import('./features/solitaire').then(m => ({ default
 const Matador = lazy(() => import('./features/matador').then(m => ({ default: m.Matador })));
 const Sudoku = lazy(() => import('./features/sudoku').then(m => ({ default: m.Sudoku })));
 const Jezzball = lazy(() => import('./features/jezzball').then(m => ({ default: m.Jezzball })));
+const PipeDream = lazy(() => import('./features/pipedream').then(m => ({ default: m.PipeDream })));
 
 type WindowData = {
   id: string;
@@ -83,6 +84,8 @@ function AppContent() {
         return { width: 400, height: 520 };
       case 'jezzball':
         return { width: 600, height: 450 };
+      case 'pipedream':
+        return { width: 480, height: 580 };
       case 'matador':
         return { width: 700, height: 600 };
       case 'mediaplayer':
@@ -225,6 +228,8 @@ function AppContent() {
         return { width: 350, height: 460 };
       case 'jezzball':
         return { width: 500, height: 380 };
+      case 'pipedream':
+        return { width: 400, height: 500 };
       case 'matador':
         return { width: 600, height: 500 };
       case 'mediaplayer':
@@ -453,6 +458,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'sudoku': return t.nav.sudoku;
       case 'ludo': return t.nav.ludo;
       case 'jezzball': return t.nav.jezzball;
+      case 'pipedream': return t.nav.pipedream;
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
       case 'notfound': return t.notFound.windowTitle;
@@ -475,6 +481,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'gallery': return <Gallery />;
       case 'sudoku': return <Suspense fallback={null}><Sudoku /></Suspense>;
       case 'jezzball': return <Suspense fallback={null}><Jezzball /></Suspense>;
+      case 'pipedream': return <Suspense fallback={null}><PipeDream /></Suspense>;
       case 'ludo': return <div style="padding: 20px">Ludo game coming soon!</div>;
       case 'matador': return <Suspense fallback={null}><Matador language={language} /></Suspense>;
       case 'mediaplayer': return <MediaPlayer />;

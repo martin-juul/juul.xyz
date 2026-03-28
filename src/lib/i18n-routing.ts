@@ -27,6 +27,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     matador: 'matador',
     mediaplayer: 'media-player',
     jezzball: 'jezzball',
+    pipedream: 'pipe-dream',
     notfound: 'not-found',
   },
   da: {
@@ -47,6 +48,7 @@ export const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     matador: 'matador',
     mediaplayer: 'medieafspiller',
     jezzball: 'jezzball',
+    pipedream: 'roerdroem',
     notfound: 'not-found',
   },
 };

@@ -18,6 +18,7 @@ export const commonTranslations = {
       gallery: 'Image Gallery',
       ludo: 'Ludo',
       jezzball: 'Jezzball',
+      pipedream: 'Pipe Dream',
       matador: 'Matador',
       mediaplayer: 'Windows Media Player',
     },
@@ -50,8 +51,9 @@ export const commonTranslations = {
       gallery: 'Billedgalleri',
       ludo: 'Ludo',
       jezzball: 'Jezzball',
+      pipedream: 'Rødrøm',
       matador: 'Matador',
-      mediaplayer: 'Windows Media Player',
+      mediaplayer: 'Medieafspiller',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',
