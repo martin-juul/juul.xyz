@@ -1,0 +1,552 @@
+.chips-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 12px;
+  user-select: none;
+}
+
+/* Menu bar */
+.chips-menu-bar {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+}
+
+.chips-menu-bar .menu-item {
+  position: relative;
+}
+
+.chips-menu-bar button {
+  padding: 2px 8px;
+  background: #c0c0c0;
+  border: 1px solid #c0c0c0;
+  border-top-color: #dfdfdf;
+  border-left-color: #dfdfdf;
+  border-right-color: #000;
+  border-bottom-color: #000;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.chips-menu-bar button:active,
+.chips-menu-bar button.active {
+  border: 1px solid #000;
+  border-top-color: #808080;
+  border-left-color: #808080;
+  border-right-color: #dfdfdf;
+  border-bottom-color: #dfdfdf;
+}
+
+.chips-menu-bar .menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  background: #c0c0c0;
+  border: 1px solid #000;
+  border-top-color: #808080;
+  border-left-color: #808080;
+  border-right-color: #dfdfdf;
+  border-bottom-color: #dfdfdf;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+
+.chips-menu-bar .menu-dropdown .menu-item {
+  padding: 4px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chips-menu-bar .menu-dropdown .menu-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.chips-menu-bar .menu-dropdown .menu-item.selected {
+  font-weight: bold;
+}
+
+.chips-menu-bar .menu-dropdown .menu-item.selected::before {
+  content: '✓ ';
+  margin-right: 4px;
+}
+
+/* Game area */
+.chips-game-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: auto;
+  position: relative;
+}
+
+.chips-grid {
+  display: inline-grid;
+  gap: 0;
+  background: #000;
+  border: 2px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* Tiles */
+.chips-tile {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 1px solid #808080;
+}
+
+.chips-tile-empty {
+  background: #000;
+}
+
+.chips-tile-floor {
+  background: #c0c0c0;
+  border-color: #a0a0a0;
+}
+
+.chips-tile-wall {
+  background: #808080;
+  border-color: #606060;
+  background-image: linear-gradient(45deg, #707070 25%, transparent 25%),
+                    linear-gradient(-45deg, #707070 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, #707070 75%),
+                    linear-gradient(-45deg, transparent 75%, #707070 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
+}
+
+.chips-tile-ice_wall {
+  background: #a0c0e0;
+  border-color: #80a0c0;
+  background-image: linear-gradient(45deg, #90b0d0 25%, transparent 25%),
+                    linear-gradient(-45deg, #90b0d0 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, #90b0d0 75%),
+                    linear-gradient(-45deg, transparent 75%, #90b0d0 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
+}
+
+.chips-tile-ice {
+  background: #c0e0f0;
+  border-color: #a0c0e0;
+  animation: chips-glow 2s ease-in-out infinite;
+}
+
+@keyframes chips-glow {
+  0%, 100% { background: #c0e0f0; }
+  50% { background: #d0f0ff; }
+}
+
+.chips-tile-water {
+  background: #0000ff;
+  border-color: #0000cc;
+  animation: chips-water 1s ease-in-out infinite;
+}
+
+@keyframes chips-water {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.chips-tile-fire {
+  background: #ff4400;
+  border-color: #cc3300;
+  animation: chips-fire 0.5s ease-in-out infinite;
+}
+
+@keyframes chips-fire {
+  0%, 100% { background: #ff4400; }
+  50% { background: #ff6600; }
+}
+
+.chips-tile-gravel {
+  background: #888;
+  border-color: #666;
+  background-image: radial-gradient(circle, #999 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.chips-tile-dirty {
+  background: #8b7355;
+  border-color: #6b5345;
+}
+
+.chips-tile-hint {
+  background: #ffff00;
+  border-color: #cccc00;
+}
+
+/* Doors */
+.chips-tile-door_red {
+  background: #cc0000;
+  border-color: #990000;
+}
+
+.chips-tile-door_blue {
+  background: #0000cc;
+  border-color: #000099;
+}
+
+.chips-tile-door_green {
+  background: #008800;
+  border-color: #006600;
+}
+
+.chips-tile-door_yellow {
+  background: #cccc00;
+  border-color: #999900;
+}
+
+/* Keys */
+.chips-tile-key_red .chips-key {
+  color: #ff0000;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.chips-tile-key_blue .chips-key {
+  color: #4444ff;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.chips-tile-key_green .chips-key {
+  color: #00cc00;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.chips-tile-key_yellow .chips-key {
+  color: #cccc00;
+  text-shadow: 1px 1px 0 #000;
+}
+
+/* Boots */
+.chips-tile-boots_ice .chips-boots {
+  color: #00ccff;
+}
+
+.chips-tile-boots_water .chips-boots {
+  color: #0044cc;
+}
+
+.chips-tile-boots_fire .chips-boots {
+  color: #ff6600;
+}
+
+/* Exit */
+.chips-tile-exit {
+  background: #c0c0c0;
+}
+
+.chips-tile-exit .chips-exit {
+  color: #00aa00;
+  font-size: 16px;
+}
+
+/* Player */
+.chips-player {
+  position: relative;
+  z-index: 10;
+}
+
+.chips-player-sprite {
+  position: absolute;
+  font-size: 18px;
+  animation: chips-bounce 0.3s ease-in-out;
+}
+
+@keyframes chips-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Chip item */
+.chips-chip {
+  color: #ffd700;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 12px;
+  animation: chips-sparkle 1s ease-in-out infinite;
+}
+
+@keyframes chips-sparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(180deg); }
+}
+
+/* Overlays */
+.chips-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.chips-message {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-top-color: #dfdfdf;
+  border-left-color: #dfdfdf;
+  border-right-color: #000;
+  border-bottom-color: #000;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+  min-width: 250px;
+}
+
+.chips-message h2 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  color: #000;
+}
+
+.chips-message p {
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.chips-hint {
+  color: #000080;
+  font-style: italic;
+  margin-top: 16px !important;
+}
+
+.chips-win {
+  border-color: #00aa00;
+}
+
+.chips-win h2 {
+  color: #00aa00;
+}
+
+.chips-lose {
+  border-color: #cc0000;
+}
+
+.chips-lose h2 {
+  color: #cc0000;
+}
+
+.chips-message button {
+  margin: 8px 4px;
+  padding: 6px 16px;
+  background: #c0c0c0;
+  border: 1px solid #000;
+  border-top-color: #fff;
+  border-left-color: #fff;
+  border-bottom-color: #808080;
+  border-right-color: #808080;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.chips-message button:active {
+  border: 1px solid #000;
+  border-top-color: #808080;
+  border-left-color: #808080;
+  border-bottom-color: #fff;
+  border-right-color: #fff;
+}
+
+/* Inventory */
+.chips-inventory {
+  display: flex;
+  gap: 16px;
+  padding: 8px;
+  background: #c0c0c0;
+  border-top: 1px solid #808080;
+}
+
+.chips-inventory-section {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chips-inventory-label {
+  font-weight: bold;
+  color: #000;
+}
+
+.chips-key-inventory {
+  font-size: 14px;
+}
+
+.chips-key-inventory.chips-key-red {
+  color: #cc0000;
+}
+
+.chips-key-inventory.chips-key-blue {
+  color: #4444ff;
+}
+
+.chips-key-inventory.chips-key-green {
+  color: #00aa00;
+}
+
+.chips-key-inventory.chips-key-yellow {
+  color: #aaaa00;
+}
+
+.chips-boot-inventory {
+  font-size: 14px;
+}
+
+.chips-boot-inventory.chips-boot-ice {
+  color: #00ccff;
+}
+
+.chips-boot-inventory.chips-boot-water {
+  color: #0044cc;
+}
+
+.chips-boot-inventory.chips-boot-fire {
+  color: #ff6600;
+}
+
+.chips-empty {
+  color: #808080;
+  font-style: italic;
+}
+
+/* Modal */
+.chips-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.chips-modal-content {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-top-color: #dfdfdf;
+  border-left-color: #dfdfdf;
+  border-right-color: #000;
+  border-bottom-color: #000;
+  padding: 20px;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.chips-modal-content h2 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+}
+
+.chips-modal-content p {
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.chips-modal-content ul {
+  margin: 8px 0;
+  padding-left: 20px;
+  font-size: 12px;
+}
+
+.chips-modal-content li {
+  margin: 4px 0;
+}
+
+.chips-controls {
+  margin: 16px 0;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.chips-controls h3 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+}
+
+.chips-controls p {
+  margin: 4px 0;
+  font-size: 11px;
+}
+
+.chips-modal-content button {
+  margin-top: 16px;
+  padding: 6px 16px;
+  background: #c0c0c0;
+  border: 1px solid #000;
+  border-top-color: #fff;
+  border-left-color: #fff;
+  border-bottom-color: #808080;
+  border-right-color: #808080;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.chips-modal-content button:active {
+  border: 1px solid #000;
+  border-top-color: #808080;
+  border-left-color: #808080;
+  border-bottom-color: #fff;
+  border-right-color: #fff;
+}
+
+/* Tutorial section */
+.chips-tutorial {
+  margin-top: 16px;
+  text-align: left;
+  max-width: 400px;
+}
+
+.chips-tutorial h3 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.chips-tutorial > p {
+  margin: 8px 0;
+  font-size: 11px;
+}
+
+.chips-legend {
+  margin: 12px 0;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.chips-legend p {
+  margin: 4px 0;
+  font-size: 11px;
+}
+
+.chips-legend strong {
+  font-size: 12px;
+}

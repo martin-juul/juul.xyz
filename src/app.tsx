@@ -26,6 +26,7 @@ const Spider = lazy(() => import('./features/spider').then(m => ({ default: m.Sp
 const Solitaire = lazy(() => import('./features/solitaire').then(m => ({ default: m.Solitaire })));
 const Matador = lazy(() => import('./features/matador').then(m => ({ default: m.Matador })));
 const Sudoku = lazy(() => import('./features/sudoku').then(m => ({ default: m.Sudoku })));
+const Chip = lazy(() => import('./features/chips').then(m => ({ default: m.Chip })));
 const Jezzball = lazy(() => import('./features/jezzball').then(m => ({ default: m.Jezzball })));
 const PipeDream = lazy(() => import('./features/pipedream').then(m => ({ default: m.PipeDream })));
 
@@ -82,6 +83,8 @@ function AppContent() {
         return { width: 640, height: 480 };
       case 'sudoku':
         return { width: 400, height: 520 };
+      case 'chips':
+        return { width: 600, height: 550 };
       case 'jezzball':
         return { width: 600, height: 450 };
       case 'pipedream':
@@ -226,6 +229,8 @@ function AppContent() {
         return { width: 480, height: 360 };
       case 'sudoku':
         return { width: 350, height: 460 };
+      case 'chips':
+        return { width: 500, height: 450 };
       case 'jezzball':
         return { width: 500, height: 380 };
       case 'pipedream':
@@ -456,6 +461,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
       case 'sudoku': return t.nav.sudoku;
+      case 'chips': return t.nav.chips;
       case 'ludo': return t.nav.ludo;
       case 'jezzball': return t.nav.jezzball;
       case 'pipedream': return t.nav.pipedream;
@@ -480,6 +486,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'solitaire': return <Suspense fallback={null}><Solitaire /></Suspense>;
       case 'gallery': return <Gallery />;
       case 'sudoku': return <Suspense fallback={null}><Sudoku /></Suspense>;
+      case 'chips': return <Suspense fallback={null}><Chip /></Suspense>;
       case 'jezzball': return <Suspense fallback={null}><Jezzball /></Suspense>;
       case 'pipedream': return <Suspense fallback={null}><PipeDream /></Suspense>;
       case 'ludo': return <div style="padding: 20px">Ludo game coming soon!</div>;

@@ -52,6 +52,7 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       case 'spider': return t.nav.spider;
       case 'solitaire': return t.nav.solitaire;
       case 'sudoku': return t.nav.sudoku;
+      case 'chips': return t.nav.chips;
       case 'gallery': return t.nav.gallery;
       case 'ludo': return t.nav.ludo;
       case 'jezzball': return t.nav.jezzball;
@@ -75,6 +76,7 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       case 'spider': return '/assets/icons/spider.png';
       case 'solitaire': return '/assets/icons/solitaire.png';
       case 'sudoku': return '/assets/icons/sudoku.png';
+      case 'chips': return '/assets/icons/chips.png';
       case 'gallery': return '/assets/icons/gallery.png';
       case 'ludo': return '/assets/icons/windows.png';
       case 'jezzball': return '/assets/icons/jezzball.png';

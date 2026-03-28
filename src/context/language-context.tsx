@@ -19,6 +19,7 @@ import { freecellTranslations } from '../features/freecell';
 import { spiderTranslations } from '../features/spider';
 import { solitaireTranslations } from '../features/solitaire';
 import { sudokuTranslations } from '../features/sudoku';
+import { chipTranslations } from '../features/chips/translations';
 import { ludoTranslations } from '../features/ludo';
 import { jezzballTranslations } from '../features/jezzball';
 import { pipedreamTranslations } from '../features/pipedream';
@@ -42,6 +43,7 @@ type Translations = {
     spider: string;
     solitaire: string;
     sudoku: string;
+    chips: string;
     ludo: string;
     gallery: string;
     jezzball: string;
@@ -107,6 +109,7 @@ type Translations = {
   spider: typeof spiderTranslations.en;
   solitaire: typeof solitaireTranslations.en;
   sudoku: typeof sudokuTranslations.en;
+  chips: typeof chipTranslations.en;
   ludo: typeof ludoTranslations.en;
   jezzball: typeof jezzballTranslations.en;
   pipedream: typeof pipedreamTranslations.en;
@@ -134,6 +137,7 @@ const translations: Record<Language, Translations> = {
     spider: spiderTranslations.en,
     solitaire: solitaireTranslations.en,
     sudoku: sudokuTranslations.en,
+    chips: chipTranslations.en,
     ludo: ludoTranslations.en,
     jezzball: jezzballTranslations.en,
     pipedream: pipedreamTranslations.en,
@@ -159,6 +163,7 @@ const translations: Record<Language, Translations> = {
     spider: spiderTranslations.da,
     solitaire: solitaireTranslations.da,
     sudoku: sudokuTranslations.da,
+    chips: chipTranslations.da,
     ludo: ludoTranslations.da,
     jezzball: jezzballTranslations.da,
     pipedream: pipedreamTranslations.da,

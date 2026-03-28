@@ -28,6 +28,7 @@ export function DesktopIcons({ onNavigate, openWindowPages, onOpenTaskManager }:
     { page: 'spider' as Page, icon: '/assets/icons/spider.png' },
     { page: 'solitaire' as Page, icon: '/assets/icons/solitaire.png' },
     { page: 'sudoku' as Page, icon: '/assets/icons/sudoku.png' },
+    { page: 'chips' as Page, icon: '/assets/icons/chips.png' },
     { page: 'jezzball' as Page, icon: '/assets/icons/jezzball.png' },
     { page: 'pipedream' as Page, icon: '/assets/icons/pipedream.png' },
     { page: 'gallery' as Page, icon: '/assets/icons/gallery.png' },
@@ -49,6 +50,7 @@ export function DesktopIcons({ onNavigate, openWindowPages, onOpenTaskManager }:
       case 'solitaire': return t.nav.solitaire;
       case 'gallery': return t.nav.gallery;
       case 'sudoku': return t.nav.sudoku;
+      case 'chips': return t.nav.chips;
       case 'jezzball': return t.nav.jezzball;
       case 'pipedream': return t.nav.pipedream;
       case 'matador': return t.nav.matador;

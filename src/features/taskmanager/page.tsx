@@ -42,6 +42,7 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   spider: 'spider.exe',
   solitaire: 'sol.exe',
   sudoku: 'sudoku.exe',
+  chips: 'chips.exe',
   ludo: 'ludo.exe',
   jezzball: 'jezzball.exe',
   pipedream: 'pipedream.exe',
