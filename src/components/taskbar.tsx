@@ -54,6 +54,7 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       case 'sudoku': return t.nav.sudoku;
       case 'gallery': return t.nav.gallery;
       case 'ludo': return t.nav.ludo;
+      case 'jezzball': return t.nav.jezzball;
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
       case 'notfound': return t.notFound.windowTitle;
@@ -76,6 +77,7 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       case 'sudoku': return '/assets/icons/sudoku.png';
       case 'gallery': return '/assets/icons/gallery.png';
       case 'ludo': return '/assets/icons/windows.png';
+      case 'jezzball': return '/assets/icons/jezzball.png';
       case 'matador': return '/assets/icons/matador.png';
       case 'mediaplayer': return '/assets/icons/mediaplayer.png';
       case 'notfound': return '/assets/icons/windows.png';
