@@ -269,6 +269,41 @@
   animation: chips-bounce 0.3s ease-in-out;
 }
 
+/* Monsters */
+.chips-monster {
+  position: absolute;
+  font-size: 16px;
+  z-index: 5;
+  animation: chips-monster-bounce 0.5s ease-in-out infinite;
+}
+
+@keyframes chips-monster-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.chips-monster-monster_bug {
+  color: #00cc00;
+}
+
+.chips-monster-monster_fireball {
+  color: #ff6600;
+  animation: chips-fire 0.5s ease-in-out infinite;
+}
+
+.chips-monster-monster_ball {
+  color: #3366ff;
+}
+
+.chips-monster-monster_ghost {
+  color: #cccccc;
+  opacity: 0.8;
+}
+
+.chips-monster-monster_tank {
+  color: #888888;
+}
+
 @keyframes chips-bounce {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.1); }
@@ -549,4 +584,138 @@
 
 .chips-legend strong {
   font-size: 12px;
+}
+
+/* High scores modal */
+.chips-high-scores-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 16px 0;
+}
+
+.chips-high-score-entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #808080;
+  font-size: 11px;
+}
+
+.chips-high-score-entry:last-child {
+  border-bottom: none;
+}
+
+.chips-high-score-entry span:first-child {
+  font-weight: bold;
+  color: #000080;
+}
+
+/* New record indicator */
+.chips-new-record {
+  color: #00aa00;
+  font-weight: bold;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+/* Password section */
+.chips-password-current {
+  margin: 16px 0;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.chips-password-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.chips-password-display code {
+  flex: 1;
+  padding: 4px 8px;
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.chips-password-display button {
+  padding: 4px 8px;
+  font-size: 14px;
+  background: #c0c0c0;
+  border: 1px solid #000;
+  border-top-color: #fff;
+  border-left-color: #fff;
+  border-bottom-color: #808080;
+  border-right-color: #808080;
+  cursor: pointer;
+}
+
+.chips-password-input {
+  margin: 16px 0;
+}
+
+.chips-password-input input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #808080;
+  margin-top: 8px;
+}
+
+.chips-password-message {
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.chips-password-message.success {
+  color: #00aa00;
+}
+
+.chips-password-message.error {
+  color: #cc0000;
+}
+
+.chips-password-hint {
+  font-size: 11px;
+  color: #000080;
+  margin: 8px 0;
+}
+
+.chips-password-hint code {
+  padding: 2px 6px;
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+/* Level Editor Modal */
+.chips-editor-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #c0c0c0;
+  display: flex;
+  flex-direction: column;
+  z-index: 300;
+  padding: 0;
+}
+
+.chips-editor-modal > div {
+  width: 100%;
+  height: 100%;
 }

@@ -9,7 +9,13 @@ import {
   getLevel,
   LEVELS,
 } from './game-logic';
-import type { GameData, Direction } from './types';
+import { moveMonsters } from './monster-ai';
+import { playSound, initAudio, toggleSound, isSoundEnabled, preloadSounds } from './sounds';
+import { loadHighScores, updateHighScore, getLevelHighScore } from './statistics';
+import { saveGame, loadSavedGame, hasSavedGame as checkHasSavedGame, autoSaveGame } from './save-game';
+import { generatePassword, validatePassword } from './passwords';
+import { LevelEditor } from './editor';
+import type { GameData, Direction, HighScores, Level } from './types';
 import './chips.css';
 
 export function Chip() {
@@ -22,9 +28,18 @@ export function Chip() {
   );
   const [timer, setTimer] = useState(0);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [showHighScores, setShowHighScores] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showEditor, setShowEditor] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordMessage, setPasswordMessage] = useState('');
   const [activeMenu, setActiveMenu] = useState<'game' | 'level' | null>(null);
+  const [highScores, setHighScores] = useState<HighScores>({});
+  const [hasSavedGame, setHasSavedGame] = useState(false);
+  const [newRecordInfo, setNewRecordInfo] = useState<{ newRecord: boolean; newTimeRecord: boolean; newMovesRecord: boolean } | null>(null);
   const timerRef = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const audioInitialized = useRef(false);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -35,6 +50,31 @@ export function Chip() {
     };
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  // Initialize audio on first user interaction
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      if (!audioInitialized.current) {
+        initAudio();
+        preloadSounds();
+        audioInitialized.current = true;
+      }
+    };
+
+    document.addEventListener('click', handleUserInteraction);
+    document.addEventListener('keydown', handleUserInteraction);
+
+    return () => {
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+    };
+  }, []);
+
+  // Load high scores and saved game on mount
+  useEffect(() => {
+    setHighScores(loadHighScores());
+    setHasSavedGame(checkHasSavedGame());
   }, []);
 
   // Timer logic
@@ -76,6 +116,18 @@ export function Chip() {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  // Get monster sprite
+  function getMonsterSprite(type: string): string {
+    switch (type) {
+      case 'monster_bug': return '🐛';
+      case 'monster_fireball': return '🔥';
+      case 'monster_ball': return '⚽';
+      case 'monster_ghost': return '👻';
+      case 'monster_tank': return '🛡️';
+      default: return '👾';
+    }
   }
 
   // Start game
@@ -155,6 +207,7 @@ export function Chip() {
       const moveResult = tryMove(prev.grid, prev.playerPosition, direction, prev.inventory);
 
       if (moveResult.died) {
+        playSound('death');
         return {
           ...prev,
           gameState: 'lost' as const,
@@ -177,20 +230,34 @@ export function Chip() {
       // Collect key
       if (moveResult.keyCollected) {
         newInventory.keys = [...newInventory.keys, moveResult.keyCollected!];
+        playSound('keyPickup');
       }
 
       // Collect boot
       if (moveResult.bootCollected) {
         newInventory.boots = [...newInventory.boots, moveResult.bootCollected!];
+        playSound('bootPickup');
+      }
+
+      // Collect chip
+      if (moveResult.chipsCollected) {
+        playSound('collect');
+      }
+
+      // Open door
+      if (moveResult.doorOpened) {
+        playSound('doorOpen');
       }
 
       // Check for ice sliding
       if (moveResult.slippedOnIce) {
+        playSound('slide');
         const slideResult = handleIceSlide(newGrid, newPos, direction, newInventory);
         newGrid = slideResult.finalGrid;
         newPos = slideResult.finalPos;
 
         if (slideResult.died) {
+          playSound('death');
           return {
             ...prev,
             gameState: 'lost' as const,
@@ -203,6 +270,12 @@ export function Chip() {
       // Check for exit
       if (moveResult.exited) {
         if (newChipsCollected >= prev.chipsRequired) {
+          // Level complete - update high scores
+          const scoreResult = updateHighScore(highScores, prev.currentLevel, timer, prev.moveCount + 1);
+          setHighScores(scoreResult.updatedScores);
+          setNewRecordInfo(scoreResult);
+          playSound('levelComplete');
+
           return {
             ...prev,
             gameState: 'won' as const,
@@ -218,6 +291,27 @@ export function Chip() {
         }
       }
 
+      // Move monsters
+      let updatedMonsters = prev.monsters || [];
+      const turnNumber = (prev.turnNumber || 0) + 1;
+
+      if (updatedMonsters.length > 0) {
+        const monsterResult = moveMonsters(updatedMonsters, newPos, newGrid, turnNumber);
+        updatedMonsters = monsterResult.updatedMonsters;
+
+        if (monsterResult.playerDied) {
+          playSound('death');
+          return {
+            ...prev,
+            gameState: 'lost' as const,
+            deathReason: 'monster',
+            playerPosition: newPos,
+            monsters: updatedMonsters,
+            turnNumber,
+          };
+        }
+      }
+
       return {
         ...prev,
         grid: newGrid,
@@ -225,9 +319,11 @@ export function Chip() {
         chipsCollected: newChipsCollected,
         inventory: newInventory,
         moveCount: prev.moveCount + 1,
+        monsters: updatedMonsters,
+        turnNumber,
       };
     });
-  }, []);
+  }, [highScores, timer]);
 
   const handleGridClick = useCallback((e: MouseEvent) => {
     if (gameData.gameState === 'idle') {
@@ -235,8 +331,89 @@ export function Chip() {
     }
   }, [gameData.gameState, startGame]);
 
+  // Toggle sound
+  const handleToggleSound = useCallback(() => {
+    toggleSound();
+    initAudio();
+  }, []);
+
+  // Save game
+  const handleSaveGame = useCallback(() => {
+    const savedGame = {
+      currentLevel: gameData.currentLevel,
+      playerPosition: gameData.playerPosition,
+      grid: gameData.grid,
+      chipsCollected: gameData.chipsCollected,
+      chipsRequired: gameData.chipsRequired,
+      timeElapsed: timer,
+      moveCount: gameData.moveCount,
+      inventory: gameData.inventory,
+      savedAt: Date.now(),
+    };
+    const success = saveGame(savedGame);
+    if (success) {
+      setHasSavedGame(true);
+      alert(txt.saveGame.gameSaved);
+    }
+    setActiveMenu(null);
+  }, [gameData, timer, txt]);
+
+  // Load game
+  const handleLoadGame = useCallback(() => {
+    const savedGame = loadSavedGame();
+    if (savedGame) {
+      setGameData({
+        currentLevel: savedGame.currentLevel,
+        grid: savedGame.grid,
+        playerPosition: savedGame.playerPosition,
+        chipsCollected: savedGame.chipsCollected,
+        chipsRequired: savedGame.chipsRequired,
+        timeElapsed: savedGame.timeElapsed,
+        moveCount: savedGame.moveCount,
+        inventory: savedGame.inventory,
+        gameState: 'idle',
+        levelCompleted: false,
+      });
+      setTimer(savedGame.timeElapsed);
+      alert(txt.saveGame.gameLoaded);
+    } else {
+      alert(txt.saveGame.noSavedGame);
+    }
+    setActiveMenu(null);
+  }, [txt]);
+
+  // Submit password
+  const handleSubmitPassword = useCallback(() => {
+    const level = validatePassword(passwordInput, LEVELS.length);
+    if (level) {
+      loadLevel(level);
+      setShowPassword(false);
+      setPasswordInput('');
+      setPasswordMessage('');
+    } else {
+      setPasswordMessage(txt.password.invalid);
+    }
+  }, [passwordInput, txt]);
+
+  // Copy password to clipboard
+  const handleCopyPassword = useCallback(() => {
+    const password = generatePassword(gameData.currentLevel);
+    navigator.clipboard.writeText(password).then(() => {
+      setPasswordMessage(txt.password.copied);
+      setTimeout(() => setPasswordMessage(''), 2000);
+    });
+  }, [gameData.currentLevel, txt]);
+
   // Get current level info
   const currentLevelInfo = getLevel(gameData.currentLevel);
+  const currentPassword = generatePassword(gameData.currentLevel);
+
+  // Load level from editor
+  const handleLoadEditorLevel = useCallback((level: Level) => {
+    setGameData(createInitialGame(level));
+    setTimer(0);
+    setShowEditor(false);
+  }, []);
 
   return (
     <div class="chips-container" onClick={handleGridClick}>
@@ -251,6 +428,14 @@ export function Chip() {
           {activeMenu === 'game' && (
             <div class="menu-dropdown">
               <div class="menu-item" onClick={newGame}>{txt.menu.new}</div>
+              <div class="menu-item" onClick={handleSaveGame}>{txt.menu.save}</div>
+              <div class="menu-item" onClick={handleLoadGame}>{txt.menu.load}</div>
+              <div class="menu-item" onClick={() => setShowPassword(true)}>{txt.menu.password}</div>
+              <div class="menu-item" onClick={() => setShowHighScores(true)}>{txt.menu.highScores}</div>
+              <div class="menu-item" onClick={() => setShowEditor(true)}>{txt.menu.editor}</div>
+              <div class="menu-item" onClick={handleToggleSound}>
+                {isSoundEnabled() ? txt.sound.enabled : txt.sound.disabled}
+              </div>
               <div class="menu-item" onClick={() => setShowInstructions(true)}>{txt.menu.instructions}</div>
             </div>
           )}
@@ -314,6 +499,16 @@ export function Chip() {
               <h2>{txt.levelComplete}</h2>
               <p>{txt.stats.time}: {formatTime(timer)}</p>
               <p>{txt.stats.moves}: {gameData.moveCount}</p>
+              {newRecordInfo && newRecordInfo.newRecord && (
+                <p class="chips-new-record">
+                  {newRecordInfo.newTimeRecord && !newRecordInfo.newMovesRecord && txt.highScores.timeRecord}
+                  {newRecordInfo.newMovesRecord && !newRecordInfo.newTimeRecord && txt.highScores.movesRecord}
+                  {newRecordInfo.newTimeRecord && newRecordInfo.newMovesRecord && txt.highScores.newRecord}
+                </p>
+              )}
+              <p class="chips-password-hint">
+                {txt.password.yourPassword} <code>{currentPassword}</code>
+              </p>
               {gameData.currentLevel < LEVELS.length && (
                 <button onClick={() => loadLevel(gameData.currentLevel + 1)}>
                   {txt.nextLevel}
@@ -344,6 +539,7 @@ export function Chip() {
           {gameData.grid.map((row: string[], y: number) =>
             row.map((tile: string, x: number) => {
               const isPlayer = gameData.playerPosition.x === x && gameData.playerPosition.y === y;
+              const monster = gameData.monsters?.find(m => m.position.x === x && m.position.y === y);
               return (
                 <div
                   key={`${x}-${y}`}
@@ -352,11 +548,12 @@ export function Chip() {
                   data-y={y}
                 >
                   {isPlayer && <div class="chips-player-sprite">🤖</div>}
-                  {tile === 'chip' && !isPlayer && <div class="chips-chip">💎</div>}
-                  {tile === 'key_red' && <div class="chips-key">🔑</div>}
-                  {tile === 'key_blue' && <div class="chips-key">🔑</div>}
-                  {tile === 'key_green' && <div class="chips-key">🔑</div>}
-                  {tile === 'key_yellow' && <div class="chips-key">🔑</div>}
+                  {monster && !isPlayer && <div class="chips-monster chips-monster-${monster.type}">{getMonsterSprite(monster.type)}</div>}
+                  {tile === 'chip' && !isPlayer && !monster && <div class="chips-chip">💎</div>}
+                  {tile === 'key_red' && !monster && <div class="chips-key">🔑</div>}
+                  {tile === 'key_blue' && !monster && <div class="chips-key">🔑</div>}
+                  {tile === 'key_green' && !monster && <div class="chips-key">🔑</div>}
+                  {tile === 'key_yellow' && !monster && <div class="chips-key">🔑</div>}
                   {tile === 'door_red' && <div class="chips-door">🚪</div>}
                   {tile === 'door_blue' && <div class="chips-door">🚪</div>}
                   {tile === 'door_green' && <div class="chips-door">🚪</div>}
@@ -411,6 +608,83 @@ export function Chip() {
             </div>
             <button onClick={() => setShowInstructions(false)}>{txt.instructions.close}</button>
           </div>
+        </div>
+      )}
+
+      {/* High scores modal */}
+      {showHighScores && (
+        <div class="chips-modal" onClick={() => setShowHighScores(false)}>
+          <div class="chips-modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>{txt.highScores.title}</h2>
+            {Object.keys(highScores).length === 0 ? (
+              <p>{txt.highScores.noScores}</p>
+            ) : (
+              <div class="chips-high-scores-list">
+                {Object.entries(highScores)
+                  .sort(([a], [b]) => parseInt(a) - parseInt(b))
+                  .map(([level, score]) => (
+                    <div key={level} class="chips-high-score-entry">
+                      <span>{txt.highScores.level} {level}:</span>
+                      <span>{txt.highScores.bestTime}: {formatTime(score.bestTime)}</span>
+                      <span>{txt.highScores.bestMoves}: {score.bestMoves}</span>
+                    </div>
+                  ))}
+              </div>
+            )}
+            <button onClick={() => setShowHighScores(false)}>{txt.highScores.close}</button>
+          </div>
+        </div>
+      )}
+
+      {/* Password modal */}
+      {showPassword && (
+        <div class="chips-modal" onClick={() => setShowPassword(false)}>
+          <div class="chips-modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>{txt.password.title}</h2>
+            <div class="chips-password-current">
+              <p>{txt.password.yourPassword}</p>
+              <div class="chips-password-display">
+                <code>{currentPassword}</code>
+                <button onClick={handleCopyPassword}>📋</button>
+              </div>
+            </div>
+            <div class="chips-password-input">
+              <p>{txt.password.enter}</p>
+              <input
+                type="text"
+                value={passwordInput}
+                onInput={(e) => setPasswordInput((e.target as HTMLInputElement).value.toUpperCase())}
+                maxLength={4}
+                placeholder="ABCD"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSubmitPassword();
+                  }
+                }}
+              />
+              {passwordMessage && (
+                <p class={`chips-password-message ${passwordMessage === txt.password.invalid ? 'error' : 'success'}`}>
+                  {passwordMessage}
+                </p>
+              )}
+            </div>
+            <button onClick={handleSubmitPassword}>{txt.password.jump}</button>
+            <button onClick={() => {
+              setShowPassword(false);
+              setPasswordInput('');
+              setPasswordMessage('');
+            }}>{txt.highScores.close}</button>
+          </div>
+        </div>
+      )}
+
+      {/* Level Editor */}
+      {showEditor && (
+        <div class="chips-modal chips-editor-modal">
+          <LevelEditor
+            onClose={() => setShowEditor(false)}
+            onLoadLevel={handleLoadEditorLevel}
+          />
         </div>
       )}
     </div>

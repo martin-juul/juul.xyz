@@ -28,6 +28,11 @@ export enum TileType {
   FORCE_EAST = 'force_east',
   FORCE_SOUTH = 'force_south',
   FORCE_WEST = 'force_west',
+  MONSTER_BUG = 'monster_bug', // Bug monster
+  MONSTER_FIREBALL = 'monster_fireball', // Fireball monster
+  MONSTER_BALL = 'monster_ball', // Ball monster
+  MONSTER_GHOST = 'monster_ghost', // Ghost monster
+  MONSTER_TANK = 'monster_tank', // Tank monster
 }
 
 // Direction for movement
@@ -78,6 +83,8 @@ export interface GameData {
   gameState: GameState;
   levelCompleted: boolean;
   deathReason?: string;
+  monsters?: Monster[]; // Active monsters
+  turnNumber?: number; // Track turns for tank monsters
 }
 
 // Movement result
@@ -100,4 +107,41 @@ export interface LevelStats {
   bestTime?: number;
   bestMoves?: number;
   completed: boolean;
+}
+
+// High scores per level
+export interface HighScores {
+  [levelNumber: number]: {
+    bestTime: number;
+    bestMoves: number;
+  };
+}
+
+// Saved game state
+export interface SavedGame {
+  currentLevel: number;
+  playerPosition: Position;
+  grid: TileType[][];
+  chipsCollected: number;
+  chipsRequired: number;
+  timeElapsed: number;
+  moveCount: number;
+  inventory: Inventory;
+  savedAt: number; // timestamp
+}
+
+// Monster types
+export enum MonsterType {
+  BUG = 'monster_bug',
+  FIREBALL = 'monster_fireball',
+  BALL = 'monster_ball',
+  GHOST = 'monster_ghost',
+  TANK = 'monster_tank',
+}
+
+// Monster data
+export interface Monster {
+  type: MonsterType;
+  position: Position;
+  id: string;
 }

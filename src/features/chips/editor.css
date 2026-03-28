@@ -1,0 +1,396 @@
+/* Level Editor Styles */
+
+.chips-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 12px;
+}
+
+.chips-editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background: #c0c0c0;
+  border-bottom: 2px solid #808080;
+}
+
+.chips-editor-header h2 {
+  margin: 0;
+  font-size: 16px;
+  color: #000;
+}
+
+.chips-editor-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.chips-editor-actions button {
+  padding: 4px 12px;
+  background: #c0c0c0;
+  border: 1px solid #000;
+  border-top-color: #fff;
+  border-left-color: #fff;
+  border-bottom-color: #808080;
+  border-right-color: #808080;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.chips-editor-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chips-editor-actions button:active:not(:disabled) {
+  border: 1px solid #000;
+  border-top-color: #808080;
+  border-left-color: #808080;
+  border-bottom-color: #fff;
+  border-right-color: #fff;
+}
+
+.chips-editor-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+/* Tile Palette */
+.chips-palette {
+  min-width: 180px;
+  max-width: 250px;
+  padding: 8px;
+  background: #c0c0c0;
+  border-right: 2px solid #808080;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.chips-palette h3 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #000;
+}
+
+.chips-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.chips-palette-tile {
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid #808080;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.1s;
+  box-sizing: border-box;
+}
+
+.chips-palette-tile:hover {
+  background: #e0e0e0;
+}
+
+.chips-palette-tile.selected {
+  background: #000080;
+  color: #fff;
+  border-color: #0000ff;
+}
+
+/* Responsive palette: more columns when wider */
+@media (min-width: 1400px) {
+  .chips-palette-grid {
+    grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  }
+
+  .chips-palette {
+    min-width: 220px;
+    max-width: 280px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .chips-palette-grid {
+    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  }
+
+  .chips-palette {
+    min-width: 250px;
+    max-width: 320px;
+  }
+}
+
+/* Grid Size Controls */
+.chips-grid-size {
+  margin: 16px 0;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.chips-grid-size h4 {
+  margin: 0 0 8px 0;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.chips-grid-size > div {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+  gap: 8px;
+}
+
+.chips-grid-size label {
+  flex: 1;
+  font-size: 11px;
+}
+
+.chips-grid-size input {
+  width: 50px;
+  padding: 2px 4px;
+  font-size: 11px;
+  border: 1px solid #808080;
+}
+
+/* Saved Levels */
+.chips-saved-levels {
+  margin: 16px 0;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.chips-saved-levels h4 {
+  margin: 0 0 8px 0;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.chips-saved-levels p {
+  margin: 0;
+  font-size: 10px;
+  color: #808080;
+  font-style: italic;
+}
+
+.chips-saved-levels select {
+  width: 100%;
+  padding: 4px;
+  font-size: 11px;
+  border: 1px solid #808080;
+  background: #fff;
+}
+
+/* Grid Editor */
+.chips-editor-grid-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: auto;
+  background: #808080;
+}
+
+.chips-editor-grid {
+  display: grid;
+  gap: 0;
+  background: #000;
+  border: 2px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+}
+
+.chips-editor-tile {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 1px solid #808080;
+  cursor: crosshair;
+  transition: all 0.05s;
+}
+
+.chips-editor-tile:hover {
+  outline: 2px solid #ffff00;
+  z-index: 10;
+}
+
+.chips-editor-tile.player-start {
+  background: #90EE90 !important;
+}
+
+.player-start-indicator {
+  position: absolute;
+  font-size: 14px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.tile-icon {
+  font-size: 12px;
+  pointer-events: none;
+}
+
+/* Level Properties */
+.chips-level-properties {
+  min-width: 220px;
+  max-width: 300px;
+  padding: 8px;
+  background: #c0c0c0;
+  border-left: 2px solid #808080;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.chips-level-properties h3 {
+  margin: 0 0 12px 0;
+  font-size: 12px;
+  color: #000;
+}
+
+.chips-property {
+  margin: 12px 0;
+}
+
+.chips-property label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #000;
+}
+
+.chips-property input[type="text"],
+.chips-property input[type="number"] {
+  width: 100%;
+  padding: 4px;
+  font-size: 11px;
+  border: 1px solid #808080;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.chips-property-hint {
+  margin-left: 8px;
+  font-size: 10px;
+  color: #808080;
+}
+
+.chips-validation {
+  margin: 16px 0;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.chips-validation p {
+  margin: 4px 0;
+  font-size: 11px;
+}
+
+.chips-validation .error {
+  color: #cc0000;
+  font-weight: bold;
+}
+
+.chips-validation .success {
+  color: #00aa00;
+  font-weight: bold;
+}
+
+/* Import/Export */
+.chips-import-export {
+  margin: 16px 0;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.chips-import-export h4 {
+  margin: 0 0 8px 0;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.chips-import-export textarea {
+  width: 100%;
+  height: 60px;
+  padding: 4px;
+  font-size: 9px;
+  font-family: 'Courier New', monospace;
+  border: 1px solid #808080;
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+}
+
+.chips-import-export button {
+  width: 100%;
+  padding: 4px;
+  font-size: 11px;
+  background: #c0c0c0;
+  border: 1px solid #000;
+  border-top-color: #fff;
+  border-left-color: #fff;
+  border-bottom-color: #808080;
+  border-right-color: #808080;
+  cursor: pointer;
+}
+
+.chips-import-export button:active {
+  border: 1px solid #000;
+  border-top-color: #808080;
+  border-left-color: #808080;
+  border-bottom-color: #fff;
+  border-right-color: #fff;
+}
+
+/* Test Mode */
+.chips-editor-test {
+  height: 100%;
+  background: #c0c0c0;
+}
+
+.chips-editor-test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background: #c0c0c0;
+  border-bottom: 2px solid #808080;
+}
+
+.chips-editor-test-header h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.chips-editor-test-header button {
+  padding: 4px 12px;
+  background: #c0c0c0;
+  border: 1px solid #000;
+  border-top-color: #fff;
+  border-left-color: #fff;
+  border-bottom-color: #808080;
+  border-right-color: #808080;
+  cursor: pointer;
+}
