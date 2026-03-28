@@ -66,12 +66,17 @@ src/
 │   ├── freecell/
 │   ├── spider/
 │   ├── solitaire/
+│   ├── hearts/          # Trick-taking card game with AI
+│   ├── sudoku/
+│   ├── chips/           # Chips Challenge puzzle
+│   ├── jezzball/        # Action puzzle game
+│   ├── pipedream/       # Pipe-connecting puzzle
 │   ├── gallery/
 │   ├── errors/         # 404 page
 │   └── common/         # Shared translations
 ├── lib/                 # Utilities
 │   ├── i18n-routing.ts # URL parsing/building for i18n
-│   └── card-games/     # Shared card game logic (deck, shuffle, timer, statistics)
+│   └── card-games/     # Shared card game logic (deck, shuffle, types)
 └── shared/
     └── types/          # Shared TypeScript types (Page)
 ```
@@ -80,9 +85,38 @@ src/
 Each feature exports from `index.ts`:
 - Page component (e.g., `Home`, `Projects`)
 - Translations object (e.g., `homeTranslations`)
+- Optional: game-logic.ts, types.ts for complex features
+
+### AI Turn Pattern (for games with AI opponents)
+Games with AI players (Hearts, Matador) use a consistent pattern to avoid stale closures:
+- **State ref**: `gameStateRef.current` always contains fresh state
+- **Turn counter**: Incremented to force AI effect re-runs
+- **Processing flags**: `isProcessingRef` prevents duplicate AI processing
+- **Player tracking**: `lastProcessedPlayerRef` detects player changes
+
+Example:
+```typescript
+// In component
+const gameStateRef = useRef({ players, phase, currentPlayer });
+gameStateRef.current = { players, phase, currentPlayer };
+const [turnCounter, setTurnCounter] = useState(0);
+
+// AI effect - only depends on turnCounter
+useEffect(() => {
+  const state = gameStateRef.current;
+  const player = state.players[state.currentPlayer];
+  if (!player.isHuman) {
+    // Process AI turn using fresh state
+    processAITurn(player);
+  }
+}, [turnCounter]);
+
+// When human completes turn, trigger AI
+setTurnCounter(c => c + 1);
+```
 
 ### Key Types
-- `Page`: Union of all page names (`'home' | 'projects' | 'resume' | ...`)
+- `Page`: Union of all page names (add to `src/shared/types/page.ts`, `src/lib/i18n-routing.ts`, and `prerender.ts`)
 - `Language`: `'en' | 'da'`
 - `WindowData`: Window state in app.tsx (id, page, position, size, zIndex, state)
 
