@@ -1,0 +1,254 @@
+.jezzball-container {
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.jezzball-menu-bar {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-bottom: 1px solid #808080;
+  background: #c0c0c0;
+}
+
+.jezzball-menu-trigger {
+  position: relative;
+}
+
+.jezzball-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.jezzball-menu-item:hover,
+.jezzball-menu-item.active {
+  background: #000080;
+  color: #fff;
+}
+
+.jezzball-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  box-shadow: 2px 2px 0 #000;
+  min-width: 150px;
+  z-index: 1000;
+}
+
+.jezzball-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 4px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.jezzball-dropdown-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.jezzball-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.jezzball-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 4px;
+  background: #c0c0c0;
+  border: 2px inset #808080;
+}
+
+.jezzball-stats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.jezzball-stat {
+  display: flex;
+  gap: 4px;
+}
+
+.jezzball-stat-label {
+  color: #000;
+}
+
+.jezzball-stat-value {
+  font-weight: bold;
+  color: #000080;
+}
+
+.jezzball-direction-btn,
+.jezzball-new-btn,
+.jezzball-next-level-btn {
+  padding: 4px 12px;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.jezzball-direction-btn:active,
+.jezzball-new-btn:active,
+.jezzball-next-level-btn:active {
+  border: 2px inset #808080;
+}
+
+.jezzball-instructions {
+  padding: 8px;
+  background: #fff;
+  border: 2px inset #808080;
+  font-size: 11px;
+}
+
+.jezzball-instructions h3 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #000080;
+}
+
+.jezzball-instructions p {
+  margin: 0 0 8px 0;
+}
+
+.jezzball-instructions ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.jezzball-instructions li {
+  margin-bottom: 4px;
+}
+
+.jezzball-grid {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(50, 1fr);
+  grid-template-rows: repeat(40, 1fr);
+  border: 2px inset #808080;
+  background: #000;
+  cursor: crosshair;
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.jezzball-cell {
+  background: #000;
+  border: none;
+}
+
+.jezzball-cell-wall {
+  background: #c0c0c0;
+  border: 1px solid #808080;
+  box-shadow: inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 #0a0a0a;
+}
+
+.jezzball-cell-building-h,
+.jezzball-cell-building-v {
+  background: #ff0000;
+  animation: jezzball-pulse 0.1s infinite;
+}
+
+.jezzball-cell-trapped {
+  background: #004080;
+  transition: background 0.3s ease;
+}
+
+@keyframes jezzball-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.jezzball-ball {
+  position: absolute;
+  width: calc(100% / 50);
+  height: calc(100% / 40);
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  transition: left 0.05s linear, top 0.05s linear;
+}
+
+.jezzball-building-wall {
+  position: absolute;
+  background: #ff0000;
+  pointer-events: none;
+  opacity: 0.8;
+  animation: jezzball-pulse 0.1s infinite;
+}
+
+.jezzball-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 16px 24px;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  box-shadow: 4px 4px 0 #000;
+  text-align: center;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.jezzball-message-start {
+  background: #ffffc0;
+}
+
+.jezzball-message-gameover {
+  background: #ff0000;
+  color: #fff;
+}
+
+.jezzball-message-win {
+  background: #00ff00;
+  color: #000;
+  pointer-events: auto;
+}
+
+.jezzball-next-level-btn {
+  margin-top: 8px;
+  pointer-events: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .jezzball-stats {
+    gap: 8px;
+  }
+
+  .jezzball-stat {
+    font-size: 10px;
+  }
+
+  .jezzball-grid {
+    min-height: 250px;
+  }
+}
