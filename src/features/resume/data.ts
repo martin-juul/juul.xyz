@@ -59,6 +59,11 @@ export const resumeData: ResumeItem[] = [
   },
 ];
 
+// Helper function to check if an item is current
+export function isCurrentItem(item: ResumeItem, currentLabel: string): boolean {
+  return item.duration.end === currentLabel;
+}
+
 export const resumeDataDa: ResumeItem[] = [
   {
     id: 4,

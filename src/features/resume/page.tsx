@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'preact/hooks';
 import { useLanguage } from '../../context/language-context';
+import { isCurrentItem } from './data';
 
 export function Resume() {
   const { t, currentSubPath, navigateTo, currentPage } = useLanguage();
-  const { items } = t.resume;
+  const { items, current, previous } = t.resume;
 
   // Find item by slug, fallback to first item
   const findItemBySlug = (slug: string | undefined) => {
@@ -36,6 +37,10 @@ export function Resume() {
     navigateTo(currentPage, item.slug);
   };
 
+  // Group items into current and previous
+  const currentItems = items.filter(item => isCurrentItem(item, current));
+  const previousItems = items.filter(item => !isCurrentItem(item, current));
+
   return (
     <main style="display: flex; height: 100%; background: url('/assets/sky.webp') center center / cover no-repeat;">
       {/* Left sidebar - navigation, not main content */}
@@ -50,36 +55,93 @@ export function Resume() {
         <div style="margin-bottom: 20px;">
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
             <img src="/assets/icons/briefcase.png" alt="" style="width: 24px; height: 24px;" />
-            <span style="font-size: 11px; font-weight: bold; color: #000080;">Resume</span>
+            <span style="font-size: 11px; font-weight: bold; color: #000080;">{t.resume.title}</span>
           </div>
         </div>
-        {/* Navigation links */}
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {items.map((item, index) => {
-            const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12'];
-            const borderColor = colors[index % colors.length];
-            return (
-              <button
-                onClick={() => handleSelect(item)}
-                aria-pressed={selectedId === item.id}
-                style={{
-                  background: selectedId === item.id ? '#000080' : 'transparent',
-                  color: selectedId === item.id ? '#fff' : '#000080',
-                  padding: '4px 8px',
-                  cursor: 'pointer',
-                  fontSize: '11px',
-                  fontFamily: "'MS Sans Serif', 'Segoe UI', sans-serif",
-                  fontWeight: 600,
-                  borderLeft: `2px solid ${borderColor}`,
-                  borderBottom: '1px solid #4a3728',
-                  textAlign: 'left',
-                  width: '100%'
-                }}
-              >
-                {item.title}
-              </button>
-            );
-          })}
+        {/* Navigation links grouped by section */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          {/* Current section */}
+          {currentItems.length > 0 && (
+            <div>
+              <div style={{
+                fontSize: "10px",
+                fontWeight: "bold",
+                color: "#000080",
+                marginBottom: "4px",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px"
+              }}>
+                {current}
+              </div>
+              {currentItems.map((item, index) => {
+                const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12'];
+                const borderColor = colors[index % colors.length];
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleSelect(item)}
+                    aria-pressed={selectedId === item.id}
+                    style={{
+                      background: selectedId === item.id ? '#000080' : 'transparent',
+                      color: selectedId === item.id ? '#fff' : '#000080',
+                      padding: '4px 8px',
+                      cursor: 'pointer',
+                      fontSize: '11px',
+                      fontFamily: "'MS Sans Serif', 'Segoe UI', sans-serif",
+                      fontWeight: 600,
+                      borderLeft: `2px solid ${borderColor}`,
+                      borderBottom: '1px solid #4a3728',
+                      textAlign: 'left',
+                      width: '100%'
+                    }}
+                  >
+                    {item.company}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          {/* Previous section */}
+          {previousItems.length > 0 && (
+            <div>
+              <div style={{
+                fontSize: "10px",
+                fontWeight: "bold",
+                color: "#000080",
+                marginBottom: "4px",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px"
+              }}>
+                {previous}
+              </div>
+              {previousItems.map((item, index) => {
+                const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12'];
+                const borderColor = colors[(index + currentItems.length) % colors.length];
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleSelect(item)}
+                    aria-pressed={selectedId === item.id}
+                    style={{
+                      background: selectedId === item.id ? '#000080' : 'transparent',
+                      color: selectedId === item.id ? '#fff' : '#000080',
+                      padding: '4px 8px',
+                      cursor: 'pointer',
+                      fontSize: '11px',
+                      fontFamily: "'MS Sans Serif', 'Segoe UI', sans-serif",
+                      fontWeight: 600,
+                      borderLeft: `2px solid ${borderColor}`,
+                      borderBottom: '1px solid #4a3728',
+                      textAlign: 'left',
+                      width: '100%'
+                    }}
+                  >
+                    {item.company}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
       </nav>
       {/* Right content area */}
