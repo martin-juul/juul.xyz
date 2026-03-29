@@ -3,7 +3,11 @@
     "allow": [
       "Bash(taskkill /F /IM node.exe)",
       "Bash(npm run:*)",
-      "Bash(xargs wc:*)"
+      "Bash(xargs wc:*)",
+      "Bash(git diff:*)",
+      "Bash(grep -E '^src/.*\\\\.\\(tsx?|css\\)$')",
+      "Bash(find src/features -name \"*.tsx\" -exec grep -l \"useEffect.*\\\\[\\\\]\" {})",
+      "Bash(find e2e:*)"
     ]
   }
 }

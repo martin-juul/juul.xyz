@@ -22,4 +22,5 @@ export type Page =
   | 'skifree'
   | 'nibbles'
   | 'tetris'
+  | 'mahjong'
   | 'notfound';

@@ -162,7 +162,7 @@ export function Matador({ language }: MatadorProps) {
     setRolling(true);
 
     // Animate dice roll
-    setTimeout(() => {
+    scheduleTimeout(() => {
       const dice = rollDice();
       const doubles = isDoubles(dice);
       let newState: GameState = { ...gameState, dice, lastRoll: dice, diceRolled: true };
@@ -326,7 +326,7 @@ export function Matador({ language }: MatadorProps) {
       const currentPlayer = gameState.players[gameState.currentPlayer];
       if (!currentPlayer.isHuman && gameState.lastRoll) {
         const doubles = isDoubles(gameState.lastRoll);
-        setTimeout(() => {
+        scheduleTimeout(() => {
           if (doubles) {
             // Continue turn for doubles
             setGameState(prev => {

@@ -39,6 +39,7 @@ export function DesktopIcons({ onNavigate, openWindowPages, onOpenTaskManager }:
     { page: 'skifree' as Page, icon: '/assets/icons/skifree.png' },
     { page: 'nibbles' as Page, icon: '/assets/icons/nibbles.png' },
     { page: 'tetris' as Page, icon: '/assets/icons/tetris.png' },
+    { page: 'mahjong' as Page, icon: '/assets/icons/sudoku.png' }, // Using sudoku icon as placeholder
   ];
 
   const getPageLabel = (page: Page) => {
@@ -65,6 +66,7 @@ export function DesktopIcons({ onNavigate, openWindowPages, onOpenTaskManager }:
       case 'skifree': return t.nav.skifree;
       case 'nibbles': return t.nav.nibbles;
       case 'tetris': return t.nav.tetris;
+      case 'mahjong': return t.nav.mahjong;
       case 'notfound': return t.notFound.windowTitle;
     }
   };

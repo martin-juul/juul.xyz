@@ -33,6 +33,7 @@ const Hearts = lazy(() => import('./features/hearts').then(m => ({ default: m.He
 const Skifree = lazy(() => import('./features/skifree').then(m => ({ default: m.Skifree })));
 const Nibbles = lazy(() => import('./features/nibbles').then(m => ({ default: m.Nibbles })));
 const Tetris = lazy(() => import('./features/tetris').then(m => ({ default: m.Tetris })));
+const Mahjong = lazy(() => import('./features/mahjong').then(m => ({ default: m.Mahjong })));
 
 type WindowData = {
   id: string;
@@ -103,6 +104,8 @@ function AppContent() {
         return { width: 480, height: 520 };
       case 'tetris':
         return { width: 400, height: 600 };
+      case 'mahjong':
+        return { width: 580, height: 700 };
       case 'mediaplayer':
         return { width: 480, height: 400 };
       default:
@@ -264,16 +267,31 @@ function AppContent() {
     }
   };
 
+  // Store resize listener functions in refs for proper cleanup
+  const resizeMouseMoveRef = useRef<((e: MouseEvent) => void) | null>(null);
+  const resizeMouseUpRef = useRef<(() => void) | null>(null);
+
   // Handle resize mouse move and end
   useEffect(() => {
-    if (!resizing) return;
+    if (!resizing) {
+      // Always clean up any existing listeners when not resizing
+      if (resizeMouseMoveRef.current) {
+        document.removeEventListener('mousemove', resizeMouseMoveRef.current);
+        resizeMouseMoveRef.current = null;
+      }
+      if (resizeMouseUpRef.current) {
+        document.removeEventListener('mouseup', resizeMouseUpRef.current);
+        resizeMouseUpRef.current = null;
+      }
+      return;
+    }
 
     const resizingWindow = windows.find(w => w.id === resizing.windowId);
     const minSize = resizingWindow ? getMinWindowSize(resizingWindow.page) : { width: 320, height: 240 };
     const MIN_WIDTH = minSize.width;
     const MIN_HEIGHT = minSize.height;
 
-    const handleMouseMove = (e: MouseEvent) => {
+    resizeMouseMoveRef.current = (e: MouseEvent) => {
       const deltaX = e.clientX - resizing.startX;
       const deltaY = e.clientY - resizing.startY;
 
@@ -318,7 +336,7 @@ function AppContent() {
       } : null);
     };
 
-    const handleMouseUp = () => {
+    resizeMouseUpRef.current = () => {
       if (resizing) {
         resizeWindow(
           resizing.windowId,
@@ -329,14 +347,21 @@ function AppContent() {
       setResizing(null);
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mousemove', resizeMouseMoveRef.current);
+    document.addEventListener('mouseup', resizeMouseUpRef.current);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      // Always clean up listeners, regardless of resizing state
+      if (resizeMouseMoveRef.current) {
+        document.removeEventListener('mousemove', resizeMouseMoveRef.current);
+        resizeMouseMoveRef.current = null;
+      }
+      if (resizeMouseUpRef.current) {
+        document.removeEventListener('mouseup', resizeMouseUpRef.current);
+        resizeMouseUpRef.current = null;
+      }
     };
-  }, [resizing, resizeWindow]);
+  }, [resizing, resizeWindow, windows]);
 
   // Handle initial route - use currentPage from context
   useEffect(() => {
@@ -491,6 +516,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'matador': return t.nav.matador;
       case 'mediaplayer': return t.nav.mediaplayer;
       case 'tetris': return t.nav.tetris;
+      case 'mahjong': return t.nav.mahjong;
       case 'notfound': return t.notFound.windowTitle;
     }
   };
@@ -517,6 +543,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'skifree': return <Suspense fallback={null}><Skifree /></Suspense>;
       case 'nibbles': return <Suspense fallback={null}><Nibbles /></Suspense>;
       case 'tetris': return <Suspense fallback={null}><Tetris /></Suspense>;
+      case 'mahjong': return <Suspense fallback={null}><Mahjong /></Suspense>;
       case 'ludo': return <div style="padding: 20px">Ludo game coming soon!</div>;
       case 'matador': return <Suspense fallback={null}><Matador language={language} /></Suspense>;
       case 'mediaplayer': return <MediaPlayer />;
@@ -535,26 +562,48 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
     };
   };
 
-  useEffect(() => {
-    if (!isDragging) return;
+  // Store listener functions in refs to ensure they can be cleaned up
+  const dragMouseMoveRef = useRef<((e: MouseEvent) => void) | null>(null);
+  const dragMouseUpRef = useRef<(() => void) | null>(null);
 
-    const handleMouseMove = (e: MouseEvent) => {
+  useEffect(() => {
+    if (!isDragging) {
+      // Always clean up any existing listeners when not dragging
+      if (dragMouseMoveRef.current) {
+        document.removeEventListener('mousemove', dragMouseMoveRef.current);
+        dragMouseMoveRef.current = null;
+      }
+      if (dragMouseUpRef.current) {
+        document.removeEventListener('mouseup', dragMouseUpRef.current);
+        dragMouseUpRef.current = null;
+      }
+      return;
+    }
+
+    dragMouseMoveRef.current = (e: MouseEvent) => {
       onMove({
         x: e.clientX - dragOffset.current.x,
         y: e.clientY - dragOffset.current.y,
       });
     };
 
-    const handleMouseUp = () => {
+    dragMouseUpRef.current = () => {
       setIsDragging(false);
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mousemove', dragMouseMoveRef.current);
+    document.addEventListener('mouseup', dragMouseUpRef.current);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      // Always clean up listeners, regardless of isDragging state
+      if (dragMouseMoveRef.current) {
+        document.removeEventListener('mousemove', dragMouseMoveRef.current);
+        dragMouseMoveRef.current = null;
+      }
+      if (dragMouseUpRef.current) {
+        document.removeEventListener('mouseup', dragMouseUpRef.current);
+        dragMouseUpRef.current = null;
+      }
     };
   }, [isDragging, onMove]);
 

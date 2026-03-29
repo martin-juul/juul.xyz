@@ -61,7 +61,24 @@ export function Hearts() {
   const [showScoreboard, setShowScoreboard] = useState(false);
   const [animationDelay, setAnimationDelay] = useState(false);
 
-  const trickTimerRef = useRef<number | null>(null);
+  const trickTimerRef = useRef<number[]>([]);
+
+  // Helper to schedule timeout and track ID
+  const scheduleTimeout = useCallback((callback: () => void, delay: number) => {
+    const id = window.setTimeout(() => {
+      // Remove this timeout ID from the array after it fires
+      trickTimerRef.current = trickTimerRef.current.filter(t => t !== id);
+      callback();
+    }, delay);
+    trickTimerRef.current.push(id);
+    return id;
+  }, []);
+
+  // Helper to clear all pending timeouts
+  const clearAllTimeouts = useCallback(() => {
+    trickTimerRef.current.forEach(id => clearTimeout(id));
+    trickTimerRef.current = [];
+  }, []);
 
   // Ref to always get fresh state (solves stale closure issues)
   const gameStateRef = useRef({ players, phase, currentPlayer, currentTrick, heartsBroken, trickNumber });
@@ -187,7 +204,7 @@ export function Hearts() {
           leadSuit: state.currentTrick.leadSuit || cardToPlay.suit,
         });
 
-        trickTimerRef.current = window.setTimeout(() => {
+        scheduleTimeout(() => {
           setPlayers(prev => prev.map(p => {
             if (p.position === winner) {
               return {
@@ -204,7 +221,7 @@ export function Hearts() {
           setCurrentPlayer(winner);
           setStatusText(txt.status.trickEnd.replace('{player}', txt.players[winner]));
 
-          trickTimerRef.current = window.setTimeout(() => {
+          scheduleTimeout(() => {
             setAnimationDelay(false);
             isProcessingRef.current = false;
 
@@ -232,12 +249,10 @@ export function Hearts() {
     };
 
     // Start AI turn after short delay
-    trickTimerRef.current = window.setTimeout(playAICard, 600);
+    scheduleTimeout(playAICard, 600);
 
     return () => {
-      if (trickTimerRef.current) {
-        clearTimeout(trickTimerRef.current);
-      }
+      clearAllTimeouts();
     };
   }, [turnCounter]); // Only depend on turnCounter to avoid stale closures
 
@@ -360,7 +375,7 @@ export function Hearts() {
       setPhase('trickEnd');
       setAnimationDelay(true);
 
-      trickTimerRef.current = window.setTimeout(() => {
+      scheduleTimeout(() => {
         const winner = resolveTrick(newTrick);
         const completedTrick = { ...newTrick, winner, complete: true };
 
@@ -380,7 +395,7 @@ export function Hearts() {
 
         setCurrentPlayer(winner);
 
-        trickTimerRef.current = window.setTimeout(() => {
+        scheduleTimeout(() => {
           setAnimationDelay(false);
           setPhase('playing');
 
@@ -457,7 +472,7 @@ export function Hearts() {
       setPhase('trickEnd');
       setAnimationDelay(true);
 
-      trickTimerRef.current = window.setTimeout(() => {
+      scheduleTimeout(() => {
         const winner = resolveTrick(newTrick);
 
         // Give cards to winner
@@ -476,7 +491,7 @@ export function Hearts() {
 
         setCurrentPlayer(winner);
 
-        trickTimerRef.current = window.setTimeout(() => {
+        scheduleTimeout(() => {
           setAnimationDelay(false);
           setPhase('playing');
 
@@ -594,11 +609,9 @@ export function Hearts() {
   // Cleanup timers
   useEffect(() => {
     return () => {
-      if (trickTimerRef.current) {
-        clearTimeout(trickTimerRef.current);
-      }
+      clearAllTimeouts();
     };
-  }, []);
+  }, [clearAllTimeouts]);
 
   // Check game over when entering roundEnd
   useEffect(() => {

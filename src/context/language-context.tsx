@@ -28,6 +28,7 @@ import { heartsTranslations } from '../features/hearts';
 import { skifreeTranslations } from '../features/skifree';
 import { nibblesTranslations } from '../features/nibbles';
 import { tetrisTranslations } from '../features/tetris';
+import { mahjongTranslations } from '../features/mahjong';
 import { mediaplayerTranslations } from '../features/mediaplayer';
 import { musicTranslations } from '../features/music';
 
@@ -58,6 +59,7 @@ type Translations = {
     matador: string;
     mediaplayer: string;
     tetris: string;
+    mahjong: string;
   };
   home: {
     title: string;
@@ -128,6 +130,7 @@ type Translations = {
   mediaplayer: typeof mediaplayerTranslations.en;
   music: typeof musicTranslations.en;
   tetris: typeof tetrisTranslations.en;
+  mahjong: typeof mahjongTranslations.en;
 };
 
 const translations: Record<Language, Translations> = {
@@ -160,6 +163,7 @@ const translations: Record<Language, Translations> = {
     mediaplayer: mediaplayerTranslations.en,
     music: musicTranslations.en,
     tetris: tetrisTranslations.en,
+    mahjong: mahjongTranslations.en,
   },
   da: {
     ...commonTranslations.da,
@@ -190,6 +194,7 @@ const translations: Record<Language, Translations> = {
     mediaplayer: mediaplayerTranslations.da,
     music: musicTranslations.da,
     tetris: tetrisTranslations.da,
+    mahjong: mahjongTranslations.da,
   },
 };
 

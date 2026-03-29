@@ -1,0 +1,356 @@
+/**
+ * Mahjong Solitaire Styles
+ * 3D tile effects and Windows 98 styling
+ */
+
+.mahjong-container {
+  display: flex;
+  flex-direction: column;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  font-family: 'MS Sans Serif', 'Tahoma', sans-serif;
+  font-size: 12px;
+  user-select: none;
+}
+
+/* Menu Bar */
+.mahjong-menu-bar {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+}
+
+.mahjong-menu-trigger {
+  position: relative;
+}
+
+.mahjong-menu-item {
+  padding: 2px 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mahjong-menu-item:hover {
+  background: #000080;
+  color: #ffffff;
+}
+
+.mahjong-menu-item.active {
+  background: #000080;
+  color: #ffffff;
+}
+
+/* Dropdown */
+.mahjong-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.mahjong-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 4px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.mahjong-dropdown-item:hover:not(:disabled) {
+  background: #000080;
+  color: #ffffff;
+}
+
+.mahjong-dropdown-item:disabled {
+  color: #808080;
+  cursor: not-allowed;
+}
+
+.mahjong-dropdown-separator {
+  height: 1px;
+  margin: 2px 0;
+  background: #808080;
+}
+
+.mahjong-dropdown-check {
+  display: inline-block;
+  width: 16px;
+  margin-right: 4px;
+}
+
+.mahjong-dropdown-text {
+  white-space: nowrap;
+}
+
+/* Game Area */
+.mahjong-game-area {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  background: #008080;
+  flex: 1;
+}
+
+/* Controls Panel */
+.mahjong-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  margin-bottom: 8px;
+}
+
+.mahjong-stats {
+  display: flex;
+  gap: 16px;
+}
+
+.mahjong-stat {
+  display: flex;
+  gap: 4px;
+}
+
+.mahjong-stat-label {
+  font-weight: bold;
+  color: #000080;
+}
+
+.mahjong-stat-value {
+  color: #000000;
+  min-width: 40px;
+}
+
+/* Instructions */
+.mahjong-instructions {
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #ffffff;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  color: #000000;
+}
+
+.mahjong-instructions h3 {
+  margin: 0 0 8px 0;
+  color: #000080;
+}
+
+.mahjong-instructions ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.mahjong-instructions li {
+  margin: 4px 0;
+}
+
+/* Tile Board */
+.mahjong-board {
+  position: relative;
+  margin: 0 auto;
+  background: #006666;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+/* Tile */
+.mahjong-tile {
+  position: absolute;
+  width: 40px;
+  height: 56px;
+  background: linear-gradient(135deg, #fff9e6 0%, #f5e6c8 100%);
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: 0 0 0 1px #c0a080, 2px 2px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+.mahjong-tile-face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--tile-color, #333);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* 3D Tile Effect */
+.mahjong-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(to right, #d4c4a8, #e8d8b8);
+  border-left: 1px solid #c0a080;
+  transform: skewY(0deg);
+}
+
+.mahjong-tile::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(to bottom, #d4c4a8, #c0a080);
+  border-top: 1px solid #c0a080;
+  transform: skewX(0deg);
+}
+
+.mahjong-tile-top {
+  position: absolute;
+  top: -6px;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  background: #f5e6c8;
+  transform: skewY(0deg);
+}
+
+.mahjong-tile-right {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: #c0a080;
+  transform: skewX(0deg);
+}
+
+/* Free tiles */
+.mahjong-tile.free:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px #c0a080, 2px 4px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+.mahjong-tile.free:active {
+  transform: translateY(0);
+  box-shadow: 0 0 0 1px #c0a080, 2px 2px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Blocked tiles */
+.mahjong-tile.blocked {
+  cursor: not-allowed;
+  opacity: 0.85;
+  filter: brightness(0.9);
+}
+
+.mahjong-tile.blocked::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+/* Selected tile */
+.mahjong-tile.selected {
+  background: linear-gradient(135deg, #fffacd 0%, #ffd700 100%);
+  box-shadow: 0 0 0 2px #000080, 2px 2px 0 0 rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.mahjong-tile.selected::before {
+  background: linear-gradient(to right, #e8d8b8, #f5e6c8);
+}
+
+/* Hint tile */
+.mahjong-tile.hint {
+  animation: hint-pulse 0.5s ease-in-out 3;
+}
+
+@keyframes hint-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 2px #00ff00, 2px 2px 0 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Message Overlays */
+.mahjong-message-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  z-index: 500;
+}
+
+.mahjong-message-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.mahjong-message-text {
+  font-size: 14px;
+  margin: 4px 0;
+  color: #ffffff;
+}
+
+/* Button */
+.mahjong-button {
+  margin-top: 16px;
+  padding: 6px 16px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.mahjong-button:hover {
+  background: #000080;
+  color: #ffffff;
+}
+
+.mahjong-button:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .mahjong-stats {
+    gap: 8px;
+  }
+
+  .mahjong-stat-label {
+    display: none;
+  }
+}

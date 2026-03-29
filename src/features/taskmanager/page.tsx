@@ -53,6 +53,7 @@ const pageToExe: Record<Page | 'music' | 'taskmanager', string> = {
   matador: 'matador.exe',
   mediaplayer: 'mplayer2.exe',
   tetris: 'tetris.exe',
+  mahjong: 'mahjong.exe',
   notfound: 'explorer.exe',
 };
 

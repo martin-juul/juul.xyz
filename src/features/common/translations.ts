@@ -26,6 +26,7 @@ export const commonTranslations = {
       mediaplayer: 'Windows Media Player',
       nibbles: 'Nibbles',
       tetris: 'Tetris',
+      mahjong: 'Mahjong Solitaire',
     },
     footer: {
       builtWith: 'Built with Preact & 98.css',
@@ -64,6 +65,7 @@ export const commonTranslations = {
       mediaplayer: 'Medieafspiller',
       nibbles: 'Nibbles',
       tetris: 'Tetris',
+      mahjong: 'Mahjong',
     },
     footer: {
       builtWith: 'Bygget med Preact & 98.css',

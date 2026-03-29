@@ -12,7 +12,7 @@ const DIST_DIR = join(__dirname, 'dist');
 
 // Types
 type Language = 'en' | 'da';
-type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'sudoku' | 'gallery' | 'jezzball' | 'pipedream' | 'hearts' | 'skifree' | 'matador' | 'tetris' | 'notfound';
+type Page = 'home' | 'projects' | 'resume' | 'contact' | 'music' | 'browser' | 'taskmanager' | 'minesweeper' | 'freecell' | 'spider' | 'solitaire' | 'sudoku' | 'chips' | 'ludo' | 'mediaplayer' | 'nibbles' | 'gallery' | 'jezzball' | 'pipedream' | 'hearts' | 'skifree' | 'matador' | 'tetris' | 'mahjong' | 'notfound';
 
 const SITE_URL = 'https://www.juul.xyz';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/assets/avatar.png`;
@@ -32,6 +32,10 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     spider: 'spider',
     solitaire: 'solitaire',
     sudoku: 'sudoku',
+    chips: 'chips-challenge',
+    ludo: 'ludo',
+    mediaplayer: 'media-player',
+    nibbles: 'nibbles',
     gallery: 'gallery',
     jezzball: 'jezzball',
     pipedream: 'pipe-dream',
@@ -39,6 +43,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     skifree: 'skifree',
     matador: 'matador',
     tetris: 'tetris',
+    mahjong: 'mahjong',
     notfound: 'not-found',
   },
   da: {
@@ -54,6 +59,10 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     spider: 'edderkop',
     solitaire: 'kabale',
     sudoku: 'sudoku',
+    chips: 'chips',
+    ludo: 'ludo',
+    mediaplayer: 'medieafspiller',
+    nibbles: 'nibbles',
     gallery: 'billedgalleri',
     jezzball: 'jezzball',
     pipedream: 'roerdroem',
@@ -61,6 +70,7 @@ const PAGE_SLUGS: Record<Language, Record<Page, string>> = {
     skifree: 'skifri',
     matador: 'matador',
     tetris: 'tetris',
+    mahjong: 'mahjong',
     notfound: 'not-found',
   },
 };
@@ -190,6 +200,46 @@ const pageMeta: Record<string, Record<Language, { title: string; description: st
     da: {
       title: 'Billedgalleri - Martin Christiansen',
       description: 'Fotogalleri samling',
+    },
+  },
+  chips: {
+    en: {
+      title: 'Chips Challenge - Martin Christiansen',
+      description: 'Classic Chips Challenge puzzle game - collect all chips and reach the exit!',
+    },
+    da: {
+      title: 'Chips Challenge - Martin Christiansen',
+      description: 'Klassisk Chips Challenge puslespil - samle alle chips og nå udgangen!',
+    },
+  },
+  ludo: {
+    en: {
+      title: 'Ludo - Martin Christiansen',
+      description: 'Classic Ludo board game for 1-4 players',
+    },
+    da: {
+      title: 'Ludo - Martin Christiansen',
+      description: 'Klassisk Ludo brætspil for 1-4 spillere',
+    },
+  },
+  mediaplayer: {
+    en: {
+      title: 'Media Player - Martin Christiansen',
+      description: 'Media player simulation',
+    },
+    da: {
+      title: 'Medieafspiller - Martin Christiansen',
+      description: 'Medieafspiller-simulering',
+    },
+  },
+  nibbles: {
+    en: {
+      title: 'Nibbles - Martin Christiansen',
+      description: 'Classic Snake/Nibbles game - eat food and grow longer!',
+    },
+    da: {
+      title: 'Nibbles - Martin Christiansen',
+      description: 'Klassisk Snake/Nibbles spil - spis mad og bliv længere!',
     },
   },
   matador: {
@@ -388,7 +438,7 @@ function generateStaticRoutes(): Route[] {
   const routes: Route[] = [];
   const staticPages: Page[] = [
     'home', 'projects', 'resume', 'contact', 'music',
-    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'sudoku', 'gallery', 'jezzball', 'pipedream', 'hearts', 'skifree', 'matador', 'notfound',
+    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'sudoku', 'chips', 'ludo', 'mediaplayer', 'nibbles', 'gallery', 'jezzball', 'pipedream', 'hearts', 'skifree', 'matador', 'notfound',
   ];
   const languages: Language[] = ['en', 'da'];
 
