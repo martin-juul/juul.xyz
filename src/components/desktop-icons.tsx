@@ -79,6 +79,19 @@ export function DesktopIcons({ onNavigate, openWindowPages, onOpenTaskManager }:
     onNavigate(page);
   };
 
+  const handleKeyDown = (page: Page, e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (selectedIcon === page) {
+        // Already selected - activate
+        onNavigate(page);
+      } else {
+        // Select the icon
+        setSelectedIcon(page);
+      }
+    }
+  };
+
   // Deselect icon when clicking outside
   useEffect(() => {
     const handleGlobalClick = (e: MouseEvent) => {
@@ -101,7 +114,7 @@ export function DesktopIcons({ onNavigate, openWindowPages, onOpenTaskManager }:
         onContextMenu={openContextMenu}
       >
         {icons.map((item) => (
-        <div
+        <button
           class={`desktop-icon ${selectedIcon === item.page ? 'desktop-icon-selected' : ''} ${openWindowPages.includes(item.page) ? 'desktop-icon-open' : ''}`}
           onClick={(e) => {
             e.stopPropagation();
@@ -111,14 +124,17 @@ export function DesktopIcons({ onNavigate, openWindowPages, onOpenTaskManager }:
             e.stopPropagation();
             handleDoubleClick(item.page);
           }}
+          onKeyDown={(e) => handleKeyDown(item.page, e)}
+          aria-label={getPageLabel(item.page)}
+          aria-selected={selectedIcon === item.page}
           data-testid={`desktop-icon-${item.page}`}
         >
           <div class="desktop-icon-image">
             <img src={item.icon} alt="" draggable={false} />
           </div>
           <span class="desktop-icon-label">{getPageLabel(item.page)}</span>
-        </div>
-      ))}
+        </button>
+        ))}
       </div>
       <ContextMenuRenderer />
     </>

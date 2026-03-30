@@ -1,4 +1,6 @@
 import { useLanguage } from '../context/language-context';
+import { useEffect, useRef } from 'preact/hooks';
+import { useFocusTrap, useFocusRestore } from '../hooks';
 
 import { type Page } from '../shared/types';
 
@@ -11,6 +13,10 @@ type StartMenuProps = {
 
 export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: StartMenuProps) {
   const { t } = useLanguage();
+  const menuRef = useFocusTrap(isOpen, {
+    escapeHandler: onClose,
+  });
+  useFocusRestore(isOpen);
 
   if (!isOpen) return null;
 
@@ -18,6 +24,36 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
     onNavigate(page);
     onClose();
   };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      onClose();
+      return;
+    }
+
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const menuItems = Array.from(
+        menuRef.current?.querySelectorAll('button[role="menuitem"]') || []
+      ) as HTMLButtonElement[];
+
+      if (menuItems.length === 0) return;
+
+      const currentIndex = menuItems.indexOf(document.activeElement as HTMLButtonElement);
+      let nextIndex: number;
+
+      if (e.key === 'ArrowDown') {
+        nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % menuItems.length;
+      } else {
+        nextIndex = currentIndex === -1 ? menuItems.length - 1 : (currentIndex - 1 + menuItems.length) % menuItems.length;
+      }
+
+      menuItems[nextIndex].focus();
+    }
+  };
+
+  // Focus is handled by useFocusTrap hook
 
   const menuItems: {page: Page, icon: string}[] = [
     { page: 'home', icon: '/assets/icons/home.png' },
@@ -75,7 +111,16 @@ export function StartMenu({ isOpen, onClose, onNavigate, openWindowPages }: Star
   return (
     <>
       <div class="start-menu-overlay" onClick={onClose} aria-hidden="true" data-nosnippet data-testid="start-menu-overlay" />
-      <div id="start-menu" class="start-menu" role="menu" aria-label="Start menu" data-nosnippet data-testid="start-menu">
+      <div
+        ref={menuRef}
+        id="start-menu"
+        class="start-menu"
+        role="menu"
+        aria-label="Start menu"
+        onKeyDown={handleKeyDown}
+        data-nosnippet
+        data-testid="start-menu"
+      >
         <div class="start-menu-sidebar">
           <span class="start-menu-brand">
             Martin<span class="start-menu-brand-suffix">97</span>

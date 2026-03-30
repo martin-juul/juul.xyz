@@ -1,39 +1,21 @@
 import type { GameState, Language } from '../types';
 import { t } from '../translations';
-import { canAfford } from '../game-logic';
 
 interface ActionPanelProps {
   state: GameState;
   language: Language;
-  onRollDice: () => void;
-  onEndTurn: () => void;
   onOpenBuild: () => void;
   onOpenMortgage: () => void;
-  onOpenTrade: () => void;
-  onPayFine: () => void;
-  onUseCard: () => void;
-  onRollForDoubles: () => void;
 }
 
 export function ActionPanel({
   state,
   language,
-  onRollDice,
-  onEndTurn,
   onOpenBuild,
   onOpenMortgage,
-  onOpenTrade,
-  onPayFine,
-  onUseCard,
-  onRollForDoubles,
 }: ActionPanelProps) {
   const player = state.players[state.currentPlayer];
   const isHuman = player.isHuman;
-
-  // Determine available actions based on phase
-  const canRoll = isHuman && state.phase === 'rolling' && !state.diceRolled;
-  const canEndTurn = isHuman && state.phase === 'rolling' && state.diceRolled;
-  const inJail = isHuman && state.phase === 'jail' && player.inJail;
 
   // Check if player can build (owns a complete color group with no houses on all)
   const canBuild = isHuman && state.phase === 'rolling' && !player.inJail && (() => {
@@ -64,48 +46,25 @@ export function ActionPanel({
   const canMortgage = isHuman && state.phase === 'rolling' && !player.inJail &&
     player.properties.some(p => !p.mortgaged && p.houses === 0);
 
-  const canTrade = isHuman && state.phase === 'rolling' && !player.inJail &&
-    state.players.filter(p => !p.bankrupt).length > 1;
+  const hasButtons = canBuild || canMortgage;
 
-  const canPayFine = inJail && canAfford(player, 1000);
-  const canUseCard = inJail && player.getOutOfJailCards > 0;
-  const canRollInJail = inJail && player.jailTurns < 3;
+  // Only show message when there are no buttons to avoid large gray area
+  if (!hasButtons) {
+    if (state.message) {
+      return (
+        <div className="action-panel-message-only">
+          <div className="message-box">
+            {language === 'da' ? state.message.da : state.message.en}
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }
 
   return (
     <div className="action-panel">
       <div className="action-buttons">
-        {canRoll && (
-          <button className="action-btn primary" onClick={onRollDice}>
-            🎲 {t('rollDice', language)}
-          </button>
-        )}
-
-        {inJail && (
-          <>
-            {canPayFine && (
-              <button className="action-btn" onClick={onPayFine}>
-                💰 {t('payFine', language)} (1,000 kr)
-              </button>
-            )}
-            {canUseCard && (
-              <button className="action-btn" onClick={onUseCard}>
-                🃏 {t('useCard', language)}
-              </button>
-            )}
-            {canRollInJail && (
-              <button className="action-btn primary" onClick={onRollForDoubles}>
-                🎲 {t('rollForDoubles', language)}
-              </button>
-            )}
-          </>
-        )}
-
-        {canEndTurn && (
-          <button className="action-btn" onClick={onEndTurn}>
-            ➡️ {t('endTurn', language)}
-          </button>
-        )}
-
         {canBuild && (
           <button className="action-btn" onClick={onOpenBuild}>
             🏠 {t('build', language)}
@@ -115,12 +74,6 @@ export function ActionPanel({
         {canMortgage && (
           <button className="action-btn" onClick={onOpenMortgage}>
             📋 {t('mortgage', language)}
-          </button>
-        )}
-
-        {canTrade && (
-          <button className="action-btn" onClick={onOpenTrade}>
-            🤝 {t('trade', language)}
           </button>
         )}
       </div>

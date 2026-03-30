@@ -28,20 +28,58 @@ export function ContextMenu({ items, onClose, position }: ContextMenuProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [onClose]);
 
+  // Focus first item when menu opens
+  useEffect(() => {
+    if (menuRef.current) {
+      const firstItem = menuRef.current.querySelector('button:not(:disabled)') as HTMLButtonElement;
+      firstItem?.focus();
+    }
+  }, []);
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      onClose();
+      return;
+    }
+
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const menuItems = Array.from(
+        menuRef.current?.querySelectorAll('button:not(:disabled)') || []
+      ) as HTMLButtonElement[];
+
+      if (menuItems.length === 0) return;
+
+      const currentIndex = menuItems.indexOf(document.activeElement as HTMLButtonElement);
+      let nextIndex: number;
+
+      if (e.key === 'ArrowDown') {
+        nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % menuItems.length;
+      } else {
+        nextIndex = currentIndex === -1 ? menuItems.length - 1 : (currentIndex - 1 + menuItems.length) % menuItems.length;
+      }
+
+      menuItems[nextIndex].focus();
+    }
+  };
+
   return (
     <div
       ref={menuRef}
       class="context-menu"
+      role="menu"
       style={{ left: position.x, top: position.y }}
+      onKeyDown={handleKeyDown}
     >
       {items.map((item, index) => {
         // Empty label indicates separator
         if (!item.label) {
-          return <div key={index} class="context-menu-separator"></div>;
+          return <div key={index} class="context-menu-separator" role="separator" />;
         }
 
         return (
-          <div
+          <button
             key={index}
             class={`context-menu-item ${item.disabled ? 'context-menu-item-disabled' : ''}`}
             onClick={() => {
@@ -50,10 +88,12 @@ export function ContextMenu({ items, onClose, position }: ContextMenuProps) {
                 onClose();
               }
             }}
+            disabled={item.disabled}
+            role="menuitem"
           >
-            {item.icon && <img src={item.icon} alt="" class="context-menu-icon" />}
+            {item.icon && <img src={item.icon} alt="" class="context-menu-icon" aria-hidden="true" />}
             <span>{item.label}</span>
-          </div>
+          </button>
         );
       })}
     </div>

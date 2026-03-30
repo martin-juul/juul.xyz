@@ -137,25 +137,29 @@ export function Taskbar({ windows, focusedWindowId, isMusicPlayerOpen, onStartCl
       </button>
       <div class="taskbar-windows" data-testid="taskbar-windows">
         {windows.map(window => (
-          <div
+          <button
             key={window.id}
             class={`taskbar-window ${window.id === focusedWindowId && window.state !== 'minimized' ? 'active' : ''}`}
             onClick={() => onRestoreWindow(window.id)}
+            aria-label={getPageLabel(window.page)}
+            aria-pressed={window.id === focusedWindowId && window.state !== 'minimized'}
             data-testid={`taskbar-window-${window.page}`}
           >
             <img src={getPageIcon(window.page)} alt="" style="width: 16px; height: 16px;" />
             <span>{getPageLabel(window.page)}</span>
-          </div>
+          </button>
         ))}
         {isMusicPlayerOpen && (
-          <div
+          <button
             class="taskbar-window active"
             onClick={onOpenMusicPlayer}
+            aria-label={getPageLabel('music')}
+            aria-pressed="true"
             data-testid="taskbar-window-music"
           >
             <img src={getPageIcon('music')} alt="" style="width: 16px; height: 16px;" />
             <span>{getPageLabel('music')}</span>
-          </div>
+          </button>
         )}
       </div>
       <div class="system-tray" data-testid="system-tray">

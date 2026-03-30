@@ -24,23 +24,20 @@
 .board-container {
   flex: 1;
   position: relative;
-  padding: 8px;
+  padding: 4px;
   min-height: 0;
   min-width: 0;
   overflow: hidden;
 }
 
 .board {
-  /* Center the board */
+  /* Center the board and size based on the smaller dimension */
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* Make the board fit - use 100% height as base, constrained by width */
-  height: calc(100% - 16px);
-  max-height: calc(100% - 16px);
-  width: auto;
-  max-width: calc(100% - 16px);
+  width: min(calc(100% - 8px), calc(100vh - 180px));
+  height: min(calc(100% - 8px), calc(100vh - 180px));
   aspect-ratio: 1;
   background: #2d5016; /* Green felt center */
   border-radius: 50%;
@@ -62,6 +59,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  z-index: 1;
 }
 
 .board-space:hover {
@@ -277,6 +275,14 @@
   font-size: 11px;
 }
 
+.scoreboard-actions {
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 1px solid #808080;
+}
+
 .scoreboard-players {
   flex: 1;
   overflow-y: auto;
@@ -362,6 +368,15 @@
   gap: 4px;
   font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
   font-size: 11px;
+}
+
+/* Message-only panel - no gray background, minimal footprint */
+.action-panel-message-only {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
 }
 
 .action-buttons {

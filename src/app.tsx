@@ -2,6 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'preact/hooks';
 import { lazy, Suspense } from 'preact/compat';
 import { LanguageProvider, useLanguage } from './context/language-context';
 import { StatusProvider, useStatus } from './context/status-context';
+import { useAnnouncement } from './hooks';
 import { Home } from './features/home';
 import { Projects } from './features/projects';
 import { Resume } from './features/resume';
@@ -62,6 +63,7 @@ type ResizeState = {
 
 function AppContent() {
   const { navigateTo, currentPage } = useLanguage();
+  const { announce, PoliteRegion, AssertiveRegion } = useAnnouncement();
   const [windows, setWindows] = useState<WindowData[]>([]);
   const [nextZIndex, setNextZIndex] = useState(1);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
@@ -114,11 +116,43 @@ function AppContent() {
     }
   };
 
+  // Helper function to get page title for announcements
+  const getPageTitleForAnnouncement = (page: Page): string => {
+    const t = commonTranslations.en; // Use English for announcements
+    switch (page) {
+      case 'home': return t.nav.home;
+      case 'projects': return t.nav.projects;
+      case 'resume': return t.nav.resume;
+      case 'contact': return t.nav.contact;
+      case 'music': return t.nav.music;
+      case 'browser': return t.nav.browser;
+      case 'taskmanager': return t.nav.taskmanager;
+      case 'minesweeper': return t.nav.minesweeper;
+      case 'freecell': return t.nav.freecell;
+      case 'spider': return t.nav.spider;
+      case 'solitaire': return t.nav.solitaire;
+      case 'gallery': return t.nav.gallery;
+      case 'sudoku': return t.nav.sudoku;
+      case 'chips': return t.nav.chips;
+      case 'ludo': return t.nav.ludo;
+      case 'jezzball': return t.nav.jezzball;
+      case 'pipedream': return t.nav.pipedream;
+      case 'matador': return t.nav.matador;
+      case 'hearts': return t.nav.hearts;
+      case 'skifree': return t.nav.skifree;
+      case 'nibbles': return t.nav.nibbles;
+      case 'tetris': return t.nav.tetris;
+      case 'mahjong': return t.nav.mahjong;
+      default: return 'Window';
+    }
+  };
+
   const openWindow = useCallback((page: Page, updateUrl: boolean = true) => {
     // Music player is handled separately
     if (page === 'music') {
       setIsMusicPlayerOpen(true);
       setIsStartMenuOpen(false);
+      announce('Music player opened', 'polite');
       if (updateUrl) {
         isNavigatingRef.current = true;
         navigateTo(page);
@@ -136,6 +170,12 @@ function AppContent() {
       ));
       setNextZIndex(prev => prev + 1);
       setIsStartMenuOpen(false);
+
+      // Announce window restoration if it was minimized
+      if (existingWindow.state === 'minimized') {
+        announce(`${getPageTitleForAnnouncement(existingWindow.page)} restored`, 'polite');
+      }
+
       if (updateUrl) {
         isNavigatingRef.current = true;
         navigateTo(page);
@@ -155,6 +195,10 @@ function AppContent() {
     setWindows(prev => [...prev, newWindow]);
     setNextZIndex(prev => prev + 1);
     setIsStartMenuOpen(false);
+
+    // Announce window opened
+    announce(`${getPageTitleForAnnouncement(page)} opened`, 'polite');
+
     if (updateUrl) {
       isNavigatingRef.current = true;
       navigateTo(page);
@@ -162,22 +206,35 @@ function AppContent() {
   }, [windows, nextZIndex, navigateTo]);
 
   const closeWindow = useCallback((id: string) => {
+    const windowToClose = windows.find(w => w.id === id);
+    if (windowToClose) {
+      announce(`${getPageTitleForAnnouncement(windowToClose.page)} closed`, 'polite');
+    }
     setWindows(prev => prev.filter(w => w.id !== id));
-  }, []);
+  }, [windows]);
 
   const minimizeWindow = useCallback((id: string) => {
+    const windowToMinimize = windows.find(w => w.id === id);
+    if (windowToMinimize && windowToMinimize.state !== 'minimized') {
+      announce(`${getPageTitleForAnnouncement(windowToMinimize.page)} minimized`, 'polite');
+    }
     setWindows(prev => prev.map(w =>
       w.id === id ? { ...w, state: 'minimized' as const } : w
     ));
-  }, []);
+  }, [windows]);
 
   const maximizeWindow = useCallback((id: string) => {
+    const windowToMaximize = windows.find(w => w.id === id);
+    if (windowToMaximize) {
+      const newState = windowToMaximize.state === 'maximized' ? 'normal' : 'maximized';
+      announce(`${getPageTitleForAnnouncement(windowToMaximize.page)} ${newState}`, 'polite');
+    }
     setWindows(prev => prev.map(w =>
       w.id === id
         ? { ...w, state: w.state === 'maximized' ? 'normal' as const : 'maximized' as const }
         : w
     ));
-  }, []);
+  }, [windows]);
 
   const restoreWindow = useCallback((id: string) => {
     setWindows(prev => prev.map(w =>
@@ -381,6 +438,9 @@ function AppContent() {
 
   return (
     <>
+      {/* Live regions for screen reader announcements */}
+      <PoliteRegion />
+      <AssertiveRegion />
       <SeoHead page={windows[windows.length - 1]?.page || 'home'} />
       {/* Skip to main content link for screen readers */}
       <a href="#main-content" class="skip-link" data-nosnippet>

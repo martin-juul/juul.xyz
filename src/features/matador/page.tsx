@@ -32,7 +32,6 @@ import {
 import { Board } from './components/Board';
 import { Dice } from './components/Dice';
 import { ScoreBoard } from './components/ScoreBoard';
-import { ActionPanel } from './components/ActionPanel';
 import { BuyPropertyDialog } from './components/Dialogs/BuyPropertyDialog';
 import { AuctionDialog } from './components/Dialogs/AuctionDialog';
 import { BuildDialog } from './components/Dialogs/BuildDialog';
@@ -805,20 +804,20 @@ export function Matador({ language }: MatadorProps) {
             </button>
           </div>
         </div>
-        <ScoreBoard state={gameState} language={language} />
+        <ScoreBoard
+          state={gameState}
+          language={language}
+          onRollDice={handleRollDice}
+          onEndTurn={handleEndTurn}
+          onOpenTrade={() => {}}
+          onOpenBuild={() => setDialogs(d => ({ ...d, build: true }))}
+          onOpenMortgage={() => setDialogs(d => ({ ...d, mortgage: true }))}
+          onPayFine={handlePayFine}
+          onUseCard={handleUseJailCard}
+          onRollForDoubles={handleRollForDoubles}
+          rolling={rolling}
+        />
       </div>
-      <ActionPanel
-        state={gameState}
-        language={language}
-        onRollDice={handleRollDice}
-        onEndTurn={handleEndTurn}
-        onOpenBuild={() => setDialogs(d => ({ ...d, build: true }))}
-        onOpenMortgage={() => setDialogs(d => ({ ...d, mortgage: true }))}
-        onOpenTrade={() => {}}
-        onPayFine={handlePayFine}
-        onUseCard={handleUseJailCard}
-        onRollForDoubles={handleRollForDoubles}
-      />
 
       {/* Dialogs */}
       {dialogs.buyProperty && pendingProperty && (

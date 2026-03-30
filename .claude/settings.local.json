@@ -7,7 +7,12 @@
       "Bash(git diff:*)",
       "Bash(grep -E '^src/.*\\\\.\\(tsx?|css\\)$')",
       "Bash(find src/features -name \"*.tsx\" -exec grep -l \"useEffect.*\\\\[\\\\]\" {})",
-      "Bash(find e2e:*)"
+      "Bash(find e2e:*)",
+      "Bash(find docs:*)",
+      "mcp__context7__resolve-library-id",
+      "WebSearch",
+      "mcp__context7__query-docs",
+      "Bash(find C:UsersMartin.claudepluginsmarketplacescompound-engineering-pluginpluginscompound-engineeringskillsdocument-review -name *.md -type f)"
     ]
   }
 }
