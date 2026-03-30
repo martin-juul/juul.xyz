@@ -2,8 +2,8 @@ import { render } from 'preact';
 import { App } from './app';
 import './index.css';
 import '98.css';
-import { injectSpeedInsights } from '@vercel/speed-insights';
+import { initSpeedInsights } from './lib/speed-insights';
 
-injectSpeedInsights();
+initSpeedInsights();
 
 render(<App />, document.getElementById('app')!);

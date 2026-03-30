@@ -8,6 +8,7 @@ import {
   type Page,
   type Language,
 } from '../lib/i18n-routing';
+import { updateSpeedInsightsRoute } from '../lib/speed-insights';
 import { commonTranslations } from '../features/common';
 import { homeTranslations } from '../features/home';
 import { projectsTranslations, projectsData, projectsDataDa } from '../features/projects';
@@ -261,6 +262,7 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
       window.history.replaceState({}, '', newUrl);
       setCurrentPage(page);
       setCurrentSubPath(subPath);
+      updateSpeedInsightsRoute(lang, page, subPath);
       return;
     }
 
@@ -268,6 +270,9 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
     const { page, subPath } = parsePath(window.location.pathname);
     setCurrentPage(page);
     setCurrentSubPath(subPath);
+
+    // Update Speed Insights with initial route
+    updateSpeedInsightsRoute(language, page, subPath);
 
     // If on root path without language prefix, redirect to proper URL
     if (window.location.pathname === '/' && language !== 'en') {
@@ -283,6 +288,9 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
     // Navigate to same page in new language, preserving subPath
     const newPath = buildPath(lang, currentPage, currentSubPath);
     window.history.pushState({}, '', newPath);
+
+    // Update Speed Insights with new route
+    updateSpeedInsightsRoute(lang, currentPage, currentSubPath);
   }, [currentPage, currentSubPath]);
 
   const navigateTo = useCallback((page: Page, subPath?: string, replace: boolean = false) => {
@@ -295,6 +303,9 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
     } else {
       window.history.pushState({}, '', newPath);
     }
+
+    // Update Speed Insights with new route
+    updateSpeedInsightsRoute(language, page, subPath);
   }, [language]);
 
   // Handle browser back/forward navigation
@@ -309,6 +320,9 @@ export function LanguageProvider({ children }: { children: ComponentChildren }) 
 
       setCurrentPage(page);
       setCurrentSubPath(subPath);
+
+      // Update Speed Insights with new route
+      updateSpeedInsightsRoute(pathLang, page, subPath);
     };
 
     window.addEventListener('popstate', handlePopState);
