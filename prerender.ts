@@ -282,6 +282,26 @@ const pageMeta: Record<string, Record<Language, { title: string; description: st
       description: 'Siden du leder efter findes ikke',
     },
   },
+  tetris: {
+    en: {
+      title: 'Tetris - Martin Christiansen',
+      description: 'Classic Tetris puzzle game - stack blocks and clear lines!',
+    },
+    da: {
+      title: 'Tetris - Martin Christiansen',
+      description: 'Klassisk Tetris puslespil - stabler blokke og ryd linjer!',
+    },
+  },
+  mahjong: {
+    en: {
+      title: 'Mahjong Solitaire - Martin Christiansen',
+      description: 'Classic Mahjong Solitaire tile-matching game',
+    },
+    da: {
+      title: 'Mahjong Kabale - Martin Christiansen',
+      description: 'Klassisk Mahjong kabale med flise-matchning',
+    },
+  },
 };
 
 // JSON-LD structured data
@@ -438,7 +458,7 @@ function generateStaticRoutes(): Route[] {
   const routes: Route[] = [];
   const staticPages: Page[] = [
     'home', 'projects', 'resume', 'contact', 'music',
-    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'sudoku', 'chips', 'ludo', 'mediaplayer', 'nibbles', 'gallery', 'jezzball', 'pipedream', 'hearts', 'skifree', 'matador', 'notfound',
+    'browser', 'taskmanager', 'minesweeper', 'freecell', 'spider', 'solitaire', 'sudoku', 'chips', 'ludo', 'mediaplayer', 'nibbles', 'tetris', 'mahjong', 'gallery', 'jezzball', 'pipedream', 'hearts', 'skifree', 'matador', 'notfound',
   ];
   const languages: Language[] = ['en', 'da'];
 
