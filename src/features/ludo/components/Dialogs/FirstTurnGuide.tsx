@@ -32,9 +32,9 @@ export const FirstTurnGuide: FunctionalComponent<FirstTurnGuideProps> = ({
   return (
     <div class="first-turn-guide">
       {phase === 'rolling' && (
-        <div class="guide-text" style="bottom: 180px; right: 20px;">
+        <div class="guide-text" style="bottom: 40px; right: 90px;">
           {t('firstTurnHint', lang)}
-          <div class="arrow" style="bottom: -20px; right: 50%;">↓</div>
+          <div class="arrow" style="bottom: -20px; right: 40%;">↓</div>
         </div>
       )}
       {phase === 'selectToken' && (

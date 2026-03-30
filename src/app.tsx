@@ -34,6 +34,7 @@ const Skifree = lazy(() => import('./features/skifree').then(m => ({ default: m.
 const Nibbles = lazy(() => import('./features/nibbles').then(m => ({ default: m.Nibbles })));
 const Tetris = lazy(() => import('./features/tetris').then(m => ({ default: m.Tetris })));
 const Mahjong = lazy(() => import('./features/mahjong').then(m => ({ default: m.Mahjong })));
+const Ludo = lazy(() => import('./features/ludo').then(m => ({ default: m.Ludo })));
 
 type WindowData = {
   id: string;
@@ -544,7 +545,7 @@ function Window({ data, isFocused, onClose, onMinimize, onMaximize, onFocus, onM
       case 'nibbles': return <Suspense fallback={null}><Nibbles /></Suspense>;
       case 'tetris': return <Suspense fallback={null}><Tetris /></Suspense>;
       case 'mahjong': return <Suspense fallback={null}><Mahjong /></Suspense>;
-      case 'ludo': return <div style="padding: 20px">Ludo game coming soon!</div>;
+      case 'ludo': return <Suspense fallback={null}><Ludo /></Suspense>;
       case 'matador': return <Suspense fallback={null}><Matador language={language} /></Suspense>;
       case 'mediaplayer': return <MediaPlayer />;
       case 'notfound': return <NotFound />;

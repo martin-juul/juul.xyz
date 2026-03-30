@@ -1,27 +1,70 @@
 /* Ludo Game Styles - Windows 98 Theme */
 
 .ludo-game {
-  display: flex;
+  width: 100%;
   height: 100%;
-  gap: 8px;
-  padding: 4px;
   background: #c0c0c0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 11px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Main game area */
+.game-container {
+  display: flex;
+  flex: 1;
+  min-height: 0;
 }
 
 /* Board Container */
 .ludo-board-container {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  padding: 8px;
+  min-height: 0;
   min-width: 0;
+  overflow: hidden;
 }
 
 .ludo-board-wrapper {
-  flex: 1;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: auto;
+}
+
+/* Right Panel (ScoreBoard + ActionPanel) */
+.right-panel {
+  width: 180px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.score-board {
+  flex-shrink: 0;
+  background: #c0c0c0;
+  border: 2px inset #dfdfdf;
+  padding: 8px;
+  margin-bottom: 16px;
+  overflow-y: auto;
+}
+
+/* Action Panel */
+.action-panel {
+  flex: 1;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  background: #c0c0c0;
+  border: 2px inset #dfdfdf;
+  padding: 8px;
+  gap: 8px;
 }
 
 /* Main Board */
@@ -32,7 +75,8 @@
   gap: 1px;
   background: #808080;
   border: 2px inset #dfdfdf;
-  width: min(100%, 400px);
+  width: 100%;
+  max-width: 600px;
   aspect-ratio: 1;
 }
 
@@ -196,28 +240,14 @@
   50% { transform: scale(1.1); }
 }
 
-/* Sidebar */
-.ludo-sidebar {
-  width: 180px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-/* Action Panel */
-.action-panel {
-  background: #c0c0c0;
-  border: 2px outset #dfdfdf;
-  padding: 8px;
-}
-
 .dice-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #808080;
 }
 
 /* Dice */
@@ -293,9 +323,9 @@
 
 /* Score Board */
 .score-board {
-  flex: 1;
+  flex-shrink: 0;
   background: #c0c0c0;
-  border: 2px outset #dfdfdf;
+  border: 2px inset #dfdfdf;
   padding: 8px;
   overflow-y: auto;
 }
