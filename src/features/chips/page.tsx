@@ -15,6 +15,7 @@ import { loadHighScores, updateHighScore, getLevelHighScore } from './statistics
 import { saveGame, loadSavedGame, hasSavedGame as checkHasSavedGame, autoSaveGame } from './save-game';
 import { generatePassword, validatePassword } from './passwords';
 import { LevelEditor } from './editor';
+import { GameBoard } from './components/GameBoard';
 import type { GameData, Direction, HighScores, Level } from './types';
 import './chips.css';
 
@@ -118,18 +119,6 @@ export function Chip() {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 
-  // Get monster sprite
-  function getMonsterSprite(type: string): string {
-    switch (type) {
-      case 'monster_bug': return '🐛';
-      case 'monster_fireball': return '🔥';
-      case 'monster_ball': return '⚽';
-      case 'monster_ghost': return '👻';
-      case 'monster_tank': return '🛡️';
-      default: return '👾';
-    }
-  }
-
   // Start game
   const startGame = useCallback(() => {
     setGameData((prev: GameData) => ({ ...prev, gameState: 'playing' as const }));
@@ -154,7 +143,7 @@ export function Chip() {
   // Handle keyboard input
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (showInstructions) return;
+      if (showInstructions || showEditor) return;
 
       // Start game on Enter if idle
       if (e.key === 'Enter' && gameData.gameState === 'idle') {
@@ -198,7 +187,7 @@ export function Chip() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameData, showInstructions, startGame, newGame]);
+  }, [gameData, showInstructions, showEditor, startGame, newGame]);
 
   // Handle player movement
   const handleMove = useCallback((direction: Direction) => {
@@ -530,43 +519,7 @@ export function Chip() {
         )}
 
         {/* Game grid */}
-        <div
-          class="chips-grid"
-          style={{
-            gridTemplateColumns: `repeat(${gameData.grid[0]?.length || 20}, 24px)`,
-          }}
-        >
-          {gameData.grid.map((row: string[], y: number) =>
-            row.map((tile: string, x: number) => {
-              const isPlayer = gameData.playerPosition.x === x && gameData.playerPosition.y === y;
-              const monster = gameData.monsters?.find(m => m.position.x === x && m.position.y === y);
-              return (
-                <div
-                  key={`${x}-${y}`}
-                  class={`chips-tile chips-tile-${tile} ${isPlayer ? 'chips-player' : ''}`}
-                  data-x={x}
-                  data-y={y}
-                >
-                  {isPlayer && <div class="chips-player-sprite">🤖</div>}
-                  {monster && !isPlayer && <div class="chips-monster chips-monster-${monster.type}">{getMonsterSprite(monster.type)}</div>}
-                  {tile === 'chip' && !isPlayer && !monster && <div class="chips-chip">💎</div>}
-                  {tile === 'key_red' && !monster && <div class="chips-key">🔑</div>}
-                  {tile === 'key_blue' && !monster && <div class="chips-key">🔑</div>}
-                  {tile === 'key_green' && !monster && <div class="chips-key">🔑</div>}
-                  {tile === 'key_yellow' && !monster && <div class="chips-key">🔑</div>}
-                  {tile === 'door_red' && <div class="chips-door">🚪</div>}
-                  {tile === 'door_blue' && <div class="chips-door">🚪</div>}
-                  {tile === 'door_green' && <div class="chips-door">🚪</div>}
-                  {tile === 'door_yellow' && <div class="chips-door">🚪</div>}
-                  {tile === 'exit' && <div class="chips-exit">🚪</div>}
-                  {tile === 'boots_ice' && <div class="chips-boots">🥾</div>}
-                  {tile === 'boots_water' && <div class="chips-boots">🥾</div>}
-                  {tile === 'boots_fire' && <div class="chips-boots">🥾</div>}
-                </div>
-              );
-            })
-          )}
-        </div>
+        <GameBoard gameData={gameData} />
       </div>
 
       {/* Inventory display */}

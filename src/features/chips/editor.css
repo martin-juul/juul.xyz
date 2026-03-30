@@ -406,9 +406,10 @@
 }
 
 .chips-editor-test-header {
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 16px;
   padding: 8px;
   background: #c0c0c0;
   border-bottom: 2px solid #808080;
@@ -417,6 +418,7 @@
 .chips-editor-test-header h2 {
   margin: 0;
   font-size: 16px;
+  flex: 1;
 }
 
 .chips-editor-test-header button {
@@ -428,4 +430,149 @@
   border-bottom-color: #808080;
   border-right-color: #808080;
   cursor: pointer;
+}
+
+.chips-editor-test-header button:active {
+  border: 1px solid #000;
+  border-top-color: #808080;
+  border-left-color: #808080;
+  border-bottom-color: #fff;
+  border-right-color: #fff;
+}
+
+/* TEST MODE indicator */
+.chips-test-mode-indicator {
+  padding: 6px 12px;
+  background: #000080;
+  color: #ffff00;
+  font-weight: bold;
+  font-size: 14px;
+  border: 2px solid #ffff00;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Test actions */
+.chips-test-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.chips-test-actions button {
+  padding: 6px 16px;
+  background: #c0c0c0;
+  border: 2px solid #000;
+  border-top-color: #fff;
+  border-left-color: #fff;
+  border-bottom-color: #808080;
+  border-right-color: #808080;
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.chips-test-actions button:active {
+  border: 2px solid #000;
+  border-top-color: #808080;
+  border-left-color: #808080;
+  border-bottom-color: #fff;
+  border-right-color: #fff;
+}
+
+.chips-test-actions button:hover {
+  background: #d0d0d0;
+}
+
+/* Test stats */
+.chips-test-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 8px;
+  background: #c0c0c0;
+  border-bottom: 2px solid #808080;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.chips-test-stats span {
+  color: #000;
+}
+
+/* Test inventory */
+.chips-test-inventory {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  font-size: 12px;
+}
+
+.chips-key-icon {
+  font-size: 16px;
+}
+
+.chips-inventory-boots {
+  margin-left: 12px;
+  color: #808080;
+  font-size: 11px;
+}
+
+/* Test mode container with visual distinction */
+.chips-editor-test {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #c0c0c0;
+  border: 3px solid #ffff00;
+}
+
+.chips-editor-test .chips-grid {
+  margin: 16px auto;
+  border: 2px solid #ffff00;
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+}
+
+/* Test placeholder */
+.chips-test-placeholder {
+  padding: 32px;
+  text-align: center;
+  color: #808080;
+}
+
+.chips-test-placeholder p {
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+/* Responsive test mode */
+@media (max-width: 768px) {
+  .chips-editor-test-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .chips-test-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .chips-test-stats {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .chips-test-inventory {
+    flex-wrap: wrap;
+  }
 }

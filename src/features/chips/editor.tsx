@@ -1,8 +1,11 @@
 import { useState, useCallback, useEffect, useRef } from 'preact/hooks';
 import { useLanguage } from '../../context/language-context';
 import { useStatus } from '../../context/status-context';
-import { createInitialGame, getLevel, LEVELS } from './game-logic';
-import { TileType, type Level, type Position } from './types';
+import { createInitialGame, getLevel, LEVELS, tryMove, handleIceSlide } from './game-logic';
+import { TileType, type Level, type Position, type GameData, type Direction } from './types';
+import { moveMonsters } from './monster-ai';
+import { playSound } from './sounds';
+import { GameBoard } from './components/GameBoard';
 import './chips.css';
 import './editor.css';
 
@@ -61,6 +64,7 @@ export function LevelEditor({ onClose, onLoadLevel }: EditorProps) {
   const [exportString, setExportString] = useState('');
   const [importString, setImportString] = useState('');
   const [gridSize, setGridSize] = useState(DEFAULT_GRID_SIZE);
+  const [testGameData, setTestGameData] = useState<GameData | null>(null);
   const isMouseDown = useRef(false);
 
   // Load saved levels on mount
@@ -188,7 +192,220 @@ export function LevelEditor({ onClose, onLoadLevel }: EditorProps) {
   // Validate level
   const isValidLevel = chipCount >= chipsRequired && hasExit;
 
-  // Test play the level
+  // Start test mode
+  const startTest = useCallback(() => {
+    // Validate level before starting test
+    if (!hasExit) {
+      setStatusText('Cannot test: Level must have an exit tile!');
+      return;
+    }
+    if (chipCount < chipsRequired) {
+      setStatusText(`Cannot test: Not enough chips! (${chipCount}/${chipsRequired})`);
+      return;
+    }
+
+    // Create test game instance
+    const testLevel: Level = {
+      number: 999,
+      name: levelName,
+      grid: grid.map(row => [...row]),
+      playerStart: { ...playerStart },
+      chipsRequired,
+      hint: hint || undefined,
+    };
+
+    const gameData = {
+      ...createInitialGame(testLevel),
+      gameState: 'playing' as const,
+    };
+    setTestGameData(gameData);
+    setShowTest(true);
+    setStatusText('Testing: ' + levelName);
+  }, [grid, playerStart, levelName, chipsRequired, hint, hasExit, chipCount, setStatusText]);
+
+  // Exit test mode
+  const exitTest = useCallback(() => {
+    setShowTest(false);
+    setTestGameData(null);
+    setStatusText('Exited test mode');
+  }, [setStatusText]);
+
+  // Handle movement in test mode
+  const handleTestMove = useCallback((direction: Direction) => {
+    if (!testGameData) return;
+
+    setTestGameData((prev) => {
+      if (!prev) return prev;
+
+      // Try to move
+      const moveResult = tryMove(prev.grid, prev.playerPosition, direction, prev.inventory);
+
+      if (moveResult.died) {
+        playSound('death');
+        return {
+          ...prev,
+          gameState: 'lost' as const,
+          deathReason: moveResult.deathReason || 'unknown',
+          playerPosition: moveResult.newPosition,
+        };
+      }
+
+      if (moveResult.newPosition.x === prev.playerPosition.x &&
+          moveResult.newPosition.y === prev.playerPosition.y) {
+        // Blocked
+        return prev;
+      }
+
+      let newGrid = moveResult.updatedGrid;
+      let newPos = moveResult.newPosition;
+      let newInventory = { ...prev.inventory };
+      let newChipsCollected = prev.chipsCollected + (moveResult.chipsCollected ? 1 : 0);
+
+      // Collect items
+      if (moveResult.keyCollected) {
+        newInventory.keys = [...newInventory.keys, moveResult.keyCollected!];
+        playSound('keyPickup');
+      }
+      if (moveResult.bootCollected) {
+        newInventory.boots = [...newInventory.boots, moveResult.bootCollected!];
+        playSound('bootPickup');
+      }
+      if (moveResult.chipsCollected) {
+        playSound('collect');
+      }
+      if (moveResult.doorOpened) {
+        playSound('doorOpen');
+      }
+
+      // Handle ice sliding
+      if (moveResult.slippedOnIce) {
+        playSound('slide');
+        const slideResult = handleIceSlide(newGrid, newPos, direction, newInventory);
+        newGrid = slideResult.finalGrid;
+        newPos = slideResult.finalPos;
+
+        if (slideResult.died) {
+          playSound('death');
+          return {
+            ...prev,
+            gameState: 'lost' as const,
+            deathReason: slideResult.deathReason || 'unknown',
+            playerPosition: newPos,
+          };
+        }
+      }
+
+      // Check for exit
+      if (moveResult.exited) {
+        if (newChipsCollected >= prev.chipsRequired) {
+          playSound('levelComplete');
+          return {
+            ...prev,
+            gameState: 'won' as const,
+            playerPosition: newPos,
+            grid: newGrid,
+            chipsCollected: newChipsCollected,
+            moveCount: prev.moveCount + 1,
+            levelCompleted: true,
+          };
+        } else {
+          // Need more chips
+          return prev;
+        }
+      }
+
+      // Move monsters
+      let updatedMonsters = prev.monsters || [];
+      const turnNumber = (prev.turnNumber || 0) + 1;
+
+      if (updatedMonsters.length > 0) {
+        const monsterResult = moveMonsters(updatedMonsters, newPos, newGrid, turnNumber);
+        updatedMonsters = monsterResult.updatedMonsters;
+
+        if (monsterResult.playerDied) {
+          playSound('death');
+          return {
+            ...prev,
+            gameState: 'lost' as const,
+            deathReason: 'monster',
+            playerPosition: newPos,
+            monsters: updatedMonsters,
+            turnNumber,
+          };
+        }
+      }
+
+      return {
+        ...prev,
+        grid: newGrid,
+        playerPosition: newPos,
+        chipsCollected: newChipsCollected,
+        inventory: newInventory,
+        moveCount: prev.moveCount + 1,
+        monsters: updatedMonsters,
+        turnNumber,
+      };
+    });
+  }, [testGameData]);
+
+  // Restart test mode
+  const restartTest = useCallback(() => {
+    if (!testGameData) return;
+
+    const testLevel: Level = {
+      number: 999,
+      name: levelName,
+      grid: grid.map(row => [...row]),
+      playerStart: { ...playerStart },
+      chipsRequired,
+      hint: hint || undefined,
+    };
+
+    const gameData = {
+      ...createInitialGame(testLevel),
+      gameState: 'playing' as const,
+    };
+    setTestGameData(gameData);
+    setStatusText('Restarted: ' + levelName);
+  }, [grid, playerStart, levelName, chipsRequired, hint, testGameData, setStatusText]);
+
+  // Handle keyboard input in test mode
+  useEffect(() => {
+    if (!showTest || !testGameData) {
+      return;
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Escape key exits test mode
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        exitTest();
+        return;
+      }
+
+      // Only handle movement if game is playing
+      if (testGameData.gameState !== 'playing') {
+        return;
+      }
+
+      let direction: Direction | null = null;
+      if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') direction = 'up';
+      if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') direction = 'down';
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') direction = 'left';
+      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') direction = 'right';
+
+      if (direction) {
+        e.preventDefault();
+        handleTestMove(direction);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showTest, testGameData, testGameData?.gameState, handleTestMove, exitTest]);
+
+  // Test play the level (legacy - loads into main game)
   const testLevel = useCallback(() => {
     const testLevelData: Level = {
       number: 999,
@@ -208,11 +425,60 @@ export function LevelEditor({ onClose, onLoadLevel }: EditorProps) {
     return (
       <div class="chips-editor-test">
         <div class="chips-editor-test-header">
+          <div class="chips-test-mode-indicator">TEST MODE</div>
           <h2>Testing: {levelName}</h2>
-          <button onClick={() => setShowTest(false)}>Back to Editor</button>
+          <div class="chips-test-actions">
+            <button onClick={restartTest}>Restart</button>
+            <button onClick={exitTest}>Back to Editor</button>
+          </div>
         </div>
-        {/* Test game would be rendered here */}
-        <p>Test mode coming soon!</p>
+
+        {testGameData && (
+          <>
+            {/* Game stats */}
+            <div class="chips-test-stats">
+              <span>Chips: {testGameData.chipsCollected}/{testGameData.chipsRequired}</span>
+              <span>Moves: {testGameData.moveCount}</span>
+            </div>
+
+            {/* Inventory */}
+            <div class="chips-test-inventory">
+              <span>Keys: </span>
+              {testGameData.inventory.keys.map((key, i) => (
+                <span key={i} class={`chips-key-icon chips-key-${key}`}>🔑</span>
+              ))}
+              <span className="chips-inventory-boots">
+                Boots: {testGameData.inventory.boots.join(', ') || 'none'}
+              </span>
+            </div>
+
+            {/* Game board */}
+            <GameBoard gameData={testGameData} />
+
+            {/* Win/Loss overlays */}
+            {testGameData.gameState === 'won' && (
+              <div class="chips-overlay">
+                <div class="chips-message chips-win">
+                  <h2>Level Complete!</h2>
+                  <p>Moves: {testGameData.moveCount}</p>
+                  <button onClick={restartTest}>Restart</button>
+                  <button onClick={exitTest}>Back to Editor</button>
+                </div>
+              </div>
+            )}
+
+            {testGameData.gameState === 'lost' && (
+              <div class="chips-overlay">
+                <div class="chips-message chips-lose">
+                  <h2>Game Over</h2>
+                  <p>{testGameData.deathReason || 'You died!'}</p>
+                  <button onClick={restartTest}>Try Again</button>
+                  <button onClick={exitTest}>Back to Editor</button>
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </div>
     );
   }
@@ -223,7 +489,7 @@ export function LevelEditor({ onClose, onLoadLevel }: EditorProps) {
         <h2>Level Editor</h2>
         <div class="chips-editor-actions">
           <button onClick={onClose}>Close</button>
-          <button onClick={() => setShowTest(true)} disabled={!isValidLevel}>
+          <button onClick={startTest} disabled={!isValidLevel}>
             Test Play
           </button>
           <button onClick={saveCustomLevel} disabled={!isValidLevel}>
