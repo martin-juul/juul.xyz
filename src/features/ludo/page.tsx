@@ -1,17 +1,10 @@
 // Ludo Game Page Component
 
-import { useState, useEffect, useRef, useCallback } from 'preact/hooks';
+import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import { useLanguage } from '../../context/language-context';
 import { useStatus } from '../../context/status-context';
-import type { GameState, DialogState, Difficulty, PlayerColor } from './types';
-import {
-  createInitialGameState,
-  rollDiceForPlayer,
-  getMovableTokens,
-  moveToken,
-  generateHints,
-  getPlayerRanking,
-} from './game-logic';
+import type { DialogState, Difficulty, GameState, PlayerColor } from './types';
+import { createInitialGameState, generateHints, moveToken, rollDiceForPlayer } from './game-logic';
 import { decideMove } from './ai';
 import { loadStats, saveStats, updateStats } from './stats';
 import { Board } from './components/Board';
@@ -21,7 +14,6 @@ import { SetupDialog } from './components/Dialogs/SetupDialog';
 import { TutorialDialog } from './components/Dialogs/TutorialDialog';
 import { HelpDialog } from './components/Dialogs/HelpDialog';
 import { GameOverDialog } from './components/Dialogs/GameOverDialog';
-import { FirstTurnGuide } from './components/Dialogs/FirstTurnGuide';
 import './ludo.css';
 
 export function Ludo() {
@@ -65,8 +57,7 @@ export function Ludo() {
 
   // Helper to schedule timeouts
   const scheduleTimeout = useCallback((callback: () => void, delay: number) => {
-    const id = window.setTimeout(callback, delay);
-    return id;
+    return window.setTimeout(callback, delay);
   }, []);
 
   // Update status message based on game state
