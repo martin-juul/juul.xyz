@@ -90,14 +90,18 @@
 .chips-palette-tile {
   width: 100%;
   min-width: 0;
-  aspect-ratio: 1;
   padding: 4px;
   background: #fff;
   border: 1px solid #808080;
-  font-size: 16px;
   cursor: pointer;
   transition: all 0.1s;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 56px;
 }
 
 .chips-palette-tile:hover {
@@ -108,6 +112,37 @@
   background: #000080;
   color: #fff;
   border-color: #0000ff;
+  outline: 2px solid #ffff00;
+}
+
+.chips-palette-tile-visual {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.chips-palette-tile .chips-tile {
+  border: none;
+}
+
+.chips-palette-tile-label {
+  font-size: 10px;
+  text-align: center;
+  line-height: 1.1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  color: #000;
+  font-weight: 500;
+}
+
+.chips-palette-tile.selected .chips-palette-tile-label {
+  color: #fff;
 }
 
 /* Responsive palette: more columns when wider */

@@ -8,27 +8,27 @@ import './editor.css';
 
 // Tile palette configuration
 const TILE_PALETTE = [
-  { type: TileType.WALL, icon: '⬜', label: 'Wall' },
-  { type: TileType.FLOOR, icon: '·', label: 'Floor' },
-  { type: TileType.CHIP, icon: '💎', label: 'Chip' },
-  { type: TileType.EXIT, icon: '🚪', label: 'Exit' },
-  { type: TileType.KEY_RED, icon: '🔴', label: 'Red Key' },
-  { type: TileType.DOOR_RED, icon: '🚪', label: 'Red Door' },
-  { type: TileType.KEY_BLUE, icon: '🔵', label: 'Blue Key' },
-  { type: TileType.DOOR_BLUE, icon: '🚪', label: 'Blue Door' },
-  { type: TileType.KEY_GREEN, icon: '🟢', label: 'Green Key' },
-  { type: TileType.DOOR_GREEN, icon: '🚪', label: 'Green Door' },
-  { type: TileType.KEY_YELLOW, icon: '🟡', label: 'Yellow Key' },
-  { type: TileType.DOOR_YELLOW, icon: '🚪', label: 'Yellow Door' },
-  { type: TileType.ICE, icon: '🧊', label: 'Ice' },
-  { type: TileType.WATER, icon: '💧', label: 'Water' },
-  { type: TileType.FIRE, icon: '🔥', label: 'Fire' },
-  { type: TileType.BOOTS_ICE, icon: '🥾', label: 'Ice Boots' },
-  { type: TileType.BOOTS_WATER, icon: '🥾', label: 'Water Boots' },
-  { type: TileType.BOOTS_FIRE, icon: '🥾', label: 'Fire Boots' },
-  { type: TileType.DIRT, icon: '≈', label: 'Dirt' },
-  { type: TileType.EMPTY, icon: '·', label: 'Empty' },
-  { type: TileType.GRAVEL, icon: '▒', label: 'Gravel' },
+  { type: TileType.WALL, label: 'Wall', icon: '' },
+  { type: TileType.FLOOR, label: 'Floor', icon: '' },
+  { type: TileType.CHIP, label: 'Chip', icon: '💎' },
+  { type: TileType.EXIT, label: 'Exit', icon: '🚪' },
+  { type: TileType.KEY_RED, label: 'Red Key', icon: '🔑' },
+  { type: TileType.DOOR_RED, label: 'Red Door', icon: '' },
+  { type: TileType.KEY_BLUE, label: 'Blue Key', icon: '🔑' },
+  { type: TileType.DOOR_BLUE, label: 'Blue Door', icon: '' },
+  { type: TileType.KEY_GREEN, label: 'Green Key', icon: '🔑' },
+  { type: TileType.DOOR_GREEN, label: 'Green Door', icon: '' },
+  { type: TileType.KEY_YELLOW, label: 'Yellow Key', icon: '🔑' },
+  { type: TileType.DOOR_YELLOW, label: 'Yellow Door', icon: '' },
+  { type: TileType.ICE, label: 'Ice', icon: '' },
+  { type: TileType.WATER, label: 'Water', icon: '' },
+  { type: TileType.FIRE, label: 'Fire', icon: '' },
+  { type: TileType.BOOTS_ICE, label: 'Ice Boots', icon: '🥾' },
+  { type: TileType.BOOTS_WATER, label: 'Water Boots', icon: '🥾' },
+  { type: TileType.BOOTS_FIRE, label: 'Fire Boots', icon: '🥾' },
+  { type: TileType.DIRT, label: 'Dirt', icon: '' },
+  { type: TileType.EMPTY, label: 'Empty', icon: '' },
+  { type: TileType.GRAVEL, label: 'Gravel', icon: '' },
 ];
 
 // Default editor grid
@@ -241,11 +241,14 @@ export function LevelEditor({ onClose, onLoadLevel }: EditorProps) {
             {TILE_PALETTE.map(tile => (
               <button
                 key={tile.type}
-                class={`chips-palette-tile ${selectedTile === tile.type ? 'selected' : ''}`}
+                class={`chips-palette-tile chips-tile chips-tile-${tile.type} ${selectedTile === tile.type ? 'selected' : ''}`}
                 onClick={() => setSelectedTile(tile.type)}
                 title={tile.label}
               >
-                {tile.icon}
+                <span class="chips-palette-tile-visual">
+                  {tile.icon && <span class="tile-icon">{tile.icon}</span>}
+                </span>
+                <span class="chips-palette-tile-label">{tile.label}</span>
               </button>
             ))}
             <button
@@ -253,7 +256,8 @@ export function LevelEditor({ onClose, onLoadLevel }: EditorProps) {
               onClick={() => setIsPlacingPlayer(!isPlacingPlayer)}
               title="Place Player Start"
             >
-              🤖
+              <span class="chips-palette-tile-visual">🤖</span>
+              <span class="chips-palette-tile-label">Player</span>
             </button>
           </div>
 
