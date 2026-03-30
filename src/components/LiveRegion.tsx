@@ -149,7 +149,7 @@ function processAssertiveQueue() {
   isAssertiveAnnouncing = true;
   const announcement = assertiveQueue.shift();
   if (announcement) {
-    const event = new CustomEvent<'announce-assertive'>('announce-assertive', {
+    const event = new CustomEvent('announce-assertive', {
       detail: announcement.message,
     });
     window.dispatchEvent(event);
