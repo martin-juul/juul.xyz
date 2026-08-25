@@ -1,3 +1,4 @@
+import type { JSX } from 'preact';
 import { useState, useEffect, useRef } from 'preact/hooks';
 import { useLanguage } from '../context/language-context';
 
